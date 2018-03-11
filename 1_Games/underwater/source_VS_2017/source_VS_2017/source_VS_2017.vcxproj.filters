@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Class">
+      <UniqueIdentifier>{6a244b7e-d88f-4940-9d08-c73cb69448a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\screen">
+      <UniqueIdentifier>{0379fe81-637f-486c-9e73-f7c7d06ae268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\screen\screenScene">
+      <UniqueIdentifier>{31203d31-294d-4196-8b4d-36e769293caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\screen\screenObj">
+      <UniqueIdentifier>{c7cbc240-f1f5-4ec4-9254-d75b2d068faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\screen\outputStyle">
+      <UniqueIdentifier>{88208991-8925-43e7-aa66-697c14dfb6c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\dungeon">
+      <UniqueIdentifier>{696c153d-fc68-4c02-9f4c-1ef2297231e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\dungeon\dungeonMap">
+      <UniqueIdentifier>{b2404254-1211-4db3-83d0-426e1bbbcde7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\dungeon\dungeonCell">
+      <UniqueIdentifier>{1e3fc8a1-bbbf-4922-baac-04d1c573af3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\precompiled">
+      <UniqueIdentifier>{0fbf29af-d4f5-4f42-8cf2-a6adde03d91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\game">
+      <UniqueIdentifier>{ce7f529f-dedb-458b-904c-42b3490589b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\input">
+      <UniqueIdentifier>{dc3bca96-a8de-4193-a691-9052c08eaad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\mob">
+      <UniqueIdentifier>{edf98bec-75b8-4f75-bfab-6429a58f0c2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\dungeon\room">
+      <UniqueIdentifier>{eaf55a74-19b5-4d80-9964-f3f87572578e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\game\game">
+      <UniqueIdentifier>{3a7c4346-cebf-4a8b-9d57-d51eaf8f9b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\game\settings">
+      <UniqueIdentifier>{b2dcf0ac-c9ef-4cf8-b637-ba6e6df78009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\game\log">
+      <UniqueIdentifier>{56e95b97-e3f4-45e5-b9b4-a2e3e1e151a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\mob\_mobBasic">
+      <UniqueIdentifier>{408e0b3d-ab0b-4061-8846-166bb38185d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\mob\AI_mob">
+      <UniqueIdentifier>{56464f3f-58e8-4779-b5ce-a171ae2583d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\mob\mobPart">
+      <UniqueIdentifier>{ab56a107-fb8b-4524-b614-81e66872761d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\mob\mobPart\stat">
+      <UniqueIdentifier>{656f3ff1-d5b7-4e40-a999-cb5c057df88d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\mob\mobPart\bar">
+      <UniqueIdentifier>{0ee26db4-d242-4236-b385-5cc86c0e7570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\gameTime">
+      <UniqueIdentifier>{b75a1446-a809-4312-8bce-05f60bb323c5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="screenScene.cpp">
+      <Filter>Class\screen\screenScene</Filter>
+    </ClCompile>
+    <ClCompile Include="screenObj.cpp">
+      <Filter>Class\screen\screenObj</Filter>
+    </ClCompile>
+    <ClCompile Include="outputStyle.cpp">
+      <Filter>Class\screen\outputStyle</Filter>
+    </ClCompile>
+    <ClCompile Include="dungeonMap.cpp">
+      <Filter>Class\dungeon\dungeonMap</Filter>
+    </ClCompile>
+    <ClCompile Include="dungeonCell.cpp">
+      <Filter>Class\dungeon\dungeonCell</Filter>
+    </ClCompile>
+    <ClCompile Include="input_my.cpp">
+      <Filter>Class\input</Filter>
+    </ClCompile>
+    <ClCompile Include="_room.cpp">
+      <Filter>Class\dungeon\room</Filter>
+    </ClCompile>
+    <ClCompile Include="GAME.cpp">
+      <Filter>Class\game\game</Filter>
+    </ClCompile>
+    <ClCompile Include="_settingsGame.cpp">
+      <Filter>Class\game\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="globalVar.cpp">
+      <Filter>Header Files\precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="LOG.cpp">
+      <Filter>Class\game\log</Filter>
+    </ClCompile>
+    <ClCompile Include="_mobBasic.cpp">
+      <Filter>Class\mob\_mobBasic</Filter>
+    </ClCompile>
+    <ClCompile Include="bar.cpp">
+      <Filter>Class\mob\mobPart\bar</Filter>
+    </ClCompile>
+    <ClCompile Include="mobStat.cpp">
+      <Filter>Class\mob\mobPart\stat</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>Header Files\precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="AI_mob.cpp">
+      <Filter>Class\mob\AI_mob</Filter>
+    </ClCompile>
+    <ClCompile Include="gameTime.cpp">
+      <Filter>Class\gameTime</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="screenScene.h">
+      <Filter>Class\screen\screenScene</Filter>
+    </ClInclude>
+    <ClInclude Include="screenObj.h">
+      <Filter>Class\screen\screenObj</Filter>
+    </ClInclude>
+    <ClInclude Include="outputStyle.h">
+      <Filter>Class\screen\outputStyle</Filter>
+    </ClInclude>
+    <ClInclude Include="dungeonMap.h">
+      <Filter>Class\dungeon\dungeonMap</Filter>
+    </ClInclude>
+    <ClInclude Include="dungeonCell.h">
+      <Filter>Class\dungeon\dungeonCell</Filter>
+    </ClInclude>
+    <ClInclude Include="errorDef.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="globalVar.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="precompiledHeaders.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="typedefs.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="input_my.h">
+      <Filter>Class\input</Filter>
+    </ClInclude>
+    <ClInclude Include="_room.h">
+      <Filter>Class\dungeon\room</Filter>
+    </ClInclude>
+    <ClInclude Include="GAME.h">
+      <Filter>Class\game\game</Filter>
+    </ClInclude>
+    <ClInclude Include="_settingsGame.h">
+      <Filter>Class\game\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="LOG.h">
+      <Filter>Class\game\log</Filter>
+    </ClInclude>
+    <ClInclude Include="_mobBasic.h">
+      <Filter>Class\mob\_mobBasic</Filter>
+    </ClInclude>
+    <ClInclude Include="bar.h">
+      <Filter>Class\mob\mobPart\bar</Filter>
+    </ClInclude>
+    <ClInclude Include="mobStat.h">
+      <Filter>Class\mob\mobPart\stat</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="AI_mob.h">
+      <Filter>Class\mob\AI_mob</Filter>
+    </ClInclude>
+    <ClInclude Include="gameTime.h">
+      <Filter>Class\gameTime</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

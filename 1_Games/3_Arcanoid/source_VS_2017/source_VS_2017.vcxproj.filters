@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Class">
+      <UniqueIdentifier>{6a244b7e-d88f-4940-9d08-c73cb69448a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{698e0ae6-c913-4a9c-89a8-b03367fa3ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\precompiled">
+      <UniqueIdentifier>{0fbf29af-d4f5-4f42-8cf2-a6adde03d91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\screen">
+      <UniqueIdentifier>{0379fe81-637f-486c-9e73-f7c7d06ae268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\screen\screenScene">
+      <UniqueIdentifier>{31203d31-294d-4196-8b4d-36e769293caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\screen\screenObj">
+      <UniqueIdentifier>{c7cbc240-f1f5-4ec4-9254-d75b2d068faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\screen\outputStyle">
+      <UniqueIdentifier>{88208991-8925-43e7-aa66-697c14dfb6c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\game">
+      <UniqueIdentifier>{ce7f529f-dedb-458b-904c-42b3490589b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\game\settings">
+      <UniqueIdentifier>{b2dcf0ac-c9ef-4cf8-b637-ba6e6df78009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\game\log">
+      <UniqueIdentifier>{56e95b97-e3f4-45e5-b9b4-a2e3e1e151a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\input">
+      <UniqueIdentifier>{dc3bca96-a8de-4193-a691-9052c08eaad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Player">
+      <UniqueIdentifier>{a5c06625-6743-47b6-b7da-566e494be89d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Level">
+      <UniqueIdentifier>{412eb641-9085-4299-adfd-cb0b9b0cff38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Bullet">
+      <UniqueIdentifier>{e1c365c1-d1d5-416d-a6e0-d3685c7a3ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\game">
+      <UniqueIdentifier>{3a7c4346-cebf-4a8b-9d57-d51eaf8f9b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\ScoreKeeper">
+      <UniqueIdentifier>{ce79bf0b-37b5-4ea3-ab5b-6d5d28ce9929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy">
+      <UniqueIdentifier>{6dd38bf9-db99-4d88-9c15-87c704ce0894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy\BasicEnemy">
+      <UniqueIdentifier>{a7e94fd6-de3c-4354-b393-9fabd4f8e2eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy\StaticEnemy">
+      <UniqueIdentifier>{49d8c2a7-eece-4ac6-a009-969549f5e5b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy\MenuEnemy">
+      <UniqueIdentifier>{d0c73744-745e-4888-b820-555a999ace2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy\EndlessEnemy">
+      <UniqueIdentifier>{40988517-d4dd-4723-a3e0-bff884732f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy\AlienEnemy">
+      <UniqueIdentifier>{c2f1dd89-4eb2-4687-9c44-ab8a5e0d0195}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Enemy\ClassicEnemy">
+      <UniqueIdentifier>{66f18570-b913-4c19-b0fa-19dcaa98cdd4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="screenScene.cpp">
+      <Filter>Engine\screen\screenScene</Filter>
+    </ClCompile>
+    <ClCompile Include="screenObj.cpp">
+      <Filter>Engine\screen\screenObj</Filter>
+    </ClCompile>
+    <ClCompile Include="outputStyle.cpp">
+      <Filter>Engine\screen\outputStyle</Filter>
+    </ClCompile>
+    <ClCompile Include="input_my.cpp">
+      <Filter>Engine\input</Filter>
+    </ClCompile>
+    <ClCompile Include="GAME.cpp">
+      <Filter>Class\game</Filter>
+    </ClCompile>
+    <ClCompile Include="_settingsGame.cpp">
+      <Filter>Engine\game\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="globalVar.cpp">
+      <Filter>Engine\precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="LOG.cpp">
+      <Filter>Engine\game\log</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Class\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Class\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="level.cpp">
+      <Filter>Class\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreKeeper.cpp">
+      <Filter>Class\ScoreKeeper</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicEnemy.cpp">
+      <Filter>Class\Enemy\BasicEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticEnemy.cpp">
+      <Filter>Class\Enemy\StaticEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuEnemy.cpp">
+      <Filter>Class\Enemy\MenuEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="AlienEnemy.cpp">
+      <Filter>Class\Enemy\AlienEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassicEnemy.cpp">
+      <Filter>Class\Enemy\ClassicEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EndlessEnemy.cpp">
+      <Filter>Class\Enemy\EndlessEnemy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="screenScene.h">
+      <Filter>Engine\screen\screenScene</Filter>
+    </ClInclude>
+    <ClInclude Include="screenObj.h">
+      <Filter>Engine\screen\screenObj</Filter>
+    </ClInclude>
+    <ClInclude Include="outputStyle.h">
+      <Filter>Engine\screen\outputStyle</Filter>
+    </ClInclude>
+    <ClInclude Include="errorDef.h">
+      <Filter>Engine\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="globalVar.h">
+      <Filter>Engine\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="precompiledHeaders.h">
+      <Filter>Engine\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="typedefs.h">
+      <Filter>Engine\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="input_my.h">
+      <Filter>Engine\input</Filter>
+    </ClInclude>
+    <ClInclude Include="GAME.h">
+      <Filter>Class\game</Filter>
+    </ClInclude>
+    <ClInclude Include="_settingsGame.h">
+      <Filter>Engine\game\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="LOG.h">
+      <Filter>Engine\game\log</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Class\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="level.h">
+      <Filter>Class\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Class\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreKeeper.h">
+      <Filter>Class\ScoreKeeper</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicEnemy.h">
+      <Filter>Class\Enemy\BasicEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticEnemy.h">
+      <Filter>Class\Enemy\StaticEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuEnemy.h">
+      <Filter>Class\Enemy\MenuEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienEnemy.h">
+      <Filter>Class\Enemy\AlienEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassicEnemy.h">
+      <Filter>Class\Enemy\ClassicEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EndlessEnemy.h">
+      <Filter>Class\Enemy\EndlessEnemy</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

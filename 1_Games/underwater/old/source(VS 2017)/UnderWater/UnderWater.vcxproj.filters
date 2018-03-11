@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Mob">
+      <UniqueIdentifier>{c0309998-55cc-416d-8ac7-55db306c4067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mob">
+      <UniqueIdentifier>{53eb005f-6a53-4c93-96bc-8702f1802eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Func">
+      <UniqueIdentifier>{2a05d05f-acb2-41bd-9c7e-70eae07382b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Func">
+      <UniqueIdentifier>{1edaf96f-0a81-4f15-a9f5-2266244a040e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Global">
+      <UniqueIdentifier>{61f81758-98b5-4e26-bea8-9003f884d9a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{5620130b-51f4-4eb9-beac-723e20fae471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{a1ccb937-c91a-4252-b97f-2c5e1a804eab}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stat.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Race.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Mob.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Bar.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputFunc.cpp">
+      <Filter>Source Files\Func</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuFunc.cpp">
+      <Filter>Source Files\Func</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelMobs.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonCell.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="DMob.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MobClass.cpp">
+      <Filter>Source Files\Mob</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bar.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Mob.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Race.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputFunc.h">
+      <Filter>Header Files\Func</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFunc.h">
+      <Filter>Header Files\Func</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalVar.h">
+      <Filter>Header Files\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes.h">
+      <Filter>Header Files\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelMobs.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonCell.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="DMob.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MobClass.h">
+      <Filter>Header Files\Mob</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

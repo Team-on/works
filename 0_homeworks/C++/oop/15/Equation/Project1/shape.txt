@@ -1,0 +1,21 @@
+10
+Circle:
+3 0 2
+Rectangle:
+6 9 8 9
+Circle:
+0 9 2
+Ellipse:
+5 1 10 1
+Ellipse:
+6 9 10 3
+Ellipse:
+3 2 3 3
+Ellipse:
+6 6 1 1
+Rectangle:
+5 6 7 6
+Circle:
+6 4 8
+Circle:
+9 7 8

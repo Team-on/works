@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="class">
+      <UniqueIdentifier>{b6221198-c488-4200-80f6-ec1d22ed1255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\precompiled">
+      <UniqueIdentifier>{890d8c0e-27a6-41dd-9509-c752acfa3a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\game">
+      <UniqueIdentifier>{560baa6b-751f-49d7-b0e4-9339cc7786eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\figures">
+      <UniqueIdentifier>{439eb502-2059-4042-90c7-d2577bf3b956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\moveType">
+      <UniqueIdentifier>{d88e13be-42c8-412b-8af4-a51fa727da44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\func">
+      <UniqueIdentifier>{349d7efb-fdde-4717-afb5-eed8da396a7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{32b8c88d-2722-4beb-92a6-caf2ed341db1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\settings">
+      <UniqueIdentifier>{7b2e3001-a100-409d-9125-755e8d2880ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\input">
+      <UniqueIdentifier>{4215d090-e093-4689-aa0f-5652423d79d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\log">
+      <UniqueIdentifier>{7484060f-4b70-4358-a773-491e5f20695e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\output">
+      <UniqueIdentifier>{df1e3d59-3181-4982-9954-67ab0bce02cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\globalVar">
+      <UniqueIdentifier>{bebbb590-a613-450a-b123-a5f6d154a4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\KillerList">
+      <UniqueIdentifier>{b822cfa0-78f5-460b-ba92-ef826278d390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\iniParser">
+      <UniqueIdentifier>{2109eb38-717b-406c-ab5b-fc009156fa29}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="screenObj.cpp">
+      <Filter>Header Files\engine\output</Filter>
+    </ClCompile>
+    <ClCompile Include="screenScene.cpp">
+      <Filter>Header Files\engine\output</Filter>
+    </ClCompile>
+    <ClCompile Include="outputStyle.cpp">
+      <Filter>Header Files\engine\output</Filter>
+    </ClCompile>
+    <ClCompile Include="input_my.cpp">
+      <Filter>Header Files\engine\input</Filter>
+    </ClCompile>
+    <ClCompile Include="LOG.cpp">
+      <Filter>Header Files\engine\log</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>class\game</Filter>
+    </ClCompile>
+    <ClCompile Include="figureBasic.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="figurePeska.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="moveHoorse.cpp">
+      <Filter>class\moveType</Filter>
+    </ClCompile>
+    <ClCompile Include="moveDiagonal.cpp">
+      <Filter>class\moveType</Filter>
+    </ClCompile>
+    <ClCompile Include="moveHorisontal.cpp">
+      <Filter>class\moveType</Filter>
+    </ClCompile>
+    <ClCompile Include="moveVertical.cpp">
+      <Filter>class\moveType</Filter>
+    </ClCompile>
+    <ClCompile Include="figureTower.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>Header Files\func</Filter>
+    </ClCompile>
+    <ClCompile Include="globalVar.cpp">
+      <Filter>Header Files\engine\globalVar</Filter>
+    </ClCompile>
+    <ClCompile Include="_settingsGame.cpp">
+      <Filter>Header Files\engine\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="figureQueen.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="figureOfficer.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="moveKing.cpp">
+      <Filter>class\moveType</Filter>
+    </ClCompile>
+    <ClCompile Include="figureKing.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="figureHorse.cpp">
+      <Filter>class\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="KillerList.cpp">
+      <Filter>class\KillerList</Filter>
+    </ClCompile>
+    <ClCompile Include="IniParser.cpp">
+      <Filter>class\iniParser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="errorDef.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="screenScene.h">
+      <Filter>Header Files\engine\output</Filter>
+    </ClInclude>
+    <ClInclude Include="screenObj.h">
+      <Filter>Header Files\engine\output</Filter>
+    </ClInclude>
+    <ClInclude Include="outputStyle.h">
+      <Filter>Header Files\engine\output</Filter>
+    </ClInclude>
+    <ClInclude Include="input_my.h">
+      <Filter>Header Files\engine\input</Filter>
+    </ClInclude>
+    <ClInclude Include="precompiledHeaders.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="typedefs.h">
+      <Filter>Header Files\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="LOG.h">
+      <Filter>Header Files\engine\log</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>class\game</Filter>
+    </ClInclude>
+    <ClInclude Include="figureBasic.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="figurePeska.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="moveType.h">
+      <Filter>class\moveType</Filter>
+    </ClInclude>
+    <ClInclude Include="moveDiagonal.h">
+      <Filter>class\moveType</Filter>
+    </ClInclude>
+    <ClInclude Include="moveHoorse.h">
+      <Filter>class\moveType</Filter>
+    </ClInclude>
+    <ClInclude Include="moveHorisontal.h">
+      <Filter>class\moveType</Filter>
+    </ClInclude>
+    <ClInclude Include="moveVertical.h">
+      <Filter>class\moveType</Filter>
+    </ClInclude>
+    <ClInclude Include="figureTower.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>Header Files\func</Filter>
+    </ClInclude>
+    <ClInclude Include="globalVar.h">
+      <Filter>Header Files\engine\globalVar</Filter>
+    </ClInclude>
+    <ClInclude Include="_settingsGame.h">
+      <Filter>Header Files\engine\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="figureOfficer.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="figureQueen.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="moveKing.h">
+      <Filter>class\moveType</Filter>
+    </ClInclude>
+    <ClInclude Include="figureKing.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="figureHorse.h">
+      <Filter>class\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="KillerList.h">
+      <Filter>class\KillerList</Filter>
+    </ClInclude>
+    <ClInclude Include="IniParser.h">
+      <Filter>class\iniParser</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
