@@ -1,6 +1,6 @@
 #include "preCompiled.h"
 
-#define debug
+//#define debug
 
 
 void Init() {
