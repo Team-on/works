@@ -1,16 +1,19 @@
 ﻿using System;
 
 namespace homm {
-	class GameTitle {
+	struct Coord {
+		public short x, y;
+		public Coord(System.SByte X, System.SByte Y) { x = X; y = Y; }
+	}
+
+	class Title {
 		public ConsoleColor fore, back;
 		public char symbol;
-		public StackUnit currUnit;
 
-		public GameTitle() {
+		public Title() {
 			fore = ConsoleColor.Gray;
 			back = ConsoleColor.Black;
 			symbol = ' ';
-			currUnit = null;
 		}
 
 		public void Print() {
@@ -18,52 +21,37 @@ namespace homm {
 				Console.ForegroundColor = fore;
 			if (Console.BackgroundColor != back)
 				Console.BackgroundColor = back;
-			if (currUnit == null)
-				Console.Write(symbol);
-			else
-				Console.Write(currUnit.title.symbol);
+			Console.Write(symbol);
 		}
 	}
 
 	class BattleMap {
-		GameTitle[,] map;
-
-		void GenerateLandscape() {
-			for (byte i = 0; i < map.GetLength(0); ++i)
-				for (byte j = 0; j < map.GetLength(1); ++j) {
-					map[i, j].symbol = '-';
-					//map[i, j].back = ConsoleColor.DarkYellow;
-				}
-		}
+		Title[,] landscape;
 
 		public BattleMap() {
-			map = new GameTitle[11, 15];
-			for (byte i = 0; i < map.GetLength(0); ++i)
-				for (byte j = 0; j < map.GetLength(1); ++j)
-					map[i, j] = new GameTitle();
-			GenerateLandscape();
+			landscape = new Title[33, 75];
+			for (byte i = 0; i < landscape.GetLength(0); ++i)
+				for (byte j = 0; j < landscape.GetLength(1); ++j)
+					landscape[i, j] = new Title();
 		}
 
-		void RemoveUnit(Coord pos) {
-			map[pos.y, pos.x].currUnit = null;
-		}
-
-		void SetUnit(Coord pos, ref StackUnit unit) {
-			map[pos.y, pos.x].currUnit = unit;
+		public enum LandscapeTypes : byte {FOREST, DESERT, NECROLANDS};
+		public void GenerateLandscape(LandscapeTypes type) {
+			ConsoleColor color = type == LandscapeTypes.FOREST     ? ConsoleColor.DarkGreen :
+								 type == LandscapeTypes.DESERT     ? ConsoleColor.DarkYellow :
+								 type == LandscapeTypes.NECROLANDS ? ConsoleColor.DarkGray :
+																	 ConsoleColor.Black;
+			for (byte i = 0; i < landscape.GetLength(0); ++i)
+				for (byte j = 0; j < landscape.GetLength(1); ++j)
+					landscape[i, j].back = color;
 		}
 
 		public void Print(Coord start) {
-			Console.CursorLeft = start.x;
-			Console.CursorTop = start.y;
-			for (byte i = 0; i < map.GetLength(0); ++i) {
-				for (byte j = 0; j < map.GetLength(1); ++j) {
-					Console.Write(' ');
-					map[i, j].Print();
-					Console.Write(' ');
-				}
-				start.y += 2;
-				Console.CursorLeft = start.x;
-				Console.CursorTop  = start.y;
+			Console.SetCursorPosition(start.x, start.y);
+			for (byte i = 0; i < landscape.GetLength(0); ++i) {
+				for (byte j = 0; j < landscape.GetLength(1); ++j)
+					landscape[i, j].Print();
+				Console.SetCursorPosition(start.x, ++start.y);
 			}
 		}
 	}
