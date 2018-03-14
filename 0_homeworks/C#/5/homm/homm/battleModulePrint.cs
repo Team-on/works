@@ -24,6 +24,7 @@ namespace homm {
 
 			PrintHeroInfo();
 			PrintMapWithCell();
+			arrow.PrintControllArrows();
 		}
 
 		void PrintMapWithCell() {
@@ -43,6 +44,20 @@ namespace homm {
 		void PrintHeroInfo() {
 			pl.hero.PrintHeroInfo(new Coord(1, 1));
 			pr.hero.PrintHeroInfo(new Coord(115, 1));
+		}
+
+		void PrintChoosenUnitInfo() {
+			Coord pos = arrow.pos;
+			StackUnit toPrint = pl.GetUnit(pos);
+			if(toPrint != null) {
+				toPrint.PrintUnitInfo(new Coord(1, 11));
+				return;
+			}
+
+			toPrint = pr.GetUnit(pos);
+			if (toPrint == null)
+				return;
+			toPrint.PrintUnitInfo(new Coord(115, 11));
 		}
 	}
 }

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="army.cs" />
+    <Compile Include="arrowBattle.cs" />
     <Compile Include="battleModuleInit.cs" />
     <Compile Include="battleModuleMain.cs" />
     <Compile Include="battleModulePrint.cs" />

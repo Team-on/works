@@ -39,8 +39,32 @@ namespace homm {
 			number = Number;
 		}
 
-		void Move() {
+		public void PrintUnitInfo(Coord pos) {
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.BackgroundColor = ConsoleColor.Black;
 
+			Console.SetCursorPosition(pos.x, pos.y);
+			if(isFlying)
+				Console.Write($"{name,-10} {number,-4} Flying");
+			else
+				Console.Write($"{name,-10} {number,-4}       ");
+			Console.SetCursorPosition(pos.x, ++pos.y);
+			Console.Write($"Atk:   {atk}  ");
+			Console.SetCursorPosition(pos.x, ++pos.y);
+			Console.Write($"Def:   {def}  ");
+			Console.SetCursorPosition(pos.x, ++pos.y);
+			Console.Write($"Speed: {speed}  ");
+			Console.SetCursorPosition(pos.x, ++pos.y);
+			Console.Write($"Hp:    {hp} ({lashUnitHp})     ");
+			Console.SetCursorPosition(pos.x, ++pos.y);
+			Console.Write($"Dmg:   {dmg.min} - {dmg.max} ({atkRange})    ");
+		}
+
+		bool Move(Coord movePos) {
+			if(Math.Pow((movePos.x - pos.x),2) + Math.Pow((movePos.x - pos.x), 2) == Math.Pow(speed, 2)) {
+				return true;
+			}
+			return false;
 		}
 
 	}

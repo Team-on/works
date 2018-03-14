@@ -45,6 +45,14 @@ namespace homm {
 			return false;
 		}
 
+		public StackUnit GetUnit(Coord pos) {
+			//TODO:
+			for (byte i = 0; i < units.Length; ++i)
+				if (units[i] != null && units[i].pos.Equals(pos)) 
+					return units[i];
+			return null;
+		}
+
 		public void SetUnitsPosX(short x) {
 			for (byte i = 0; i < units.Length; ++i)
 				if (units[i] != null) {

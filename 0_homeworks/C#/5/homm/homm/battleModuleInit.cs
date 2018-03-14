@@ -7,6 +7,8 @@ namespace homm {
 			mapPrintPos.y = 1;
 			map = new BattleMap();
 			map.GenerateLandscape(type);
+			arrow = new ArrowBattle();
+			currPlayer = pl;
 		}
 
 		public void SetLeftArmy(ref Army left) {
