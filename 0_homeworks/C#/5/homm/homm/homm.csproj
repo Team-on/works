@@ -42,9 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="army.cs" />
+    <Compile Include="battleModuleInit.cs" />
+    <Compile Include="battleModuleMain.cs" />
+    <Compile Include="battleModulePrint.cs" />
+    <Compile Include="hero.cs" />
     <Compile Include="main.cs" />
-    <Compile Include="map.cs" />
+    <Compile Include="battleMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="stackUnit.cs" />
+    <Compile Include="structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

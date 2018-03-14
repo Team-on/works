@@ -1,11 +1,6 @@
 ﻿using System;
 
 namespace homm {
-	struct Coord {
-		public short x, y;
-		public Coord(System.SByte X, System.SByte Y) { x = X; y = Y; }
-	}
-
 	class Title {
 		public ConsoleColor fore, back;
 		public char symbol;
@@ -14,6 +9,12 @@ namespace homm {
 			fore = ConsoleColor.Gray;
 			back = ConsoleColor.Black;
 			symbol = ' ';
+		}
+
+		public Title(char Symbol = ' ', ConsoleColor Fore = ConsoleColor.Gray, ConsoleColor Back = ConsoleColor.Black){
+			fore = Fore;
+			back = Back;
+			symbol = Symbol;
 		}
 
 		public void Print() {
@@ -29,7 +30,7 @@ namespace homm {
 		Title[,] landscape;
 
 		public BattleMap() {
-			landscape = new Title[33, 75];
+			landscape = new Title[34, 75];
 			for (byte i = 0; i < landscape.GetLength(0); ++i)
 				for (byte j = 0; j < landscape.GetLength(1); ++j)
 					landscape[i, j] = new Title();
