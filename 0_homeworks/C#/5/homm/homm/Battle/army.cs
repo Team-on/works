@@ -46,9 +46,8 @@ namespace homm {
 		}
 
 		public StackUnit GetUnit(Coord pos) {
-			//TODO:
 			for (byte i = 0; i < units.Length; ++i)
-				if (units[i] != null && units[i].pos.Equals(pos)) 
+				if (units[i] != null && units[i].pos.x == pos.x && units[i].pos.y == pos.y) 
 					return units[i];
 			return null;
 		}

@@ -8,12 +8,13 @@ namespace homm {
 			map = new BattleMap();
 			map.GenerateLandscape(type);
 			arrow = new ArrowBattle();
-			currPlayer = pl;
+			isRunning = true;
 		}
 
 		public void SetLeftArmy(ref Army left) {
 			pl = left;
 			pl.SetUnitsPosX(0);
+			currPlayer = pl;
 		}
 		public void SetRightArmy(ref Army right) {
 			pr = right;

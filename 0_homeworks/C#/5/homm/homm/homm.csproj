@@ -42,17 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="army.cs" />
-    <Compile Include="arrowBattle.cs" />
-    <Compile Include="battleModuleInit.cs" />
-    <Compile Include="battleModuleMain.cs" />
-    <Compile Include="battleModulePrint.cs" />
-    <Compile Include="hero.cs" />
+    <Compile Include="Battle\army.cs" />
+    <Compile Include="Battle\arrowBattle.cs" />
+    <Compile Include="Battle\BattleModule\battleModuleInit.cs" />
+    <Compile Include="Battle\BattleModule\battleModuleInput.cs" />
+    <Compile Include="Battle\BattleModule\battleModuleMain.cs" />
+    <Compile Include="Battle\BattleModule\battleModulePrint.cs" />
+    <Compile Include="Battle\BattleModule\battleModulUtility.cs" />
+    <Compile Include="Battle\hero.cs" />
+    <Compile Include="logBattle.cs" />
     <Compile Include="main.cs" />
-    <Compile Include="battleMap.cs" />
+    <Compile Include="Battle\battleMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="stackUnit.cs" />
-    <Compile Include="structs.cs" />
+    <Compile Include="Battle\stackUnit.cs" />
+    <Compile Include="Battle\structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

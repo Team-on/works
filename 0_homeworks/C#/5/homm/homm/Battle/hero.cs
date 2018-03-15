@@ -9,7 +9,8 @@ namespace homm {
 		public Title title { get; private set; }
 		public string name { get; private set; }
 
-		public byte atk, def, moral, luck;
+		public byte atk, def;
+		public sbyte moral, luck;
 
 		public Hero(Title Title, string Name) { title = Title; name = Name; }
 

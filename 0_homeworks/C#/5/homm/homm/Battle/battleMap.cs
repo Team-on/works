@@ -47,6 +47,10 @@ namespace homm {
 					landscape[i, j].back = color;
 		}
 
+		public ref Title GetLandscape(int x, int y) {
+			return ref landscape[y, x];
+		}
+
 		public void Print(Coord start) {
 			Console.SetCursorPosition(start.x, start.y);
 			for (byte i = 0; i < landscape.GetLength(0); ++i) {

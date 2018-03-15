@@ -22,6 +22,27 @@ namespace homm {
 				}
 			}
 
+			Console.SetCursorPosition(33, 38);
+			for (byte i = 33; i < 113; ++i) {
+				Console.Write('_');
+			}
+
+			Console.SetCursorPosition(87, 42);
+			for (byte i = 87; i < 113; ++i) {
+				Console.Write('_');
+			}
+
+			for (byte i = 39; i < 47; ++i) {
+				//87  + 13 + 13
+				Console.SetCursorPosition(87, i);
+				Console.Write('|');
+				Console.SetCursorPosition(100, i);
+				Console.Write('|');
+			}
+			Console.SetCursorPosition(100, 42);
+			Console.Write('+');
+
+
 			PrintHeroInfo();
 			PrintMapWithCell();
 			arrow.PrintControllArrows();
