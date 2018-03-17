@@ -82,7 +82,7 @@ void main(){
 		cout << "\n\n B.. "<<(lngY - 1) * (lngX - 1) << endl;
 		*/
 
-	/*
+	///*
 	char digit[100];
 	cin.getline(digit, 99);
 	int *suma = new int[strcnt(digit, '*') + 1];
@@ -117,7 +117,7 @@ void main(){
 
 	cout << endl << "\tMin : " << suma[0] << endl;
 	delete[] suma;
-	*/
+	//*/
 
 
 	int segment;

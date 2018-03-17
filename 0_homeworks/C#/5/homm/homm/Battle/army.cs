@@ -47,7 +47,7 @@ namespace homm {
 
 		public StackUnit GetUnit(Coord pos) {
 			for (byte i = 0; i < units.Length; ++i)
-				if (units[i] != null && units[i].pos.x == pos.x && units[i].pos.y == pos.y) 
+				if (units[i] != null && units[i].IsAlive() &&  units[i].pos.x == pos.x && units[i].pos.y == pos.y) 
 					return units[i];
 			return null;
 		}
@@ -59,9 +59,9 @@ namespace homm {
 				}
 		}
 
-		public void PrintUnits() {
+		public void PrintUnits(bool PrintAlive = true) {
 			for (byte i = 0; i < units.Length; ++i)
-				if (units[i] != null) {
+				if (units[i] != null && units[i].IsAlive() == PrintAlive) {
 					int x = 39 + units[i].pos.x * 5, y = 2 + units[i].pos.y * 3;
 					Console.SetCursorPosition(x, y);
 					units[i].title.Print();

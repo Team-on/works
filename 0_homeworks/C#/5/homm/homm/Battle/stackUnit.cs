@@ -21,7 +21,7 @@ namespace homm {
 
 		public byte atkRange { get; private set; }
 
-		bool isFlying;
+		bool isFlying, isAlive;
 
 		public Coord pos;
 
@@ -43,6 +43,7 @@ namespace homm {
 			pos.y = -1;
 			pos.x = -1;
 			number = Number;
+			isAlive = true;
 		}
 
 		public double GetLuckBonus(Hero hero) {
@@ -121,7 +122,7 @@ namespace homm {
 		}
 
 		public bool Move(Coord movePos, ref BattleMap map) {
-			if(Math.Pow((movePos.x - pos.x),2) + Math.Pow((movePos.y - pos.y), 2) <= Math.Pow(speed, 2)) {
+			if(isAlive && Math.Pow((movePos.x - pos.x),2) + Math.Pow((movePos.y - pos.y), 2) <= Math.Pow(speed, 2)) {
 				Console.SetCursorPosition(39 + pos.x * 5, 2 + pos.y * 3);
 				map.GetLandscape(pos.x * 5, pos.y * 3).Print();
 				Console.SetCursorPosition(39 + pos.x * 5, 2 + pos.y * 3);
@@ -142,6 +143,9 @@ namespace homm {
 				Console.SetCursorPosition(41 + pos.x * 5, 3 + pos.y * 3);
 				map.GetLandscape(pos.x * 5 + 2, pos.y * 3 + 1).Print();
 
+				SingleLogBattle.log.LogNewLine(name + '(' + number + ')' + " move from (" + pos.x + ", " + pos.y + ") to ("
+					+ movePos.x + ", " + movePos.y + ").");
+
 				pos = movePos;
 				return true;
 			}
@@ -149,9 +153,11 @@ namespace homm {
 		}
 
 		public UnitAttack? Attack(Coord attackPos) {
-			if (Math.Pow((attackPos.x - pos.x), 2) + Math.Pow((attackPos.y - pos.y), 2) <= Math.Pow(atkRange, 2)) 
-			//if (attackPos.x - pos.x + attackPos.y - pos.y <= atkRange) 
+			if (isAlive && Math.Pow((attackPos.x - pos.x), 2) + Math.Pow((attackPos.y - pos.y), 2) <= Math.Pow(atkRange, 2)) {
+				//if (attackPos.x - pos.x + attackPos.y - pos.y <= atkRange) 
+				SingleLogBattle.log.LogNewLine(name + " deal ");
 				return new UnitAttack((short)SingleRandom.Rand(dmg.min * number, dmg.max * number), atk);
+			}
 			return null;
 		}
 
@@ -163,8 +169,19 @@ namespace homm {
 			return 1.00;
 		}
 
+		public bool IsAlive() {
+			return isAlive;
+		}
+
 		public void GetAttack(UnitAttack takedDmg, Hero hero) {
+			if (!isAlive)
+				return;
+
+			short numberAtStart = number;
 			int dmg = (int) Math.Round( takedDmg.physicalDmg * GetAtkDefFactor((short)(takedDmg.attack - this.def - hero.def)) );
+
+			SingleLogBattle.log.LogAddToLine(dmg + " dmg to " + name + ". ");
+			
 			number -= (short)( dmg / hp );
 			dmg %= hp;
 			if (lashUnitHp > dmg)
@@ -173,6 +190,16 @@ namespace homm {
 				--number;
 				lashUnitHp = (byte)(lashUnitHp + hp - dmg);
 			}
+
+			if (lashUnitHp == 0)
+				isAlive = false;
+			if (number <= 0) {
+				isAlive = false;
+				number = 0;
+			}
+
+			if (numberAtStart != number)
+				SingleLogBattle.log.LogAddToLine(numberAtStart - number + " units die.");
 		}
 
 	}

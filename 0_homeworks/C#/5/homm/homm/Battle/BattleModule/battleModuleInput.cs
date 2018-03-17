@@ -10,10 +10,20 @@ namespace homm {
 			return Console.ReadKey().Key;
 		}
 
+		bool IsEnemyAround(ref StackUnit unit) {
+			Army enemy= GetEnemyPlayer();
+			if (enemy.GetUnit(new Coord(unit.pos.x, unit.pos.y - 1)) != null ||
+				enemy.GetUnit(new Coord(unit.pos.x, unit.pos.y + 1)) != null ||
+				enemy.GetUnit(new Coord(unit.pos.x + 1, unit.pos.y)) != null ||
+				enemy.GetUnit(new Coord(unit.pos.x - 1, unit.pos.y)) != null )
+				return true;	 
+			return false;
+		}
+
 		void PeekUnitGetInput(ref StackUnit choosenUnit) {
 			ConsoleKey read;
 			Coord? selectedCoord = null;
-			bool endOfTurn = false, exitWithoutMove = false;
+			bool endOfTurn = false;
 
 			choosenUnit.ColorBeforeMove();
 
@@ -35,19 +45,25 @@ namespace homm {
 			if (currPlayer.GetUnit(arrow.pos) != null)
 				goto EXIT_WITHOUT_MOVE;
 
-			if (GetEnemyPlayer().GetUnit(selectedCoord.Value) == null)
+			StackUnit currEnemyUnit = GetEnemyPlayer().GetUnit(selectedCoord.Value);
+			if (currEnemyUnit == null) {
 				endOfTurn = choosenUnit.Move(selectedCoord.Value, ref map);
+				if (endOfTurn && IsEnemyAround(ref choosenUnit)) {
+					PrintCurrState();
+					choosenUnit.ColorBeforeMove();
+					AttackAfterMove(ref choosenUnit);
+				}
+			}
 			else {
-				UnitAttack? dealedDmg =  choosenUnit.Attack(selectedCoord.Value);
-				Console.Write("Attack {0}  ", dealedDmg.HasValue);
+				UnitAttack? dealedDmg = choosenUnit.Attack(selectedCoord.Value);
 				if (dealedDmg.HasValue) {
 					endOfTurn = true;
-					GetEnemyPlayer().GetUnit(selectedCoord.Value).GetAttack( 
+					currEnemyUnit.GetAttack(
 						new UnitAttack((short)(dealedDmg.Value.physicalDmg * choosenUnit.GetLuckBonus(currPlayer.hero)),
 						(byte)(dealedDmg.Value.attack + currPlayer.hero.atk)),
 						GetEnemyPlayer().hero
 					);
-					GetEnemyPlayer().GetUnit(selectedCoord.Value).ClearColorBeforeMove(ref map);
+					currEnemyUnit.ClearColorBeforeMove(ref map);
 				}
 			}
 
@@ -56,6 +72,40 @@ namespace homm {
 
 EXIT_WITHOUT_MOVE:
 			choosenUnit.ClearColorBeforeMove(ref map);
+		}
+
+		void AttackAfterMove(ref StackUnit choosenUnit) {
+			ConsoleKey read;
+			Coord? selectedCoord = null;
+
+			do {
+				read = 0;
+				Console.SetCursorPosition(arrow.pos.x * 5 + 39, arrow.pos.y * 3 + 2);
+				if (Console.KeyAvailable)
+					read = ReadyForInput();
+
+				if (read != 0) {
+					if (read == ConsoleKey.Escape)
+						return;
+					selectedCoord = arrow.ControlArrows(read);
+					arrow.PrintControllArrows();
+				}
+				Thread.Sleep(1);
+			} while (selectedCoord == null);
+
+
+			StackUnit currEnemyUnit = GetEnemyPlayer().GetUnit(selectedCoord.Value);
+			if (currEnemyUnit != null){
+				UnitAttack? dealedDmg = choosenUnit.Attack(selectedCoord.Value);
+				if (dealedDmg.HasValue) {
+					currEnemyUnit.GetAttack(
+						new UnitAttack((short)(dealedDmg.Value.physicalDmg * choosenUnit.GetLuckBonus(currPlayer.hero)),
+						(byte)(dealedDmg.Value.attack + currPlayer.hero.atk)),
+						GetEnemyPlayer().hero
+					);
+					currEnemyUnit.ClearColorBeforeMove(ref map);
+				}
+			}
 		}
 
 		void GetPlayerInput() {
