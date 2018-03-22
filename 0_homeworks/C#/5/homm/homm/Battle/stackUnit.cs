@@ -22,6 +22,7 @@ namespace homm {
 		public byte atkRange { get; private set; }
 
 		bool isFlying, isAlive;
+		public bool isAttackBack { get; set; }
 
 		public Coord pos;
 
@@ -43,7 +44,7 @@ namespace homm {
 			pos.y = -1;
 			pos.x = -1;
 			number = Number;
-			isAlive = true;
+			isAttackBack = isAlive = true;
 		}
 
 		public double GetLuckBonus(Hero hero) {
@@ -59,8 +60,10 @@ namespace homm {
 					chance = 8.3;
 				else if (luck == 1)
 					chance = 4.2;
-				if(chance <= SingleRandom.Rand(1, 10000) / 100.0)
+				if (chance <= SingleRandom.Rand(1, 10000) / 100.0) {
+					SingleLogBattle.log.LogAddToLine(" (Luck)");
 					return 2.0;
+				}
 			}
 
 			if (luck > 0) {
@@ -70,8 +73,10 @@ namespace homm {
 					chance = 16.6;
 				else if (luck == -1)
 					chance = 8.3;
-				if (chance <= SingleRandom.Rand(1, 10000) / 100.0)
+				if (chance <= SingleRandom.Rand(1, 10000) / 100.0) { 
+					SingleLogBattle.log.LogAddToLine(" (Unluck)");
 					return 0.5;
+				}
 			}
 
 			return 1.0;

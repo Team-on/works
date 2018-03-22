@@ -46,6 +46,7 @@ namespace homm {
 				goto EXIT_WITHOUT_MOVE;
 
 			StackUnit currEnemyUnit = GetEnemyPlayer().GetUnit(selectedCoord.Value);
+			choosenUnit.isAttackBack = true;
 			if (currEnemyUnit == null) {
 				endOfTurn = choosenUnit.Move(selectedCoord.Value, ref map);
 				if (endOfTurn && IsEnemyAround(ref choosenUnit)) {
@@ -63,6 +64,16 @@ namespace homm {
 						(byte)(dealedDmg.Value.attack + currPlayer.hero.atk)),
 						GetEnemyPlayer().hero
 					);
+					if (currEnemyUnit.isAttackBack && currEnemyUnit.IsAlive()) {
+						dealedDmg = currEnemyUnit.Attack(choosenUnit.pos);
+						choosenUnit.GetAttack(
+							new UnitAttack((short)(dealedDmg.Value.physicalDmg * currEnemyUnit.GetLuckBonus(GetEnemyPlayer().hero)),
+							(byte)(dealedDmg.Value.attack + GetEnemyPlayer().hero.atk)),
+							currPlayer.hero
+						);
+						SingleLogBattle.log.LogAddToLine(" (Back)");
+						currEnemyUnit.isAttackBack = false;
+					}
 					currEnemyUnit.ClearColorBeforeMove(ref map);
 				}
 			}
@@ -103,6 +114,18 @@ EXIT_WITHOUT_MOVE:
 						(byte)(dealedDmg.Value.attack + currPlayer.hero.atk)),
 						GetEnemyPlayer().hero
 					);
+
+					if (currEnemyUnit.isAttackBack && currEnemyUnit.IsAlive()) {
+						dealedDmg = currEnemyUnit.Attack(choosenUnit.pos);
+						choosenUnit.GetAttack(
+							new UnitAttack((short)(dealedDmg.Value.physicalDmg * currEnemyUnit.GetLuckBonus(GetEnemyPlayer().hero)),
+							(byte)(dealedDmg.Value.attack + GetEnemyPlayer().hero.atk)),
+							currPlayer.hero
+						);
+						SingleLogBattle.log.LogAddToLine(" (Back)");
+						currEnemyUnit.isAttackBack = false;
+					}
+
 					currEnemyUnit.ClearColorBeforeMove(ref map);
 				}
 			}

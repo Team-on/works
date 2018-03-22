@@ -20,19 +20,26 @@ namespace homm {
 		}
 
 		public void PrintLog(Coord pos, byte cnt, byte maxLength) {
+			Coord startPos = pos;
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.BackgroundColor = ConsoleColor.Black;
 
 			++cnt;
 			Console.SetCursorPosition(pos.x, pos.y);
 			for (byte i = 1; i < cnt; ++i) {
+				if (pos.y - startPos.y == cnt)
+					break;
 				if (log.Count - i < 0)
 					return;
-				if (((string)log[log.Count - i]).Length > maxLength)
+				if (((string)log[log.Count - i]).Length > maxLength) {
 					Console.Write(((string)log[log.Count - i]).Substring(0, maxLength));
+					Console.SetCursorPosition(pos.x, ++pos.y); 
+					Console.Write(((string)log[log.Count - i]).Substring(maxLength, ((string)log[log.Count - i]).Length - maxLength ));
+					Console.Write(new string(' ', maxLength - (((string)log[log.Count - i]).Length - maxLength)));
+				}
 				else {
 					Console.Write(log[log.Count - i]);
-					Console.Write(new string(' ', 50 - ((string)log[log.Count - i]).Length));
+					Console.Write(new string(' ', maxLength - ((string)log[log.Count - i]).Length));
 				}
 				Console.SetCursorPosition(pos.x, ++pos.y);
 			}

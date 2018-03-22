@@ -50,7 +50,7 @@
     <Compile Include="Battle\BattleModule\battleModulePrint.cs" />
     <Compile Include="Battle\BattleModule\battleModulUtility.cs" />
     <Compile Include="Battle\hero.cs" />
-    <Compile Include="logBattle.cs" />
+    <Compile Include="Battle\logBattle.cs" />
     <Compile Include="main.cs" />
     <Compile Include="Battle\battleMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

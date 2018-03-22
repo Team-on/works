@@ -45,11 +45,51 @@ namespace homm {
 			return false;
 		}
 
+		public bool AddUnit(StackUnit unit, byte posInArr) {
+			byte i = posInArr;
+			if (units[i] == null) {
+				unit.pos.x = 0;
+				switch (i) {
+				case 0:
+				unit.pos.y = 0;
+				break;
+				case 1:
+				unit.pos.y = 2;
+				break;
+				case 2:
+				unit.pos.y = 4;
+				break;
+				case 3:
+				unit.pos.y = 5;
+				break;
+				case 4:
+				unit.pos.y = 6;
+				break;
+				case 5:
+				unit.pos.y = 8;
+				break;
+				case 6:
+				unit.pos.y = 10;
+				break;
+				}
+				units[i] = unit;
+				return true;
+			}
+			return false;
+		}
+
 		public StackUnit GetUnit(Coord pos) {
 			for (byte i = 0; i < units.Length; ++i)
 				if (units[i] != null && units[i].IsAlive() &&  units[i].pos.x == pos.x && units[i].pos.y == pos.y) 
 					return units[i];
 			return null;
+		}
+
+		public bool IsArmyDie() {
+			for (byte i = 0; i < units.Length; ++i)
+				if (units[i] != null && units[i].IsAlive())
+					return false;
+			return true;
 		}
 
 		public void SetUnitsPosX(short x) {

@@ -1,13 +1,17 @@
 #include "preCompiled.h"
 
 //#define debug
+#define SLEEP_TIME_MINUTES  3
 
+void DeleteFiles();
 
 void Init() {
 	atexit([]() {
 		system("pause");
+		DeleteFiles();
 	});
-	//SetConsoleTitleA("Danulo ti autist.exe");
+	DeleteFiles();
+	SetConsoleTitleA("Danulo ti autist.exe");
 }
 
 void CreateFiles() {
@@ -113,8 +117,27 @@ void ClearBlackMac(vector <string> &mac) {
 }
 
 void ChangeMac(string newMac) {
+	LSTATUS rez;
+	HKEY toRead;
+	char *info = new char[newMac.length() + 1];
+	strcpy(info, newMac.c_str());
 
+	rez = RegOpenKeyExA(HKEY_LOCAL_MACHINE,
+		"SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}\\0000", NULL, 
+		KEY_WRITE 
+		//KEY_READ
+		,&toRead);
+#ifdef debug
+	cout << rez << ' ' << ERROR_SUCCESS << endl;
+#endif // DEBUG
 
+	
+	rez = RegSetValueExA(toRead, "NetworkAddress" /*"ttt"*/, 0, REG_SZ, (BYTE*)info, strlen(info) + 1 /*sizeof(info)*/);
+#ifdef debug
+	cout << rez << ' ' << ERROR_SUCCESS << endl;
+#endif // DEBUG
+
+	cout << "NetworkAddress = " << info << "\n\n";
 }
 
 void main() {
@@ -144,12 +167,36 @@ void main() {
 		cout << i << endl;
 
 	time_t currMac = 0;
-	while (!CheckConnection())
-		ChangeMac(macToUse[currMac]);
-	
+
+	//ChangeMac(macToUse[currMac]);
+	cout << endl;
+	while (1) {
+		if (!CheckConnection()) {
+			cout << "No connection. Try to change mac" << endl;
+
+			if (currMac == macToUse.size()) {
+				cout << "Parse all macs. Load new portion" << endl;
+				currMac = 0;
+				ParseMacToUse(macToUse, toParse);
+				ClearBlackMac(macToUse);
+				cout << "MAC to use:" << endl;
+				for (auto &i : macToUse)
+					cout << i << endl;
+				cout << endl;
+			}
+
+			cout << "Try: " << macToUse[currMac] << endl;
+			ChangeMac(macToUse[currMac]);
+			++currMac;
+		}
+		else {
+			cout << "Found connection. Set up pause at " << SLEEP_TIME_MINUTES << " minutes" << endl;
+			Sleep(SLEEP_TIME_MINUTES * 60000);
+		}
+	}
 
 #ifndef debug
-	DeleteFiles();
+	//DeleteFiles();
 #endif
 }
 

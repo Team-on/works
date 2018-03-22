@@ -1,0 +1,9 @@
+
+Pinging i.ua [91.198.36.14] with 32 bytes of data:
+Reply from 91.198.36.14: bytes=32 time=97ms TTL=55
+Request timed out.
+
+Ping statistics for 91.198.36.14:
+    Packets: Sent = 2, Received = 1, Lost = 1 (50% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 97ms, Maximum = 97ms, Average = 97ms

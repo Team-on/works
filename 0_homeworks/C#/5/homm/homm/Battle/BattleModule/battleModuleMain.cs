@@ -11,21 +11,36 @@ namespace homm {
 
 		ArrowBattle arrow;
 
-		public void Play() {
+		public ref Army Play() {
 			SingleLogBattle.log.LogNewLine("Battle started " + pl.hero.name + " vs " + pr.hero.name);
 			InitScreen();
 			PrintCurrState();
 
 			while (isRunning) {
 				GetPlayerInput();
+				CheckWin();
 				PrintCurrState();
 			}
 
 			//end
 			BeforeExit();
-			Console.ForegroundColor = ConsoleColor.Magenta;
+			Console.ForegroundColor = ConsoleColor.White;
 			Console.SetCursorPosition(0, 46);
 			SingleLogBattle.log.Clear();
+			return ref (pr.IsArmyDie() ? ref pl : ref pr);
+		}
+
+		void CheckWin() {
+			if (pr.IsArmyDie()) {
+				SingleLogBattle.log.LogNewLine(pl.hero.name + " win!");
+				isRunning = false;
+				return;
+			}
+			if (pl.IsArmyDie()) {
+				SingleLogBattle.log.LogNewLine(pr.hero.name + " win!");
+				isRunning = false;
+				return;
+			}
 		}
 
 		void PrintCurrState() {
