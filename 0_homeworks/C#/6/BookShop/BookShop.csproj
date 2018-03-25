@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveElements.cs" />
+    <Compile Include="Book.cs" />
+    <Compile Include="BookShop.cs" />
+    <Compile Include="Cargo.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI.cs" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BookShop {
+namespace ActiveElements {
 	struct Coord {
 		public short x, y;
 		public Coord(short X, short Y) { x = X; y = Y; }
@@ -56,6 +56,8 @@ namespace BookShop {
 	}
 
 	//Поле для вводу. Може бути і кнопкою.
+	//Сюда вписуэться лише char
+	//TODO: А вообше то тупо якось вийшло. Крашеб був інтерфейс ElementInput у якому би регулювався інпут. А то все в ActiveElementDraw.
 	class ActiveInputElement : ActiveElement {
 		byte maxLen;
 		string str, input;
@@ -107,6 +109,7 @@ namespace BookShop {
 		}
 	}
 
+	//Для вводу любого голубого
 	class ActiveInputElementAllSymbols : ActiveInputElement {
 		public ActiveInputElementAllSymbols(string elem, Coord printPos, Coord InputPos, byte MaxLen) : base(elem, printPos, InputPos, MaxLen) {
 		}
