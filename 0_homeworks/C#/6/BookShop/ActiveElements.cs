@@ -52,7 +52,45 @@ namespace ActiveElements {
 	class ActiveStaticElement : StaticElement, ActiveElement {
 		public ActiveStaticElement(string elem, Coord printPos) : base(elem, printPos) {
 		}
+	}
 
+	//Счетчик. Погано, що він кнопка, треба буде то ігнорувати.
+	//Керування кнопками + i -
+	class ActiveCounter : ActiveStaticElement {
+		private short cnt;
+		private Coord cntPos;
+		private short max, min;
+		string numberMask;
+		public ActiveCounter(string elem, Coord printPos, Coord CntPos, short minVal, short maxVal, string NumberMask = "") : base(elem, printPos) {
+			cntPos = CntPos;
+			max = maxVal;
+			min = minVal;
+			numberMask = NumberMask;
+			cnt = min;
+		}
+
+		public override void Print() {
+			base.Print();
+			Console.SetCursorPosition(pos.x + cntPos.x, pos.y + cntPos.y);
+			Console.Write(numberMask);
+			Console.SetCursorPosition(pos.x + cntPos.x, pos.y + cntPos.y);
+			Console.Write(cnt);
+		}
+
+		public short GetCnt() {
+			return cnt;
+		}
+
+		public static ActiveCounter operator ++(ActiveCounter elem) {
+			if(elem.cnt != elem.max)
+				++elem.cnt;
+			return elem;
+		}
+		public static ActiveCounter operator --(ActiveCounter elem) {
+			if (elem.cnt != elem.min)
+				--elem.cnt;
+			return elem;
+		}
 	}
 
 	//Поле для вводу. Може бути і кнопкою.
@@ -186,6 +224,8 @@ namespace ActiveElements {
 	class ActiveElementDraw {
 		Element[] elements;
 
+		public byte Length{ get { return (byte)elements.Length; } }
+
 		byte currElement;
 
 		public ActiveElementDraw(params Element[] arr) {
@@ -204,17 +244,24 @@ namespace ActiveElements {
 
 		public void InitStatic() {
 			for (byte i = 0; i < elements.Length; ++i)
-				if (elements[i] is ActiveElement == false)
+				if (elements[i] == null)
+					continue;
+				else if (elements[i] is ActiveElement == false)
 					elements[i].Print();
 		}
 
 		public void ClearScreen() {
-			foreach (var i in elements)
+			foreach (var i in elements) {
+				if (i == null)
+					continue;
 				i.Clear();
+			}
 		}
 
 		public void Print() {
 			for (byte i = 0; i < elements.Length; ++i) {
+				if (elements[i] == null)
+					continue;
 				if (elements[i] is ActiveElement) {
 					if (i == currElement)
 						Console.BackgroundColor = ConsoleColor.DarkYellow;
@@ -265,15 +312,24 @@ namespace ActiveElements {
 				}
 			} while (elements[currElement] is ActiveElement == false);
 
-			if (elements[currElement] is ActiveInputElement && read.Key != ConsoleKey.PageUp && read.Key != ConsoleKey.PageDown && read.Key != ConsoleKey.Enter) {
-				if (char.IsLetterOrDigit(read.KeyChar))
-					((ActiveInputElement)(elements[currElement])).AddToValue(read.KeyChar);
-				else if (read.Key == ConsoleKey.Backspace)
-					((ActiveInputElement)(elements[currElement])).DelLastSymbol();
-				else if (elements[currElement] is ActiveInputElementAllSymbols)
-					((ActiveInputElement)(elements[currElement])).AddToValue(read.KeyChar);
-			}
+			if (read.Key != ConsoleKey.PageUp && read.Key != ConsoleKey.PageDown && read.Key != ConsoleKey.Enter) {
+				if (elements[currElement] is ActiveCounter) {
+					ActiveCounter cnt = ((ActiveCounter)(elements[currElement]));
+					if (read.KeyChar == '[')
+						--cnt;
+					else if (read.KeyChar == ']')
+						++cnt;
+				}
 
+				else if (elements[currElement] is ActiveInputElement) {
+					if (char.IsLetterOrDigit(read.KeyChar))
+						((ActiveInputElement)(elements[currElement])).AddToValue(read.KeyChar);
+					else if (read.Key == ConsoleKey.Backspace)
+						((ActiveInputElement)(elements[currElement])).DelLastSymbol();
+					else if (elements[currElement] is ActiveInputElementAllSymbols)
+						((ActiveInputElement)(elements[currElement])).AddToValue(read.KeyChar);
+				}
+			}
 			return 255;
 		}
 	}

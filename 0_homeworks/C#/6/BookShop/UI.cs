@@ -111,11 +111,22 @@ namespace BookShopN {
 			}
 
 			void MainScreen() {
+				string[] bookTypes = shop.GetBookTypes();
+				Element[] mainScreenElements = new Element[bookTypes.Length + 3];
+				mainScreenElements[0] = new ActiveStaticElement("__________\n| Trash  |\n----------", new Coord((short)(downRightCorner.x - 10),4));
+
+					mainScreenElements[1] = mainScreenElements[2] = null;
+
+				for (byte i = 0; i < bookTypes.Length; ++i)
+					mainScreenElements[i + 3] = new ActiveStaticElement(bookTypes[i], new Coord(5, (short)(i + 4)));
+
 				byte choose;
-				head.InitStatic();
+				ActiveElementDraw mainWindow = new ActiveElementDraw(head, mainScreenElements);
+
+				mainWindow.InitStatic();
 				while (true) {
-					head.Print();
-					choose = head.Input(InbisibleInput());
+					mainWindow.Print();
+					choose = mainWindow.Input(InbisibleInput());
 					if (choose == 255)
 						continue;
 
@@ -125,26 +136,123 @@ namespace BookShopN {
 					break;
 					//Find
 					case 1:
-							BooksListScreen();
+					mainWindow.ClearScreen();
+					BooksListByName();
+					mainWindow.InitStatic();
 					break;
 					//Register/Login    Logout
 					case 2:
+					mainWindow.ClearScreen();
 					ClickOnLoginBtn();
+					if (shop.IsLogOn())
+						mainScreenElements[1] = new ActiveStaticElement("__________\n|UserInfo|\n----------", new Coord((short)(downRightCorner.x - 10), 7));
+					else
+						mainScreenElements[1] = null;
+
+					if (shop.IsSuperUserLogOn())
+						mainScreenElements[2] = new ActiveStaticElement("____________\n|AdminPanel|\n------------", new Coord((short)(downRightCorner.x - 12), 10));
+					else
+						mainScreenElements[2] = null;
+					mainWindow = new ActiveElementDraw(head, mainScreenElements);
+					mainWindow.InitStatic();
+					break;
+					//Trash manager
+					case 13:
+					mainWindow.ClearScreen();
+					TrashScreen();
+					mainWindow.InitStatic();
+					break;
+					//User profile
+					case 14:
+					mainWindow.ClearScreen();
+					UserScreen();
+					mainWindow.InitStatic();
+					break;
+					//Admin terminal
+					case 15:
+					mainWindow.ClearScreen();
+					AdminPanel();
+					mainWindow.InitStatic();
+					break;
+					default:
+					if (choose >= 16) {
+						mainWindow.ClearScreen();
+						BooksListByType((Book.BookTypes)(choose - 15));
+						mainWindow.InitStatic();
+					}
 					break;
 					}
 				}
 
 			}
-			
-			bool BooksListScreen() {
-				bool toReturn = false;
+
+			void UserScreen() {
+				Console.SetCursorPosition(100, 40);
+				Console.Write("UserScreen");
+			}
+
+			void TrashScreen() {
+				ActiveCounter c = new ActiveCounter("-----", new Coord(100, 40), new Coord(1, 0), 1, 255, "   ");
+				c.Print();
+				byte choose;
+				ActiveElementDraw trashWindow = new ActiveElementDraw(head, c);
+				NextWindow nextWindow = null;
+
+				trashWindow.InitStatic();
+				while (true) {
+					trashWindow.Print();
+					choose = trashWindow.Input(InbisibleInput());
+					if (choose == 255)
+						continue;
+
+					switch (choose) {
+					//Main
+					case 0:
+					goto TRASH_SCREEN_RETURN;
+					//Find
+					case 1:
+					nextWindow = new NextWindow(BooksListByName);
+					goto TRASH_SCREEN_RETURN;
+					//Register/Login    Logout
+					case 2:
+					nextWindow = new NextWindow(ClickOnLoginBtn);
+					goto TRASH_SCREEN_RETURN;
+					default:
+					break;
+					}
+				}
+
+			TRASH_SCREEN_RETURN:
+				trashWindow.ClearScreen();
+				if (nextWindow != null)
+					nextWindow.Invoke();
+				return;
+			}
+
+			void AdminPanel() {
+				Console.SetCursorPosition(100, 40);
+				Console.Write("AdminPanel");
+			}
+
+			bool BooksListByType(Book.BookTypes type) {
+				System.Collections.Generic.List<Book> find = shop.FindBookByType(type);
+				if (find.Count == 0)
+					return false;
+				return BooksListScreen(find);
+			}
+
+			bool BooksListByName() {
 				string toFind = head.GetInputValue(1);
 				if (toFind.Length < 3)
 					return false;
-
 				System.Collections.Generic.List<Book> find = shop.FindBookByTitle(toFind);
 				if (find.Count == 0)
 					return false;
+				return BooksListScreen(find);
+			}
+			
+			bool BooksListScreen(System.Collections.Generic.List<Book> find) {
+				bool toReturn = false;
 
 				Element[] booksToPrint = new Element[find.Count + 2];
 				Book currBook = null;
@@ -165,7 +273,10 @@ namespace BookShopN {
 				str += Validator.ValidStr("Auther name", 16) + " | ";
 				str += Validator.ValidStr("Price", 7);
 				booksToPrint[find.Count] = new StaticElement(str, new Coord(5, 4));
-				booksToPrint[find.Count + 1] = new StaticElement(str, new Coord((short)(downRightCorner.x / 2 + 3), 4));
+				if (find.Count != 1)
+					booksToPrint[find.Count + 1] = new StaticElement(str, new Coord((short)(downRightCorner.x / 2 + 3), 4));
+				else
+					booksToPrint[find.Count + 1] = new StaticElement("",new Coord(0,0));
 
 				byte choose;
 				ActiveElementDraw findWindow = new ActiveElementDraw(head, booksToPrint);
@@ -184,7 +295,7 @@ namespace BookShopN {
 					goto BOOK_LIST_SCREEN_RETURN;
 					//Find
 					case 1:
-					nextWindow = new NextWindow(BooksListScreen);
+					nextWindow = new NextWindow(BooksListByName);
 					goto BOOK_LIST_SCREEN_RETURN;
 					//Register/Login    Logout
 					case 2:
@@ -237,11 +348,14 @@ namespace BookShopN {
 					goto BOOK_INFO_SCREEN_RETURN;
 					//Find
 					case 1:
-					nextWindow = new NextWindow(BooksListScreen);
+					nextWindow = new NextWindow(BooksListByName);
 					goto BOOK_INFO_SCREEN_RETURN;
 					//Register/Login    Logout
 					case 2:
 					nextWindow = new NextWindow(ClickOnLoginBtn);
+					goto BOOK_INFO_SCREEN_RETURN;
+					case 17:
+					shop.AddToTrash(book);
 					goto BOOK_INFO_SCREEN_RETURN;
 					default:
 					break;
@@ -309,7 +423,7 @@ namespace BookShopN {
 					goto REGISTER_AND_LOGIN_RETURN;
 					//Find
 					case 1:
-					nextWindow = new NextWindow(BooksListScreen);
+					nextWindow = new NextWindow(BooksListByName);
 					goto REGISTER_AND_LOGIN_RETURN;
 					//Register/Login    Logout
 					case 2:

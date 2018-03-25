@@ -67,21 +67,25 @@ namespace ClientN {
 		ArrayList toBuy;
 		uint booksBuyed;
 
+		public int Length { get {return toBuy.Count; } }
+
+		public Trash() {
+			toBuy = new ArrayList();
+		}
+
 		public void Add(TrashObj toAdd) {
 			toBuy.Add(toAdd);
 		}
 
 		//Перегрузка ітератора
 		IEnumerator IEnumerable.GetEnumerator() {
-			for (int i = 0; i < toBuy.Count; i++) {
+			for (int i = 0; i < toBuy.Count; i++) 
 				yield return toBuy[i];
-			}
 		}
 
 		public void Clear() {
-			for (int i = 0; i < toBuy.Count; ++i) {
+			for (int i = 0; i < toBuy.Count; ++i) 
 				booksBuyed += ((TrashObj)toBuy[i]).cnt;
-			}
 			toBuy.Clear();
 		}
 

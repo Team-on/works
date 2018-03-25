@@ -15,18 +15,18 @@ namespace Programm{
 		static void Main(string[] args){
 			Cargo cargo = new Cargo();
 
-			cargo.Add(new Book(Book.BookTypes.Detective, "autN", "bookName", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.Psychology, "autN", "bookName1", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.Detective, "autN", "bookName2", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.SciFi, "autN", "bookName3", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.Detective, "autN1", "bookName13", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.SciFi, "autN2", "bookName13", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.Psychology, "autN3", "bookName13", 9.99, 42));
-			cargo.Add(new Book(Book.BookTypes.SciFi, "autN4", "bookName13", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Art, "autN", "bookName", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.ActionAndAdventure, "autN", "bookName1", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Art, "autN", "bookName2", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.ActionAndAdventure, "autN", "bookName3", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Anthology, "autN1", "bookName13", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.ActionAndAdventure, "autN2", "bookName13", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Anthology, "autN3", "bookName13", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Anthology, "autN4", "bookName13", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Trilogy, "Team", "OneBook", 9.99, 42));
+			cargo.Add(new Book(Book.BookTypes.Trilogy, "Team", "TwoBook", 9.99, 42));
 
-			//Console.WriteLine(cargo.Find(new Book(Book.BookTypes.Detective, "autN", "bookName1", 0, 0)) == null);
-			//(cargo.Find(new Book(Book.BookTypes.Detective, "autN", "bookName1", 0, 0)) as Book).Print();
-			//System.Threading.Thread.Sleep(10000);
+			cargo.Remove(new Book(Book.BookTypes.NONE, "Team", "OneBook", 0, 0));
 
 			UiConsoleBookShop shop = new UiConsoleBookShop(cargo);
 

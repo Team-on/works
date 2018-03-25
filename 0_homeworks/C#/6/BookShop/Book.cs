@@ -3,7 +3,7 @@
 //Не хоче він називатися просто Book
 namespace BookN {
 	class Book {
-		public enum BookTypes : byte { NONE, Psychology, SciFi, Detective, END_OF_TYPES }
+		public enum BookTypes : byte { NONE, ActionAndAdventure, Anthology, Art, Autobiographies, Biographies, Childrens, Comics, Cookbooks, Diaries, Dictionaries, Drama, Encyclopedias, Fantasy, Guide, Health, History, Horror, Journals, Math, Mystery, NewAge, Poetry, PrayerBooks, Religion, Romance, Satire, Science, ScienceFiction, SelfHelp, Series, Spirituality, Travel, Trilogy, END_OF_TYPES }
 
 		//Мож на свойства(лише get) переписати? А встановлювати в конструкторах.
 		public BookTypes type;
@@ -65,9 +65,8 @@ namespace BookN {
 					if (cnt == title.Length)
 						return true;
 				}
-				else {
+				else
 					cnt = j = 0;
-				}
 			}
 			return false;
 		}
