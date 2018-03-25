@@ -191,7 +191,12 @@ namespace BookShopN {
 					nextWindow = new NextWindow(ClickOnLoginBtn);
 					goto BOOK_LIST_SCREEN_RETURN;
 					default:
-					//Console.Write(choose);
+					if (choose >= 13) {
+						findWindow.ClearScreen();
+						if(BookInfoScreen(find[choose - 13]))
+							goto BOOK_LIST_SCREEN_RETURN;
+						findWindow.InitStatic();
+					}
 					break;
 					}
 				}
@@ -204,8 +209,53 @@ namespace BookShopN {
 				return toReturn;
 			}
 
-			void BookInfoScreen(Book info) {
+			bool BookInfoScreen(Book book) {
+				if(book == null)
+					return false;
 
+				byte choose;
+				ActiveElementDraw bookWindow = new ActiveElementDraw(head,
+						new StaticElement('[' + book.type.ToString() + "] " + book.shortTitle, new Coord((short)(downRightCorner.x / 2 + 3), 5)),
+						new StaticElement(book.autherName, new Coord((short)(downRightCorner.x / 2 + 3), 6)),
+						new StaticElement("Price:" + book.price.ToString(), new Coord((short)(downRightCorner.x / 2 + 3), 7)),
+						new StaticElement("Pages:" + book.pages.ToString(), new Coord((short)(downRightCorner.x / 2 + 3), 8)),
+
+						new ActiveStaticElement("______________\n|Add to trash|\n--------------", new Coord((short)(downRightCorner.x / 2 + downRightCorner.x / 6), 15))
+					);
+				NextWindow nextWindow = null;
+
+				bookWindow.InitStatic();
+				while (true) {
+					bookWindow.Print();
+					choose = bookWindow.Input(InbisibleInput());
+					if (choose == 255)
+						continue;
+
+					switch (choose) {
+					//Main
+					case 0:
+					goto BOOK_INFO_SCREEN_RETURN;
+					//Find
+					case 1:
+					nextWindow = new NextWindow(BooksListScreen);
+					goto BOOK_INFO_SCREEN_RETURN;
+					//Register/Login    Logout
+					case 2:
+					nextWindow = new NextWindow(ClickOnLoginBtn);
+					goto BOOK_INFO_SCREEN_RETURN;
+					default:
+					break;
+					}
+				}
+
+			BOOK_INFO_SCREEN_RETURN:
+				bookWindow.ClearScreen();
+				head.InitStatic();
+				if (nextWindow != null) {
+					nextWindow.Invoke();
+					return true;
+				}
+				return false;
 			}
 
 			bool ClickOnLoginBtn() {
