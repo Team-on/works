@@ -71,6 +71,13 @@ namespace BookShopN {
 				return currUser.sTrash;
 			return publicTrash;
 		}
+		public Client GetClient() {
+			return currUser;
+		}
+
+		public ICargo GetCargo() {
+			return cargo;
+		}
 
 		public Book[] Buy() {
 			Trash currTrash = currUser == null ? publicTrash : currUser.sTrash;

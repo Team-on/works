@@ -64,17 +64,27 @@ namespace ClientN {
 
 	class Trash : IEnumerable {
 		//TrashObj
-		ArrayList toBuy;
+		System.Collections.Generic.List<TrashObj> toBuy;
 		uint booksBuyed;
 
 		public int Length { get {return toBuy.Count; } }
 
 		public Trash() {
-			toBuy = new ArrayList();
+			toBuy = new System.Collections.Generic.List<TrashObj>();
 		}
 
 		public void Add(TrashObj toAdd) {
 			toBuy.Add(toAdd);
+		}
+
+		public TrashObj this[int id] {
+			get {
+				return toBuy[id];
+			}
+
+			set {
+				toBuy[id] = value;
+			}
 		}
 
 		//Перегрузка ітератора

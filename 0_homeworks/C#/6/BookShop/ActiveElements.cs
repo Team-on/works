@@ -61,7 +61,7 @@ namespace ActiveElements {
 		private Coord cntPos;
 		private short max, min;
 		string numberMask;
-		public ActiveCounter(string elem, Coord printPos, Coord CntPos, short minVal, short maxVal, string NumberMask = "") : base(elem, printPos) {
+		public ActiveCounter(string elem, Coord printPos, Coord CntPos, ref byte linkedValue, short minVal, short maxVal, string NumberMask = "") : base(elem, printPos) {
 			cntPos = CntPos;
 			max = maxVal;
 			min = minVal;

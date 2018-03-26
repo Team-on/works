@@ -159,13 +159,13 @@ namespace BookShopN {
 					//Trash manager
 					case 13:
 					mainWindow.ClearScreen();
-					TrashScreen();
+					TrashScreen(shop.GetClientTrash());
 					mainWindow.InitStatic();
 					break;
 					//User profile
 					case 14:
 					mainWindow.ClearScreen();
-					UserScreen();
+					UserScreen(shop.GetClient());
 					mainWindow.InitStatic();
 					break;
 					//Admin terminal
@@ -186,16 +186,36 @@ namespace BookShopN {
 
 			}
 
-			void UserScreen() {
+			void UserScreen(Client user) {
 				Console.SetCursorPosition(100, 40);
 				Console.Write("UserScreen");
 			}
 
-			void TrashScreen() {
-				ActiveCounter c = new ActiveCounter("-----", new Coord(100, 40), new Coord(1, 0), 1, 255, "   ");
-				c.Print();
+			bool TrashScreen(Trash trash) {
+				Element[] trashToPrint = new Element[trash.Length * 3 + 1];
+				Book currBook;
+				string str;
+				for (int i = 0; i < trash.Length; ++i) {
+					if (trash[i].stored is Book) {
+						currBook = trash[i].stored as Book;
+						str = Validator.ValidStr(currBook.shortTitle, 16) + " | ";
+						str += Validator.ValidStr(currBook.autherName, 16) + " | ";
+						str += Validator.ValidStr(currBook.price.ToString(), 7);
+						trashToPrint[i * 3] = new ActiveStaticElement(str, new Coord(5,(short)(i + 5)));
+						trashToPrint[i * 3 + 1] = new ActiveCounter("-----", new Coord(53, (short)(i + 5)), new Coord(1, 0), ref trash[i].cnt, 1, 255, "   ");
+						trashToPrint[i * 3 + 2] = new ActiveStaticElement("X", new Coord(62, (short)(i + 5)));
+					}
+
+				}
+				str = Validator.ValidStr("Title", 16) + " | ";
+				str += Validator.ValidStr("Auther name", 16) + " | ";
+				str += Validator.ValidStr("Price", 7) + " | ";
+				str += Validator.ValidStr("Cnt", 5) + " | ";
+				str += Validator.ValidStr("Del", 5);
+				trashToPrint[trash.Length * 3] = new StaticElement(str, new Coord(5, 4));
+
 				byte choose;
-				ActiveElementDraw trashWindow = new ActiveElementDraw(head, c);
+				ActiveElementDraw trashWindow = new ActiveElementDraw(head, trashToPrint);
 				NextWindow nextWindow = null;
 
 				trashWindow.InitStatic();
@@ -218,6 +238,18 @@ namespace BookShopN {
 					nextWindow = new NextWindow(ClickOnLoginBtn);
 					goto TRASH_SCREEN_RETURN;
 					default:
+					choose -= 13;
+					if (choose % 3 == 0) {
+						trashWindow.ClearScreen();
+						BookInfoScreen(((Book)trash[choose / 3].stored), false);
+						trashWindow.InitStatic();
+					}
+					else if (choose % 3 == 2) {
+						trash.Delete(((Book)trash[choose / 3].stored));
+						trashWindow.ClearScreen();
+						TrashScreen(trash);
+						goto TRASH_SCREEN_RETURN;
+					}
 					break;
 					}
 				}
@@ -226,12 +258,55 @@ namespace BookShopN {
 				trashWindow.ClearScreen();
 				if (nextWindow != null)
 					nextWindow.Invoke();
-				return;
+				return true;
 			}
 
 			void AdminPanel() {
-				Console.SetCursorPosition(100, 40);
-				Console.Write("AdminPanel");
+				bool isRunning = true;
+				string str;
+				Console.SetCursorPosition(0, 0);
+				while (isRunning) {
+					Console.Write("> ");
+					str = Console.ReadLine();
+					str = str.Trim();
+					if (str == "?") {
+						Console.Write('\t'); Console.WriteLine("exit");
+						Console.Write('\t'); Console.WriteLine("add [bookTitle] | [author] | [price] | [pages]");
+						Console.Write('\t'); Console.WriteLine("del [bookTitle] | [author]");
+					}
+					else if (str == "exit")
+						isRunning = false;
+					else if (str.Substring(0, 3) == "del") {
+						str = str.Substring(3, str.Length - 3);
+						string[] info = new string[2];
+						char[] sep = new char[] { '|' };
+						info = str.Split(sep, info.Length);
+						for (int i = 0; i < info.Length; ++i) 
+							info[i] = info[i].Trim();
+						if (shop.GetCargo().Remove(new Book(Book.BookTypes.NONE, info[1], info[0], 0, 0)) != null) 
+							Console.WriteLine("del succes");
+						else 
+							Console.WriteLine("book not exist");
+						
+					}
+					else if (str.Substring(0, 3) == "add") {
+						str = str.Substring(3, str.Length - 3);
+						string[] info = new string[4];
+						double price;
+						int pages;
+						char[] sep = new char[] { '|' };
+						info = str.Split(sep, info.Length);
+						for (int i = 0; i < info.Length; ++i) 
+							info[i] = info[i].Trim();
+						if (!double.TryParse(info[2], out price) || !int.TryParse(info[3], out pages)) 
+							Console.WriteLine("add error");
+						else {
+							shop.GetCargo().Add(new Book(Book.BookTypes.NONE, info[1], info[0], double.Parse(info[2]), (ushort) int.Parse(info[3])));
+							Console.WriteLine("add succes");
+						}
+					}
+				}
+				Console.Clear();
 			}
 
 			bool BooksListByType(Book.BookTypes type) {
@@ -320,12 +395,14 @@ namespace BookShopN {
 				return toReturn;
 			}
 
-			bool BookInfoScreen(Book book) {
+			bool BookInfoScreen(Book book, bool withTrashBtn = true) {
 				if(book == null)
 					return false;
 
 				byte choose;
-				ActiveElementDraw bookWindow = new ActiveElementDraw(head,
+				ActiveElementDraw bookWindow;
+				if (withTrashBtn) {
+					bookWindow = new ActiveElementDraw(head,
 						new StaticElement('[' + book.type.ToString() + "] " + book.shortTitle, new Coord((short)(downRightCorner.x / 2 + 3), 5)),
 						new StaticElement(book.autherName, new Coord((short)(downRightCorner.x / 2 + 3), 6)),
 						new StaticElement("Price:" + book.price.ToString(), new Coord((short)(downRightCorner.x / 2 + 3), 7)),
@@ -333,6 +410,15 @@ namespace BookShopN {
 
 						new ActiveStaticElement("______________\n|Add to trash|\n--------------", new Coord((short)(downRightCorner.x / 2 + downRightCorner.x / 6), 15))
 					);
+				}
+				else {
+					bookWindow = new ActiveElementDraw(head,
+						new StaticElement('[' + book.type.ToString() + "] " + book.shortTitle, new Coord((short)(downRightCorner.x / 2 + 3), 5)),
+						new StaticElement(book.autherName, new Coord((short)(downRightCorner.x / 2 + 3), 6)),
+						new StaticElement("Price:" + book.price.ToString(), new Coord((short)(downRightCorner.x / 2 + 3), 7)),
+						new StaticElement("Pages:" + book.pages.ToString(), new Coord((short)(downRightCorner.x / 2 + 3), 8))
+					);
+				}
 				NextWindow nextWindow = null;
 
 				bookWindow.InitStatic();
