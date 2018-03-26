@@ -100,14 +100,7 @@ namespace BookShopN {
            | .-. `.   \_) |  |\|  |  |  | |  | |     ' _)      '..`''.)  |       |  \_) |  |\|  |  |  |_.' | 
            | |  \  |    \ |  | |  |  |  | |  | |  .   \       .-._)   \  |  .-.  |    \ |  | |  |  |  .___.' 
            | '--'  /     `'  '-'  '  '  '-'  ' |  |\   \      \       /  |  | |  |     `'  '-'  '  |  |      
-           `------'       `-------'  `-------' `--' '--'       `-----'    `--' `-'       `------'   `-'     
-
-
-
-											 ____  ____  ____ 
-											||H ||||i ||||! ||
-											||__||||__||||__||
-											|/__\||/__\||/__\|");
+           `------'       `-------'  `-------' `--' '--'       `-----'    `--' `-'       `------'   `-'     ");
 			}
 
 			void MainScreen() {
@@ -133,6 +126,8 @@ namespace BookShopN {
 					switch (choose) {
 					//Main
 					case 0:
+					if (WantToExit())
+						return;
 					break;
 					//Find
 					case 1:
@@ -186,13 +181,17 @@ namespace BookShopN {
 
 			}
 
+			bool WantToExit() {
+				return false;
+			}
+
 			void UserScreen(Client user) {
 				Console.SetCursorPosition(100, 40);
 				Console.Write("UserScreen");
 			}
 
 			bool TrashScreen(Trash trash) {
-				Element[] trashToPrint = new Element[trash.Length * 3 + 1];
+				Element[] trashToPrint = new Element[trash.Length * 3 + 2];
 				Book currBook;
 				string str;
 				for (int i = 0; i < trash.Length; ++i) {
@@ -213,7 +212,12 @@ namespace BookShopN {
 				str += Validator.ValidStr("Cnt", 5) + " | ";
 				str += Validator.ValidStr("Del", 5);
 				trashToPrint[trash.Length * 3] = new StaticElement(str, new Coord(5, 4));
-
+				if (trash.Length != 0) {
+					string buyBtn = "_____\n|Buy|\n-----";
+					trashToPrint[trash.Length * 3 + 1] = new ActiveStaticElement(buyBtn, new Coord((short)(str.Length / 2 - buyBtn.Length / 2), (short)(trash.Length + 6)));
+				}
+				else
+					trashToPrint[trash.Length * 3 + 1] = null;
 				byte choose;
 				ActiveElementDraw trashWindow = new ActiveElementDraw(head, trashToPrint);
 				NextWindow nextWindow = null;
@@ -238,8 +242,30 @@ namespace BookShopN {
 					nextWindow = new NextWindow(ClickOnLoginBtn);
 					goto TRASH_SCREEN_RETURN;
 					default:
+					
 					choose -= 13;
-					if (choose % 3 == 0) {
+					if(choose == trash.Length * 3 + 1) {
+						TrashObj[] deliver = shop.Buy();
+						trashWindow.ClearScreen();
+						bool accept = AcceptBeforeDeliver(deliver);
+						trashWindow.InitStatic();
+						if (accept) {
+							if (shop.IsLogOn())
+								;//Послать юзеру
+							else
+								;//Открить окно ввода адреса
+						}
+						else {
+							foreach (var i in deliver)
+								if (i.cnt != 0 && i.stored != null) {
+									shop.GetClientTrash().Add(i);
+									for (int j = 0; j < i.cnt; ++j)
+										shop.GetCargo().Add(i.stored);
+								}
+						}
+						goto TRASH_SCREEN_RETURN;
+					}
+					else if (choose % 3 == 0) {
 						trashWindow.ClearScreen();
 						BookInfoScreen(((Book)trash[choose / 3].stored), false);
 						trashWindow.InitStatic();
@@ -261,6 +287,62 @@ namespace BookShopN {
 				return true;
 			}
 
+			bool AcceptBeforeDeliver(TrashObj[] toDeliver) {
+				Element[] trashToPrint = new Element[toDeliver.Length * 3 + 3];
+				Book currBook;
+				string str;
+				for (int i = 0; i < toDeliver.Length; ++i) {
+					if (toDeliver[i].stored is Book) {
+						currBook = toDeliver[i].stored as Book;
+						str = Validator.ValidStr(currBook.shortTitle, 16) + " | ";
+						str += Validator.ValidStr(currBook.autherName, 16) + " | ";
+						str += Validator.ValidStr(currBook.price.ToString(), 7);
+						trashToPrint[i * 3] = new StaticElement(str, new Coord(5, (short)(i + 5)));
+						trashToPrint[i * 3 + 1] = new StaticElement(toDeliver[i].cnt.ToString(), new Coord(53, (short)(i + 5)) );
+						if(toDeliver[i].cnt == 0)
+							trashToPrint[i * 3 + 2] = new StaticElement("not in stock", new Coord(62, (short)(i + 5)));
+						else
+							trashToPrint[i * 3 + 2] = new StaticElement("", new Coord(62, (short)(i + 5)));
+					}
+
+				}
+				str = Validator.ValidStr("Title", 16) + " | ";
+				str += Validator.ValidStr("Auther name", 16) + " | ";
+				str += Validator.ValidStr("Price", 7) + " | ";
+				str += Validator.ValidStr("Cnt", 5) + " | ";
+				trashToPrint[toDeliver.Length * 3] = new StaticElement(str, new Coord(5, 4));
+				if (toDeliver.Length != 0) {
+					string buyBtn = "_____\n|Buy|\n-----";
+					trashToPrint[toDeliver.Length * 3 + 1] = new ActiveStaticElement(buyBtn, new Coord((short)(str.Length / 2 - buyBtn.Length / 2 - 10), (short)(toDeliver.Length + 6)));
+					buyBtn = "________\n|Cancel|\n--------";
+					trashToPrint[toDeliver.Length * 3 + 2] = new ActiveStaticElement(buyBtn, new Coord((short)(str.Length / 2 - buyBtn.Length / 2 + 10), (short)(toDeliver.Length + 6)));
+				}
+				else {
+					trashToPrint[toDeliver.Length * 3 + 1] = trashToPrint[toDeliver.Length * 3 + 2] = null;
+				}
+
+				byte choose;
+				ActiveElementDraw trashWindow = new ActiveElementDraw(head, trashToPrint);
+
+				trashWindow.InitStatic();
+				while (true) {
+					trashWindow.Print();
+					choose = trashWindow.Input(InbisibleInput());
+					choose -= 13;
+					if (choose == 255)
+						continue;
+					if (choose == toDeliver.Length * 3 + 1) {
+						trashWindow.ClearScreen();
+						return true;
+					}
+					if (choose == toDeliver.Length * 3 + 2) {
+						trashWindow.ClearScreen();
+						return false;
+					}
+				}
+
+			}
+
 			void AdminPanel() {
 				bool isRunning = true;
 				string str;
@@ -269,44 +351,50 @@ namespace BookShopN {
 					Console.Write("> ");
 					str = Console.ReadLine();
 					str = str.Trim();
-					if (str == "?") {
-						Console.Write('\t'); Console.WriteLine("exit");
-						Console.Write('\t'); Console.WriteLine("add [bookTitle] | [author] | [price] | [pages]");
-						Console.Write('\t'); Console.WriteLine("del [bookTitle] | [author]");
-					}
-					else if (str == "exit")
+					if (str == "exit")
 						isRunning = false;
-					else if (str.Substring(0, 3) == "del") {
-						str = str.Substring(3, str.Length - 3);
-						string[] info = new string[2];
-						char[] sep = new char[] { '|' };
-						info = str.Split(sep, info.Length);
-						for (int i = 0; i < info.Length; ++i) 
-							info[i] = info[i].Trim();
-						if (shop.GetCargo().Remove(new Book(Book.BookTypes.NONE, info[1], info[0], 0, 0)) != null) 
-							Console.WriteLine("del succes");
-						else 
-							Console.WriteLine("book not exist");
-						
+					else if (str == "?") {
+						Console.Write('\t'); Console.WriteLine("exit");
 					}
-					else if (str.Substring(0, 3) == "add") {
-						str = str.Substring(3, str.Length - 3);
-						string[] info = new string[4];
-						double price;
-						int pages;
-						char[] sep = new char[] { '|' };
-						info = str.Split(sep, info.Length);
-						for (int i = 0; i < info.Length; ++i) 
-							info[i] = info[i].Trim();
-						if (!double.TryParse(info[2], out price) || !int.TryParse(info[3], out pages)) 
-							Console.WriteLine("add error");
-						else {
-							shop.GetCargo().Add(new Book(Book.BookTypes.NONE, info[1], info[0], double.Parse(info[2]), (ushort) int.Parse(info[3])));
-							Console.WriteLine("add succes");
-						}
-					}
+					AdminInput(str);
 				}
 				Console.Clear();
+			}
+
+			public void AdminInput(string str) {		
+				if (str == "?") {
+					Console.Write('\t'); Console.WriteLine("add [bookTitle] | [author] | [price] | [pages]");
+					Console.Write('\t'); Console.WriteLine("del [bookTitle] | [author]");
+				}
+				else if (str.Substring(0, 3) == "del") {
+					str = str.Substring(3, str.Length - 3);
+					string[] info = new string[2];
+					char[] sep = new char[] { '|' };
+					info = str.Split(sep, info.Length);
+					for (int i = 0; i < info.Length; ++i)
+						info[i] = info[i].Trim();
+					if (shop.GetCargo().Remove(new Book(Book.BookTypes.NONE, info[1], info[0], 0, 0)) != null)
+						Console.WriteLine("del succes");
+					else
+						Console.WriteLine("book not exist");
+
+				}
+				else if (str.Substring(0, 3) == "add") {
+					str = str.Substring(3, str.Length - 3);
+					string[] info = new string[4];
+					double price;
+					int pages;
+					char[] sep = new char[] { '|' };
+					info = str.Split(sep, info.Length);
+					for (int i = 0; i < info.Length; ++i)
+						info[i] = info[i].Trim();
+					if (!double.TryParse(info[2], out price) || !int.TryParse(info[3], out pages))
+						Console.WriteLine("add error");
+					else {
+						shop.GetCargo().Add(new Book(Book.BookTypes.NONE, info[1], info[0], double.Parse(info[2]), (ushort)int.Parse(info[3])));
+						Console.WriteLine("add succes");
+					}
+				}
 			}
 
 			bool BooksListByType(Book.BookTypes type) {

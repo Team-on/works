@@ -79,11 +79,16 @@ namespace BookShopN {
 			return cargo;
 		}
 
-		public Book[] Buy() {
+		public TrashObj[] Buy() {
 			Trash currTrash = currUser == null ? publicTrash : currUser.sTrash;
-			System.Collections.Generic.List<Book> toBuy = new System.Collections.Generic.List<Book>(currTrash.Length);
-			foreach (var i in currTrash)
-				toBuy.Add((Book)(cargo.Remove(i)));
+			System.Collections.Generic.List<TrashObj> toBuy = new System.Collections.Generic.List<TrashObj>(currTrash.Length);
+			for (int i = 0; i < currTrash.Length; ++i)
+				if (currTrash[i].stored is Book) {
+					if (cargo.Remove(currTrash[i].stored) != null)
+						toBuy.Add(new TrashObj(currTrash[i].stored, currTrash[i].cnt));
+					else
+						toBuy.Add(new TrashObj(currTrash[i].stored, 0));
+				}
 			currTrash.Clear();
 			return toBuy.ToArray();
 		}

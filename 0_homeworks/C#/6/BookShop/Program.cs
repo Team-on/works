@@ -29,7 +29,6 @@ namespace Programm{
 			cargo.Remove(new Book(Book.BookTypes.NONE, "Team", "OneBook", 0, 0));
 
 			UiConsoleBookShop shop = new UiConsoleBookShop(cargo);
-
 			shop.Launch();
 
 			Console.SetCursorPosition(100, 50);
