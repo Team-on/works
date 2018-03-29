@@ -113,7 +113,9 @@ namespace TeamCommander {
 			}
 
 			public void Init() {
-				Console.SetWindowSize(Settings.ScreenSettings.size.x, Settings.ScreenSettings.size.y);
+				Console.SetWindowSize(screenSize.x + 1, screenSize.y + 1);
+				Console.SetBufferSize(screenSize.x + 1, screenSize.y + 1);
+				Console.SetWindowPosition(0,0);
 			}
 
 			public void Print() {

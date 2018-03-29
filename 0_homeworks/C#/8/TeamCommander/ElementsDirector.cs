@@ -32,13 +32,13 @@ namespace TeamCommander {
 			public void PrintElementsEternal() {
 				foreach (var i in elements)
 					if (i is EternalElement)
-						i.Print();
+						i.AddElementToOutput();
 			}
 
-			public void PrintElements() {
+			public void AddElementsToOutput() {
 				foreach (var i in elements)
 					if (!(i is EternalElement))
-						i.Print();
+						i.AddElementToOutput();
 			}
 
 			public void ClearElements() {

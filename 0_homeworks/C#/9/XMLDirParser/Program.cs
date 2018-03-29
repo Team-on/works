@@ -360,7 +360,6 @@ namespace XMLDirParser {
 	}
 
 	static class DirFileParserOptimized {
-
 		static XmlDocument xml;
 		static XmlAttribute attrib;
 		static FileInfo finf;
@@ -417,6 +416,8 @@ namespace XMLDirParser {
 		}
 
 		static ulong GetDirsAndFiles(string dirName, XmlElement father) {
+            //if (dirName.Length > 10)
+            //    return 0;
 			string[] dirs, files;
 			try {
 				dirs = Directory.GetDirectories(dirName);
@@ -473,10 +474,10 @@ namespace XMLDirParser {
 	class Program {
 		static void Main(string[] args) {
 			DateTime start = DateTime.Now;
-			DirFileParserAnimation.Parse(@"D:\test.xml", true);
-			Console.WriteLine(DateTime.Now - start);
+			//DirFileParserAnimation.Parse(@"D:\test.xml", true);
+			//Console.WriteLine(DateTime.Now - start);
 
-			start = DateTime.Now;
+			//start = DateTime.Now;
 			DirFileParserOptimized.Parse(@"D:\test.xml");
 			Console.WriteLine(DateTime.Now - start);
 		}

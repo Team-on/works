@@ -7,7 +7,7 @@
 
 			void OnPassIntoDirector(Output.Output Output);
 
-			void Print();
+			void AddElementToOutput();
 			void Clear();
 		}
 
@@ -58,7 +58,7 @@
 				//startPos.y += StartPosChange.y;
 			}
 
-			public void Print() {
+			public void AddElementToOutput() {
 				short currYPos = startPos.y;
 				output.AddOn(element, startPos);
 			}
@@ -71,6 +71,15 @@
 			public ElementHLine() {
 			}
 			public ElementHLine(short length, Output.OutputObj style, Support.Coord StartPos, ushort NewId) {
+				Output.OutputObj[] element = new Output.OutputObj[length];
+				for (short i = 0; i < length; ++i)
+					element[i] = (Output.OutputObj)style.Clone();
+				SetElement(element, StartPos, NewId);
+			}
+		}
+
+		class ElementVLine : ElementText {
+			public ElementVLine(short length, Output.OutputObj style, Support.Coord StartPos, ushort NewId) {
 				Output.OutputObj[] element = new Output.OutputObj[length * 2];
 				for (short i = 0; i < length * 2; ++i) {
 					element[i] = (Output.OutputObj)style.Clone();
@@ -80,21 +89,20 @@
 			}
 		}
 
-		class ElementVLine : ElementText {
-
+		class ElemenEternaltHLine : ElementHLine, EternalElement {
+			public ElemenEternaltHLine(short length, Output.OutputObj style, Support.Coord StartPos, ushort NewId) : base(length, style, StartPos, NewId) {
+			}
 		}
 
-		//class ElemenEternaltHLine : EternalElement {
+		class ElementEternalVLine : ElementVLine, EternalElement {
+			public ElementEternalVLine(short length, Output.OutputObj style, Support.Coord StartPos, ushort NewId) : base(length, style, StartPos, NewId) {
+			}
+		}
 
-		//}
-
-		//class ElementEternalVLine : EternalElement {
-
-		//}
-
-		//class ElementEternalText : EternalElement {
-
-		//}
+		class ElementEternalText : ElementText, EternalElement {
+			public ElementEternalText(Output.OutputObj[] Element, Support.Coord StartPos, ushort NewId) : base(Element, StartPos, NewId) {
+			}
+		}
 
 		//class ElementBtn : ActiveElement {
 
