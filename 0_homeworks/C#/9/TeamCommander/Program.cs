@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
 
-namespace TeamCommander {
-	class Program {
-		static void Main(string[] args) {
-			Output.Output screen = new Output.Output(new Support.Coord(5,5), new Support.Coord(100, 40));
+namespace TeamCommander
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            /*Output.Output screen = new Output.Output(new Support.Coord(5,5), new Support.Coord(100, 40));
 			for (short i = 0; i < 40; ++i)
 				for (short j = 0; j < 100; ++j)
 					screen[i, j] = new Output.OutputObj('_', new Output.DColor());
@@ -29,7 +33,25 @@ namespace TeamCommander {
 			director.PrintScreen();
 
 			//director.ClearElements();
-			director.PrintScreen();
-		}
-	}
+			director.PrintScreen();*/
+
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo drive in drives)
+            {
+                Console.WriteLine("Название: {0}", drive.Name);
+                Console.WriteLine("Тип: {0}", drive.DriveType);
+                if (drive.IsReady)
+                {
+                    Console.WriteLine("Объем диска: {0}", drive.TotalSize);
+                    Console.WriteLine("Свободное пространство: {0}", drive.TotalFreeSpace);
+                    Console.WriteLine("Метка: {0}", drive.VolumeLabel);
+                }
+                Console.WriteLine();
+            }
+
+            Console.ReadLine();
+
+        }
+    }
 }
