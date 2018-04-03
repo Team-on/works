@@ -1,5 +1,6 @@
 ﻿namespace TeamCommander {
 	namespace Support {
+
 		class Coord {
 			public short x, y;
 

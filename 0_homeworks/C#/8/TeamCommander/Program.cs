@@ -7,12 +7,9 @@ namespace TeamCommander
     {
         static void Main(string[] args)
         {
-           
-
 			Commander commander = new Commander();
 			commander.Launch();
-			System.Threading.Thread.Sleep(10000);
-			Console.SetCursorPosition(0, 0);
+			
 
 			/*DriveInfo[] drives = DriveInfo.GetDrives();
             foreach (DriveInfo drive in drives)

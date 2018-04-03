@@ -10,14 +10,5 @@ namespace TeamCommander {
 			}
 		}
 
-		static class ScreenSettings {
-			static public readonly Support.Coord size;
-
-			static ScreenSettings() {
-				size = new Support.Coord();
-				size.x = (short)Console.LargestWindowWidth;
-				size.y = (short)Console.LargestWindowHeight;
-			}
-		}
 	}
 }

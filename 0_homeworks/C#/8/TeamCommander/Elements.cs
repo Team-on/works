@@ -3,6 +3,7 @@
 		interface Element {
 			ushort Id { get; }
 
+			void SetElement(string ElementStr, Support.Coord StartPos, ushort NewId);
 			void SetElement(Output.OutputObj[] Element, Support.Coord StartPos, ushort NewId);
 
 			void OnPassIntoDirector(Output.Output Output);
@@ -33,17 +34,35 @@
 
 		}
 
+		//Самий базовий клас для більшості елементів
 		class ElementText : StaticElement {
-			Output.OutputObj[] element;
-			Support.Coord startPos;
+			protected Output.OutputObj[] element;
+			protected Support.Coord startPos;
 			Output.Output output;
 
 			public ushort Id { get; private set; }
 
 			public ElementText() {
 			}
+
+			public ElementText(string ElementStr, Support.Coord StartPos, ushort NewId) {
+				Output.OutputObj[] Element = new Output.OutputObj[ElementStr.Length];
+				for (int i = 0; i < Element.Length; ++i)
+					Element[i] = new Output.OutputObj(ElementStr[i]);
+				SetElement(Element, StartPos, NewId);
+			}
+
 			public ElementText(Output.OutputObj[] Element, Support.Coord StartPos, ushort NewId) {
 				SetElement(Element, StartPos, NewId);
+			}
+
+			public void SetElement(string ElementStr, Support.Coord StartPos, ushort NewId) {
+				Output.OutputObj[] Element = new Output.OutputObj[ElementStr.Length];
+				for (int i = 0; i < Element.Length; ++i)
+					Element[i] = new Output.OutputObj(ElementStr[i]);
+				Id = NewId;
+				element = (Output.OutputObj[])Element.Clone();
+				startPos = new Support.Coord(StartPos.x, StartPos.y);
 			}
 
 			public void SetElement(Output.OutputObj[] Element, Support.Coord StartPos, ushort NewId) {
@@ -58,10 +77,10 @@
 				//startPos.y += StartPosChange.y;
 			}
 
-			public void AddElementToOutput() {
-				short currYPos = startPos.y;
+			virtual public void AddElementToOutput() {
 				output.AddOn(element, startPos);
 			}
+
 			public void Clear() {
 				output.ClearOn(element, startPos);
 			}
@@ -89,6 +108,26 @@
 			}
 		}
 
+		//При кожному виклиці братиме нове значення для стрінгі із функції
+		class ElementTextFromFunc : ElementText {
+			public delegate string usedFunc();
+
+			protected usedFunc func;
+
+			public ElementTextFromFunc(Output.OutputObj[] Element, Support.Coord StartPos, ushort NewId, usedFunc Func)
+				: base(Element, StartPos, NewId) {
+				func = Func;
+			}
+
+			public override void AddElementToOutput() {
+				ushort i = 0;
+				foreach (char c in func.Invoke())
+					base.element[i++].sym = c;
+				base.AddElementToOutput();
+			}
+		}
+
+
 		class ElemenEternaltHLine : ElementHLine, EternalElement {
 			public ElemenEternaltHLine(short length, Output.OutputObj style, Support.Coord StartPos, ushort NewId) : base(length, style, StartPos, NewId) {
 			}
@@ -104,9 +143,16 @@
 			}
 		}
 
-		//class ElementBtn : ActiveElement {
 
-		//}
+		class ElementBtn : ElementText, ActiveElement {
+			public  ushort ActiveId { get; set; }
+
+			public ElementBtn(Output.OutputObj[] Element, Support.Coord StartPos, ushort NewId, ushort NewActiveId) : base(Element, StartPos, NewId) {
+				ActiveId = NewActiveId;
+			}
+
+
+		}
 
 		//class ElementBtnWithFrame : ElementBtn {
 
