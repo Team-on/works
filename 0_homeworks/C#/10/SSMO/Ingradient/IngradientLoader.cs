@@ -49,6 +49,7 @@ namespace SSMO {
 			SerializeIngradiente("Соус", "Помісь Кетчупу і Майонезу", DELIVERY_TYPE.Sauces, fs);
 			SerializeIngradiente("Майонез", "Білий і вологий", DELIVERY_TYPE.Sauces, fs);
 		}
+
 		static public Ingradient Garlic() {
 			return BasicLoad("Часник");
 		}

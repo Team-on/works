@@ -12,7 +12,7 @@ namespace SSMO {
 
 		static void SerializePizza(string name, string desc, Ingradient[] ings) {
 			using (fout = new FileStream(pizzaFolder + name + ".piz", FileMode.OpenOrCreate)) {
-				piz = new Pizza(name, desc, ings, 65000);
+				piz = new Pizza(name, desc, ings, 1.00);
 				fs.Serialize(fout, piz);
 			}
 		}
@@ -23,9 +23,25 @@ namespace SSMO {
 		}
 
 		static public bool IsPizzaExist() {
-				return Directory.Exists(pizzaFolder;
+				return Directory.Exists(pizzaFolder);
 		}
 
+		static public void CreatePizzaFile() {
+			Directory.CreateDirectory(pizzaFolder);
+
+			SerializePizza("ТестоваПіца№1", "Норм", new Ingradient[] {
+														new Ingradient(IngradientLoader.Flour()){MassGr = 300 },
+														new Ingradient(IngradientLoader.Grass()){MassGr = 500 },
+														new Ingradient(IngradientLoader.Sausage()){MassGr = 500 }
+													}
+			);
+
+
+		}
+
+		static public Pizza Test() {
+			return BasicLoad("ТестоваПіца№1");
+		}
 
 	}
 }
