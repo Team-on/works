@@ -10,9 +10,9 @@ namespace SSMO {
 		static Pizza piz;
 		static string pizzaFolder = System.Environment.CurrentDirectory + @"\Pizza\";
 
-		static void SerializePizza(string name, string desc, Ingradient[] ings) {
+		static void SerializePizza(string name, string desc, Ingradient[] ings, ushort MakeTime) {
 			using (fout = new FileStream(pizzaFolder + name + ".piz", FileMode.OpenOrCreate)) {
-				piz = new Pizza(name, desc, ings, 1.00);
+				piz = new Pizza(name, desc, ings, 1.00, MakeTime);
 				fs.Serialize(fout, piz);
 			}
 		}
@@ -31,9 +31,11 @@ namespace SSMO {
 
 			SerializePizza("ТестоваПіца№1", "Норм", new Ingradient[] {
 														new Ingradient(IngradientLoader.Flour()){MassGr = 300 },
+														new Ingradient(IngradientLoader.Yeast()){MassGr = 10 },
 														new Ingradient(IngradientLoader.Grass()){MassGr = 500 },
 														new Ingradient(IngradientLoader.Sausage()){MassGr = 500 }
-													}
+													},
+													5
 			);
 
 

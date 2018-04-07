@@ -49,6 +49,10 @@ namespace SSMO {
 			return res;
 		}
 
+		public bool IsOrderedd(Ingradient what) {
+			return (delivery as DeliveryBasic).IsInOrder(what);
+		}
+
 		bool isOrdered = false;
 		public void OrderIngradient(Ingradient what, bool Immediate = false) {
 			if (what != null && delivery.CanOrder(what))

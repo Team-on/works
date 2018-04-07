@@ -43,17 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cargo.cs" />
-    <Compile Include="Delivery.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Kitchen\Cargo.cs" />
+    <Compile Include="Kitchen\Delivery.cs" />
     <Compile Include="Human.cs" />
     <Compile Include="Ingradient\Ingradient.cs" />
     <Compile Include="Ingradient\IngradientLoader.cs" />
-    <Compile Include="Kitchen.cs" />
+    <Compile Include="Kitchen\Kitchen.cs" />
     <Compile Include="Pizza\PizzaLoader.cs" />
     <Compile Include="Pizza\Pizzas.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Staff.cs" />
+    <Compile Include="Kitchen\Staff.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

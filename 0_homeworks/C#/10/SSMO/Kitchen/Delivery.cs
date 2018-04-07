@@ -68,6 +68,14 @@ namespace SSMO {
 				orderPrice += i.PriceSell * i.MassGr / 1000;
 			return orderPrice;
 		}
+
+		public bool IsInOrder(Ingradient what) {
+			foreach (var i in toOrder)
+				if(i.Equals(what))
+					return true;
+			return false;
+		}
+
 		public double Order() {
 			double orderPrice = GetOrderPrice();
 			foreach (var i in toOrder) {
