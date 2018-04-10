@@ -33,5 +33,13 @@ namespace SSMO {
 			Ingradients = _Ingradients;
 			QualityMod = _qualityMod;
 		}
+
+		public override bool Equals(object obj) {
+			return Name.Equals(obj);
+		}
+
+		public override int GetHashCode() {
+			return Name.GetHashCode();
+		}
 	}
 }

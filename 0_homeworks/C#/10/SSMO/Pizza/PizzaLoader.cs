@@ -35,7 +35,7 @@ namespace SSMO {
 														new Ingradient(IngradientLoader.Grass()){MassGr = 500 },
 														new Ingradient(IngradientLoader.Sausage()){MassGr = 500 }
 													},
-													5
+													1
 			);
 
 

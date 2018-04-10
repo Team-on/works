@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 
+namespace MyNamespace {
+	internal class ClassA { }
+
+	internal class ClassB {
+		public ClassA Method1() { return null; }
+		private ClassB Method2() { return null; }
+	}
+}
 
 namespace SSMO {
 	
@@ -37,15 +45,18 @@ namespace SSMO {
 				Console.WriteLine("\t: " + j.Name);
 
 			Kitchen kitchen = new Kitchen(new Cargo(0.80, 1.05, new DeliveryBasic(DELIVERY_TYPE.All, 0.90, 1, 1.53)));
-			//kitchen.AddStaff(new Staff());
+			kitchen.AddStaff(new KitchenStaff(new Staff("Click", "Povar"), 1.10));
 
 			Console.WriteLine(kitchen.CanMake(PizzaLoader.Test()));
-			//Thread.Sleep(1001);
-			while (!kitchen.CanMake(PizzaLoader.Test())) {
-				Thread.Sleep(6000);
-			}
+			while (!kitchen.CanMake(PizzaLoader.Test()));
 			Console.WriteLine(kitchen.CanMake(PizzaLoader.Test()));
+
 			kitchen.AddOrder(PizzaLoader.Test(), new ClientsCompany());
+			while (true) {
+				kitchen.PripaxatPovarov();
+				Console.WriteLine(kitchen.OrderCnt());
+				Thread.Sleep(100);
+			}
 		}
 	}
 }

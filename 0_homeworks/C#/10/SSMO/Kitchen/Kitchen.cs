@@ -7,16 +7,19 @@ namespace SSMO {
 			public Pizza piz;
 			public ClientsCompany who;
 			public DateTime whenOrder, whenStart;
+			public KitchenStaff master;
 		}
 
 		Cargo cargo;
 		System.Collections.Generic.List<KitchenStaff> staff;
 		System.Collections.Generic.Queue<KitchenPizza> orders;
+		List<KitchenPizza> cooked;
 
 		public Kitchen(Cargo _cargo) {
 			cargo = _cargo;
 			orders = new System.Collections.Generic.Queue<KitchenPizza>(32);
 			staff = new List<KitchenStaff>(6);
+			cooked = new List<KitchenPizza>(staff.Capacity);
 		}
 
 		public void AddStaff(KitchenStaff _staff) {
@@ -25,11 +28,8 @@ namespace SSMO {
 
 		public bool CanMake(Pizza order) {
 			bool res = true, deli = false;
-			Ingradient[] ing = order.Ingradients;
-			foreach (var i in ing) {
-				Console.Write(i.Name);
+			foreach (var i in order.Ingradients) {
 				if (cargo.CanTakeIngradient(i) != 0) {
-					Console.Write(" : false");
 					if (!cargo.IsOrderedd(i)) {
 						var massPrev = i.MassGr;
 						i.MassGr = 7500;
@@ -40,7 +40,6 @@ namespace SSMO {
 					}
 					res = false;
 				}
-				Console.Write("\n");
 			}
 			if (deli)
 				cargo.OrderIngradient(null, deli);
@@ -48,10 +47,29 @@ namespace SSMO {
 		}
 
 		public void PripaxatPovarov() {
-			foreach(var i in staff) {
-				if (i.IsReady) {
+			if(orders.Count != 0)
+			foreach(var pizzaMaster in staff) {
+				if (pizzaMaster.IsReady) {
+					pizzaMaster.IsReady = false;
+					KitchenPizza order = orders.Dequeue();
+					
+					order.master = pizzaMaster;
+					order.whenStart = DateTime.Now;
+					order.piz.QualityMod = pizzaMaster.QualityMod;
 
-					i.IsReady = false;
+					cooked.Add(order);
+				}
+			}
+			GivePizzaToCompany();
+		}
+
+		void GivePizzaToCompany() {
+			foreach(var piz in cooked) {
+				if(piz.whenStart.AddSeconds(piz.piz.MakeTime) <= DateTime.Now) {
+					piz.master.IsReady = true;
+					cooked.Remove(piz);
+					GivePizzaToCompany();
+					break;
 				}
 			}
 		}
@@ -61,7 +79,7 @@ namespace SSMO {
 		}
 
 		public int OrderCnt() {
-			return orders.Count;
+			return orders.Count + cooked.Count;
 		}
 	}
 }

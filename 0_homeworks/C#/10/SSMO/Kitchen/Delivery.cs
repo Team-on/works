@@ -71,7 +71,10 @@ namespace SSMO {
 
 		public bool IsInOrder(Ingradient what) {
 			foreach (var i in toOrder)
-				if(i.Equals(what))
+				if(i.Name == what.Name)
+					return true;
+			foreach (var i in toDeliver)
+				if (i.Name == what.Name)
 					return true;
 			return false;
 		}
