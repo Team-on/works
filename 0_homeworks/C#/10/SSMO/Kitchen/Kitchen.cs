@@ -22,6 +22,14 @@ namespace SSMO {
 			cooked = new List<KitchenPizza>(staff.Capacity);
 		}
 
+		public void WeeklyDeliver() {
+			foreach (var i in IngradientLoader.GetAll()) {
+				i.MassGr = 10000;
+				cargo.OrderIngradient(i);
+			}
+			cargo.OrderIngradient(null, true);
+		}
+
 		public void AddStaff(KitchenStaff _staff) {
 			staff.Add(_staff);
 		}
@@ -49,6 +57,8 @@ namespace SSMO {
 		public void PripaxatPovarov() {
 			if(orders.Count != 0)
 			foreach(var pizzaMaster in staff) {
+				if (orders.Count == 0)
+					break;
 				if (pizzaMaster.IsReady) {
 					pizzaMaster.IsReady = false;
 					KitchenPizza order = orders.Dequeue();
@@ -56,6 +66,8 @@ namespace SSMO {
 					order.master = pizzaMaster;
 					order.whenStart = DateTime.Now;
 					order.piz.QualityMod = pizzaMaster.QualityMod;
+					foreach (var i in order.piz.Ingradients)
+						cargo.TakeIngradient(i, ref Money.value);
 
 					cooked.Add(order);
 				}
@@ -68,6 +80,9 @@ namespace SSMO {
 				if(piz.whenStart.AddSeconds(piz.piz.MakeTime) <= DateTime.Now) {
 					piz.master.IsReady = true;
 					cooked.Remove(piz);
+
+					piz.who.GetPizza();
+
 					GivePizzaToCompany();
 					break;
 				}

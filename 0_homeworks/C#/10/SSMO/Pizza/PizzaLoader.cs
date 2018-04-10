@@ -41,6 +41,10 @@ namespace SSMO {
 
 		}
 
+		static public Pizza RandomPizza() {
+			return Test();
+		}
+
 		static public Pizza Test() {
 			return BasicLoad("ТестоваПіца№1");
 		}

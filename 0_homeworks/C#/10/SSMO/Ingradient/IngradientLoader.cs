@@ -86,5 +86,22 @@ namespace SSMO {
 		static public Ingradient Mayonnaise() {
 			return BasicLoad("Майонез");
 		}
+
+		static public Ingradient[] GetAll() {
+			return new Ingradient[] {
+				IngradientLoader.Garlic(),
+				IngradientLoader.Grass(),
+				IngradientLoader.Fish(),
+				IngradientLoader.Sausage(),
+				IngradientLoader.Tomato(),
+				IngradientLoader.Onion(),
+				IngradientLoader.Cucumber(),
+				IngradientLoader.Flour(),
+				IngradientLoader.Yeast(),
+				IngradientLoader.Ketchup(),
+				IngradientLoader.TomatoSauce(),
+				IngradientLoader.Mayonnaise()
+			};
+		}
 	}
 }
