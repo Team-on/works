@@ -17,12 +17,17 @@ namespace SSMO {
 		Place where;
 		List<Client> clients;
 		List<Pizza> wantOrder;
+		List<Pizza> OnTable;
 		public DateTime inCafe, inTable, makeOrder, getOrder;
 		public ushort eatTime;
 		ushort gettedPizza;
 
 		public List<Pizza> GetWhatOrder() {
-			return wantOrder;
+			return OnTable;
+		}
+
+		public void AddOrderedPizza(Pizza p) {
+			OnTable.Add(p);
 		}
 
 		public byte Count { get { return (byte)clients.Count; } }
@@ -30,6 +35,7 @@ namespace SSMO {
 		public ClientsCompany() {
 			clients = new List<Client>(5);
 			wantOrder = new List<Pizza>(3);
+			OnTable = new List<Pizza>(3);
 			inCafe = DateTime.Now;
 		}
 

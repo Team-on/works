@@ -30,6 +30,10 @@ namespace SSMO {
 		public short SecondsToDeliver { get; private set; }
 		public double CostMod { get; private set; }
 
+		public List<IngradientWithPrice> GetToOrder() => toOrder;
+		public List<IngradientOnCargo> GetToDeliver() => toDeliver;
+
+
 		public DeliveryBasic() : this(DELIVERY_TYPE.All, 1.00, 5, 1.00) {
 		}
 
@@ -90,7 +94,8 @@ namespace SSMO {
 			return orderPrice;
 		}
 		public bool CanTakeDeliver() {
-			return DateTime.Now >= orderTime.AddSeconds(SecondsToDeliver);
+			//return DateTime.Now >= orderTime.AddSeconds(SecondsToDeliver);
+			return true;
 		}
 		public IngradientOnCargo[] TakeDeliver() {
 			var res = toDeliver.ToArray();

@@ -9,6 +9,10 @@ namespace SSMO {
 		IDelivery delivery;
 		List<IngradientOnCargo> ingradients;
 
+		public List<IngradientOnCargo> GetIngradients() => ingradients;
+
+		public DeliveryBasic GetDelivery() => (DeliveryBasic)delivery;
+
 		public Cargo() : this(1, 1, null) {
 		}
 
@@ -25,7 +29,7 @@ namespace SSMO {
 			if (find == null)
 				return -1;
 			if (find.MassGr < what.MassGr)
-				return (int)find.MassGr;
+				return -1;
 			return 0;
 		}
 
@@ -58,7 +62,7 @@ namespace SSMO {
 		public void OrderIngradient(Ingradient what, bool Immediate = false) {
 			if (what != null && delivery.CanOrder(what))
 				delivery.AddToOrder(what);
-
+			Log.log.LogNewLine("Cargo->order");
 			if (Immediate || GetOrderPrice() >= 1500) {
 				isOrdered = true;
 				CheckOrder();

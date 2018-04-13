@@ -31,23 +31,23 @@ namespace SSMO {
 		static public void CreateIngradientFile() {
 			Directory.CreateDirectory(ingradientsFolder);
 
-			SerializeIngradiente("Риба", "Біла і слизька", DELIVERY_TYPE.SeeFood);
+			SerializeIngradiente("Риба", "Default", DELIVERY_TYPE.SeeFood);
 			SerializeIngradiente("Морепродукти", "Default", DELIVERY_TYPE.SeeFood); 
 			SerializeIngradiente("Крабове мясо", "Default", DELIVERY_TYPE.SeeFood);
 
 			
 
-			SerializeIngradiente("Ковбаса", "Червона і довга", DELIVERY_TYPE.MeatShop);
+			SerializeIngradiente("Ковбаса", "Default", DELIVERY_TYPE.MeatShop);
 			SerializeIngradiente("Ветчина", "Default", DELIVERY_TYPE.MeatShop);			
 			SerializeIngradiente("Бекон", "Default", DELIVERY_TYPE.MeatShop);			
 			SerializeIngradiente("Ковбаса папероні", "Default", DELIVERY_TYPE.MeatShop);
 			SerializeIngradiente("Салямі", "Default", DELIVERY_TYPE.MeatShop);
 
 
-			SerializeIngradiente("Помідор", "Червоний і круглий", DELIVERY_TYPE.Grocery);
-			SerializeIngradiente("Цибуля", "Біля і кругла", DELIVERY_TYPE.Grocery);
-			SerializeIngradiente("Огірок", "Зелений і довгий", DELIVERY_TYPE.Grocery);
-			SerializeIngradiente("Часник", "Білий і гіркий", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Помідор", "Default", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Цибуля", "Default", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Огірок", "Default", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Часник", "Default", DELIVERY_TYPE.Grocery);
 			SerializeIngradiente("Щось зелене", "Трава", DELIVERY_TYPE.Grocery);
 			SerializeIngradiente("Маслини", "Default", DELIVERY_TYPE.Grocery);         
 			SerializeIngradiente("Гриби", "Default", DELIVERY_TYPE.Grocery);          
@@ -64,9 +64,9 @@ namespace SSMO {
 			SerializeIngradiente("Мука", "Білий порошок", DELIVERY_TYPE.Flour);
 			SerializeIngradiente("Дріжді", "???", DELIVERY_TYPE.Flour);
 
-			SerializeIngradiente("Кетчуп", "Червоний і вологий", DELIVERY_TYPE.Sauces);
-			SerializeIngradiente("Соус", "Помісь Кетчупу і Майонезу", DELIVERY_TYPE.Sauces);
-			SerializeIngradiente("Майонез", "Білий і вологий", DELIVERY_TYPE.Sauces);
+			SerializeIngradiente("Кетчуп", "Default", DELIVERY_TYPE.Sauces);
+			SerializeIngradiente("Соус", "Default", DELIVERY_TYPE.Sauces);
+			SerializeIngradiente("Майонез", "Default", DELIVERY_TYPE.Sauces);
 		}
 
 		static public Ingradient Garlic() {

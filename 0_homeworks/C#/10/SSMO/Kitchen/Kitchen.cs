@@ -30,6 +30,8 @@ namespace SSMO {
 			cooked = new List<KitchenPizza>(staff.Capacity);
 		}
 
+		public Cargo GetCargo() => cargo;
+
 		public void WeeklyDeliver() {
 			foreach (var i in IngradientLoader.GetAll()) {
 				i.MassGr = 10000;
@@ -47,11 +49,12 @@ namespace SSMO {
 			foreach (var i in order.Ingradients) {
 				if (cargo.CanTakeIngradient(i) != 0) {
 					if (!cargo.IsOrderedd(i)) {
+						Log.log.LogNewLine("Kitchen->deliver");
 						var massPrev = i.MassGr;
 						i.MassGr = 7500;
 						if (i.Name == IngradientLoader.Flour().Name || i.Name == IngradientLoader.Yeast().Name) 
 							deli = true;
-						cargo.OrderIngradient(i);
+						cargo.OrderIngradient(new Ingradient(i));
 						i.MassGr = massPrev;
 					}
 					res = false;
@@ -87,10 +90,9 @@ namespace SSMO {
 							order.master = pizzaMaster;
 							order.whenStart = DateTime.Now;
 							order.piz.QualityMod = pizzaMaster.QualityMod;
-							foreach (var i in order.piz.Ingradients) {
+							for(int i = 0; i < order.piz.Ingradients.Length; ++i) {
 								double prev = Money.value;
-								//order.piz.Ingradients[0]=
-								cargo.TakeIngradient(i, ref Money.value);
+								order.piz.Ingradients[i] = cargo.TakeIngradient(order.piz.Ingradients[i], ref Money.value);
 								order.piz.Price += prev - Money.value;
 							}
 							order.piz.Price *= 1.5;
@@ -114,10 +116,10 @@ namespace SSMO {
 			foreach(var piz in cooked) {
 				if(piz.whenStart.AddSeconds(piz.piz.MakeTime) <= DateTime.Now) {
 					piz.master.IsReady = true;
-					cooked.Remove(piz);
-
+					piz.who.AddOrderedPizza(piz.piz);
 					piz.who.GetPizza();
 
+					cooked.Remove(piz);
 					GivePizzaToCompany();
 					break;
 				}
