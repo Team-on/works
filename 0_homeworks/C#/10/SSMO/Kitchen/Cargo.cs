@@ -33,6 +33,11 @@ namespace SSMO {
 			return 0;
 		}
 
+		public uint GetIngMass(Ingradient what) {
+			IngradientOnCargo find = ingradients.Find(i => i.Name == what.Name);
+			return find?.MassGr??0;
+		}
+
 		public Ingradient TakeIngradient(Ingradient what, ref double userMoney) {
 			CheckOrder();
 			IngradientOnCargo find = ingradients.Find(i => i.Name == what.Name);
@@ -46,8 +51,10 @@ namespace SSMO {
 			res.Quality.current = (int)(res.Quality.current * this.QualityMod) - (DateTime.Now - find.PlacedOn).Seconds ;
 
 			double deliverPriceBuy = find.PriceSell * what.MassGr / 1000;
-			userMoney -= deliverPriceBuy * SellMod;
-			EarnedMoney += deliverPriceBuy * SellMod;
+			if (userMoney != 0) {
+				userMoney -= deliverPriceBuy * SellMod;
+				EarnedMoney += deliverPriceBuy * SellMod;
+			}
 
 			if (find.MassGr == 0)
 				ingradients.Remove(find);
@@ -62,7 +69,6 @@ namespace SSMO {
 		public void OrderIngradient(Ingradient what, bool Immediate = false) {
 			if (what != null && delivery.CanOrder(what))
 				delivery.AddToOrder(what);
-			Log.log.LogNewLine("Cargo->order");
 			if (Immediate || GetOrderPrice() >= 1500) {
 				isOrdered = true;
 				CheckOrder();
@@ -74,9 +80,13 @@ namespace SSMO {
 			if (isOrdered)
 				EarnedMoney -= delivery.Order();
 			if (delivery.CanTakeDeliver()) {
-				IngradientOnCargo[] res = delivery.TakeDeliver();
-				foreach (var i in res)
-					ingradients.Add(i);
+				foreach (var i in delivery.TakeDeliver()) {
+					if (ingradients.Find(tmp => tmp.Name == i.Name) != null) {
+						ingradients.Find(tmp => tmp.Name == i.Name).MassGr += i.MassGr;
+					}
+					else
+						ingradients.Add(i);
+				}
 			}
 		}
 

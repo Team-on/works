@@ -94,8 +94,8 @@ namespace SSMO {
 			return orderPrice;
 		}
 		public bool CanTakeDeliver() {
-			//return DateTime.Now >= orderTime.AddSeconds(SecondsToDeliver);
-			return true;
+			return DateTime.Now >= orderTime.AddSeconds(SecondsToDeliver);
+			//return true;
 		}
 		public IngradientOnCargo[] TakeDeliver() {
 			var res = toDeliver.ToArray();

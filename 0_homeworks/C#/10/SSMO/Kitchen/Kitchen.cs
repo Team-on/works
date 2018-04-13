@@ -49,7 +49,6 @@ namespace SSMO {
 			foreach (var i in order.Ingradients) {
 				if (cargo.CanTakeIngradient(i) != 0) {
 					if (!cargo.IsOrderedd(i)) {
-						Log.log.LogNewLine("Kitchen->deliver");
 						var massPrev = i.MassGr;
 						i.MassGr = 7500;
 						if (i.Name == IngradientLoader.Flour().Name || i.Name == IngradientLoader.Yeast().Name) 
@@ -77,6 +76,12 @@ namespace SSMO {
 		}
 
 		public void PripaxatPovarov() {
+			if (cargo.GetIngMass(IngradientLoader.Flour()) <= 2000 && !cargo.IsOrderedd(IngradientLoader.Flour())) {
+				var t = IngradientLoader.Flour();
+				t.MassGr = 25000;
+				cargo.OrderIngradient(t, true);
+			}
+
 			CheckSalary();
 				if (orders.Count != 0)
 					foreach (var pizzaMaster in staff) {
@@ -85,8 +90,8 @@ namespace SSMO {
 						if (pizzaMaster.IsReady) {
 							pizzaMaster.IsReady = false;
 							KitchenPizza order = orders.Dequeue();
-						RESTART:
-						try {
+					//	RESTART:
+					//	try {
 							order.master = pizzaMaster;
 							order.whenStart = DateTime.Now;
 							order.piz.QualityMod = pizzaMaster.QualityMod;
@@ -98,15 +103,15 @@ namespace SSMO {
 							order.piz.Price *= 1.5;
 
 							cooked.Add(order);
-						}
-						catch (Exception exc) {
-							foreach (var i in order.piz.Ingradients)
-								if(!cargo.IsOrderedd(i))
-									cargo.OrderIngradient(i);
-							cargo.OrderIngradient(null, true);
-							order.who.RePickPizzas(this, order.piz);
-							goto RESTART;
-						}
+					//	}
+					//	catch (Exception exc) {
+						//	foreach (var i in order.piz.Ingradients)
+						//		if(!cargo.IsOrderedd(i))
+						//			cargo.OrderIngradient(i);
+						//	cargo.OrderIngradient(null, true);
+							//order.who.RePickPizzas(this, order.piz);
+							//goto RESTART;
+						//}
 					}
 					}
 				GivePizzaToCompany();

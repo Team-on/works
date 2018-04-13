@@ -8,7 +8,7 @@ namespace SSMO {
 		const int ClientEatTime = 5;  //[25%; 200%]
 		const int MinClientsPerCompany = 1;
 		const int MaxClientsPerCompany = 6;
-		const int clientWisitChanse = 100;
+		const int clientWisitChanse = 35;
 		Coord HallSize = new Coord(51, 31);
 		ushort tableCnt = (ushort)(Rand.rand.Next(5, 15));
 		ushort tableCntReal = 0;
@@ -18,7 +18,7 @@ namespace SSMO {
 		List<ClientsCompany> waitClients;
 		Hall hall;
 		Kitchen kitchen;
-		byte menuChoose = 0, menuChoosePrevPos = 1, menuPuncts;
+		byte menuChoose = 0, menuChoosePrevPos = 1, menuPuncts, horisontalPos = 0;
 
 		public PizzaShop() {
 			waitClients = new List<ClientsCompany>(8);
@@ -461,6 +461,9 @@ namespace SSMO {
 					if (menuChoose >= menuPuncts)
 						menuChoose = 0;
 				}
+				else if (input.Key == ConsoleKey.LeftArrow || input.Key == ConsoleKey.RightArrow) {
+					horisontalPos = (byte) ((horisontalPos == 0) ? 1 : 0);
+				}
 			}
 
 			ConsoleKeyInfo? Input() {
@@ -541,9 +544,29 @@ namespace SSMO {
 			else
 				TableInfo(menuChoose - 5);
 
-			for (int i = 0; i < content.Count && hall.leftUpCorner.y + 2 + i < hall.rightDownCorner.y; ++i) {
-				Console.SetCursorPosition(hall.rightDownCorner.x + 2, hall.leftUpCorner.y + 1 + i);
-				Console.WriteLine(content[i]);
+			if ((menuChoose == 1 || menuChoose == 2) && horisontalPos == 1 && content.Count > hall.rightDownCorner.y - hall.leftUpCorner.y - 5) {
+				if (menuChoose == 2) {
+					Console.SetCursorPosition(hall.rightDownCorner.x + 2, hall.rightDownCorner.y - hall.leftUpCorner.y - 5 - hall.rightDownCorner.y + hall.leftUpCorner.y + 7);
+					Console.WriteLine(content[5]);
+					Console.SetCursorPosition(hall.rightDownCorner.x + 2, hall.rightDownCorner.y - hall.leftUpCorner.y - 4 - hall.rightDownCorner.y + hall.leftUpCorner.y + 7);
+					Console.WriteLine(content[6]);
+				}
+				else {
+					Console.SetCursorPosition(hall.rightDownCorner.x + 2, hall.rightDownCorner.y - hall.leftUpCorner.y - 5 - hall.rightDownCorner.y + hall.leftUpCorner.y + 7);
+					Console.WriteLine(content[7]);
+					Console.SetCursorPosition(hall.rightDownCorner.x + 2, hall.rightDownCorner.y - hall.leftUpCorner.y - 4 - hall.rightDownCorner.y + hall.leftUpCorner.y + 7);
+					Console.WriteLine(content[8]);
+				}
+				for (int i = hall.rightDownCorner.y - hall.leftUpCorner.y - 3; i < content.Count; ++i) {
+					Console.SetCursorPosition(hall.rightDownCorner.x + 2, i - hall.rightDownCorner.y + hall.leftUpCorner.y + 7);
+					Console.WriteLine(content[i]);
+				}
+			}
+			else {
+				for (int i = 0; i < content.Count && hall.leftUpCorner.y + 2 + i < hall.rightDownCorner.y; ++i) {
+					Console.SetCursorPosition(hall.rightDownCorner.x + 2, hall.leftUpCorner.y + 1 + i);
+					Console.WriteLine(content[i]);
+				}
 			}
 
 			void FillWithPizzaShop() {
@@ -622,26 +645,27 @@ namespace SSMO {
 				content.Add(string.Format("SellMod: {0}", cargo.SellMod));
 
 				List<IngradientOnCargo> list = cargo.GetIngradients();
-				content.Add("");
-				content.Add("In order: ");
-				content.Add(string.Format("{0,-20} ║ {1,-7} ║ {2,-14} ║ {3,-7} ║ {4,-20}",
-						"Name",
-						"MassGr",
-						"PriceSell(Buy)",
-						"Quality",
-						"Description"
-						));
-				content.Add(new string('═', 21) + "╬" + new string('═', 9) + "╬" + new string('═', 16) + "╬" + new string('═', 9) + "╬" + new string('═', 27));
-				foreach (var i in list) {
+				if (list.Count != 0) {
+					content.Add("");
+					content.Add("");
 					content.Add(string.Format("{0,-20} ║ {1,-7} ║ {2,-14} ║ {3,-7} ║ {4,-20}",
-						i.Name,
-						i.MassGr,
-						i.PriceSell.ToString() + "(" + i.PriceBuy.ToString() + ")",
-						i.Quality.current,
-						i.Description
-						));
+							"Name",
+							"MassGr",
+							"PriceSell(Buy)",
+							"Quality",
+							"Description"
+							));
+					content.Add(new string('═', 21) + "╬" + new string('═', 9) + "╬" + new string('═', 16) + "╬" + new string('═', 9) + "╬" + new string('═', 27));
+					foreach (var i in list) {
+						content.Add(string.Format("{0,-20} ║ {1,-7} ║ {2,-14} ║ {3,-7} ║ {4,-20}",
+							i.Name,
+							i.MassGr,
+							(i.PriceSell * cargo.SellMod).ToString() + "(" + i.PriceSell.ToString() + ")",
+							i.Quality.current * cargo.QualityMod,
+							i.Description
+							));
+					}
 				}
-
 			}
 			void FillWithKitchen() {
 				content.Add(string.Format("{0,-11} ║ {1,-13} ║ {2,-11} ║ {3,-15} ║ {4,-4} ║ {5,-4}", "Name", "Clicuxa", "Surname", "Posada", "QMod", "Salary"));

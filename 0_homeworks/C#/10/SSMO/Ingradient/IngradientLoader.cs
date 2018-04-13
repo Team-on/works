@@ -21,7 +21,7 @@ namespace SSMO {
 
 		static Ingradient BasicLoad(string name) {
 			using (fout = new FileStream(ingradientsFolder + name + ".ing", FileMode.OpenOrCreate))
-				return fs.Deserialize(fout) as Ingradient;
+				 return fs.Deserialize(fout) as Ingradient;
 		}
 
 		static public bool IsIngradientsExist() {

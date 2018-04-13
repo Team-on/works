@@ -19,7 +19,7 @@ namespace SSMO {
 
 		static Pizza BasicLoad(string name) {
 			using (fout = new FileStream(pizzaFolder + name + ".piz", FileMode.Open))
-				return fs.Deserialize(fout) as Pizza;
+				 return fs.Deserialize(fout) as Pizza;
 		}
 
 		static public bool IsPizzaExist() {
