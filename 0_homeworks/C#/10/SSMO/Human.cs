@@ -17,7 +17,8 @@
 				}
 				currArr = currArr == golosni ? prigolosni : golosni;
 			}
-			return newName;
+			
+			return newName[0].ToString().ToUpper() + newName.Substring(1);
 		}
 	}
 }

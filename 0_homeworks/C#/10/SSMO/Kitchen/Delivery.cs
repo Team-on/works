@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace SSMO {
-	enum DELIVERY_TYPE : byte { NONE, All, SeeFood, Grocery, Flour, Sauces, MeatShop, END_OF_DELIVERY_TYPE };
+	enum DELIVERY_TYPE : byte { NONE, All, SeeFood, Grocery, Flour, Sauces, MeatShop, Cheese, Spice, END_OF_DELIVERY_TYPE };
 
 	interface IDelivery {
 		DELIVERY_TYPE DeliveryType { get; }

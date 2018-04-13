@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,17 @@ namespace SSMO {
 		}
 	}
 
-	class ClientsCompany {
+	class ClientsCompany : IEnumerable {
 		Place where;
 		List<Client> clients;
 		List<Pizza> wantOrder;
 		public DateTime inCafe, inTable, makeOrder, getOrder;
 		public ushort eatTime;
 		ushort gettedPizza;
+
+		public List<Pizza> GetWhatOrder() {
+			return wantOrder;
+		}
 
 		public byte Count { get { return (byte)clients.Count; } }
 
@@ -71,13 +76,42 @@ namespace SSMO {
 			}
 		}
 
-		public void Leave() {
+		public void PickPizzas(Kitchen kitchen) {
+			int pizzaCnt = Rand.rand.Next(1, 4);
+			while (pizzaCnt-- != 0) {
+				Pizza pizza;
+				while (!kitchen.CanMake(pizza = PizzaLoader.RandomPizza()));
+				AddPizza(pizza);
+			}
+		}
+
+		public void RePickPizzas(Kitchen kitchen, Pizza _pizza) {
+			for (int i = 0; i < wantOrder.Count; i++) {
+				if (wantOrder[i].Name == _pizza.Name) {
+					wantOrder[i] = PizzaLoader.RandomPizza();
+					int cnt = 0;
+					while (!kitchen.CanMake(wantOrder[i] = PizzaLoader.RandomPizza()))
+						if (++cnt > 1000) {
+							wantOrder[i] = PizzaLoader.Fokacha();
+							break;
+						}
+				}
+			}
+		}
+
+		void Leave() {
 			where.PlacePizza(false);
 			where.PlaceHumans(255, false);
 			where.isFree = true;
 			where.client = null;
+			foreach(var p in wantOrder)
+				Money.value += p.Price;
+			if(getOrder <= makeOrder.AddSeconds(15));
+				Money.value += Rand.rand.Next(0, 11);
 		}
 
-
+		public IEnumerator GetEnumerator() {
+			return clients.GetEnumerator();
+		}
 	}
 }

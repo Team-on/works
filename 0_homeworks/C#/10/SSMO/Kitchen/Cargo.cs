@@ -32,15 +32,16 @@ namespace SSMO {
 		public Ingradient TakeIngradient(Ingradient what, ref double userMoney) {
 			CheckOrder();
 			IngradientOnCargo find = ingradients.Find(i => i.Name == what.Name);
-			if (find == null || find.MassGr < what.MassGr)
+			if (find == null || find.MassGr < what.MassGr) {
 				return null;
+				throw new Exception("No more ings");
+			}
 
 			var res = new Ingradient(find) { MassGr = what.MassGr };
 			find.MassGr -= what.MassGr;
 			res.Quality.current = (int)(res.Quality.current * this.QualityMod) - (DateTime.Now - find.PlacedOn).Seconds ;
 
 			double deliverPriceBuy = find.PriceSell * what.MassGr / 1000;
-			double userMoneyStart = userMoney;
 			userMoney -= deliverPriceBuy * SellMod;
 			EarnedMoney += deliverPriceBuy * SellMod;
 
@@ -58,7 +59,7 @@ namespace SSMO {
 			if (what != null && delivery.CanOrder(what))
 				delivery.AddToOrder(what);
 
-			if (Immediate || GetOrderPrice() >= 3000) {
+			if (Immediate || GetOrderPrice() >= 1500) {
 				isOrdered = true;
 				CheckOrder();
 				isOrdered = false;

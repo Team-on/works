@@ -17,12 +17,16 @@ namespace SSMO {
 
 		public Coord refPos;
 		public bool withPeople = false;
+		bool prevPrintState = true;
 
 		public Chair(Coord refpos) {
 			refPos = refpos;
 		}
 
 		public void Print() {
+			if (prevPrintState == withPeople)
+				return;
+			prevPrintState = withPeople;
 			Console.CursorLeft += refPos.x;
 			Console.CursorTop += refPos.y;
 			Console.BackgroundColor = ConsoleColor.Black;
@@ -45,6 +49,7 @@ namespace SSMO {
 		protected List<Chair> chairs;
 		public Coord refPos;
 		public bool isFree = true;
+		protected bool prevPrintState = true;
 		public ClientsCompany client;
 
 		public void PlacePizza(bool state) => withPizza = state;
@@ -73,16 +78,19 @@ namespace SSMO {
 		public void AddChair(Chair chair) => chairs.Add(chair);
 
 		public virtual void Print(Coord startPos) {
-			Console.CursorLeft = startPos.x + refPos.x;
-			Console.CursorTop = startPos.y + refPos.y;
-			Console.BackgroundColor = ConsoleColor.Black;
-			if (withPizza) {
-				Console.ForegroundColor = ConsoleColor.Yellow;
-				Console.Write(symbolPizza);
-			}
-			else {
-				Console.ForegroundColor = ConsoleColor.DarkYellow;
-				Console.Write(symbol);
+			if (prevPrintState != withPizza) {
+				prevPrintState = withPizza;
+				Console.CursorLeft = startPos.x + refPos.x;
+				Console.CursorTop = startPos.y + refPos.y;
+				Console.BackgroundColor = ConsoleColor.Black;
+				if (withPizza) {
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.Write(symbolPizza);
+				}
+				else {
+					Console.ForegroundColor = ConsoleColor.DarkYellow;
+					Console.Write(symbol);
+				}
 			}
 			foreach (var i in chairs) {
 				Console.CursorLeft = startPos.x + refPos.x;
@@ -102,20 +110,52 @@ namespace SSMO {
 		}
 
 		public override void Print(Coord startPos) {
-			base.Print(startPos);
-			foreach (var i in tables) {
-				Console.CursorLeft = startPos.x + i.x + refPos.x;
-				Console.CursorTop = startPos.y + i.y + refPos.y;
-				Console.BackgroundColor = ConsoleColor.Black;
-				Console.ForegroundColor = ConsoleColor.DarkYellow;
-				Console.Write(symbol);
+			if (prevPrintState != withPizza) {
+				foreach (var i in tables) {
+					Console.CursorLeft = startPos.x + i.x + refPos.x;
+					Console.CursorTop = startPos.y + i.y + refPos.y;
+					Console.BackgroundColor = ConsoleColor.Black;
+					Console.ForegroundColor = ConsoleColor.DarkYellow;
+					Console.Write(symbol);
+				}
 			}
+			base.Print(startPos);
+		}
+
+		public bool FreePlace(Coord check) {
+			if (refPos.x - check.x < 0 || refPos.y - check.y < 0)
+				return false;
+			foreach(var i in tables)
+				if(i.x == check.x && i.y == check.y)
+					return false;
+			foreach (var i in chairs)
+				if (i.refPos.x == check.x && i.refPos.y == check.y)
+					return false;
+			return true;
+		}
+		public bool NearTable(Coord check) {
+			int abs(int a) => a < 0 ?-a:a;
+
+			if ( 
+				(abs(check.x) == 1 && abs(check.y) == 0) ||
+				(abs(check.x) == 0 && abs(check.y) == 1)
+				)
+				return true;
+			foreach (var i in tables) {
+				if (
+				(abs(check.x - i.x) == 1 && abs(check.y - i.y) == 0) ||
+				(abs(check.x - i.x) == 0 && abs(check.y - i.y) == 1)
+				)
+					return true;
+			}
+			return false;
 		}
 	}
 
 	class Hall {
 		public Coord leftUpCorner;
 		public Coord rightDownCorner;
+		string[] walls;
 
 		List<Place> places;
 
@@ -123,6 +163,39 @@ namespace SSMO {
 			leftUpCorner = _leftUpCorner;
 			rightDownCorner = _rightDownCorner;
 			places = new List<Place>();
+		}
+
+		public void SetWalls(string[] _walls) {
+			walls = _walls;
+		}
+
+		public void PrintWalls() {
+			Console.ForegroundColor = ConsoleColor.DarkGray;
+			Console.BackgroundColor = ConsoleColor.Black;
+			Console.SetCursorPosition(leftUpCorner.x, leftUpCorner.y);
+			foreach (var i in walls) {
+				foreach (var j in i) {
+					if (j == '-' || j == '|') {
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.BackgroundColor = ConsoleColor.Black;
+					}
+					if (j == '#') {
+						Console.ForegroundColor = ConsoleColor.Black;
+						Console.BackgroundColor = ConsoleColor.White;
+					}
+					if(j != ' ')
+						Console.Write(j);
+					else
+						Console.Write('.');
+
+					if (j == '-' || j == '|' || j == '#') {
+						Console.ForegroundColor = ConsoleColor.DarkGray;
+						Console.BackgroundColor = ConsoleColor.Black;
+					}
+				}
+				Console.CursorLeft = leftUpCorner.x;
+				++Console.CursorTop;
+			}
 		}
 
 		public void AddPlace(Place place) => places.Add(place);
@@ -137,12 +210,23 @@ namespace SSMO {
 				i.Print(leftUpCorner);
 		}
 
+		public bool NearTable(Coord pos) {
+			foreach (var i in places)
+				if (Math.Abs(i.refPos.x - pos.x) <= 3 && Math.Abs(i.refPos.y - pos.y) <= 3)
+					return true;
+			return false;
+		}
+
 		public Place GetFreePlace(byte humanCnt) {
 			foreach (var i in places)
 				if (i.isFree && i.ChairsCnt >= humanCnt)
 					return i;
 			return null;
 			
+		}
+
+		public Place GetPlaceById(int id) {
+			return places[id];
 		}
 
 	}

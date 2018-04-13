@@ -11,7 +11,7 @@ namespace SSMO {
 
 		public Staff(string _Clicuxa, string _Posada, string _name, string _surname) {
 			Posada = _Posada;
-			_Clicuxa = Clicuxa;
+			Clicuxa = _Clicuxa;
 			Name = _name;
 			Surname = _surname;
 		}
@@ -20,10 +20,12 @@ namespace SSMO {
 	class KitchenStaff : Staff {
 		public double QualityMod { get; private set; }
 		public bool IsReady;
+		public double Salary { get; private set; }
 
-		public KitchenStaff(Staff st, double qmod) : base(st.Clicuxa, st.Posada, st.Name, st.Surname) {
+		public KitchenStaff(Staff st, double qmod, double _Salary) : base(st.Clicuxa, st.Posada, st.Name, st.Surname) {
 			IsReady = true;
 			QualityMod = qmod;
+			Salary = _Salary;
 		}
 	}
 }

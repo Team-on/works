@@ -12,7 +12,7 @@ namespace SSMO {
 
 		static string ingradientsFolder = System.Environment.CurrentDirectory + @"\Ingradients\";
 
-		static void SerializeIngradiente(string name, string desc, DELIVERY_TYPE delType, IFormatter fs) {
+		static void SerializeIngradiente(string name, string desc, DELIVERY_TYPE delType) {
 			using (fout = new FileStream(ingradientsFolder + name + ".ing", FileMode.OpenOrCreate)) {
 				ing = new Ingradient(delType, name, desc, 0, 10000);
 				fs.Serialize(fout, ing);
@@ -31,23 +31,42 @@ namespace SSMO {
 		static public void CreateIngradientFile() {
 			Directory.CreateDirectory(ingradientsFolder);
 
-			SerializeIngradiente("Риба", "Біла і слизька", DELIVERY_TYPE.SeeFood, fs);
+			SerializeIngradiente("Риба", "Біла і слизька", DELIVERY_TYPE.SeeFood);
+			SerializeIngradiente("Морепродукти", "Default", DELIVERY_TYPE.SeeFood); 
+			SerializeIngradiente("Крабове мясо", "Default", DELIVERY_TYPE.SeeFood);
 
-			SerializeIngradiente("Ковбаса", "Червона і довга", DELIVERY_TYPE.MeatShop, fs);
+			
 
-			SerializeIngradiente("Помідор", "Червоний і круглий", DELIVERY_TYPE.Grocery, fs);
-			SerializeIngradiente("Цибуля", "Біля і кругла", DELIVERY_TYPE.Grocery, fs);
-			SerializeIngradiente("Огірок", "Зелений і довгий", DELIVERY_TYPE.Grocery, fs);
-			SerializeIngradiente("Часник", "Білий і гіркий", DELIVERY_TYPE.Grocery, fs);
-			SerializeIngradiente("Щось зелене", "Трава", DELIVERY_TYPE.Grocery, fs);
+			SerializeIngradiente("Ковбаса", "Червона і довга", DELIVERY_TYPE.MeatShop);
+			SerializeIngradiente("Ветчина", "Default", DELIVERY_TYPE.MeatShop);			
+			SerializeIngradiente("Бекон", "Default", DELIVERY_TYPE.MeatShop);			
+			SerializeIngradiente("Ковбаса папероні", "Default", DELIVERY_TYPE.MeatShop);
+			SerializeIngradiente("Салямі", "Default", DELIVERY_TYPE.MeatShop);
 
 
-			SerializeIngradiente("Мука", "Білий порошок", DELIVERY_TYPE.Flour, fs);
-			SerializeIngradiente("Дріжді", "???", DELIVERY_TYPE.Flour, fs);
+			SerializeIngradiente("Помідор", "Червоний і круглий", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Цибуля", "Біля і кругла", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Огірок", "Зелений і довгий", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Часник", "Білий і гіркий", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Щось зелене", "Трава", DELIVERY_TYPE.Grocery);
+			SerializeIngradiente("Маслини", "Default", DELIVERY_TYPE.Grocery);         
+			SerializeIngradiente("Гриби", "Default", DELIVERY_TYPE.Grocery);          
+			SerializeIngradiente("Болгарський перець", "Default", DELIVERY_TYPE.Grocery);          
+			SerializeIngradiente("Орегано", "Default", DELIVERY_TYPE.Grocery);          
+			SerializeIngradiente("Ананас", "Default", DELIVERY_TYPE.Grocery);           
 
-			SerializeIngradiente("Кетчуп", "Червоний і вологий", DELIVERY_TYPE.Sauces, fs);
-			SerializeIngradiente("Соус", "Помісь Кетчупу і Майонезу", DELIVERY_TYPE.Sauces, fs);
-			SerializeIngradiente("Майонез", "Білий і вологий", DELIVERY_TYPE.Sauces, fs);
+			SerializeIngradiente("Італійський сир", "Default", DELIVERY_TYPE.Cheese);          
+			SerializeIngradiente("Моцарела", "Default", DELIVERY_TYPE.Cheese);          
+			SerializeIngradiente("Пармезан", "Default", DELIVERY_TYPE.Cheese);           
+
+			SerializeIngradiente("Спеції", "Default", DELIVERY_TYPE.Spice);           
+
+			SerializeIngradiente("Мука", "Білий порошок", DELIVERY_TYPE.Flour);
+			SerializeIngradiente("Дріжді", "???", DELIVERY_TYPE.Flour);
+
+			SerializeIngradiente("Кетчуп", "Червоний і вологий", DELIVERY_TYPE.Sauces);
+			SerializeIngradiente("Соус", "Помісь Кетчупу і Майонезу", DELIVERY_TYPE.Sauces);
+			SerializeIngradiente("Майонез", "Білий і вологий", DELIVERY_TYPE.Sauces);
 		}
 
 		static public Ingradient Garlic() {
@@ -87,6 +106,53 @@ namespace SSMO {
 			return BasicLoad("Майонез");
 		}
 
+		static public Ingradient SeeFood() {
+			return BasicLoad("Морепродукти");
+		}
+		static public Ingradient Crab() {
+			return BasicLoad("Крабове мясо");
+		}
+		static public Ingradient Vetcina() {
+			return BasicLoad("Ветчина");
+		}
+		static public Ingradient Becon() {
+			return BasicLoad("Бекон");
+		}
+		static public Ingradient Paperoni() {
+			return BasicLoad("Ковбаса папероні");
+		}
+		static public Ingradient Salami() {
+			return BasicLoad("Салямі");
+		}
+
+		static public Ingradient Olives() {
+			return BasicLoad("Маслини");
+		}
+		static public Ingradient Mushroom() {
+			return BasicLoad("Гриби");
+		}
+		static public Ingradient BolgarPapper() {
+			return BasicLoad("Болгарський перець");
+		}
+		static public Ingradient Oregano() {
+			return BasicLoad("Орегано");
+		}
+		static public Ingradient Pineapple() {
+			return BasicLoad("Ананас");
+		}
+		static public Ingradient Mozzarela() {
+			return BasicLoad("Моцарела");
+		}
+		static public Ingradient ItalienCheese() {
+			return BasicLoad("Італійський сир");
+		}
+		static public Ingradient Parmezan() {
+			return BasicLoad("Пармезан");
+		}
+		static public Ingradient Spice() {
+			return BasicLoad("Спеції");
+		}
+
 		static public Ingradient[] GetAll() {
 			return new Ingradient[] {
 				IngradientLoader.Garlic(),
@@ -100,8 +166,33 @@ namespace SSMO {
 				IngradientLoader.Yeast(),
 				IngradientLoader.Ketchup(),
 				IngradientLoader.TomatoSauce(),
-				IngradientLoader.Mayonnaise()
-			};
+				IngradientLoader.Mayonnaise(),
+
+				SeeFood(), 
+			
+			Crab(), 
+			
+			Vetcina(), 
+			
+			Becon(), 
+			
+			Paperoni(), 
+			
+			Salami(), 
+			Olives(), 
+			
+			Mushroom(), 
+			
+			BolgarPapper(), 
+			
+			Oregano(), 
+			
+			Pineapple(), 
+			Mozzarela(), 
+			ItalienCheese(), 
+			Parmezan(), 
+			Spice()
+		};
 		}
 	}
 }

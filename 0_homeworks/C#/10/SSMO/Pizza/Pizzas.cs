@@ -22,6 +22,7 @@ namespace SSMO {
 				return (ushort)(quality * QualityMod);
 			}
 		}
+		public double Price { get; set; }
 
 		double _QualityMod;
 		public double QualityMod { get { return _QualityMod; } set { _QualityMod = value<0.30?0.30: value > 4.00 ? 4.00 :value; } }

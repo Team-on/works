@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace SSMO {
 	class Kitchen {
+		const ushort secForSalary = 60;
+
 		class KitchenPizza {
 			public Pizza piz;
 			public ClientsCompany who;
@@ -10,10 +12,16 @@ namespace SSMO {
 			public KitchenStaff master;
 		}
 
+		DateTime lastSalary = new DateTime(0);
+
 		Cargo cargo;
 		System.Collections.Generic.List<KitchenStaff> staff;
 		System.Collections.Generic.Queue<KitchenPizza> orders;
 		List<KitchenPizza> cooked;
+
+		public KitchenStaff[] GetStaff() {
+			return staff.ToArray();
+		}
 
 		public Kitchen(Cargo _cargo) {
 			cargo = _cargo;
@@ -41,7 +49,7 @@ namespace SSMO {
 					if (!cargo.IsOrderedd(i)) {
 						var massPrev = i.MassGr;
 						i.MassGr = 7500;
-						if (i.Name == IngradientLoader.Flour().Name || i.Name == IngradientLoader.Yeast().Name)
+						if (i.Name == IngradientLoader.Flour().Name || i.Name == IngradientLoader.Yeast().Name) 
 							deli = true;
 						cargo.OrderIngradient(i);
 						i.MassGr = massPrev;
@@ -54,25 +62,52 @@ namespace SSMO {
 			return res;
 		}
 
-		public void PripaxatPovarov() {
-			if(orders.Count != 0)
-			foreach(var pizzaMaster in staff) {
-				if (orders.Count == 0)
-					break;
-				if (pizzaMaster.IsReady) {
-					pizzaMaster.IsReady = false;
-					KitchenPizza order = orders.Dequeue();
-					
-					order.master = pizzaMaster;
-					order.whenStart = DateTime.Now;
-					order.piz.QualityMod = pizzaMaster.QualityMod;
-					foreach (var i in order.piz.Ingradients)
-						cargo.TakeIngradient(i, ref Money.value);
-
-					cooked.Add(order);
-				}
+		void CheckSalary() {
+			if(DateTime.Now >= lastSalary.AddSeconds(secForSalary)) {
+				double salary = Money.value;
+				foreach (var i in staff)
+					Money.value -= i.Salary;
+				lastSalary = DateTime.Now;
+				salary -= Money.value;
+				Log.log.LogNewLine("Salary time. Pay " + salary.ToString() + "$");
 			}
-			GivePizzaToCompany();
+		}
+
+		public void PripaxatPovarov() {
+			CheckSalary();
+				if (orders.Count != 0)
+					foreach (var pizzaMaster in staff) {
+						if (orders.Count == 0)
+							break;
+						if (pizzaMaster.IsReady) {
+							pizzaMaster.IsReady = false;
+							KitchenPizza order = orders.Dequeue();
+						RESTART:
+						try {
+							order.master = pizzaMaster;
+							order.whenStart = DateTime.Now;
+							order.piz.QualityMod = pizzaMaster.QualityMod;
+							foreach (var i in order.piz.Ingradients) {
+								double prev = Money.value;
+								//order.piz.Ingradients[0]=
+								cargo.TakeIngradient(i, ref Money.value);
+								order.piz.Price += prev - Money.value;
+							}
+							order.piz.Price *= 1.5;
+
+							cooked.Add(order);
+						}
+						catch (Exception exc) {
+							foreach (var i in order.piz.Ingradients)
+								if(!cargo.IsOrderedd(i))
+									cargo.OrderIngradient(i);
+							cargo.OrderIngradient(null, true);
+							order.who.RePickPizzas(this, order.piz);
+							goto RESTART;
+						}
+					}
+					}
+				GivePizzaToCompany();
 		}
 
 		void GivePizzaToCompany() {
@@ -93,8 +128,29 @@ namespace SSMO {
 			orders.Enqueue(new KitchenPizza() { piz = order, who = _who, whenOrder = DateTime.Now });
 		}
 
-		public int OrderCnt() {
-			return orders.Count + cooked.Count;
+		public int CookedCnt() {
+			return cooked.Count;
 		}
+
+		public int OrderCnt() {
+			return orders.Count;
+		}
+
+		public DateTime WhenLastSalary() {
+			return lastSalary;
+		}
+
+		public int SalarySeconds() {
+			return secForSalary;
+		}
+
+		public double GetSalary() {
+			double res = 0;
+			foreach (var i in staff) {
+				res += i.Salary;
+			}
+			return res;
+		}
+
 	}
 }

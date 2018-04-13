@@ -51,6 +51,7 @@
     <Compile Include="Ingradient\Ingradient.cs" />
     <Compile Include="Ingradient\IngradientLoader.cs" />
     <Compile Include="Kitchen\Kitchen.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="PizzaShop.cs" />
     <Compile Include="Pizza\PizzaLoader.cs" />
     <Compile Include="Pizza\Pizzas.cs" />
