@@ -48,7 +48,7 @@ namespace SSMO {
 
 			var res = new Ingradient(find) { MassGr = what.MassGr };
 			find.MassGr -= what.MassGr;
-			res.Quality.current = (int)(res.Quality.current * this.QualityMod) - (DateTime.Now - find.PlacedOn).Seconds / 5;
+			res.Quality.current = (int)(res.Quality.current * this.QualityMod) - (DateTime.Now - find.PlacedOn).Seconds ;
 
 			double deliverPriceBuy = find.PriceSell * what.MassGr / 1000;
 			if (userMoney != 0) {
@@ -83,7 +83,6 @@ namespace SSMO {
 				foreach (var i in delivery.TakeDeliver()) {
 					if (ingradients.Find(tmp => tmp.Name == i.Name) != null) {
 						ingradients.Find(tmp => tmp.Name == i.Name).MassGr += i.MassGr;
-						ingradients.Find(tmp => tmp.Name == i.Name).Quality.current = (ingradients.Find(tmp => tmp.Name == i.Name).Quality.current + i.Quality.current) / 2;
 					}
 					else
 						ingradients.Add(i);

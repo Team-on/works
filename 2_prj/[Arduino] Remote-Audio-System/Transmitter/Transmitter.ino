@@ -25,7 +25,7 @@ void setup() {
 IRsend irsend;      //3 Pin
 
 void loop() {     
-    if(digitalRead(volumePlusPin) == HIGH){
+    if(digitalRead(volumePlusPin) == HIGH/*true*/){
       irsend.sendRC5(volumePlus, 32);
       delay(standartDelay);  
     }

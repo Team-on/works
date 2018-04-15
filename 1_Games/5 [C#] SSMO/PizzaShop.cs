@@ -25,15 +25,10 @@ namespace SSMO {
 		}
 
 		public void Launch() {
-			REPEAT:
-			try {
-				Init();
-				GenerateKitchen();
-				GenerateHall();
-				InitOutput();
-			}
-			catch (Exception){ goto REPEAT; }
-
+			Init();
+			GenerateKitchen();
+			GenerateHall();
+			InitOutput();
 
 			while (true) {
 				if (lastTic.AddSeconds(1) <= DateTime.Now && waitClients.Count < 8 && Rand.rand.Next(1, 101) <= clientWisitChanse) 
