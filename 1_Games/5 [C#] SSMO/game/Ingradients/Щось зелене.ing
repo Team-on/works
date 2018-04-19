@@ -1,0 +1,15 @@
+<SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<SOAP-ENV:Body>
+<a1:Ingradient id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/SSMO/SSMO%2C%20Version%3D1.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+<_x003C_DeliveredBy_x003E_k__BackingField>Grocery</_x003C_DeliveredBy_x003E_k__BackingField>
+<_x003C_Name_x003E_k__BackingField id="ref-3">Щось зелене</_x003C_Name_x003E_k__BackingField>
+<_x003C_Description_x003E_k__BackingField id="ref-4">Трава</_x003C_Description_x003E_k__BackingField>
+<_x003C_MassGr_x003E_k__BackingField>0</_x003C_MassGr_x003E_k__BackingField>
+<_x003C_Quality_x003E_k__BackingField href="#ref-5"/>
+</a1:Ingradient>
+<a1:Stat id="ref-5" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/SSMO/SSMO%2C%20Version%3D1.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+<basic>10000</basic>
+<current>10000</current>
+</a1:Stat>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

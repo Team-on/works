@@ -100,11 +100,11 @@ MessageBox. После того, как число отгадано, необх�
 		}
 
 		private void button8_Click(object sender, EventArgs e) {
-
+			new BestOliForm().Show();
 		}
 
 		private void button7_Click(object sender, EventArgs e) {
-
+			new TimeToDayForm().Show();
 		}
 
 		private void button4_Click(object sender, EventArgs e) {

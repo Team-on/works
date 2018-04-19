@@ -35,23 +35,23 @@ namespace WindowsFormsApp1 {
 			end.y = e.Y;
 
 			if (e.Button == MouseButtons.Left) {
-				if (!timer.Enabled && (clicks == 0 || clicks == 1)) {
+				if (!timer.Enabled && (clicks == 0 || clicks == 1)) 
 					AddRectangle();
-				}
-				if (timer.Enabled && clicks >= 2 && e.Button == MouseButtons.Left) {
-					for (int i = 0; i < rectangle.Count; ++i) {
-						if (rectangle[i].IsInside(new Coord(e.X, e.Y))) {
+				else if (timer.Enabled && clicks >= 2 && e.Button == MouseButtons.Left) {
+					for (int i = 0; i < rectangle.Count; ++i) 
+						if (rectangle[i].IsInside(new Coord(e.X, e.Y))) 
 							if (printed[i]) {
 								printed[i] = false;
-								g.DrawRectangle(Invis, rectangle[i]);
-								return;
+								break;
 							}
-							else {
-
-							}
-						}
-					}
+					for (int i = 0; i < rectangle.Count; ++i)
+						if (!printed[i])
+							g.DrawRectangle(Invis, rectangle[i]);
+					for (int i = 0; i < rectangle.Count; ++i)
+						if (printed[i])
+							g.DrawRectangle(p, rectangle[i]);
 				}
+				
 			}
 		}
 
@@ -70,15 +70,13 @@ namespace WindowsFormsApp1 {
 				return;
 			rectangle.Add(new Rectangle(start.x, start.y, end.x - start.x, end.y - start.y));
 			printed.Add(true);
-			for (int i = 0; i < rectangle.Count; ++i) {
-				//if (rectangle[i].IsInside(new Coord(e.X, e.Y))) {
-				if (printed[i]) {
-					g.DrawRectangle(p, rectangle[i]);
-				}
-				else {
+			for (int i = 0; i < rectangle.Count; ++i)
+				if (!printed[i])
 					g.DrawRectangle(Invis, rectangle[i]);
-				}
-			}
+			for (int i = 0; i < rectangle.Count; ++i) 
+				if (printed[i]) 
+					g.DrawRectangle(p, rectangle[i]);
+			
 		}
 
 		private void staticRectangle_MouseClick(object sender, MouseEventArgs e) {

@@ -28,27 +28,33 @@ namespace WindowsFormsApp1 {
 
 		void Avoid(object sender, MouseEventArgs e) {
 			int shift = 5;
+			bool neadMove = true;
 			++shift;
 			if ((new Rectangle(btn.Location.X - shift, btn.Location.Y - shift, btn.Width + shift * 2, btn.Height + shift * 2)).Contains(e.Location)) {
 				--shift;
 				Point loc = btn.Location;
-				if (Math.Abs(btn.Left - e.Location.X) <= shift)
+				if (neadMove && btn.Left - shift <= e.Location.X && e.Location.X <= btn.Left + btn.Width / 2) {
 					loc.X += shift;
-				else if (Math.Abs(e.Location.X - btn.Right) <= shift)
+					neadMove = false;
+				}
+				else if (neadMove && btn.Right - btn.Width / 2 <= e.Location.X && e.Location.X <= btn.Right + shift) { 
 					loc.X -= shift;
-				if (Math.Abs(btn.Top - e.Location.Y) <= shift)
+					neadMove = false;
+				}
+				if (neadMove && Math.Abs(btn.Top - e.Location.Y) <= shift) { 
 					loc.Y += shift;
-				else if (Math.Abs(e.Location.Y - btn.Bottom) <= shift)
+					neadMove = false;
+				}
+				else if (neadMove && Math.Abs(e.Location.Y - btn.Bottom) <= shift) { 
 					loc.Y -= shift;
+					neadMove = false;
+				}
+
 				if (loc.X < 0 || loc.Y < 0 || loc.X + btn.Width > this.Width || loc.Y + btn.Height * 2 + shift > this.Height) {
 						MoveToRandPos();
 				}
 				else {
 					btn.Location = loc;
-					if (btn.Bottom <= e.Location.Y && e.Location.Y <= btn.Top && 
-						btn.Left <= e.Location.X && e.Location.X <= btn.Right) 
-						MoveToRandPos();
-					
 				}
 			}
 

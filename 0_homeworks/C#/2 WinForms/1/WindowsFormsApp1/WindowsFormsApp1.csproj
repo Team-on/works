@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BestOliForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BestOliForm.Designer.cs">
+      <DependentUpon>BestOliForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,12 @@
     <Compile Include="T3.Designer.cs">
       <DependentUpon>T3.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeToDayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeToDayForm.Designer.cs">
+      <DependentUpon>TimeToDayForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="T3.resx">
       <DependentUpon>T3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeToDayForm.resx">
+      <DependentUpon>TimeToDayForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
