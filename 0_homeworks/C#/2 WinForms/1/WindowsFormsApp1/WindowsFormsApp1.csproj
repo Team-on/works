@@ -89,6 +89,9 @@
     <Compile Include="TimeToDayForm.Designer.cs">
       <DependentUpon>TimeToDayForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BestOliForm.resx">
+      <DependentUpon>BestOliForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

@@ -39,38 +39,35 @@ namespace WindowsFormsApp1 {
 					return Math.Round(date.Value.Subtract(DateTime.Now).TotalSeconds, 3).ToString();
 				return null;
 			}
-			double GetMnthCnt(DateTime start, DateTime end) {
-				double mnt = 0, avgDay = 0;
-				DateTime i = start;
-				int prevMnt = i.Month, days = 0, allDays = 0;
 
-				for (; i < end; i = i.AddDays(1)) {
-					if (prevMnt != i.Month) {
-						prevMnt = i.Month;
+
+			double GetMnthCnt(DateTime start, DateTime end) {
+				DateTime dt1 = new DateTime(start.Year, start.Month, start.Day);
+				DateTime dt2 = new DateTime(end.Year, end.Month, end.Day);
+
+				if (dt1 > dt2 || dt1 == dt2)
+					return 0;
+
+				double days = (dt2 - dt1).TotalDays;
+				double mnt = 0;
+
+				while(days != 0) {
+					int inMnt = DateTime.DaysInMonth(dt1.Year, dt1.Month);
+					if (days >= inMnt) {
+						days -= inMnt;
 						++mnt;
-						if (avgDay == 0)
-							avgDay = i.AddDays(-1).Day;
-						else
-							avgDay = (avgDay + i.AddDays(-1).Day) / 2;
+						dt1 = dt1.AddMonths(1);
+					}
+					else {
+						mnt += days / inMnt;
 						days = 0;
 					}
-					++days;
-					++allDays;
 				}
 
-				if(avgDay != 0)
-					return allDays / avgDay;
-				return allDays * 1.0 / GetMntDay(end.Month);
-
-				double GetMntDay(int m) {
-					double res = 31;
-					if (m == 2)
-						res = 28;
-					else if (m == 4 || m == 6 || m == 9 || m == 11)
-						res = 30;
-					return res;
-				}
+				return mnt;
 			}
+
+
 			string GetValueName() {
 				if (year.Checked)
 					return "Років";

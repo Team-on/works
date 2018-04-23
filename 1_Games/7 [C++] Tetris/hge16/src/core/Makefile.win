@@ -1,0 +1,88 @@
+# Project: hge
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = gccRelease/timer.o gccRelease/graphics.o gccRelease/ini.o gccRelease/input.o gccRelease/random.o gccRelease/resource.o gccRelease/sound.o gccRelease/system.o gccRelease/demo.o gccRelease/crc32.o gccRelease/inffast.o gccRelease/inflate.o gccRelease/inftrees.o gccRelease/ioapi.o gccRelease/trees.o gccRelease/uncompr.o gccRelease/unzip.o gccRelease/zutil.o gccRelease/adler32.o $(RES)
+LINKOBJ  = gccRelease/timer.o gccRelease/graphics.o gccRelease/ini.o gccRelease/input.o gccRelease/random.o gccRelease/resource.o gccRelease/sound.o gccRelease/system.o gccRelease/demo.o gccRelease/crc32.o gccRelease/inffast.o gccRelease/inflate.o gccRelease/inftrees.o gccRelease/ioapi.o gccRelease/trees.o gccRelease/uncompr.o gccRelease/unzip.o gccRelease/zutil.o gccRelease/adler32.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" --no-export-all-symbols --add-stdcall-alias --def hge.def -luser32 -lgdi32 -ladvapi32 -lshell32 -lwinmm -ld3d8 -ld3dx8  
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = gccRelease/hge.dll
+CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1 -D_USRDLL -DHGEDLL   -fexpensive-optimizations -O3
+CFLAGS = $(INCS) -DBUILDING_DLL=1 -D_USRDLL -DHGEDLL   -fexpensive-optimizations -O3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before gccRelease/hge.dll all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+DLLWRAP=dllwrap.exe
+DEFFILE=gccRelease/libhge.def
+STATICLIB=gccRelease/libhge.a
+
+$(BIN): $(LINKOBJ)
+	$(DLLWRAP) --output-def $(DEFFILE) --driver-name c++ --implib $(STATICLIB) $(LINKOBJ) $(LIBS) -o $(BIN)
+
+gccRelease/timer.o: timer.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c timer.cpp -o gccRelease/timer.o $(CXXFLAGS)
+
+gccRelease/graphics.o: graphics.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c graphics.cpp -o gccRelease/graphics.o $(CXXFLAGS)
+
+gccRelease/ini.o: ini.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c ini.cpp -o gccRelease/ini.o $(CXXFLAGS)
+
+gccRelease/input.o: input.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c input.cpp -o gccRelease/input.o $(CXXFLAGS)
+
+gccRelease/random.o: random.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c random.cpp -o gccRelease/random.o $(CXXFLAGS)
+
+gccRelease/resource.o: resource.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h ZLIB\unzip.h ZLIB\/zlib.h   ZLIB\/zconf.h ZLIB\/ioapi.h
+	$(CPP) -c resource.cpp -o gccRelease/resource.o $(CXXFLAGS)
+
+gccRelease/sound.o: sound.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h BASS\bass.h
+	$(CPP) -c sound.cpp -o gccRelease/sound.o $(CXXFLAGS)
+
+gccRelease/system.o: system.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c system.cpp -o gccRelease/system.o $(CXXFLAGS)
+
+gccRelease/demo.o: demo.cpp hge_impl.h ..\..\include\hge.h   C:/Dev-Cpp/include/windows.h C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/include/d3d8types.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/float.h   C:/Dev-Cpp/include/d3d8caps.h C:/Dev-Cpp/include/d3dx8.h   C:/Dev-Cpp/include/d3d8.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/limits.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/syslimits.h   C:/Dev-Cpp/include/limits.h C:/Dev-Cpp/include/d3dx8math.h   C:/Dev-Cpp/include/d3dx8.h C:/Dev-Cpp/include/math.h   C:/Dev-Cpp/include/d3dx8math.inl C:/Dev-Cpp/include/d3dx8core.h   C:/Dev-Cpp/include/d3dx8tex.h C:/Dev-Cpp/include/d3dx8mesh.h   C:/Dev-Cpp/include/dxfile.h C:/Dev-Cpp/include/d3dx8shape.h   C:/Dev-Cpp/include/d3dx8effect.h
+	$(CPP) -c demo.cpp -o gccRelease/demo.o $(CXXFLAGS)
+
+gccRelease/crc32.o: ZLIB/crc32.c ZLIB/zutil.h ZLIB/zlib.h ZLIB/zconf.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/include/string.h C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/include/stdlib.h C:/Dev-Cpp/include/errno.h
+	$(CC) -c ZLIB/crc32.c -o gccRelease/crc32.o $(CFLAGS)
+
+gccRelease/inffast.o: ZLIB/inffast.c ZLIB/zutil.h ZLIB/zlib.h ZLIB/zconf.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/include/string.h C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/include/stdlib.h C:/Dev-Cpp/include/errno.h ZLIB/inftrees.h   ZLIB/inflate.h ZLIB/inffast.h
+	$(CC) -c ZLIB/inffast.c -o gccRelease/inffast.o $(CFLAGS)
+
+gccRelease/inflate.o: ZLIB/inflate.c ZLIB/zutil.h ZLIB/zlib.h ZLIB/zconf.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/include/string.h C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/include/stdlib.h C:/Dev-Cpp/include/errno.h ZLIB/inftrees.h   ZLIB/inflate.h ZLIB/inffast.h
+	$(CC) -c ZLIB/inflate.c -o gccRelease/inflate.o $(CFLAGS)
+
+gccRelease/inftrees.o: ZLIB/inftrees.c ZLIB/zutil.h ZLIB/zlib.h ZLIB/zconf.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/include/string.h C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/include/stdlib.h C:/Dev-Cpp/include/errno.h ZLIB/inftrees.h
+	$(CC) -c ZLIB/inftrees.c -o gccRelease/inftrees.o $(CFLAGS)
+
+gccRelease/ioapi.o: ZLIB/ioapi.c C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stdarg.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/stdlib.h   C:/Dev-Cpp/include/string.h ZLIB/zlib.h ZLIB/zconf.h ZLIB/ioapi.h
+	$(CC) -c ZLIB/ioapi.c -o gccRelease/ioapi.o $(CFLAGS)
+
+gccRelease/trees.o: ZLIB/trees.c ZLIB/deflate.h ZLIB/zutil.h ZLIB/zlib.h   ZLIB/zconf.h C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/include/string.h C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/include/stdlib.h C:/Dev-Cpp/include/errno.h ZLIB/trees.h
+	$(CC) -c ZLIB/trees.c -o gccRelease/trees.o $(CFLAGS)
+
+gccRelease/uncompr.o: ZLIB/uncompr.c ZLIB/zlib.h ZLIB/zconf.h
+	$(CC) -c ZLIB/uncompr.c -o gccRelease/uncompr.o $(CFLAGS)
+
+gccRelease/unzip.o: ZLIB/unzip.c C:/Dev-Cpp/include/stdio.h   C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stdarg.h   C:/Dev-Cpp/include/sys/types.h C:/Dev-Cpp/include/stdlib.h   C:/Dev-Cpp/include/string.h ZLIB/zlib.h ZLIB/zconf.h ZLIB/unzip.h   ZLIB/ioapi.h C:/Dev-Cpp/include/errno.h ZLIB/crypt.h
+	$(CC) -c ZLIB/unzip.c -o gccRelease/unzip.o $(CFLAGS)
+
+gccRelease/zutil.o: ZLIB/zutil.c ZLIB/zutil.h ZLIB/zlib.h ZLIB/zconf.h   C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include/stddef.h   C:/Dev-Cpp/include/string.h C:/Dev-Cpp/include/_mingw.h   C:/Dev-Cpp/include/stdlib.h C:/Dev-Cpp/include/errno.h
+	$(CC) -c ZLIB/zutil.c -o gccRelease/zutil.o $(CFLAGS)
+
+gccRelease/adler32.o: ZLIB/adler32.c ZLIB/zlib.h ZLIB/zconf.h
+	$(CC) -c ZLIB/adler32.c -o gccRelease/adler32.o $(CFLAGS)
