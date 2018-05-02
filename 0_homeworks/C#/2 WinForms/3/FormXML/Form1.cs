@@ -15,6 +15,8 @@ namespace FormXML {
 
 			Label l = new Label();
 			Button b = new Button();
+			Control c = new Control();
+
 		}
 	}
 }

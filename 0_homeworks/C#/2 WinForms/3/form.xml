@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<form>
+	<controlInfo>
+		<size> 640, 480 </size>
+		<location> 500, 300 </location>
+		<name> NAME </name>
+		<text> TEXT </text>
+		<foreColor> DarkOrange </foreColor>
+		<backColor> BlueViolet </backColor>
+	</controlInfo>
+	
+	
+	<button>
+		<controlInfo>
+			<size> 100, 30 </size>
+			<location> 50, 300 </location>
+			<text> Press ME!!! </text>
+			<foreColor> Red </foreColor>
+			<backColor> White </backColor>
+		</controlInfo>
+		
+		<buttonInfo>
+		</buttonInfo>
+	</button>
+	
+	<label>
+		<controlInfo>
+			<size> 100, 30 </size>
+			<location> 300, 300 </location>
+			<text> I am a LABEL </text>
+			<foreColor> White </foreColor>
+			<backColor> Black </backColor>
+			<fontinfo size="33" familyname="GenericSansSerif">
+				<size> 33 </size>
+				<familyname> GenericSansSerif </familyname>
+			</fontinfo>
+		</controlInfo>
+		
+		<labelInfo>
+			<AutoSize> True </AutoSize>
+			<TextAlign> MiddleCenter </TextAlign>
+		</labelInfo>
+	</label>
+	
+</form>
