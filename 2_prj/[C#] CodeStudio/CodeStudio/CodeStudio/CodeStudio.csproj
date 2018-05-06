@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3BC5B6A8-AFAD-4FFF-8C30-D17E7BF7FF7D}</ProjectGuid>
+    <ProjectGuid>{B509033D-2616-4224-B099-35A6DEFA0CD0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Gallery</RootNamespace>
-    <AssemblyName>Gallery</AssemblyName>
+    <RootNamespace>CodeStudio</RootNamespace>
+    <AssemblyName>CodeStudio</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,14 +45,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="CodeStudioMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CodeStudioMain.Designer.cs">
+      <DependentUpon>CodeStudioMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CodeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeWindow.Designer.cs">
+      <DependentUpon>CodeWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownWindow.Designer.cs">
+      <DependentUpon>DownWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LeftWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LeftWindow.Designer.cs">
+      <DependentUpon>LeftWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RightWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RightWindow.Designer.cs">
+      <DependentUpon>RightWindow.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CodeStudioMain.resx">
+      <DependentUpon>CodeStudioMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeWindow.resx">
+      <DependentUpon>CodeWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownWindow.resx">
+      <DependentUpon>DownWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LeftWindow.resx">
+      <DependentUpon>LeftWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +98,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RightWindow.resx">
+      <DependentUpon>RightWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -30,10 +30,7 @@
 			<text> I am a LABEL </text>
 			<foreColor> White </foreColor>
 			<backColor> Black </backColor>
-			<fontinfo size="33" familyname="GenericSansSerif">
-				<size> 33 </size>
-				<familyname> GenericSansSerif </familyname>
-			</fontinfo>
+			<fontinfo size="33" familyname="GenericSansSerif" fontstyle="Italic, underline, StrikeOUT, bOlD" />
 		</controlInfo>
 		
 		<labelInfo>
@@ -41,5 +38,21 @@
 			<TextAlign> MiddleCenter </TextAlign>
 		</labelInfo>
 	</label>
+	
+	<menu>
+		<controlInfo>
+			<size> 100, 30 </size>
+			<location> 300, 300 </location>
+			<text> I am a LABEL </text>
+			<foreColor> White </foreColor>
+			<backColor> Black </backColor>
+			<fontinfo size="33" familyname="GenericSansSerif" fontstyle="Italic, underline, StrikeOUT, bOlD" />
+		</controlInfo>
+		
+		<labelInfo>
+			<AutoSize> True </AutoSize>
+			<TextAlign> MiddleCenter </TextAlign>
+		</labelInfo>
+	</menu>
 	
 </form>

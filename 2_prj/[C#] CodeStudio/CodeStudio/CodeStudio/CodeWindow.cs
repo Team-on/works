@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Gallery {
-	public partial class Form1 : Form {
-		public Form1() {
+namespace CodeStudio {
+	public partial class CodeWindow : Form {
+		public CodeWindow() {
 			InitializeComponent();
 		}
 	}

@@ -22,16 +22,13 @@ namespace FormXML {
 		}
 
 		void MainParse(XmlNode node, Control elem) {
-			Control control;
+			Control control = elem;
 			switch (node.Name.ToLower()) {
 				case "button":
 					control = new Button();
 				break;
 				case "label":
 					control = new Label();
-				break;
-				default:
-					control = elem;
 				break;
 			}
 
@@ -84,21 +81,32 @@ namespace FormXML {
 		void ParseFontInfo(XmlNode node, System.Windows.Forms.Control c) {
 			string familyName = "GenericSansSerif";
 			float size = 10;
+			FontStyle fontStyle = FontStyle.Regular;
 
-			MessageBox.Show(node.Name);
-
-			foreach (XmlNode i in node.ChildNodes) {
-				string name = /*i.Name.ToLower().Trim()*/"asd";
-				string text = i.InnerXml;// i.InnerText.ToLower().Trim();
+			foreach (XmlNode i in node.Attributes) {
+				string name = i.Name.ToLower().Trim();
+				string text =  i.InnerText.ToLower().Trim();
 				
-				MessageBox.Show(name + "  ->  " + text);
-
 				if (name == "familyname")
 					familyName = i.InnerText.Trim();
 				if (name == "size") 
 					size = int.Parse(text);
+				if (name == "fontstyle") {
+					var tmp = text.Split(',');
+					foreach (var str in tmp) {
+						var str2 = str.Trim();
+						if (str2 == FontStyle.Bold.ToString().ToLower())
+							fontStyle |= FontStyle.Bold;
+						else if (str2 == FontStyle.Italic.ToString().ToLower())
+							fontStyle |= FontStyle.Italic;
+						else if (str2 == FontStyle.Strikeout.ToString().ToLower())
+							fontStyle |= FontStyle.Strikeout;
+						else if (str2 == FontStyle.Underline.ToString().ToLower())
+							fontStyle |= FontStyle.Underline;
+					}
+				}
 			}
-			c.Font = new Font(familyName, size);
+			c.Font = new Font(familyName, size, fontStyle);
 		}
 
 		void ParseButtonInfo(XmlNode node, System.Windows.Forms.Button c) {

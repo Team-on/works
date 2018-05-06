@@ -8,18 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FormXML {
-	public partial class Form1 : Form {
-		public Form1() {
+namespace CodeStudio {
+	public partial class DownWindow : Form {
+		public DownWindow() {
 			InitializeComponent();
-
-			Label l = new Label();
-			Button b = new Button();
-			Control c = new Control();
-
-			ToolStrip ts;
-			MenuStrip ms;
-			ContextMenu mc;
 		}
 	}
 }
