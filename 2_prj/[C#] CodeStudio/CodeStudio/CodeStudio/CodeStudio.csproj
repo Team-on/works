@@ -63,6 +63,13 @@
     <Compile Include="DownWindow.Designer.cs">
       <DependentUpon>DownWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileCreator.Designer.cs">
+      <DependentUpon>FileCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HotKey.cs" />
     <Compile Include="LeftWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +84,7 @@
     <Compile Include="RightWindow.Designer.cs">
       <DependentUpon>RightWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="studioSettings.cs" />
     <EmbeddedResource Include="CodeStudioMain.resx">
       <DependentUpon>CodeStudioMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownWindow.resx">
       <DependentUpon>DownWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileCreator.resx">
+      <DependentUpon>FileCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LeftWindow.resx">
       <DependentUpon>LeftWindow.cs</DependentUpon>
