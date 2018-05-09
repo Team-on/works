@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>css</ex>
+	<type>CSS file</type>
+	<descr>A Minimal CSS File</descr>
+	
+	<code>
+* {
+	
+} 
+
+html {
+	
+}
+
+body {
+	
+} 
+	</code>
+	
+</file>

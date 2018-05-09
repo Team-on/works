@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>xml</ex>
+	<type>XML file</type>
+	<descr>UTF-8 XML file with minimal nodes</descr>
+	
+	<code>
+&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?>
+&lt;root>
+&lt;/root>
+
+	</code>
+	
+</file>

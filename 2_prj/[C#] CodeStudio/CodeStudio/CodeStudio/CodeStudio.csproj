@@ -84,6 +84,7 @@
     <Compile Include="RightWindow.Designer.cs">
       <DependentUpon>RightWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="studioSettings.cs" />
     <EmbeddedResource Include="CodeStudioMain.resx">
       <DependentUpon>CodeStudioMain.cs</DependentUpon>

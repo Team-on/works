@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>html</ex>
+	<type>HTML5 file</type>
+	<descr>A Minimal HTML5 Document</descr>
+	
+	<code>
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+	&lt;head>
+		&lt;meta charset="utf-8">
+		&lt;title>NEW_WEB_PAGE&lt;/title>
+		&lt;link rel="stylesheet" href="style.css">
+		&lt;script src="script.js">&lt;/script>
+	&lt;/head>
+	&lt;body>
+		&lt;!-- page content -->
+	&lt;/body>
+&lt;/html>
+
+	</code>
+	
+</file>

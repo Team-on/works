@@ -12,11 +12,10 @@ using System.Xml;
 
 namespace CodeStudio {
 	public partial class FileCreator : Form {
-		static List<CodeTemplateInfo> codeTemplate;
 		static TreeNode treeNodeInstalled;
+		bool isFileCreated;
 
 		static FileCreator() {
-			codeTemplate = new List<CodeTemplateInfo>();
 			AddFileTemplates();
 		}
 
@@ -28,7 +27,6 @@ namespace CodeStudio {
 				TreeNode node;
 				if (ParseFileTemplates(folder, out node))
 					list.Add(node);
-
 			}
 
 			treeNodeInstalled = new TreeNode("Installed", list.ToArray());
@@ -41,17 +39,21 @@ namespace CodeStudio {
 			if (files.Length == 0)
 				return false;
 
-			List<TreeNode> list = new List<TreeNode>(2);
+			List<CodeTemplateInfo> list = new List<CodeTemplateInfo>(2);
+
+			List<TreeNode> listNodes = new List<TreeNode>(2);
+			foreach (DirectoryInfo fold in folder.GetDirectories()) {
+				TreeNode n;
+				if (ParseFileTemplates(fold, out n))
+					listNodes.Add(n);
+			}
 
 			foreach (var file in files) {
-				list.Add(new TreeNode(file.Name.Substring(0, file.Name.LastIndexOf('.'))));
-
 				XmlDocument xml = new XmlDocument();
 				xml.Load(file.FullName);
 
-
 				CodeTemplateInfo codeTemplateInfo = new CodeTemplateInfo();
-				foreach (XmlNode i in xml.ChildNodes) {
+				foreach (XmlNode i in xml.ChildNodes[1].ChildNodes) {
 					string name = i.Name.ToLower();
 					if (name == "ex")
 						codeTemplateInfo.ex = i.InnerText;
@@ -61,24 +63,68 @@ namespace CodeStudio {
 						codeTemplateInfo.desct = i.InnerText;
 					else if (name == "code")
 						codeTemplateInfo.code = i.InnerText;
-				} 	
-
-
-				codeTemplate.Add(codeTemplateInfo);
+				}
+				codeTemplateInfo.fileName = file.Name;
+				list.Add(codeTemplateInfo);
 			}
 
-			node = new TreeNode(folder.Name, list.ToArray());
+			node = new TreeNode(folder.Name);
+			node.Nodes.AddRange(listNodes.ToArray());
+			node.Tag = list;
 
 			return true;
 		}
 
 		public FileCreator() {
 			InitializeComponent();
-			treeView1.Nodes.Add(treeNodeInstalled);
+			foreach (TreeNode i in treeNodeInstalled.Nodes)
+				treeView1.Nodes.Add(i);
+
+			treeView1.AfterSelect += delegate (object send, TreeViewEventArgs args) {
+				listView.Items.Clear();
+
+				if (args.Node.Tag is List<CodeTemplateInfo>) {
+					List<CodeTemplateInfo> info = args.Node.Tag as List<CodeTemplateInfo>;
+					foreach (var i in info)
+						this.listView.Items.Add(new ListViewItem(i.fileName.Substring(0, i.fileName.LastIndexOf('.'))) { Tag = i });
+				}
+
+				if (textBox1.Text != "") 
+					textBox1.Text = "";
+				button1.Enabled = false;
+
+			};
+
+			listView.SelectedIndexChanged += delegate (object sender, EventArgs ar) {
+				if ((sender as ListView).SelectedItems.Count != 0) {
+					CodeTemplateInfo i = ((sender as ListView).SelectedItems[0].Tag as CodeTemplateInfo);
+					textBox1.Text = "Type: " + i.type + Environment.NewLine + "Description: " + i.desct;
+					button1.Enabled = true;
+				}
+			};
+
+			Reload();
+		}
+
+		public void Reload() {
+			isFileCreated = button1.Enabled = false;
+		}
+
+		public bool IsFileCreated() => isFileCreated;
+		public string GetExtension() => (listView.SelectedItems[0].Tag as CodeTemplateInfo).ex;
+		public string GetCode() => (listView.SelectedItems[0].Tag as CodeTemplateInfo).code.Trim();
+
+		private void button1_Click(object sender, EventArgs e) {
+			isFileCreated = true;
+			this.Close();
+		}
+
+		private void listView_MouseDoubleClick(object sender, MouseEventArgs e) {
+			button1.PerformClick();
 		}
 	}
 
 	class CodeTemplateInfo {
-		public string ex, type, desct, code;
+		public string ex, type, desct, code, fileName;
 	}
 }

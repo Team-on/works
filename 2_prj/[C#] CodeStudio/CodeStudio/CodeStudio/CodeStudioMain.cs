@@ -137,7 +137,9 @@ namespace CodeStudio {
 			if (fileCreator == null)
 				fileCreator = new FileCreator();
 			fileCreator.ShowDialog();
-			codeWindow.AddNewFile();
+			if (fileCreator.IsFileCreated())
+				codeWindow.AddNewFile("New code." + fileCreator.GetExtension(), fileCreator.GetCode());
+			fileCreator.Reload();
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -211,19 +213,6 @@ namespace CodeStudio {
 
 		private void CloseAllRightTab(object sender, EventArgs e) {
 			codeWindow.CloseAllRightTab();
-		}
-
-		private void CodeStudioMain_KeyDown(object sender, KeyEventArgs e) {
-			ParseHotkeys(e);
-		}
-
-		void ParseHotkeys(KeyEventArgs e) {
-			if (e.Modifiers == Keys.Control) {
-				if (e.KeyCode == Keys.S)
-					codeWindow.SaveCurrentFile();
-				else if (e.KeyCode == Keys.N)
-					fileToolStripMenuItem1_Click(null, null);
-			}
-		}
+		}	
 	}
 }

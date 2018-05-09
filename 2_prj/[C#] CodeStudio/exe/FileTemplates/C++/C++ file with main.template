@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>cpp</ex>
+	<type>C++ file</type>
+	<descr>C++ file with main</descr>
+	
+	<code>#include &lt;iostream&gt;
+using namespace std;
+
+int main(){
+
+	return 0;
+}</code>
+
+</file>

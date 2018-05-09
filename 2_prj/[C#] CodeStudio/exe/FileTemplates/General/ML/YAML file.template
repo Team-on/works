@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>yaml</ex>
+	<type>YAML file</type>
+	<descr>YAML file with minimal description</descr>
+	
+	<code>
+---  					#There’s another small quirk to YAML. All YAML files (regardless of their association with Ansible or not) can optionally begin with --- and end with ...
+# An employee record
+name: Martin D'vloper   # A dictionary is represented in a simple key: value form (the colon must be followed by a space):
+job: Developer
+skill: Elite
+employed: True
+foods:					# All members of a list are lines beginning at the same indentation level starting with a "- " (a dash and a space):
+    - Apple
+    - Orange
+    - Strawberry
+    - Mango
+languages:  			# More complicated data structures are possible, such as lists of dictionaries, dictionaries whose values are lists or a mix of both:
+    - perl: Elite
+    - python: Elite
+    - pascal: Lame
+education: |			# Values can span multiple lines using '|' or '>'.
+    4 GCSEs
+    3 A-Levels
+    BSc in the Internet of Things
+...
+	</code>
+	
+</file>

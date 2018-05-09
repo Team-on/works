@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>ini</ex>
+	<type>Ini file</type>
+	<descr>Ini file with minimal description</descr>
+	
+	<code>
+; некоторый комментарий
+# комментарий в стиле Unix
+
+[Section1]
+; комментарий о разделе
+var1=значение_1 ; иногда допускается комментарий к отдельному параметру
+var2=значение_2
+  
+[Section2]
+var1=значение_1
+var2=значение_2
+
+; иногда позволяется перечислять несколько значений через запятую
+[Section3]
+var1=значение_1_1, значение_1_2, значение_1_3
+var2=значение_2
+; в Zend Framework массив задаётся следующим способом
+[Section3.1]
+var1[]=значение_1_1
+var1[]=значение_1_2
+var1[]=значение_1_3
+var2=значение_2
+
+; Иногда значения отсутствуют 
+[Section4.0]
+[ViewState]
+Mode=
+Vid=
+FolderType=Generic
+	</code>
+	
+</file>
