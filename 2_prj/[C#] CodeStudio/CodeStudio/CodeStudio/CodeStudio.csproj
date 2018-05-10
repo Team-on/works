@@ -45,60 +45,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeStudioMain.cs">
+    <Compile Include="Windows\CodeStudioMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CodeStudioMain.Designer.cs">
+    <Compile Include="Windows\CodeStudioMain.Designer.cs">
       <DependentUpon>CodeStudioMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="CodeWindow.cs">
+    <Compile Include="Windows\CodeWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CodeWindow.Designer.cs">
+    <Compile Include="Windows\CodeWindow.Designer.cs">
       <DependentUpon>CodeWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownWindow.cs">
+    <Compile Include="Settings\CompilerSettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownWindow.Designer.cs">
+    <Compile Include="Settings\CompilerSettingsWindow.Designer.cs">
+      <DependentUpon>CompilerSettingsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DownWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\DownWindow.Designer.cs">
       <DependentUpon>DownWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileCreator.cs">
+    <Compile Include="AddWindows\FileCreator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileCreator.Designer.cs">
+    <Compile Include="AddWindows\FileCreator.Designer.cs">
       <DependentUpon>FileCreator.cs</DependentUpon>
     </Compile>
-    <Compile Include="HotKey.cs" />
-    <Compile Include="LeftWindow.cs">
+    <Compile Include="Windows\LeftWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LeftWindow.Designer.cs">
+    <Compile Include="Windows\LeftWindow.Designer.cs">
       <DependentUpon>LeftWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RightWindow.cs">
+    <Compile Include="Windows\RightWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RightWindow.Designer.cs">
+    <Compile Include="Windows\RightWindow.Designer.cs">
       <DependentUpon>RightWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="studioSettings.cs" />
-    <EmbeddedResource Include="CodeStudioMain.resx">
+    <Compile Include="Compile\SingleFileCompiler.cs" />
+    <Compile Include="Singletones.cs" />
+    <Compile Include="Settings\studioSettings.cs" />
+    <EmbeddedResource Include="Windows\CodeStudioMain.resx">
       <DependentUpon>CodeStudioMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CodeWindow.resx">
+    <EmbeddedResource Include="Windows\CodeWindow.resx">
       <DependentUpon>CodeWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownWindow.resx">
+    <EmbeddedResource Include="Settings\CompilerSettingsWindow.resx">
+      <DependentUpon>CompilerSettingsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\DownWindow.resx">
       <DependentUpon>DownWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileCreator.resx">
+    <EmbeddedResource Include="AddWindows\FileCreator.resx">
       <DependentUpon>FileCreator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LeftWindow.resx">
+    <EmbeddedResource Include="Windows\LeftWindow.resx">
       <DependentUpon>LeftWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -110,7 +119,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RightWindow.resx">
+    <EmbeddedResource Include="Windows\RightWindow.resx">
       <DependentUpon>RightWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

@@ -31,6 +31,7 @@
 			// 
 			// treeView1
 			// 
+			this.treeView1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.treeView1.Location = new System.Drawing.Point(12, 12);
 			this.treeView1.Name = "treeView1";
 			this.treeView1.Size = new System.Drawing.Size(267, 381);
@@ -38,6 +39,9 @@
 			// 
 			// listView
 			// 
+			this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.listView.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.listView.Location = new System.Drawing.Point(300, 13);
 			this.listView.MultiSelect = false;
 			this.listView.Name = "listView";
@@ -49,7 +53,9 @@
 			// 
 			// textBox1
 			// 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox1.Enabled = false;
+			this.textBox1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.textBox1.Location = new System.Drawing.Point(640, 12);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
@@ -58,8 +64,9 @@
 			// 
 			// button1
 			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.button1.Font = new System.Drawing.Font("Comic Sans MS", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(640, 399);
+			this.button1.Location = new System.Drawing.Point(639, 399);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(233, 62);
 			this.button1.TabIndex = 3;
@@ -76,8 +83,11 @@
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.listView);
 			this.Controls.Add(this.treeView1);
+			this.MinimumSize = new System.Drawing.Size(893, 500);
 			this.Name = "FileCreator";
-			this.Text = "FileCreator";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
+			this.Text = "New file";
+			this.Shown += new System.EventHandler(this.FileCreator_Shown);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

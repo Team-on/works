@@ -98,7 +98,7 @@ namespace CodeStudio {
 			listView.SelectedIndexChanged += delegate (object sender, EventArgs ar) {
 				if ((sender as ListView).SelectedItems.Count != 0) {
 					CodeTemplateInfo i = ((sender as ListView).SelectedItems[0].Tag as CodeTemplateInfo);
-					textBox1.Text = "Type: " + i.type + Environment.NewLine + "Description: " + i.desct;
+					textBox1.Text = "Type: " + i.type + Environment.NewLine + Environment.NewLine + "Description: " + i.desct;
 					button1.Enabled = true;
 				}
 			};
@@ -121,6 +121,10 @@ namespace CodeStudio {
 
 		private void listView_MouseDoubleClick(object sender, MouseEventArgs e) {
 			button1.PerformClick();
+		}
+
+		private void FileCreator_Shown(object sender, EventArgs e) {
+			this.Size = new Size(893, 500);
 		}
 	}
 

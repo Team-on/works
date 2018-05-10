@@ -1,5 +1,5 @@
 ﻿namespace CodeStudio {
-	partial class RightWindow {
+	partial class DownWindow {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -24,10 +24,14 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tabControl1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
 			// 
+			this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -35,14 +39,24 @@
 			this.tabControl1.Size = new System.Drawing.Size(292, 273);
 			this.tabControl1.TabIndex = 1;
 			// 
-			// RightWindow
+			// tabPage1
+			// 
+			this.tabPage1.Location = new System.Drawing.Point(4, 4);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Size = new System.Drawing.Size(284, 247);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "Compiler output";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// DownWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(292, 273);
 			this.Controls.Add(this.tabControl1);
-			this.Name = "RightWindow";
-			this.Text = "RightWindow";
+			this.Name = "DownWindow";
+			this.Text = "DownWindow";
+			this.tabControl1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -50,5 +64,6 @@
 		#endregion
 
 		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabPage1;
 	}
 }

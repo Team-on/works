@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VistaKeysExtender.WinApi;
  
 
 /*
@@ -20,7 +19,9 @@ namespace CodeStudio {
 		DownWindow downWindow;
 		LeftWindow leftWindow;
 		RightWindow rightWindow;
+
 		FileCreator fileCreator = null;
+		Lazy <CompilerSettingsWindow> compilerSettingsWindow = new Lazy<CompilerSettingsWindow>();
 
 		public CodeStudioMain() {
 			InitializeComponent();
@@ -56,6 +57,8 @@ namespace CodeStudio {
 			this.FormClosing += delegate (object s, FormClosingEventArgs eventArgs) {
 				eventArgs.Cancel = false;
 			};
+
+			Singletones.SetWindows(downWindow, leftWindow, rightWindow, codeWindow, this);
 		}
 
 		private void CodeStudioMain_Shown(object sender, EventArgs e) {
@@ -213,6 +216,14 @@ namespace CodeStudio {
 
 		private void CloseAllRightTab(object sender, EventArgs e) {
 			codeWindow.CloseAllRightTab();
-		}	
+		}
+
+		private void propertiesToolStripMenuItem_Click(object sender, EventArgs e) {
+			compilerSettingsWindow.Value.ShowDialog();
+		}
+
+		private void wordWarpToolStripMenuItem_Click(object sender, EventArgs e) {
+			Singletones.settings.WordWarp = !Singletones.settings.WordWarp;
+		}
 	}
 }
