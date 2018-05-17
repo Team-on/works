@@ -56,18 +56,18 @@
 			this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.rightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.textEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.wordWarpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.textEditorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// statusStrip
 			// 
-			this.statusStrip.Location = new System.Drawing.Point(0, 263);
+			this.statusStrip.Location = new System.Drawing.Point(0, 245);
 			this.statusStrip.Name = "statusStrip";
 			this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
 			this.statusStrip.Size = new System.Drawing.Size(689, 22);
@@ -261,10 +261,10 @@
 			// buildAndRunThisFileToolStripMenuItem
 			// 
 			this.buildAndRunThisFileToolStripMenuItem.Name = "buildAndRunThisFileToolStripMenuItem";
-			this.buildAndRunThisFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.F5)));
-			this.buildAndRunThisFileToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+			this.buildAndRunThisFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+			this.buildAndRunThisFileToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
 			this.buildAndRunThisFileToolStripMenuItem.Text = "Build and Run this file";
+			this.buildAndRunThisFileToolStripMenuItem.Click += new System.EventHandler(this.buildAndRunThisFileToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator5
 			// 
@@ -274,23 +274,19 @@
 			// buildAndRunToolStripMenuItem
 			// 
 			this.buildAndRunToolStripMenuItem.Name = "buildAndRunToolStripMenuItem";
-			this.buildAndRunToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-			this.buildAndRunToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+			this.buildAndRunToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
 			this.buildAndRunToolStripMenuItem.Text = "Build and Run";
 			// 
 			// runToolStripMenuItem
 			// 
 			this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-			this.runToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-			this.runToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+			this.runToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
 			this.runToolStripMenuItem.Text = "Run";
 			// 
 			// buildToolStripMenuItem
 			// 
 			this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-			this.buildToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.B)));
-			this.buildToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+			this.buildToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
 			this.buildToolStripMenuItem.Text = "Build";
 			// 
 			// toolStripSeparator3
@@ -336,18 +332,6 @@
 			this.downToolStripMenuItem.Text = "Down";
 			this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
 			// 
-			// openFileDialog1
-			// 
-			this.openFileDialog1.FileName = "openFileDialog1";
-			// 
-			// toolStrip1
-			// 
-			this.toolStrip1.Location = new System.Drawing.Point(0, 25);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(689, 25);
-			this.toolStrip1.TabIndex = 5;
-			this.toolStrip1.Text = "toolStrip1";
-			// 
 			// textEditorToolStripMenuItem
 			// 
 			this.textEditorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -376,15 +360,27 @@
 			this.textEditorToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
 			this.textEditorToolStripMenuItem1.Text = "Text editor settings";
 			// 
+			// openFileDialog1
+			// 
+			this.openFileDialog1.FileName = "openFileDialog1";
+			// 
+			// toolStrip1
+			// 
+			this.toolStrip1.Location = new System.Drawing.Point(0, 25);
+			this.toolStrip1.Name = "toolStrip1";
+			this.toolStrip1.Size = new System.Drawing.Size(689, 25);
+			this.toolStrip1.TabIndex = 5;
+			this.toolStrip1.Text = "toolStrip1";
+			// 
 			// CodeStudioMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(689, 285);
+			this.ClientSize = new System.Drawing.Size(689, 267);
 			this.Controls.Add(this.toolStrip1);
 			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.menuStrip);
-			this.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.IsMdiContainer = true;
 			this.MainMenuStrip = this.menuStrip;
 			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

@@ -13,5 +13,14 @@ namespace CodeStudio {
 		public LeftWindow() {
 			InitializeComponent();
 		}
+
+		private void LeftWindow_Shown(object sender, EventArgs e) {
+			tabPageToolBox.ForeColor = Singletones.settings.DefaultForeground;
+			tabPageToolBox.BackColor = Singletones.settings.DefaultBackground;
+			this.ForeColor = Singletones.settings.DefaultForeground;
+			this.BackColor = Singletones.settings.DefaultBackground;
+
+			this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+		}
 	}
 }

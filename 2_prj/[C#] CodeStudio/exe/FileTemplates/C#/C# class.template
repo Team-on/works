@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>cs</ex>
+	<type>C# class</type>
+	<descr>C# file with some includes and class declaration </descr>
+	
+	<code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PROGRAM_NAMESPACE{
+	class CLASS{
+		
+	}
+}</code>
+
+</file>

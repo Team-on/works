@@ -113,6 +113,7 @@ namespace CodeStudio {
 		public bool IsFileCreated() => isFileCreated;
 		public string GetExtension() => (listView.SelectedItems[0].Tag as CodeTemplateInfo).ex;
 		public string GetCode() => (listView.SelectedItems[0].Tag as CodeTemplateInfo).code.Trim();
+		public CodeTemplateInfo GetCodeTemplateInfo() => (listView.SelectedItems[0].Tag as CodeTemplateInfo);
 
 		private void button1_Click(object sender, EventArgs e) {
 			isFileCreated = true;
@@ -128,7 +129,7 @@ namespace CodeStudio {
 		}
 	}
 
-	class CodeTemplateInfo {
+	public class CodeTemplateInfo {
 		public string ex, type, desct, code, fileName;
 	}
 }

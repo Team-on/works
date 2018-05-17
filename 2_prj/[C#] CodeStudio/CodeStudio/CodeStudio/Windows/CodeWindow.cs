@@ -30,66 +30,67 @@ namespace CodeStudio {
 			}
 		}
 
-		void CreateTab(string path) {
-			if (IsOpened(path)) 
+		void CreateTab(string pathArg, CodeTemplateInfo codeTemplateInfo) {
+			if (IsOpened(pathArg)) 
 				return;
 
-			TabCodeInfo codeInfo  = new TabCodeInfo();
-			if (path != null) {
-				codeInfo.isNew = false;
-				codeInfo.isSaved = true;
-				codeInfo.path = path;
-				codeInfo.name = path.Substring(path.LastIndexOf('\\') + 1);
-				codeInfo.ReadLinkedFile();
-			}
-			else {
-				codeInfo.isNew = true;
-				codeInfo.isSaved = false;
-				codeInfo.path = codeInfo.name = "New File";
-			}
+			TabCodeInfo codeInfo  = new TabCodeInfo(pathArg, codeTemplateInfo);
 
 			codeInfo.tab.TextChanged += delegate(object s, System.EventArgs args) {
+				AddOrRemAsteriksToName();
+
+				void AddOrRemAsteriksToName() {
 					if (tabControl.SelectedIndex != -1) {
 						if (tabCodeInfo[tabControl.SelectedIndex].name[tabCodeInfo[tabControl.SelectedIndex].name.Length - 1] != '*') {
 							tabCodeInfo[tabControl.SelectedIndex].name += "*";
 							tabCodeInfo[tabControl.SelectedIndex].isSaved = false;
+						}
+
 					}
-					
+					SetTabTextToRichBoxNames();
 				}
-				SetTabTextToRichBoxNames();
 			};
 
 			tabCodeInfo.Add(codeInfo);
 
-			TabPage tab = new TabPage();
-			tab.Controls.Add(codeInfo.tab);
-			tab.Name = tab.Text = codeInfo.name;
-			tabControl.Controls.Add(tab);
+			TreeNode solutionNode = new TreeNode(codeInfo.name) { Tag = codeInfo };
+			solutionNode.Tag = codeInfo;
+			codeInfo.solutionExprorerNode = solutionNode;
+
+			CrateTabInTAbControl(codeInfo);
 
 			tabControl.SelectedIndex = tabControl.TabCount - 1;
-			tabControl.TabIndex = 0;
 
-			Singletones.rightWindow.Explorer.Nodes.Add(codeInfo.name);
+			Singletones.rightWindow.Explorer.Nodes.Add(solutionNode);
+
+			codeInfo.syntaxChecker?.HighlightText(codeInfo.tab);
 		}
 
 		public void AddFile(string path) {
-			CreateTab(path);
+			CreateTab(path, null);
 		}
 
-		public void AddNewFile() {
-			CreateTab(null);
+		public void AddNewFile(CodeTemplateInfo codeTemplateInfo) {
+			CreateTab(null, codeTemplateInfo);
 		}
 
-		public void AddNewFile(string tabName, string tabText) {
-			AddNewFile();
-			tabCodeInfo[tabCodeInfo.Count - 1].name = tabControl.SelectedTab.Text = tabName;
-			tabCodeInfo[tabCodeInfo.Count - 1].tab.Text = tabText;
-			tabCodeInfo[tabCodeInfo.Count - 1].extensions = tabName.Substring(tabName.LastIndexOf('.') + 1) + " file" + "|*" + tabName.Substring(tabName.LastIndexOf('.'));
-			tabCodeInfo[tabCodeInfo.Count - 1].isDefault = true;
-
-			tabCodeInfo[tabCodeInfo.Count - 1].tab.TextChanged += delegate (object sender, EventArgs args) {
-				tabCodeInfo[tabCodeInfo.Count - 1].isDefault = false;
+		void CrateTabInTAbControl(TabCodeInfo codeInfo) {
+			TabPage tab = new TabPage();
+			tab.BackColor = Singletones.settings.DefaultBackground;
+			tab.ForeColor = Singletones.settings.DefaultForeground;
+			tab.Controls.Add(codeInfo.tab);
+			tab.Name = tab.Text = codeInfo.name;
+			tabControl.Controls.Add(tab);
+			tab.TextChanged += delegate (object s, System.EventArgs args) {
+				codeInfo.solutionExprorerNode.Text = tab.Text;
 			};
+
+			tabControl.SelectedIndex = tabControl.TabCount - 1;
+		}
+
+		public void LoadFileFromExplorer(TabCodeInfo codeInfo) {
+			tabCodeInfo.Add(codeInfo);
+			CrateTabInTAbControl(codeInfo);
 		}
 
 		public bool IsOpened(string path) {
@@ -101,7 +102,9 @@ namespace CodeStudio {
 
 		public void SaveCurrentFile() {
 			if (tabControl.TabCount != 0) {
-				if (tabCodeInfo[tabControl.SelectedIndex].SaveLinkedFile()) {
+				if (tabCodeInfo[tabControl.SelectedIndex].SaveLinkedFile(true) &&
+					tabCodeInfo[tabControl.SelectedIndex].name[tabCodeInfo[tabControl.SelectedIndex].name.Length - 1] == '*'
+					) {
 					tabCodeInfo[tabControl.SelectedIndex].name = tabCodeInfo[tabControl.SelectedIndex].name.Substring(0, tabCodeInfo[tabControl.SelectedIndex].name.Length - 1);
 				}
 				SetTabTextToRichBoxNames();
@@ -111,6 +114,7 @@ namespace CodeStudio {
 		public void SaveAllFiles() {
 			foreach (var i in tabCodeInfo) {
 				if(i.SaveLinkedFile())
+					if(i.name[i.name.Length - 1] == '*')
 					i.name = i.name.Substring(0, i.name.Length - 1);
 			}
 			SetTabTextToRichBoxNames();
@@ -126,7 +130,6 @@ namespace CodeStudio {
 			int length = tabControl.TabCount;
 			while (length-- != 0)
 				CloseTab(0);
-
 		}
 
 		public void CloseAllButThisTab() {
@@ -154,82 +157,70 @@ namespace CodeStudio {
 			CloseTab(tabControl.SelectedIndex);
 		}
 
+		void CloseTab(int tabId) {
+			if (tabId < 0 || tabId >= tabControl.TabCount)
+				return;
+
+			if (tabCodeInfo[tabId].isDefault) {
+				Singletones.rightWindow.Explorer.Nodes.Remove(tabCodeInfo[tabId].solutionExprorerNode);
+				tabControl.Controls.RemoveAt(tabId);
+				tabCodeInfo.RemoveAt(tabId);
+				return;
+			}
+
+			if (tabCodeInfo[tabId].isSaved) {
+				tabControl.Controls.RemoveAt(tabId);
+				tabCodeInfo.RemoveAt(tabId);
+				return;
+			}
+
+			if(tabCodeInfo[tabId].SaveLinkedFile()) {
+				tabControl.Controls.RemoveAt(tabId);
+				tabCodeInfo.RemoveAt(tabId);
+				return;
+			}
+
+		}
+
+		public void CloseTabByTab(TabCodeInfo tabId) {
+			if (tabCodeInfo.Contains(tabId)) {
+				int index = tabCodeInfo.IndexOf(tabId);
+				CloseTab(index);
+				GC.Collect();
+			}
+		}
+
 		public void SetNewWordWarp(bool wordWarp) {
 			foreach (var i in this.tabCodeInfo) {
 				i.tab.WordWrap = wordWarp;
 			}
 		}
 
-		void CloseTab(int tabId) {
-			if (tabId < 0 || tabId >= tabControl.TabCount)
-				return;
+		private void CodeWindow_Shown(object sender, EventArgs e) {
+			this.ForeColor = Singletones.settings.DefaultForeground;
+			this.BackColor = Singletones.settings.DefaultBackground;
+		}
 
-			if (tabCodeInfo[tabId].isDefault || 
-				(!tabCodeInfo[tabId].isSaved && tabCodeInfo[tabId].SaveLinkedFile())
-				) {
-				tabControl.Controls.RemoveAt(tabId);
-				tabCodeInfo.RemoveAt(tabId);
+		private void tabControl_ControlAdded(object sender, ControlEventArgs e) {
+			if ((sender as TabControl).Controls.Count == 1)
+				(sender as TabControl).Visible = true;
+		}
+
+		private void tabControl_ControlRemoved(object sender, ControlEventArgs e) {
+			if ((sender as TabControl).Controls.Count == 0) {
+				(sender as TabControl).Visible = false;
+				Singletones.downWindow.Activate();
 			}
 		}
-	}
 
-	class TabCodeInfo {
-		static SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-		public string path;
-		public string name;
-		public bool isNew, isSaved, isDefault;
-		public RichTextBox tab = new RichTextBox() { Dock = DockStyle.Fill, WordWrap = Singletones.settings.WordWarp };
-		public string extensions = "";
-
-		public TabCodeInfo() {
-			SetTabWidth(tab, Singletones.settings.TabLength);
-			isDefault = false;
+		public void CompileCurrentFile() {
+			if (tabControl.TabCount != 0) 
+				tabCodeInfo[tabControl.SelectedIndex].CompileSingleFile();
 		}
 
-		public void ReadLinkedFile() {
-			using (var t = new StreamReader(path))
-				tab.Text = t.ReadToEnd();
-			isSaved = true;
+		public void RunCurrentFile() {
+			if (tabControl.TabCount != 0)
+				tabCodeInfo[tabControl.SelectedIndex].RunLinkedExe();
 		}
-
-		//True if saved
-		public bool SaveLinkedFile() {
-			if (isNew) {
-				if(extensions != "")
-				saveFileDialog.Filter = extensions;
-				if (saveFileDialog.ShowDialog() == DialogResult.OK) {
-					path = saveFileDialog.FileName;
-					using (var writer = new StreamWriter(path))
-						writer.Write(tab.Text);
-					isNew = false;
-					name = path.Substring(path.LastIndexOf('\\') + 1);
-					isSaved = true;
-				}
-			}
-			else {
-				using (var writer = new StreamWriter(path))
-					writer.Write(tab.Text);
-				isSaved = true;
-			}
-			return isSaved;
-		}
-
-
-		// set tab stops to a width of 4
-		private const int EM_SETTABSTOPS = 0x00CB;
-
-		[DllImport("User32.dll", CharSet = CharSet.Auto)]
-		public static extern IntPtr SendMessage(IntPtr h, int msg, int wParam, int[] lParam);
-
-		public static void SetTabWidth(RichTextBox textbox, int tabWidth) {
-			//Graphics graphics = textbox.CreateGraphics();
-			//var characterWidth = (int)graphics.MeasureString("M", textbox.Font).Width;
-			//SendMessage(textbox.Handle, EM_SETTABSTOPS, 1,
-			//			new int[] { tabWidth * characterWidth });
-			SendMessage(textbox.Handle, EM_SETTABSTOPS, 1,
-			new int[] { tabWidth * 4 });
-		}
-		//END of tab with set
 	}
 }

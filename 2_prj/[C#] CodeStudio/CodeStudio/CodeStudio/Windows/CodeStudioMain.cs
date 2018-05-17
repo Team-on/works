@@ -8,11 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
  
-
-/*
-15:00 В ШАГ зал. презентація софтсерва
-*/
-
 namespace CodeStudio {
 	public partial class CodeStudioMain : Form {
 		CodeWindow codeWindow;
@@ -55,6 +50,7 @@ namespace CodeStudio {
 				rightToolStripMenuItem_Click(s, null);
 			};
 			this.FormClosing += delegate (object s, FormClosingEventArgs eventArgs) {
+				this.saveAllToolStripMenuItem_Click(null, null);
 				eventArgs.Cancel = false;
 			};
 
@@ -66,29 +62,46 @@ namespace CodeStudio {
 			downWindow.Show();
 			leftWindow.Show();
 			rightWindow.Show();
+			ResizeFirst();
 
-			Size size = this.ClientRectangle.Size;
-			size.Height -= statusStrip.Height + menuStrip.Height + 4 + toolStrip1.Height;
-			size.Width -= 4;
+			toolStrip1.ForeColor = Singletones.settings.DefaultForeground;
+			toolStrip1.BackColor = Singletones.settings.DefaultBackground;
 
-			leftWindow.Size = new Size(size.Width / 5, size.Height);
-			leftWindow.Location = new Point(0, 0);
+			menuStrip.ForeColor = Singletones.settings.DefaultForeground;
+			menuStrip.BackColor = Singletones.settings.DefaultBackground;
+			CodeStudio.StyleChanger.SetMenuStripStyle(menuStrip);
 
-			rightWindow.Size = new Size(size.Width / 5, size.Height);
-			rightWindow.Location = new Point(size.Width - rightWindow.Size.Width, 0);
 
-			downWindow.Size = new Size(size.Width - leftWindow.Width - rightWindow.Width,
-				size.Height / 5);
-			downWindow.Location = new Point(leftWindow.Size.Width, 
-				size.Height - downWindow.Height);
+			statusStrip.ForeColor = Singletones.settings.DefaultForeground;
+			statusStrip.BackColor = Singletones.settings.DefaultBackground;
 
-			codeWindow.Size = new Size(downWindow.Size.Width, size.Height - downWindow.Height);
-			codeWindow.Location = new Point(leftWindow.Size.Width, leftWindow.Location.Y);
+			this.ForeColor = Singletones.settings.DefaultForeground;
+			this.BackColor = Singletones.settings.DefaultBackground;
+
+			void ResizeFirst() {
+				Size size = this.ClientRectangle.Size;
+				size.Height -= statusStrip.Height + menuStrip.Height + toolStrip1.Height + 4;
+				size.Width -= 4;
+
+				leftWindow.Size = new Size(size.Width / 5, size.Height);
+				leftWindow.Location = new Point(0, 0);
+
+				rightWindow.Size = new Size(size.Width / 5, size.Height);
+				rightWindow.Location = new Point(size.Width - rightWindow.Size.Width, 0);
+
+				downWindow.Size = new Size(size.Width - leftWindow.Width - rightWindow.Width,
+					size.Height / 5);
+				downWindow.Location = new Point(leftWindow.Size.Width,
+					size.Height - downWindow.Height);
+
+				codeWindow.Size = new Size(downWindow.Size.Width, size.Height - downWindow.Height);
+				codeWindow.Location = new Point(leftWindow.Size.Width, leftWindow.Location.Y);
+			}
 		}
 
 		void ResizeFields(object sender, EventArgs e) {
 			Size size = this.ClientRectangle.Size;
-			size.Height -= statusStrip.Height + menuStrip.Height + 4 + toolStrip1.Height;
+			size.Height -= statusStrip.Height + menuStrip.Height + toolStrip1.Height + 4;
 			size.Width -= 4;
 
 			if(sender == downWindow)
@@ -141,7 +154,7 @@ namespace CodeStudio {
 				fileCreator = new FileCreator();
 			fileCreator.ShowDialog();
 			if (fileCreator.IsFileCreated())
-				codeWindow.AddNewFile("New code." + fileCreator.GetExtension(), fileCreator.GetCode());
+				codeWindow.AddNewFile(fileCreator.GetCodeTemplateInfo());
 			fileCreator.Reload();
 		}
 
@@ -224,6 +237,16 @@ namespace CodeStudio {
 
 		private void wordWarpToolStripMenuItem_Click(object sender, EventArgs e) {
 			Singletones.settings.WordWarp = !Singletones.settings.WordWarp;
+		}
+
+		private void buildAndRunThisFileToolStripMenuItem_Click(object sender, EventArgs e) {
+			try {
+				codeWindow.CompileCurrentFile();
+				codeWindow.RunCurrentFile();
+			}
+			catch (Exception ex) {
+
+			}
 		}
 	}
 }

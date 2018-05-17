@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>sh</ex>
+	<type>SHell script</type>
+	<descr>Minimal shell script</descr>
+	
+	<code>
+#!/bin/bash	
+	</code>
+</file>

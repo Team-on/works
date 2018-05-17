@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>bat</ex>
+	<type>Batch file</type>
+	<descr>Minimal batch file</descr>
+	
+	<code>
+@echo off
+chcp 1251
+title NAME
+color 71
+cls	
+	</code>
+</file>

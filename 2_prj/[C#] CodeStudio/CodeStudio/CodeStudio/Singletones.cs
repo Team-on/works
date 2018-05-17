@@ -14,6 +14,14 @@ namespace CodeStudio {
 		public static RightWindow rightWindow { get; private set; }
 		public static CodeStudioMain codeStudioMain { get; private set; }
 
+		public static SingleFileCompiler singleFileCompiler { get; private set; }
+
+		public static SyntaxChekers syntaxChekers { get; private set; }
+
+		static Singletones() {
+			
+		}
+
 		public static void SetWindows(DownWindow down, LeftWindow left, RightWindow right, CodeWindow center, CodeStudioMain main) {
 			downWindow = down;
 			leftWindow = left;
@@ -22,6 +30,13 @@ namespace CodeStudio {
 			codeStudioMain = main;
 
 			settings = new StudioSettings();
+			syntaxChekers = new SyntaxChekers();
+			singleFileCompiler = new SingleFileCompiler();
 		}
+	}
+
+	class SyntaxChekers {
+		Lazy<CS_SyntaxChecker> cSharp = new Lazy<CS_SyntaxChecker>();
+		public CS_SyntaxChecker CSharp { get => cSharp.Value; }
 	}
 }

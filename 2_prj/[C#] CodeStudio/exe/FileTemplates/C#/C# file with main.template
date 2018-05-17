@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<file>
+	<ex>cs</ex>
+	<type>C# file</type>
+	<descr>C# file with main</descr>
+	
+	<code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PROGRAM_NAMESPACE{
+	class Program{
+		static void Main(string[] args){
+			
+		}
+	}
+}</code>
+
+</file>

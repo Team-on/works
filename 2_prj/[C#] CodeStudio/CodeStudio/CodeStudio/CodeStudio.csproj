@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\SyntaxChecker.cs" />
+    <Compile Include="code\TabCodeInfo.cs" />
+    <Compile Include="Style\StyleChanger.cs" />
     <Compile Include="Windows\CodeStudioMain.cs">
       <SubType>Form</SubType>
     </Compile>

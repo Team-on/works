@@ -38,7 +38,7 @@ namespace CodeStudio {
 				textBox1.Text = "";
 		}
 
-		static OpenFileDialog openFileDialog = new OpenFileDialog();
+		static OpenFileDialog openFileDialog = new OpenFileDialog() { Filter= "Compilers|*.exe" };
 		private void button1_Click(object sender, EventArgs e) {
 			if (DialogResult.OK == openFileDialog.ShowDialog() && openFileDialog.CheckPathExists) {
 				textBox1.Text = openFileDialog.FileName;

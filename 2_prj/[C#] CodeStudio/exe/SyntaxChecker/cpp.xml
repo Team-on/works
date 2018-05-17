@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<syntax>
+	<colors>
+		<defaultColor>White</defaultColor>
+		<keywordColor>DodgerBlue</keywordColor>
+		<commentColor>DarkGreen</commentColor>
+	</colors>
+	
+	<separator>\n</separator>
+	<separator>\t</separator>
+	<separator>\ </separator>
+	<separator>.</separator>
+	<separator>,</separator>
+	<separator>;</separator>
+	<separator>?</separator>
+	<separator>:</separator>
+	<separator>(</separator>
+	<separator>)</separator>
+	<separator>{</separator>
+	<separator>}</separator>
+	<separator>[</separator>
+	<separator>]</separator>
+	
+	<keyword color="Aqua" commentInfo="var">sbyte</keyword>
+	<keyword color="Aqua" commentInfo="var">uint</keyword>
+	<keyword color="Aqua" commentInfo="var">ulong</keyword>
+	<keyword color="Aqua" commentInfo="var">ushort</keyword>
+	<keyword color="Aqua" commentInfo="var">string</keyword>
+	<keyword color="Aqua" commentInfo="var">short</keyword>
+	<keyword color="Aqua" commentInfo="var">byte</keyword>
+	<keyword color="Aqua" commentInfo="var">char</keyword>
+	<keyword color="Aqua" commentInfo="var">decimal</keyword>
+	<keyword color="Aqua" commentInfo="var">double</keyword>
+	<keyword color="Aqua" commentInfo="var">float</keyword>
+	<keyword color="Aqua" commentInfo="var">int</keyword>
+	<keyword color="Aqua" commentInfo="var">long</keyword>
+	<keyword color="Aqua" commentInfo="var">object</keyword>
+	
+<keyword>__abstract </keyword>
+<keyword>__alignof Operator</keyword>
+<keyword>__asm</keyword>
+<keyword>__assume</keyword>
+<keyword>__based</keyword>
+<keyword>__box </keyword>
+<keyword>__cdecl</keyword>
+<keyword>__declspec</keyword>
+<keyword>__delegate </keyword>
+<keyword>__event</keyword>
+<keyword>__except</keyword>
+<keyword>__fastcall</keyword>
+<keyword>__finally</keyword>
+<keyword>__forceinline</keyword>
+<keyword>__gc </keyword>
+<keyword>__hook </keyword>
+<keyword>__identifier</keyword>
+<keyword>__if_exists</keyword>
+<keyword>__if_not_exists</keyword>
+<keyword>__inline</keyword>
+<keyword>__int6</keyword>
+<keyword>__int</keyword>
+<keyword>__int64</keyword>
+<keyword>__int8</keyword>
+<keyword>__interface</keyword>
+<keyword>__leave</keyword>
+<keyword>__m8</keyword>
+<keyword>__m8d</keyword>
+<keyword>__m8i</keyword>
+<keyword>__m64</keyword>
+__multiple_inheritance</keyword><keyword>
+<keyword>__nogc </keyword><keyword>
+<keyword>__noop</keyword><keyword>
+__pin </keyword><keyword>
+<keyword>__property </keyword><keyword>
+<keyword>__raise</keyword><keyword>
+__sealed </keyword><keyword>
+<keyword>__single_inheritance</keyword><keyword>
+<keyword>__stdcall</keyword><keyword>
+__super</keyword><keyword>
+<keyword>__thiscall</keyword><keyword>
+<keyword>__try/__except, __try/__finally</keyword><keyword>
+__try_cast </keyword><keyword>
+<keyword>__unaligned</keyword><keyword>
+<keyword>__unhook </keyword><keyword>
+__uuidof</keyword><keyword>
+<keyword>__value </keyword><keyword>
+<keyword>__virtual_inheritance</keyword><keyword>
+__w64</keyword><keyword>
+<keyword>__wchar_t, wchar_t</keyword><keyword>
+<keyword>abstract</keyword><keyword>
+array</keyword><keyword>
+<keyword>auto</keyword><keyword>
+<keyword>bool</keyword><keyword>
+break</keyword><keyword>
+<keyword>case</keyword><keyword>
+<keyword>catch</keyword><keyword>
+char</keyword><keyword>
+<keyword>class</keyword><keyword>
+<keyword>const</keyword><keyword>
+const_cast</keyword><keyword>
+<keyword>continue</keyword><keyword>
+<keyword>decltype</keyword><keyword>
+default</keyword><keyword>
+<keyword>delegate</keyword><keyword>
+<keyword>delete</keyword><keyword>
+deprecated </keyword><keyword>
+<keyword>dllexport </keyword><keyword>
+<keyword>dllimport </keyword><keyword>
+do</keyword><keyword>
+<keyword>double</keyword><keyword>
+<keyword>dynamic_cast</keyword><keyword>
+else</keyword><keyword>
+<keyword>enum</keyword><keyword>
+<keyword>enum class</keyword><keyword>
+enum struct</keyword><keyword>
+<keyword>event</keyword><keyword>
+<keyword>explicit</keyword><keyword>
+extern</keyword><keyword>
+<keyword>false</keyword><keyword>
+<keyword>finally</keyword><keyword>
+float</keyword><keyword>
+<keyword>for</keyword><keyword>
+<keyword>for each, in</keyword><keyword>
+friend</keyword><keyword>
+<keyword>friend_as</keyword><keyword>
+<keyword>gcnew</keyword><keyword>
+generic</keyword><keyword>
+<keyword>goto</keyword><keyword>
+<keyword>if</keyword><keyword>
+initonly</keyword><keyword>
+<keyword>inline</keyword><keyword>
+<keyword>int</keyword><keyword>
+interface class</keyword><keyword>
+<keyword>interface struct</keyword><keyword>
+<keyword>interior_ptr</keyword><keyword>
+literal</keyword><keyword>
+<keyword>long</keyword><keyword>
+<keyword>mutable</keyword><keyword>
+naked </keyword><keyword>
+<keyword>namespace</keyword><keyword>
+<keyword>new</keyword><keyword>
+new</keyword><keyword>
+<keyword>noinline </keyword><keyword>
+<keyword>noreturn </keyword><keyword>
+nothrow </keyword><keyword>
+<keyword>novtable </keyword><keyword>
+<keyword>nullptr</keyword><keyword>
+operator</keyword><keyword>
+<keyword>private</keyword><keyword>
+<keyword>property</keyword><keyword>
+property </keyword><keyword>
+<keyword>protected</keyword><keyword>
+<keyword>public</keyword><keyword>
+ref class</keyword><keyword>
+<keyword>ref struct</keyword><keyword>
+<keyword>register</keyword><keyword>
+reinterpret_cast</keyword><keyword>
+<keyword>return</keyword><keyword>
+<keyword>safecast</keyword><keyword>
+sealed</keyword><keyword>
+<keyword>selectany </keyword><keyword>
+<keyword>short</keyword><keyword>
+signed</keyword><keyword>
+<keyword>sizeof</keyword><keyword>
+<keyword>static</keyword><keyword>
+static_assert</keyword><keyword>
+<keyword>static_cast</keyword><keyword>
+<keyword>struct</keyword><keyword>
+switch</keyword><keyword>
+<keyword>template</keyword><keyword>
+<keyword>this</keyword><keyword>
+thread </keyword><keyword>
+<keyword>throw</keyword><keyword>
+<keyword>true</keyword><keyword>
+try</keyword><keyword>
+<keyword>typedef</keyword><keyword>
+<keyword>typeid</keyword><keyword>
+typeid</keyword><keyword>
+<keyword>typename</keyword><keyword>
+<keyword>union</keyword><keyword>
+unsigned</keyword><keyword>
+<keyword>using declaration, using directive</keyword><keyword>
+<keyword>uuid </keyword><keyword>
+value class</keyword><keyword>
+<keyword>value struct</keyword><keyword>
+<keyword>virtual</keyword><keyword>
+void</keyword><keyword>
+<keyword>volatile</keyword><keyword>
+<keyword>while</keyword><keyword>
+	
+	<comment start="//" end="\n" />
+	<comment start="/*" end="*/" />
+	
+</syntax>

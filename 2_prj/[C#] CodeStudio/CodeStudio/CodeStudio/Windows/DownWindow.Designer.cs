@@ -24,14 +24,16 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tabPageCompiler = new System.Windows.Forms.TabPage();
+			this.CompilerOutput = new System.Windows.Forms.RichTextBox();
 			this.tabControl1.SuspendLayout();
+			this.tabPageCompiler.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
 			// 
 			this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPageCompiler);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -39,14 +41,27 @@
 			this.tabControl1.Size = new System.Drawing.Size(292, 273);
 			this.tabControl1.TabIndex = 1;
 			// 
-			// tabPage1
+			// tabPageCompiler
 			// 
-			this.tabPage1.Location = new System.Drawing.Point(4, 4);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(284, 247);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Compiler output";
-			this.tabPage1.UseVisualStyleBackColor = true;
+			this.tabPageCompiler.Controls.Add(this.CompilerOutput);
+			this.tabPageCompiler.Location = new System.Drawing.Point(4, 4);
+			this.tabPageCompiler.Name = "tabPageCompiler";
+			this.tabPageCompiler.Size = new System.Drawing.Size(284, 247);
+			this.tabPageCompiler.TabIndex = 0;
+			this.tabPageCompiler.Text = "Compiler output";
+			this.tabPageCompiler.UseVisualStyleBackColor = true;
+			// 
+			// CompilerOutput
+			// 
+			this.CompilerOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CompilerOutput.Location = new System.Drawing.Point(0, 0);
+			this.CompilerOutput.Name = "CompilerOutput";
+			this.CompilerOutput.Size = new System.Drawing.Size(284, 247);
+			this.CompilerOutput.TabIndex = 0;
+			this.CompilerOutput.Text = "";
+			this.CompilerOutput.TextChanged += new System.EventHandler(this.CompilerOutput_TextChanged);
+			this.CompilerOutput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CompilerOutput_KeyUp);
+			this.CompilerOutput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CompilerOutput_KeyUp);
 			// 
 			// DownWindow
 			// 
@@ -56,7 +71,9 @@
 			this.Controls.Add(this.tabControl1);
 			this.Name = "DownWindow";
 			this.Text = "DownWindow";
+			this.Shown += new System.EventHandler(this.DownWindow_Shown);
 			this.tabControl1.ResumeLayout(false);
+			this.tabPageCompiler.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -64,6 +81,7 @@
 		#endregion
 
 		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.TabPage tabPageCompiler;
+		public System.Windows.Forms.RichTextBox CompilerOutput;
 	}
 }

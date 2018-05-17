@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<syntax>
+	<colors>
+		<defaultColor>White</defaultColor>
+		<keywordColor>DodgerBlue</keywordColor>
+		<commentColor>DarkGreen</commentColor>
+	</colors>
+	
+	<separator>\n</separator>
+	<separator>\t</separator>
+	<separator>\ </separator>
+	<separator>.</separator>
+	<separator>,</separator>
+	<separator>;</separator>
+	<separator>?</separator>
+	<separator>:</separator>
+	<separator>(</separator>
+	<separator>)</separator>
+	<separator>{</separator>
+	<separator>}</separator>
+	<separator>[</separator>
+	<separator>]</separator>
+	
+	<keyword color="Aqua" commentInfo="var">sbyte</keyword>
+	<keyword color="Aqua" commentInfo="var">uint</keyword>
+	<keyword color="Aqua" commentInfo="var">ulong</keyword>
+	<keyword color="Aqua" commentInfo="var">ushort</keyword>
+	<keyword color="Aqua" commentInfo="var">string</keyword>
+	<keyword color="Aqua" commentInfo="var">short</keyword>
+	<keyword color="Aqua" commentInfo="var">byte</keyword>
+	<keyword color="Aqua" commentInfo="var">char</keyword>
+	<keyword color="Aqua" commentInfo="var">decimal</keyword>
+	<keyword color="Aqua" commentInfo="var">double</keyword>
+	<keyword color="Aqua" commentInfo="var">float</keyword>
+	<keyword color="Aqua" commentInfo="var">int</keyword>
+	<keyword color="Aqua" commentInfo="var">long</keyword>
+	<keyword color="Aqua" commentInfo="var">object</keyword>
+	
+	<keyword>abstract</keyword>
+	<keyword>as</keyword>
+	<keyword>base</keyword>
+	<keyword>bool</keyword>
+	<keyword>break</keyword>
+	<keyword>case</keyword>
+	<keyword>catch</keyword>	
+	<keyword>checked</keyword>
+	<keyword>class</keyword>
+	<keyword>const</keyword>
+	<keyword>continue</keyword>	
+	<keyword>default</keyword>
+	<keyword>delegate</keyword>
+	<keyword>do</keyword>	
+	<keyword>else</keyword>
+	<keyword color="Lime">enum</keyword>
+	<keyword>event</keyword>
+	<keyword>explicit</keyword>
+	<keyword>extern</keyword>
+	<keyword>false</keyword>
+	<keyword>finally</keyword>
+	<keyword>fixed</keyword>
+	<keyword>for</keyword>
+	<keyword>foreach</keyword>
+	<keyword>goto</keyword>
+	<keyword>if</keyword>
+	<keyword>implicit</keyword>
+	<keyword>in</keyword>
+	<keyword>interface</keyword>
+	<keyword>internal</keyword>
+	<keyword>is</keyword>
+	<keyword>lock</keyword>	
+	<keyword>namespace</keyword>
+	<keyword color="Yellow">new</keyword>
+	<keyword color="Yellow">null</keyword>	
+	<keyword>operator</keyword>
+	<keyword>out</keyword>
+	<keyword>override</keyword>
+	<keyword>params</keyword>
+	<keyword>private</keyword>
+	<keyword>protected</keyword>
+	<keyword>public</keyword>
+	<keyword>readonly</keyword>
+	<keyword>ref</keyword>
+	<keyword color="Plum">return</keyword>
+	<keyword>sealed</keyword>
+	<keyword>sizeof</keyword>
+	<keyword>stackalloc</keyword>
+	<keyword>static</keyword>
+	<keyword>struct</keyword>
+	<keyword>switch</keyword>
+	<keyword>this</keyword>
+	<keyword>throw</keyword>
+	<keyword>true</keyword>
+	<keyword>try</keyword>
+	<keyword>typeof</keyword>
+	<keyword>unchecked</keyword>
+	<keyword>unsafe</keyword>	
+	<keyword>using</keyword>
+	<keyword>using static</keyword>
+	<keyword>virtual</keyword>
+	<keyword>void</keyword>
+	<keyword>volatile</keyword>
+	<keyword>while</keyword>
+	<keyword commentInfo="ContextKeywords">add</keyword>
+	<keyword commentInfo="ContextKeywords">alias</keyword>
+	<keyword commentInfo="ContextKeywords">ascending</keyword>
+	<keyword commentInfo="ContextKeywords">async</keyword>
+	<keyword commentInfo="ContextKeywords">await</keyword>
+	<keyword commentInfo="ContextKeywords">descending</keyword>
+	<keyword commentInfo="ContextKeywords" color="Aqua" >dynamic</keyword>
+	<keyword commentInfo="ContextKeywords">from</keyword>
+	<keyword commentInfo="ContextKeywords">get</keyword>
+	<keyword commentInfo="ContextKeywords">global</keyword>
+	<keyword commentInfo="ContextKeywords">group</keyword>
+	<keyword commentInfo="ContextKeywords">into</keyword>
+	<keyword commentInfo="ContextKeywords">join</keyword>
+	<keyword commentInfo="ContextKeywords">let</keyword>
+	<keyword commentInfo="ContextKeywords">nameof</keyword>
+	<keyword commentInfo="ContextKeywords">orderby</keyword>
+	<keyword commentInfo="ContextKeywords">partial </keyword>
+	<keyword commentInfo="ContextKeywords">remove</keyword>
+	<keyword commentInfo="ContextKeywords">select</keyword>
+	<keyword commentInfo="ContextKeywords">set</keyword>
+	<keyword commentInfo="ContextKeywords">value</keyword>
+	<keyword commentInfo="ContextKeywords" color="Aqua" >var</keyword>
+	<keyword commentInfo="ContextKeywords">when </keyword>
+	<keyword commentInfo="ContextKeywords">where</keyword>
+	<keyword commentInfo="ContextKeywords" color="Plum">yield</keyword>
+	
+	<comment start="//" end="\n" />
+	<comment start="/*" end="*/" />
+	
+</syntax>

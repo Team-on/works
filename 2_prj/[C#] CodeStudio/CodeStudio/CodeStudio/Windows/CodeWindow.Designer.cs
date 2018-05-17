@@ -34,6 +34,9 @@
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(458, 343);
 			this.tabControl.TabIndex = 0;
+			this.tabControl.Visible = false;
+			this.tabControl.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.tabControl_ControlAdded);
+			this.tabControl.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.tabControl_ControlRemoved);
 			// 
 			// CodeWindow
 			// 
@@ -42,6 +45,7 @@
 			this.ClientSize = new System.Drawing.Size(458, 343);
 			this.Controls.Add(this.tabControl);
 			this.Name = "CodeWindow";
+			this.Shown += new System.EventHandler(this.CodeWindow_Shown);
 			this.ResumeLayout(false);
 
 		}
