@@ -24,19 +24,15 @@ namespace Paint__ {
 		private void PaintWindow_Shown(object sender, EventArgs e) {
 			displayWindow.Show();
 
-			palitreColor.Show();
-			palitrePickFigure.Show();
-			figureLayers.Show();
+			palitreColor.Show(this);
+			palitrePickFigure.Show(this);
+			figureLayers.Show(this);
 
 			figureLayers.Location = new Point(mainWindow.Width - figureLayers.Width - 10, mainWindow.Height - figureLayers.Height - 10);
 
 			palitreColor.Location = new Point(mainWindow.Width - palitreColor.Width - 10, mainWindow.ClientRectangle.Y + 22);
 
 			palitrePickFigure.Location = new Point(mainWindow.ClientRectangle.X + 2, mainWindow.ClientRectangle.Y + 22);
-
-		}
-
-		private void PaintWindow_Click(object sender, EventArgs e) {
 
 		}
 	}

@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using static Paint__.Singletones;
+
+namespace Paint__.Shapes {
+	class NEW_SHAPE_NAME : BasicShape {
+		//-------------------- Prop -----------------------------------
+
+		//-------------------- Metods -----------------------------------
+		override public void Draw(Graphics graphics) {
+
+		}
+
+		//-------------------- Fields -----------------------------------
+	}
+}

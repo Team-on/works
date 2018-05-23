@@ -77,6 +77,8 @@
     </Compile>
     <Compile Include="MainForm\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shapes\BasicShape.cs" />
+    <Compile Include="Shapes\ShapeRectangle.cs" />
     <Compile Include="Singletones.cs" />
     <EmbeddedResource Include="DisplayFigures\DisplayWindow.resx">
       <DependentUpon>DisplayWindow.cs</DependentUpon>
@@ -114,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ShapeTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

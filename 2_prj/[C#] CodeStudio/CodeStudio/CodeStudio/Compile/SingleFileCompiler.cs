@@ -16,6 +16,10 @@ namespace CodeStudio {
 
 			Process rezult = null;
 
+			string exePath = path.Substring(0, path.LastIndexOf('.')) + ".exe";
+			if (File.Exists(exePath))
+				File.Delete(exePath);
+
 			string ex = path.Substring(path.LastIndexOf('.') + 1);
 			if (ex == "cs")
 				rezult = CompileCSharp(path);
