@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="556" Width="864" 
+        Title="Kinoteatr" Height="556" Width="864" Icon="src/icon.png" 
 		>
 	<DockPanel>
 
@@ -15,14 +15,14 @@
 				</MenuItem>
 			</MenuItem>
 		</Menu>
-	
-		<Grid DockPanel.Dock="Bottom" ShowGridLines="True">
+
+		<Grid DockPanel.Dock="Bottom" ShowGridLines="False">
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition Height="3*" />
 			</Grid.RowDefinitions>
 
-			<Grid Grid.Row="0" Grid.Column="0" ShowGridLines="True">
+			<Grid Grid.Row="0" Grid.Column="0" ShowGridLines="False">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="1*"/>
 					<ColumnDefinition Width="5*"/>
@@ -34,13 +34,17 @@
 				<Button Grid.Row="0" Grid.Column="0" Click="FilmLeft">
 					<Image Source="src/Left.png" Stretch="Fill"/>
 				</Button>
+
+				<Button Grid.Row="0" Grid.Column="1" x:Name="FilmBtn1" Click="FilmLeft"/>
+				<Button Grid.Row="0" Grid.Column="2" x:Name="FilmBtn2"/>
+				<Button Grid.Row="0" Grid.Column="3" x:Name="FilmBtn3" Click="FilmRight"/>
+
 				<Button Grid.Row="0" Grid.Column="4" Click="FilmRight">
 					<Image Source="src/Right.png" Stretch="Fill"/>
 				</Button>
-
 			</Grid>
 
-			<Grid Grid.Row="1" Grid.Column="0" ShowGridLines="True">
+			<Grid Grid.Row="1" Grid.Column="0" ShowGridLines="False">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="1*" />
 					<ColumnDefinition Width="3*" />
@@ -48,58 +52,69 @@
 
 				<Image VerticalAlignment="Top" HorizontalAlignment="Left"  Grid.Row="0" Grid.Column="0" Source="src/bilettemp.jpg"/>
 
-				<Grid  Grid.Row="0" Grid.Column="0" ShowGridLines="True">
+				<Grid  Grid.Row="0" Grid.Column="0" ShowGridLines="False">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="100*"/>
 						<ColumnDefinition Width="43*"/>
 						<ColumnDefinition Width="71*"/>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="30*"/>
-						<RowDefinition Height="36*"/>
+						<RowDefinition Height="29*"/>
+						<RowDefinition Height="35*"/>
+						<RowDefinition Height="20*"/>
+						<RowDefinition Height="31*"/>
 						<RowDefinition Height="21*"/>
-						<RowDefinition Height="32*"/>
+						<RowDefinition Height="35*"/>
+						<RowDefinition Height="26*"/>
 						<RowDefinition Height="23*"/>
-						<RowDefinition Height="36*"/>
-						<RowDefinition Height="27*"/>
-						<RowDefinition Height="24*"/>
-						<RowDefinition Height="168*"/>
+						<RowDefinition Height="44*"/>
+						<RowDefinition Height="74*"/>
+						<RowDefinition Height="44*"/>
 					</Grid.RowDefinitions>
 
-					<Label x:Name="Film" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16" Grid.ColumnSpan="3"/>
+					<Label x:Name="Film" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16"/>
 
-					<Label x:Name="Date" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16" Grid.ColumnSpan="3"/>
+					<Label x:Name="Date" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16" />
 
-					<Label x:Name="Zal" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="12"/>
+					<Label x:Name="Zal" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16"/>
 
 					<Label x:Name="Row" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16"/>
 
-					<Label x:Name="Place" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16"/>
+					<Label x:Name="Place" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16" />
 
-					<Label x:Name="Price" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="12"/>
-				
+					<Label x:Name="Price" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16"/>
+
+					<Image x:Name="ImageTicket" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,0,8,8" Stretch="Fill">
+						
+					</Image>
+
+					<Button Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" FontFamily="Comic Sans MS" FontSize="20" Content="Купити квиток" Click="BuyTicket"/>
 				</Grid>
 
 
 
-				<Grid Grid.Row="0" Grid.Column="1" ShowGridLines="True">
+				<Grid Grid.Row="0" Grid.Column="1" ShowGridLines="False">
 					<Grid.RowDefinitions>
 						<RowDefinition />
 						<RowDefinition Height="10*" />
 					</Grid.RowDefinitions>
 
-					<Grid Grid.Row="0" Grid.Column="0" ShowGridLines="True">
+					<Grid Grid.Row="0" Grid.Column="0" ShowGridLines="False">
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="2*"/>
-							<ColumnDefinition Width="1*"/>
-							<ColumnDefinition Width="1*"/>
-							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="5*"/>
+							<ColumnDefinition Width="4*"/>
+							<ColumnDefinition Width="4*"/>
+							<ColumnDefinition Width="5*"/>
 						</Grid.ColumnDefinitions>
 
+						<Label x:Name="LabelFilmName" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Comic Sans MS" Grid.Column="0" Content="Name: "/>
 
+						<Label x:Name="LabelDate" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Comic Sans MS" Grid.Column="1" Content="Дата: "/>
+
+						<Label x:Name="LabelZal" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Comic Sans MS" Grid.Column="2" Content="Зал: "/>
 					</Grid>
 
-					<Grid Grid.Row="1" Grid.Column="0" ShowGridLines="True">
+					<Grid Grid.Row="1" Grid.Column="0" ShowGridLines="False">
 						<Grid.RowDefinitions>
 							<RowDefinition />
 							<RowDefinition Height="7*" />
@@ -107,7 +122,7 @@
 
 						<Image Grid.Row="0" Grid.Column="0" Source="src/screen.jpg"/>
 
-						<Grid Grid.Row="1" Grid.Column="0" ShowGridLines="True">
+						<Grid x:Name="PlacesGrid" Grid.Row="1" Grid.Column="0" ShowGridLines="False">
 							<Grid.RowDefinitions>
 								<RowDefinition />
 								<RowDefinition />
@@ -136,7 +151,7 @@
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 
-							<Button Grid.Row="6" Grid.Column="1" Content="6/1" Click="Button_Click" Background="BlueViolet" />
+							<!--<Button Grid.Row="6" Grid.Column="1" Content="6/1" Click="Button_Click" Background="BlueViolet" />
 							<Button Grid.Row="6" Grid.Column="2" Content="6/2" Click="Button_Click" Background="BlueViolet" />
 							<Button Grid.Row="6" Grid.Column="3" Content="6/3" Click="Button_Click" Background="BlueViolet" />
 							<Button Grid.Row="6" Grid.Column="4" Content="6/4" Click="Button_Click" Background="BlueViolet" />
@@ -200,7 +215,7 @@
 							<Button Grid.Row="1" Grid.Column="7" Content="1/5" Click="Button_Click" Background="Aqua" />
 							<Button Grid.Row="1" Grid.Column="8" Content="1/6" Click="Button_Click" Background="Aqua" />
 							<Button Grid.Row="1" Grid.Column="9" Content="1/7" Click="Button_Click" Background="Aqua" />
-							<Button Grid.Row="1" Grid.Column="10" Content="1/8" Click="Button_Click" Background="Aqua" />
+							<Button Grid.Row="1" Grid.Column="10" Content="1/8" Click="Button_Click" Background="Aqua" />-->
 
 						</Grid>
 

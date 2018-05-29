@@ -11,7 +11,10 @@ namespace WpfApp1{
 		public string Name { get; private set; }
 		public string ImageSrc { get; private set; }
 		public Dictionary<PlaceTypes, ushort> Prices { get; private set; }
-		Place[][] places;
+		public Place[][] places { get; private set; }
+
+		public bool GetPlaceState(int i, int j) => places[i][j].isFree;
+		public void SetPlaceState(int i, int j, bool isFree) => places[i][j].isFree = isFree;
 
 		public FilmInfo(ZalInfo zal, DateTime time, string name, string imageSrc, Dictionary<PlaceTypes, ushort> prices) {
 			Zal = zal;

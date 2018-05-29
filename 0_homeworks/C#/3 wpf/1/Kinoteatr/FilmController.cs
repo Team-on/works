@@ -15,5 +15,20 @@ namespace WpfApp1{
 		public void AddFilm(FilmInfo film) => filmInfo.Add(film);
 		public int GetFilmCnt() => filmInfo.Count;
 		public FilmInfo GetFilmById(int id) => filmInfo[id];
+		public FilmInfo[] GetFilmsArray(int idFirst, int length) {
+			FilmInfo[] rez = new FilmInfo[length];
+			int i = 0;
+			int shift = 0;
+
+			if (idFirst == -1) {
+				idFirst = 0;
+				shift = 1;
+				rez[0] = filmInfo[filmInfo.Count - 1];
+			}
+
+			for (; i + shift < length; ++i)
+				rez[i + shift] = filmInfo[(i + idFirst) % filmInfo.Count] ;
+			return rez;
+		}
 	}
 }

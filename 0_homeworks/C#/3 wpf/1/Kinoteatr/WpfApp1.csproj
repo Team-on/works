@@ -109,5 +109,21 @@
     <Resource Include="src\Left.png" />
     <Resource Include="src\Right.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\film1.jpg" />
+    <Resource Include="src\film10.jpg" />
+    <Resource Include="src\film11.jpg" />
+    <Resource Include="src\film2.jpg" />
+    <Resource Include="src\film3.jpg" />
+    <Resource Include="src\film4.jpg" />
+    <Resource Include="src\film5.jpg" />
+    <Resource Include="src\film6.jpg" />
+    <Resource Include="src\film7.jpg" />
+    <Resource Include="src\film8.jpg" />
+    <Resource Include="src\film9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
