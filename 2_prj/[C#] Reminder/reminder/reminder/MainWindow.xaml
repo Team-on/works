@@ -1,0 +1,120 @@
+﻿<Window x:Class="reminder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:customName="wpftool"
+        xmlns:local="clr-namespace:reminder"
+        mc:Ignorable="d"
+        Title="Reminder" Height="530" Width="620"
+		 MinHeight="530" MinWidth="620"
+		Icon="mainicon.ico"
+		Style="{StaticResource VS2012WindowStyle}"
+		>
+
+	<DockPanel LastChildFill="True">
+		<StatusBar
+            DockPanel.Dock="Bottom"
+            Height="24">
+			<TextBlock Margin="3,0,0,0">Ready</TextBlock>
+			<StatusBarItem HorizontalAlignment="Right">
+				<ResizeGrip Opacity="0.75"/>
+			</StatusBarItem>
+		</StatusBar>
+		
+		<Menu  
+			DockPanel.Dock="Top"
+            Height="24">
+			<MenuItem Margin="3,0,0,0" Header="Btn1" />
+		</Menu>
+
+		<WrapPanel
+			DockPanel.Dock="Right"
+			Orientation="Vertical"
+			Background="{StaticResource VS2012WindowButtonBackground}"
+			Style="{StaticResource VS2012WindowWrapPanel}"
+			x:Name="TaskPanel"
+			>
+
+		</WrapPanel>
+
+
+		<ComboBox Style="{StaticResource VS2012WindowComboBox}" IsEditable="True" IsReadOnly="True" Text="Pick theme" DockPanel.Dock="Top" x:Name="PickTheme">
+			<ComboBoxItem>Default</ComboBoxItem>
+			<ComboBoxItem>Other</ComboBoxItem>
+
+		</ComboBox>
+		
+		<DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
+			<Button Click="SelectImage" Style="{StaticResource VS2012WindowStandartButton}" HorizontalAlignment="Right" Width="20" DockPanel.Dock="Right" />
+			<TextBox x:Name="PickImage" Style="{StaticResource VS2012WindowTextBox}" Text="Select image(optional)" IsReadOnly="True"/>
+		</DockPanel>
+
+		<Button Click="CreateNewTask" Style="{StaticResource VS2012WindowStandartButton}" DockPanel.Dock="Bottom">
+			<Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Content="Create task!"/>
+		</Button>
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*"/>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBox GotFocus="ClearDefaultValueTextBox" x:Name="PickName" Style="{StaticResource VS2012WindowTextBox}" Text="Task name" Grid.Row="0" Grid.ColumnSpan="2"/>
+			<TextBox GotFocus="ClearDefaultValueTextBox" x:Name="PickDescription" Style="{StaticResource VS2012WindowTextBox}" Text="Description" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+			<DatePicker x:Name="PickDate" Margin="15" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="2"/>
+
+			<Grid Grid.Row="2" Grid.Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				
+				<Grid Grid.Column="0">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="3*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBox x:Name="PickHours" Style="{StaticResource VS2012WindowTextBox}" Text="12" FontSize="55" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsReadOnly="True" Grid.RowSpan="2"/>
+					<Button Click="Button_Click" Style="{StaticResource VS2012WindowStandartButton}" Grid.Column="1">
+						<Image Height="32" Source="img/UpArrow.jpg"/>
+					</Button>
+					<Button Click="Button_Click_1" Style="{StaticResource VS2012WindowStandartButton}" Grid.Row="1" Grid.Column="1">
+						<Image Height="32" HorizontalAlignment="Center" VerticalAlignment="Center" Source="img/DownArrow.jpg"/>
+					</Button>
+				</Grid>
+
+				<Grid Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="3*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBox x:Name="PickMinutes" Style="{StaticResource VS2012WindowTextBox}" Text="30" FontSize="55" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsReadOnly="True" Grid.RowSpan="2"/>
+					<Button Click="Button_Click_2" Style="{StaticResource VS2012WindowStandartButton}" Grid.Column="1">
+						<Image Height="32" Source="img/UpArrow.jpg"/>
+					</Button>
+					<Button Click="Button_Click_3" Style="{StaticResource VS2012WindowStandartButton}" Grid.Row="1" Grid.Column="1">
+						<Image Height="32" HorizontalAlignment="Center" VerticalAlignment="Center" Source="img/DownArrow.jpg"/>
+					</Button>
+				</Grid>
+			</Grid>
+		</Grid>
+		
+	</DockPanel>
+</Window>
