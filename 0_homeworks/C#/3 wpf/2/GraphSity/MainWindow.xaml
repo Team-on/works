@@ -1,0 +1,45 @@
+﻿<Window x:Class="GraphSity.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphSity"
+        mc:Ignorable="d"
+        Title="MainWindow"
+		Height="600" Width="800"
+		MinHeight="600" MinWidth="800"
+		>
+
+	<DockPanel LastChildFill="True">
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="btn"/>
+		</Menu>
+
+		<StatusBar DockPanel.Dock="Bottom">
+			<StatusBarItem Content="Ready"/>
+		</StatusBar>
+		
+		<Grid Width="150" DockPanel.Dock="Right">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="75"/>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+
+			<UniformGrid>
+				<Button Content="Add Sity" Click="AddSityMode"/>
+				<Button Content="Add Path" Click="AddPathMode"/>
+				<Button Content="Rem Sity" Click="RemoveSityMode"/>
+				<Button Content="Rem Path" Click="RemovePathMode"/>
+			</UniformGrid>
+
+			<TextBox Background="Red" Grid.Row="1"/>
+			<TextBox Background="Blue" Grid.Row="2"/>
+
+		</Grid>
+
+		<Canvas MouseMove="field_MouseMove" x:Name="field">
+			<Rectangle Canvas.Left="10" Canvas.Top="50" Height="40" Width="400" Fill="Green"/>
+		</Canvas>
+	</DockPanel>
+</Window>
