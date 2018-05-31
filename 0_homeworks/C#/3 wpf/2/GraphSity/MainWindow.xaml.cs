@@ -23,6 +23,43 @@ namespace GraphSity {
 			InitializeComponent();
 			nodes = new NodesControl();
 			currMode = CurrentMode.None;
+
+			//nodes.AddNode();
+			//nodes.AddNode();
+			//nodes.AddNode();
+			//nodes.AddNode();
+			//nodes.AddNode();
+			//nodes.AddNode();
+
+			//nodes.AddPath(0, 1, 10);
+			//nodes.AddPath(0, 2, 30);
+			//nodes.AddPath(0, 4, 40);
+			//nodes.AddPath(1, 2, 20);
+			//nodes.AddPath(1, 3, 20);
+			//nodes.AddPath(3, 2, 5);
+			//nodes.AddPath(4, 3, 10);
+
+			//nodes.AddPath(0, 4, 40);
+			//nodes.AddPath(0, 3, 80);
+			//nodes.AddPath(0, 1, 10);
+			//nodes.AddPath(1, 4, 20);
+			//nodes.AddPath(1, 2, 20);
+			//nodes.AddPath(2, 3, 14);
+			//nodes.AddPath(4, 3, 30);
+
+			//nodes.AddPath(0, 1, 10);
+			//nodes.AddPath(0, 2, 20);
+			//nodes.AddPath(0, 5, 100);
+
+			//nodes.AddPath(1, 3, 80);
+			//nodes.AddPath(1, 4, 60);
+
+			//nodes.AddPath(2, 1, 70);
+			//nodes.AddPath(2, 3, 70);
+
+			//nodes.AddPath(3, 5, 75);
+
+			//nodes.AddPath(4, 5, 60);
 		}
 
 
@@ -70,11 +107,10 @@ namespace GraphSity {
 			}
 		}
 
-		private void Field_MouseUp(object sender, MouseButtonEventArgs e) {
-			MessageBox.Show("Press");
-
+		private void Field_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
 			switch (currMode) {
 			case CurrentMode.AddSity:
+			nodes.AddNode();
 			break;
 			case CurrentMode.RemoveSity:
 			break;
@@ -82,11 +118,14 @@ namespace GraphSity {
 			break;
 			case CurrentMode.RemovePath:
 			break;
+			case CurrentMode.None:
+			break;
 			}
 		}
 
-		private void field_MouseMove(object sender, MouseEventArgs e) {
-			MessageBox.Show("Press");
+		private void Window_SizeChanged(object sender, SizeChangedEventArgs e) {
+			fieldBackground.Height = e.NewSize.Height - statusBar.ActualHeight - this.menuStrip.ActualHeight - 30;
+			fieldBackground.Width = e.NewSize.Width - GridWithInfo.Width - 10;
 		}
 	}
 

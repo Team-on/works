@@ -1,68 +1,135 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace GraphSity {
 	class NodesControl : IEnumerable {
-		List<GraphNode> nodes;
+		List<List<NodeInfo>> nodes;
 
 		public NodesControl() {
-			nodes = new List<GraphNode>();
+			nodes = new List<List<NodeInfo>>();
 		}
 
 		public IEnumerator GetEnumerator() => ((IEnumerable)nodes).GetEnumerator();
 
-		public void AddNode(GraphNode node) => nodes.Add(node);
-		public void MakePath(GraphNode from, GraphNode to, uint len) => nodes.Find((a) => a == from)?.AddPath(to, len);
-		public void RemovePath(GraphNode from, GraphNode to) => nodes.Find((a) => a == from)?.RemovePath(to);
+		public int AddNode() {
+			nodes.Add(new List<NodeInfo>());
+			return nodes.Count - 1;
+		}
+		public void RemoveNode(int id) {
+			foreach (var i in nodes) {
+				var find = i.Find((a) => id == a.nodeId);
+				while (find != null) {
+					i.Remove(find);
+					find = i.Find((a) => id == a.nodeId);
+				}
+			}
+			nodes.RemoveAt(id);
+		}
 
-		public uint FindShortestPath(GraphNode from, GraphNode to) {
-			List<PATH> mins = new List<PATH>();
-			uint passedLen = 0;
+		public void AddPath(int from, int to, uint len) => nodes[from].Add(new NodeInfo() { nodeId = to, len = len });
+		public void RemovePath(int from, int to) {
+			var find = nodes[from].Find((a) => to == a.nodeId);
+			if (find != null)
+				nodes[from].Remove(find);
+		}
 
+		public uint ShortestPath(int from, int to) {
+			List<int> visited = new List<int>();
+			List<uint> ans = new List<uint>();
+			List<PathInfo> mins = new List<PathInfo>();
+			uint passed = 0;
+
+			AddToMinsFromNode(from);
 			Rec(from);
 
-			return passedLen;
+			//string str = "";
+			//for(int i = 0; i < nodes.Count; ++i) {
+			//	for (int j = 0; j < nodes[i].Count; ++j)
+			//		str += nodes[i][j].len + " | ";
+			//	str += "\n";
+			//}
 
-			bool Rec(GraphNode node) {
-				if (node == to)
+			//System.Windows.MessageBox.Show(str);
+			System.Windows.MessageBox.Show("REZULT: " + passed.ToString());
+			//foreach (var i in ans) 
+				//MessageBox.Show("Ans: " + i.ToString());
+
+			return passed;
+
+			bool Rec(int currId) {
+				if (currId == to) {
+					ans.Add(passed);
 					return true;
+				}
 
-				if (node.ContainPath()) {
-					foreach (KeyValuePair<GraphNode, uint> i in node)
-						mins.Add(new PATH() { from = node, to = i.Key, len = i.Value });
+				if (visited.Contains(currId))
+					return false;
+				visited.Add(currId);
+
+				if(nodes[currId].Count != 0) {
+					//string str1 = "";
+					//foreach (var a in mins) 
+					//	str1 += a.from + "-" + a.to + ": " + a.len + "\n";
+					//MessageBox.Show(str1);
 
 					uint min = mins[0].len;
-					foreach (PATH i in mins) 
-						if (i.len < min)
+					foreach (var i in mins)
+						if (i.len < min) 
 							min = i.len;
 
-					List<GraphNode> nextNodes = new List<GraphNode>();
-					while (mins.Find((a) => a.len == min) != null) {
-						var find = mins.Find((a) => a.len == min);
+					//MessageBox.Show("Min: " + min.ToString());
+
+					List<int> nextNodes = new List<int>();
+					var find = mins.Find((a) => a.len == min);
+					while (find != null) {
 						nextNodes.Add(find.to);
 						mins.Remove(find);
+						find = mins.Find((a) => a.len == min);
 					}
 
-					passedLen += min;
+					//str1 = "";
+					//foreach (var a in mins)
+					//	str1 += a.from + "-" + a.to + ": " + a.len + "\n";
+					//MessageBox.Show(str1);
 
-					foreach (var i in nextNodes) {
-						bool rez = Rec(i);
-						if (rez)
-							return rez;
-					}
+					passed = min;
 
+					foreach (var i in nextNodes) 
+						AddToMinsFromNode(i);
+					foreach (var i in nextNodes) 
+						Rec(i);
 				}
 
 				return false;
+
+				
+			}
+
+			void AddToMinsFromNode(int nodeId) {
+				foreach (var i in nodes[nodeId]) {
+					uint currLen = i.len + passed;
+					var find = mins.Find((a)=>a.to == i.nodeId);
+					if(find == null || (find != null && find.len == currLen))
+						mins.Add(new PathInfo() { len = currLen, from = nodeId, to = i.nodeId });
+					else if(find.len > currLen) {
+						mins.RemoveAll((a) => a.to == i.nodeId);
+						mins.Add(new PathInfo() { len = currLen, from = nodeId, to = i.nodeId });
+					}
+				}
 			}
 		}
 
-		class PATH {
-			public GraphNode from, to;
+		class NodeInfo {
 			public uint len;
+			public int nodeId;
 		}
 
-
+		class PathInfo {
+			public uint len;
+			public int from, to;
+		}
 	}
+
 }

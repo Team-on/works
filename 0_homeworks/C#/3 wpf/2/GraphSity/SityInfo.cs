@@ -10,8 +10,7 @@ namespace GraphSity {
 		Point pos;
 		Size size;
 
-		public Point Pos => pos;
-		public Size Size => size;
+		public System.Windows.Shapes.Rectangle rectangle;
 		public string name;
 	}
 }

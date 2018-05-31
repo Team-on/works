@@ -8,18 +8,19 @@
         Title="MainWindow"
 		Height="600" Width="800"
 		MinHeight="600" MinWidth="800"
+		SizeChanged="Window_SizeChanged"
 		>
 
 	<DockPanel LastChildFill="True">
-		<Menu DockPanel.Dock="Top">
+		<Menu x:Name="menuStrip" DockPanel.Dock="Top">
 			<MenuItem Header="btn"/>
 		</Menu>
 
-		<StatusBar DockPanel.Dock="Bottom">
+		<StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
 			<StatusBarItem Content="Ready"/>
 		</StatusBar>
 		
-		<Grid Width="150" DockPanel.Dock="Right">
+		<Grid x:Name="GridWithInfo" Width="150" DockPanel.Dock="Right">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="75"/>
 				<RowDefinition Height="3*"/>
@@ -38,8 +39,8 @@
 
 		</Grid>
 
-		<Canvas MouseMove="field_MouseMove" x:Name="field">
-			<Rectangle Canvas.Left="10" Canvas.Top="50" Height="40" Width="400" Fill="Green"/>
+		<Canvas MouseLeftButtonDown="Field_MouseLeftButtonDown" x:Name="field">
+			<Rectangle x:Name="fieldBackground" Canvas.Left="0" Canvas.Top="0"  Fill="White"/>
 		</Canvas>
 	</DockPanel>
 </Window>
