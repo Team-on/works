@@ -22,16 +22,18 @@
 		
 		<Grid x:Name="GridWithInfo" Width="150" DockPanel.Dock="Right">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="75"/>
+				<RowDefinition Height="114"/>
 				<RowDefinition Height="3*"/>
 				<RowDefinition Height="1*"/>
 			</Grid.RowDefinitions>
 
-			<UniformGrid>
+			<UniformGrid Columns="2">
 				<Button Content="Add Sity" Click="AddSityMode"/>
 				<Button Content="Add Path" Click="AddPathMode"/>
 				<Button Content="Rem Sity" Click="RemoveSityMode"/>
 				<Button Content="Rem Path" Click="RemovePathMode"/>
+				<Button Content="Find Path" Click="FindPathMode"/>
+				<Button Content="Change Path" Click="ChangePathMode"/>
 			</UniformGrid>
 
 			<TextBox Background="Red" Grid.Row="1"/>
@@ -39,8 +41,9 @@
 
 		</Grid>
 
-		<Canvas MouseLeftButtonDown="Field_MouseLeftButtonDown" x:Name="field">
-			<Rectangle x:Name="fieldBackground" Canvas.Left="0" Canvas.Top="0"  Fill="White"/>
+		<Canvas MouseUp="EndMoveNode" MouseMove="field_MouseMove" x:Name="field">
+			<Rectangle MouseLeftButtonUp="EndMoveNode" MouseRightButtonDown="ClearMode" MouseLeftButtonDown="CreateNewNode" x:Name="fieldBackground" Canvas.Left="16" Canvas.Top="16"  Fill="White" />
+
 		</Canvas>
 	</DockPanel>
 </Window>

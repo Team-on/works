@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CircleButton">
+
+	<Style x:Key="CenterButton" TargetType="{x:Type Button}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					
+					<Grid x:Name="grid">
+						<Polygon Fill="{TemplateBinding Background}">
+							<Polygon.Points>
+								<Point X="50" Y="0"/>
+								<Point X="100" Y="50"/>
+								<Point X="50" Y="100"/>
+								<Point X="0" Y="50"/>
+							</Polygon.Points>
+						</Polygon>
+
+						<ContentPresenter />
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="LeftTopButton" TargetType="{x:Type Button}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+
+					<Grid x:Name="grid">
+
+						<!--<Ellipse Width="100" Height="100" Fill="{TemplateBinding Background}">
+							
+						</Ellipse>-->
+						
+						<Polygon Fill="{TemplateBinding Background}">
+							<Polygon.Points>
+								<Point X="50" Y="50"/>
+								<Point X="50" Y="100"/>
+								<Point X="100" Y="50" />
+							</Polygon.Points>
+						</Polygon>
+
+						<ContentPresenter />
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

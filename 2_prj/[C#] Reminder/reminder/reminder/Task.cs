@@ -17,5 +17,7 @@ namespace reminder{
 			this.description = description;
 			this.image = image;
 		}
+
+
 	}
 }

@@ -1,0 +1,35 @@
+﻿<Window x:Class="reminder.TaskHappen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:reminder"
+        mc:Ignorable="d"
+        Title="TaskHappen" Height="390.659" Width="384.066"
+		MinHeight="390.659" MinWidth="384.209"
+		Style="{StaticResource VS2012WindowStyle}"
+		Icon="mainicon.ico"
+		>
+	<DockPanel LastChildFill="True">
+		<DockPanel.Resources>
+			<Style TargetType="Label">
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
+				<Setter Property="FontSize" Value="22"/>
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="FontFamily" Value="Comic Sans MS"/>
+			</Style>
+		</DockPanel.Resources>
+
+		<Grid Height="120" x:Name="grid" DockPanel.Dock="Top">
+			<StackPanel x:Name="stackPanel">
+				<Label x:Name="time" Content="Time comes! (02.02.2001 15:15)"/>
+				<Label x:Name="theme" Content="Theme"/>
+				<Label x:Name="name" Content="name"/>
+			</StackPanel>
+		</Grid>
+
+		<Label x:Name="descr" Content="desct"/>
+
+	</DockPanel>
+</Window>

@@ -23,6 +23,38 @@ namespace reminder {
 			InitializeComponent();
 			taskController = new TaskController();
 			PickDate.SelectedDate = DateTime.Now;
+			timer.Interval = 1000;
+			//timer.Interval = 60000;
+			timer.Tick += Timer_Tick;
+			timer.Start();
+		}
+
+		private void Timer_Tick(object sender, EventArgs e) {
+			REPEAT_AFTER_DELETE_IN_Timer_Tick:
+			foreach (var i in taskController.GetTasksEnumerator()) {
+				if ((i.dateTime - DateTime.Now).TotalSeconds <= 61) {
+					DisplayTask(i);
+					taskController.GetTasksEnumerator().Remove(i);
+					goto REPEAT_AFTER_DELETE_IN_Timer_Tick;
+				}
+			}
+			this.FillWithTasksButton();
+		}
+
+		private void DisplayTask(Task t) {
+			Window window = new TaskHappen() { Tag = t };
+			window.Topmost = true;
+			window.Show();
+			window.Top = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Size.Height;
+			window.Left = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Size.Width - window.Width;
+			double needPosTop = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Size.Height - window.Height;
+
+			System.Windows.Forms.Timer m = new System.Windows.Forms.Timer {
+				Interval = 6
+			};
+			bool end = false;
+			m.Tick += (a,b )=>{ if (!end) { if (window.Top >= needPosTop) --window.Top; else end = true; } };
+			m.Start();
 		}
 
 		public void FillWithTasksButton() {
@@ -58,18 +90,17 @@ namespace reminder {
 				Grid.SetColumn(currLabel, 2);
 				mainGrid.Children.Add(currLabel);
 
-				Image img = null;
 
-				if (i.image != null) 
-					img = new Image() { Source = i.image.Source };
-				else
-					img = new Image() { Source = TaskController.defaultImage.Source };
-
-				img.Margin = new Thickness(5, 5, 5, 5);
-				img.VerticalAlignment = VerticalAlignment.Center;
-				img.HorizontalAlignment = HorizontalAlignment.Left;
+				if (i.image != null) {
+					Image img = new Image() {
+						Source = i.image.Source ,
+						VerticalAlignment = VerticalAlignment.Center,
+						HorizontalAlignment = HorizontalAlignment.Left,
+						Margin = new Thickness(5, 5, 5, 5)
+					};
 				Grid.SetRowSpan(img, 2);
-				mainGrid.Children.Add(img);
+					mainGrid.Children.Add(img);
+				}
 
 				currTask.Click += DisplayTaskInfo;
 
@@ -141,6 +172,7 @@ namespace reminder {
 
 		TaskController taskController;
 		System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog() { Multiselect = false, Filter= "images|*.jpg; *.jpeg; *.png; *.jpe; *.ico; *.bmp" };
+		System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
 			byte n = byte.Parse(PickHours.Text);

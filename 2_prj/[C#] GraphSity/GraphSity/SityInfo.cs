@@ -7,10 +7,13 @@ using System.Windows;
 
 namespace GraphSity {
 	class SityInfo {
+		public int nodeId;
 		Point pos;
-		Size size;
+		public Point Pos => pos;
 
-		public System.Windows.Shapes.Rectangle rectangle;
-		public string name;
+		public SityInfo(int NodeId, Point point) {
+			nodeId = NodeId;
+			pos = point;
+		}
 	}
 }
