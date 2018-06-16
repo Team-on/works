@@ -37,9 +37,8 @@ void _room::DoMobTurns(const unsigned long long int ticTimer) {
 		if (mob[i].reaction.GetCurr() == -1)
 			continue;
 
-		if (ticTimer % mob[i].reaction.GetCurr() == 0) {
-			 //AI_DoTurn(mob[i]);
-		}
+		if (ticTimer % mob[i].reaction.GetCurr() == 0)
+			mob[i].AI_MoveIfSeeWithoutWall(*this);
 
 	}
 }

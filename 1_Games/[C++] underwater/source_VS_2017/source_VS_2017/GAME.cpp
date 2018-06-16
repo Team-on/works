@@ -714,8 +714,8 @@ void GAME::RecalcCamPos(COORD &startPos,COORD &endPos) {
 }
 
 bool GAME::LOVAlgoritm(COORD p1, COORD p2) {
-	if (pow(p2.X - p1.X, 2) + pow(p2.Y - p1.Y, 2) > pow(player.lengthOfView.GetCurr(), 2))
-		return 0;
+	if (pow(p2.X - p1.X, 2) + pow(p2.Y - p1.Y, 2) <= pow(player.lengthOfView.GetCurr(), 2))
+		return 1;
 
 	if(abs(p1.X - p2.X) <= 1 && abs(p1.Y - p2.Y) <= 1)
 		return 1;

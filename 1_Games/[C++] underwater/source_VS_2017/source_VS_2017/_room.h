@@ -4,6 +4,8 @@
 #include "AI_mob.h"
 #include "dungeonMap.h"
 
+class AI_mob;
+
 class _room{
 	//Ланшафт кімнати
 	dungeonMap map;
@@ -50,6 +52,8 @@ public:
 	//синхронізуються з виводом
 	dungeonMap & GetDisplayInfo();
 	dungeonMap & GetMap();
+
+	dungeonMap  & GetLogicMap() { return map; }
 
 private:
 	//--------------------- AI alg------------------------

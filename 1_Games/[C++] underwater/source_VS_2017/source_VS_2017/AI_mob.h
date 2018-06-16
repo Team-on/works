@@ -2,6 +2,9 @@
 #define _AI_MOB_H_
 
 #include "_mobBasic.h"
+#include "_room.h"
+
+class _room;
 
 class AI_mob : public _mobBasic {
 	//Коланди руху мають співпадати з напрямими руху в enum direction(globalVar.h)
@@ -22,13 +25,11 @@ public:
 	AI_mob();
 	~AI_mob();
 
-	bool AI_SeePlayer(_mobBasic &mob);
+	bool AI_Move(_room &room, AI_COMMAND moveDir);
 
-	bool AI_Move(_mobBasic &mob, AI_COMMAND moveDir);
+	bool AI_MoveIfSeeWithoutWall(_room &room);
 
-	bool AI_MoveIfSeeWithoutWall(_mobBasic &mob);
-
-	bool AI_DoTurn(_mobBasic &mob);
+	bool AI_DoTurn(_room &room);
 };
 
 #endif // !_AI_MOB_H_
