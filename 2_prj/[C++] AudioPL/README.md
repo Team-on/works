@@ -1,7 +1,20 @@
 # AudioPL
-This project use audiere lib
+Простий і легкий консольний аудіо плеєр
 
-### Recommend console settings:
-  Font: Raster Fonts 8x12
+## Фичи:
+ * Керування мишкою в консолі
+ * Гарний ASCII вивід
+ * Програє mp3, ogg, wav
+ * Таймер на виключення
+ * Копіювання пісні на робочий стіл при натисненні по назві
+
+## Зроблено на
+ * C++
+ * Audiere 1.9.4 
+ * Частина мого движка з underwater
  
-  Size: 50x37
+### Рекомендовані налаштування консолі:
+  * Font: Raster Fonts 8x12
+  * Size: 50x37
+
+![](readme/img1.jpg)
