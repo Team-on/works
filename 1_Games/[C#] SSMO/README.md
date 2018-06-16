@@ -14,8 +14,8 @@
 ## Зроблено на
  * C#
 
-![](readme/img1.jpg)
+![](readme/img1.jpg | width=300)
 
-![](readme/img2.jpg)
+![](readme/img2.jpg | width=300)
 
-![](readme/img3.jpg)
+![](readme/img3.jpg | width=300)
