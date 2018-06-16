@@ -18,6 +18,6 @@
 ## Зроблено на
  * C++
 
-![](readme/img1.jpg)
-![](readme/img2.jpg)
-![](readme/img3.jpg)
+![](readme/img11.jpg)
+![](readme/img22.jpg)
+![](readme/img33.jpg)
