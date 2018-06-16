@@ -14,8 +14,6 @@
 ## Зроблено на
  * C#
 
-![](readme/img1.jpg =250x)
-
-![](readme/img2.jpg =250x)
-
-![](readme/img3.jpg =250x)
+<img src="readme/img1.jpg" width="250">
+<img src="readme/img2.jpg" width="250">
+<img src="readme/img3.jpg" width="250">
