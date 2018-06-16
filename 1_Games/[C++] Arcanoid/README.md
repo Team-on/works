@@ -29,8 +29,8 @@ c - Змінити корпус корябля
  * C++
  * Частина мого движка з underwater
 
-![](readme/img1.jpg | width=150)
-![](readme/img2.jpg | width=150)
+![](readme/img1.jpg =150x)
+![](readme/img2.jpg =150x)
 
-![](readme/img3.jpg | width=150)
-![](readme/img3.jpg | width=150)
+![](readme/img3.jpg =150x)
+![](readme/img3.jpg =150x)
