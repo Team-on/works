@@ -1,0 +1,7 @@
+
+[White player]
+1 = f2 - f4
+
+[Black player]
+1 = f7 - f5
+

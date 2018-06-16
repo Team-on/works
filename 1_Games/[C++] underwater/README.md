@@ -1,6 +1,29 @@
-# Underwater
-Roguelike game with atlantic setting
+﻿# Arcanoid from Brickgame
+## Керування:
+* (← →) (ЛКМ ПКМ) (a d) - рух вліво вправо
+* Пробіл - стріляти
+* р - пауза
+* о - автоматична стрільба
+* Стиль корабля:
+	* v - Змінити колір корябля
+	* z - Змінити ніс корябля
+	* x - Змінити бік корябля
+	* c - Змінити корпус корябля
 
-This project use audiere lib.
+## Фичи:
+ * 2 ігрових режими(із 4 запланованих)
+ 	- [X] Знищення створених фігур
+ 	- [X] Нескінченна гра
+	- [ ] Space invaders
+	- [ ] Гра під буквою D з Brickgame
+ * Гарний ASCII вивід
+ * Меню прямо в грі
 
-Work game in "game" directory.
+## Зроблено на
+ * C++
+ * Частина мого движка з underwater
+
+![](readme/img1.jpg)
+![](readme/img2.jpg)
+![](readme/img3.jpg)
+![](readme/img4.jpg)

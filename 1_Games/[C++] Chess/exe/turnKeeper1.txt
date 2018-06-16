@@ -1,0 +1,22 @@
+
+[White player]
+1 = e2 - e4
+2 = Qd1 - g4
+3 = Hg1 - f3
+4 = Qg4 - h3
+5 = Hf3 - d4
+6 = Hb1 - a3
+7 = Hd4 : b5
+8 = d2 - d4
+9 = Oc1 - f4
+
+[Black player]
+1 = Hb8 - c6
+2 = f7 - f5
+3 = e7 - e6
+4 = f5 : e4
+5 = Qd8 - f6
+6 = b7 - b5
+7 = Hc6 - b4
+8 = Oc8 - a6
+
