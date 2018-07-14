@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<timeout>10</timeout>
+	<fineMultipler>1,5</fineMultipler>
+	<parkingSpace>35</parkingSpace>
+	
+	<priceList type="Motorcycle" price="1" />
+	<priceList type="Passenger"	 price="2" />
+	<priceList type="Bus"		 price="3" />
+	<priceList type="Truck"		 price="5" />
+	
+</settings>
