@@ -79,7 +79,6 @@ var game = {
 		}, this);
 
 		this.ctx.fillText('Score: ' + this.score, 15, this.height - 15);
-
 	},
 	
 	run: function() {
