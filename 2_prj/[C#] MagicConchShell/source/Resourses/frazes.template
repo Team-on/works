@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<frazes>	
+	<fraze type="any">No</fraze>
+	<fraze type="any">Yes</fraze>	
+	<fraze type="any">Definite no</fraze>
+	<fraze type="any">Definite yes</fraze>
+	<fraze type="any">Are you a dumb? Of course not!</fraze>
+	<fraze type="any">Are you a dumb? Of course yes!</fraze>
+	<fraze type="any">I don't think so</fraze>
+	<fraze type="any">Try to ask again</fraze>
+	<fraze type="any">Of course!</fraze>
+	<fraze type="any">I doubt it</fraze>	
+	<fraze type="any">Maybe</fraze>
+	<fraze type="any">Maybe one day</fraze>
+	<fraze type="any">Maybe someday</fraze>
+	<fraze type="any">Perhaps in another reality</fraze>
+	
+	<fraze type="contains" pattern="Savik">Do you really intrested in this one?</fraze>	
+	<fraze type="contains" pattern="Which">Neither</fraze>
+	
+	<fraze type="exacly" pattern="What should I do">Nothing</fraze>
+	<fraze type="exacly" pattern="What should I do">Wait</fraze>
+</frazes>
