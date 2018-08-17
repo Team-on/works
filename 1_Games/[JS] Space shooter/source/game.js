@@ -22,6 +22,10 @@ boomImg.src = 'img\\boom.png';
 var backgroundImg = new Image();
 backgroundImg.src = 'img\\background.png';
 
+var overlordAlpha = 0.9, overlordAlphaGrow = false;
+var overlordImage 	= new Image();//document.getElementById('overlordImage'); 
+overlordImage.src = 'img\\overlord.jpg';
+
 
 backgroundImg.onload = function () {
 	init();
@@ -66,7 +70,10 @@ function loop(){
 function update(){
 	++tick;
 
-	if (tick % (ultimateMod ? 3 : 7) == 0) {
+	if(!ultimateMod && canvas.height - backgroundImg.height + tick / 3 >= 0)
+		ultimateMod = true;
+	
+		if (tick % (ultimateMod ? 3 : 7) == 0) {
 		meteors.push({
 			angle: 0,
 			dxangle: Math.random() * 0.2 - 0.1,
@@ -216,6 +223,26 @@ function render(){
 			boomImg.width / 8, boomImg.height / 8,
 			booms[i].x, booms[i].y, 
 			boomImg.width / 8, boomImg.height / 8);
+
+	if(ultimateMod){
+		context.globalAlpha = overlordAlpha;
+
+		if(overlordAlphaGrow)
+			overlordAlpha += 0.03;
+		else
+			overlordAlpha -= 0.05;
+
+		if(overlordAlpha >= 1.3)
+			overlordAlphaGrow = false;
+		else if(overlordAlpha <= 0.1)
+			overlordAlphaGrow = true;
+		
+		context.drawImage(overlordImage,
+			0, 0,
+			600, 600
+		)
+		context.globalAlpha = 1;
+	}
 }
 
 var requestAnimFrame = (function(){

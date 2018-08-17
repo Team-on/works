@@ -5,4 +5,5 @@
 ## Зроблено на
  * JavaScript та Canvas
 
-![](readme/img1.jpg)
+![](readme/img1.png)
+![](readme/img2.png)
