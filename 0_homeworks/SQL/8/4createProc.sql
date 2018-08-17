@@ -246,6 +246,20 @@ where DAY(DateОfBirth) = '+@day+' and
 END;
 GO
 
+CREATE PROCEDURE PrintGirls
+    @schoolName nvarchar(32)
+AS BEGIN
+EXEC('
+select '+@schoolName+'Pupil.FirstName + '' '' + '+@schoolName+'Pupil.SecondName,
+	   '+@schoolName+'Adress.City + '', '' + '+@schoolName+'Adress.Street + '' '' + CONVERT(nvarchar,'+@schoolName+'Adress.HouseNum) 
+		+ N''. Квартира:'' + CONVERT(nvarchar,'+@schoolName+'Adress.FlatNum)
+from '+@schoolName+'Pupil
+inner join '+@schoolName+'Adress on '+@schoolName+'Pupil.IdAdress = '+@schoolName+'Adress.IdAdress
+where '+@schoolName+'Pupil.Sex = 0 and 
+	  2018 - YEAR('+@schoolName+'Pupil.DateОfBirth) <= 18
+')
+END;
+GO
 
 CREATE PROCEDURE ANYDURE
     @schoolName nvarchar(32)
