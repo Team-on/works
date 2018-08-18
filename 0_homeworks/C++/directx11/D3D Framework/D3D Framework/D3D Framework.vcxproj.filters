@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="macros.h">
+      <Filter>Common System</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Util System</Filter>
+    </ClInclude>
+    <ClInclude Include="compileSettings.h">
+      <Filter>Common System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputCodes.h">
+      <Filter>Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputListener.h">
+      <Filter>Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEvents.h">
+      <Filter>Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Render System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Log.cpp">
+      <Filter>Util System</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Render System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common System">
+      <UniqueIdentifier>{f99dcb15-1d49-45ec-8003-d56698da058e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework System">
+      <UniqueIdentifier>{b81a22f8-05e8-46a6-ace5-3948374afddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render System">
+      <UniqueIdentifier>{45beaef2-e68b-407b-b530-ef928d3fc5fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input System">
+      <UniqueIdentifier>{ad8faffd-8d2a-4024-9874-b1531c2ef580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util System">
+      <UniqueIdentifier>{ee146e95-73cd-4f46-ab94-8e48f3e009c5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
