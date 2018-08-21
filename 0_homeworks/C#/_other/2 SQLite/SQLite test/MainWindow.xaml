@@ -1,0 +1,47 @@
+﻿<Window x:Class="SQLite_test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQLite_test"
+		xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+		Loaded="Window_Loaded"
+		>
+    <DockPanel Margin="10">
+		<StackPanel Height="50" Orientation="Horizontal" DockPanel.Dock="Bottom">
+			<StackPanel.Resources>
+				<Style TargetType="Button">
+					<Setter Property="Width" Value="70"/>
+				</Style>
+				<Style TargetType="TextBox">
+					<Setter Property="Width" Value="100"/>
+				</Style>
+			</StackPanel.Resources>
+
+			<Button Content="1. Create DB" Width="100" Click="Button_Click" x:Name="CreateBtn"/>
+			<Button Content="2. Link DB" Width="100" Click="Button_Click_4" x:Name="LinkBtn"/>
+			<Button Content="Add" Click="Button_Click_1" x:Name="AddBtn"/>
+			<Button Content="Remove" Click="Button_Click_3" x:Name="RemoveBtn"/>
+			<UniformGrid Rows="2">
+				<Label Content="Name"/>
+				<TextBox Text="{Binding FirstName}" x:Name="FirstNameBox"/>
+				<Label Content="Course"/>
+				<TextBox Text="{Binding Course}" x:Name="CourseBox"/>
+				<Label Content="Surname"/>
+				<TextBox Text="{Binding SecondName}" x:Name="SecondNameBox"/>
+				<Label Content="Id(remove only)"/>
+				<TextBox Text="{Binding Id}" x:Name="IdBox"/>
+			</UniformGrid>
+			<UniformGrid>
+				
+			</UniformGrid>
+
+		</StackPanel>
+
+		<DataGrid x:Name="dataGrid" Margin="0 0 0 10" AutoGenerateColumns="True" HorizontalGridLinesBrush="DarkGray"
+    RowBackground="LightGray" AlternatingRowBackground="White">
+		</DataGrid>
+	</DockPanel>
+</Window>
