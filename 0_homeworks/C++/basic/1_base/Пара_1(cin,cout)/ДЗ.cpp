@@ -1,25 +1,26 @@
 #include <iostream>
+using namespace std;
 int main()
 {
 setlocale(0,"rus");
 
-/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1
+/* Завдання 1
 cout << "Even a well-lit place can hide salvation\nA map to a one-man maze that never sees the sun\nWhere the lost are the heroes\nAnd the thieves are left to drown\nBut everyone knows by now\nFairy tales are not found\nThey\'re written in the walls" << endl;
 cout <<"\n\t\t\t by Starset";
 */
 
-/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2
-cout <<"пїЅпїЅпїЅпїЅпїЅпїЅ "<<endl<<"\tпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "<<endl<<"\t\tпїЅпїЅпїЅпїЅпїЅпїЅ "<<endl<<"\t\t\tпїЅпїЅпїЅпїЅпїЅ, "<<endl<<"\t\t\t\tпїЅпїЅпїЅ "<<endl<<"\t\t\t\t\tпїЅпїЅпїЅпїЅпїЅ "<<endl<<"\t\t\t\t\t\tпїЅпїЅпїЅпїЅпїЅ.";
+/* Завдання 2
+cout <<"Каждый "<<endl<<"\tохотник "<<endl<<"\t\tжелает "<<endl<<"\t\t\tзнать, "<<endl<<"\t\t\t\tгде "<<endl<<"\t\t\t\t\tсидит "<<endl<<"\t\t\t\t\t\tфазан.";
 */
 
-cout <<"\t\t\tпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ"<<endl;
-cout <<"\t\t\tпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ"<<endl;
-cout <<"\t\t\tпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ"<<endl;
-cout <<"\t\t\tпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅ"<<endl;
-cout <<"\t\t\tпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅ\n"<<endl;
-cout <<"\t\t\tпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:"<<endl;
+cout <<"\t\t\tПродам щенков"<<endl;
+cout <<"\t\t\tПорода: стаффордширский терьер"<<endl;
+cout <<"\t\t\tПол: мужской"<<endl;
+cout <<"\t\t\tКачество: шоу"<<endl;
+cout <<"\t\t\tРодословная: есть\n"<<endl;
+cout <<"\t\t\tКонтактная информация:"<<endl;
 cout <<"\t\t\t+380991582739"<<endl;
-cout <<"\t\t\t\tпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ";
+cout <<"\t\t\t\tЮлия, Украина, Киев";
 
 return 0;
 }
