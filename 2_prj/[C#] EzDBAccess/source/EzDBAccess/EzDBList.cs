@@ -46,6 +46,7 @@ namespace EzDBAccess {
 		//}
 
 		public void Add(T obj) {
+			command.Parameters.Clear();
 			command.CommandText = $"INSERT INTO {tableName} (";
 			var props = type.GetProperties();
 			for(byte i = 0; i < props.Length; ++i) {
@@ -55,11 +56,12 @@ namespace EzDBAccess {
 			command.CommandText += ") VALUES (";
 			for(byte i = 0; i < props.Length; ++i) {
 				if(props[i].GetGetMethod().IsPublic && props[i].GetSetMethod().IsPublic && props[i].Name != "Id") {
-					if(props[i].PropertyType.Name.ToLower() == "string")
-						command.CommandText += "N'";
-					command.CommandText += props[i].GetValue(obj);
-					if(props[i].PropertyType.Name.ToLower() == "string")
-						command.CommandText += '\'';
+					var param = factory.CreateParameter();
+					param.ParameterName = $"@p{i}";
+					param.Value = props[i].GetValue(obj);
+					command.Parameters.Add(param);
+
+					command.CommandText += $"{param.ParameterName}";
 
 					command.CommandText += i == props.Length - 1 ? " " : ", ";
 				}
@@ -77,7 +79,13 @@ namespace EzDBAccess {
 		}
 
 		public void Remove(T obj) {
-			command.CommandText = $"DELETE FROM {tableName} where Id={type.GetProperty("Id").GetValue(obj)}";
+			command.Parameters.Clear();
+			var param = factory.CreateParameter();
+			param.ParameterName = $"@idDel";
+			param.Value = type.GetProperty("Id").GetValue(obj);
+			command.Parameters.Add(param);
+
+			command.CommandText = $"DELETE FROM {tableName} where Id=@idDel";
 			command.ExecuteNonQuery();
 			list.Remove(obj);
 		}
