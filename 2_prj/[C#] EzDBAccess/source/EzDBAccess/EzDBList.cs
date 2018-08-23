@@ -97,6 +97,8 @@ namespace EzDBAccess {
 			return null;
 		}
 
+		public int Count() => list.Count;
+
 		public T this[int id]{
 			get => list[id];
 			set => list[id] = value;
