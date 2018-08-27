@@ -56,7 +56,7 @@ namespace Phonebook {
 			phonebook = new EzDBList<PhoneBook>("System.Data.SqlClient", @"Server=(localdb)\mssqllocaldb; Database=master; Integrated Security=True", false);
 
 			ushort MaxUsers = 1000;
-			if(phonebook.Count() < MaxUsers / 2) {
+			if(phonebook.Count < MaxUsers / 2) {
 				try {
 					Stream data = Client.OpenRead($"https://randomuser.me/api/?nat=us&inc=gender,name,location,phone&results={MaxUsers}");
 					StreamReader reader = new StreamReader(data);
