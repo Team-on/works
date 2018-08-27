@@ -7,8 +7,62 @@
         mc:Ignorable="d"
         Title="Phonebook" Height="450" Width="800"
 		Style="{StaticResource PixelWindow}"
+		Loaded="Window_Loaded"
+		Closing="Window_Closing"
 		>
-    <Grid>
-        
-    </Grid>
+	<DockPanel>
+		<UniformGrid DockPanel.Dock="Bottom" Rows="1">
+			<Button DockPanel.Dock="Right" Name="SaveBtn" Content="Add" Click="SaveBtn_Click"/>
+			<Button DockPanel.Dock="Right" Name="BackBtn" Content="Back" Click="backBtn_Click"/>
+		</UniformGrid>
+
+		<Grid Margin="15">
+			<Grid.Resources>
+				<Style TargetType="TextBlock">
+					<Setter Property="VerticalAlignment" Value="Center"/>
+					<Setter Property="HorizontalAlignment" Value="Left"/>
+				</Style>
+				<Style TargetType="TextBox">
+					<Setter Property="Margin" Value="0 13 0 13"/>
+				</Style>
+			</Grid.Resources>
+
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="7*"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="Firs name" Grid.Column="0" Grid.Row="0"/>
+			<TextBox Grid.Column="1" Grid.Row="0" Name="BoxFirstName" Text="{Binding FirstName}" KeyDown="BoxFirstName_KeyDown"/>
+
+			<TextBlock Text="Second name" Grid.Column="0" Grid.Row="1"/>
+			<TextBox Grid.Column="1" Grid.Row="1" Name="BoxSecondName" Text="{Binding LastName}" KeyDown="BoxFirstName_KeyDown"/>
+
+			<TextBlock Text="Phone" Grid.Column="0" Grid.Row="2"/>
+			<TextBox Grid.Column="1" Grid.Row="2" Name="BoxPhone" Text="{Binding Phone}" KeyDown="BoxPhone_KeyDown"/>
+
+			<TextBlock Text="Adress - city" Grid.Column="0" Grid.Row="3"/>
+			<TextBox Grid.Column="1" Grid.Row="3" Name="BoxAdressCity" Text="{Binding AdressCity}" KeyDown="BoxFirstName_KeyDown"/>
+
+			<TextBlock Text="Adress - street" Grid.Column="0" Grid.Row="4"/>
+			<TextBox Grid.Column="1" Grid.Row="4" Name="BoxAdressStreet" Text="{Binding AdressStreet}" KeyDown="BoxAdressStreet_KeyDown"/>
+
+			<TextBlock Text="Adress - street number" Grid.Column="0" Grid.Row="5"/>
+			<TextBox Grid.Column="1" Grid.Row="5" Name="BoxAdressStreetNum" Text="{Binding AdressStreetNum}" KeyDown="BoxPhone_KeyDown"/>
+
+			<TextBlock Text="Adress - home number" Grid.Column="0" Grid.Row="6"/>
+			<TextBox Grid.Column="1" Grid.Row="6" Name="BoxAdressHome" Text="{Binding AdressHome}" KeyDown="BoxPhone_KeyDown"/>
+		</Grid>
+
+	</DockPanel>
 </Window>

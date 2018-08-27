@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Phonebook {
-	class PhoneBook {
+	class PhoneBook : ICloneable{
 		public int Id {get; set;}
 		public string FirstName {get; set;}
 		public string LastName {get; set;}
@@ -26,5 +27,7 @@ namespace Phonebook {
 			AdressStreetNum = adressStreetNum;
 			AdressHome = adressHome;
 		}
+
+		public object Clone() => MemberwiseClone();
 	}
 }
