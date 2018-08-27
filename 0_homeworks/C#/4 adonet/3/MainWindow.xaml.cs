@@ -44,6 +44,9 @@ namespace Phonebook {
 
 		public MainWindow() {
 			InitializeComponent();
+
+			new LoadingWindow().Show();
+
 			Client = new WebClient();
 			Random = new Random();
 			ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(
