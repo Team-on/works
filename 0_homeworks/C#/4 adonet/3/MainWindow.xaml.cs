@@ -26,8 +26,6 @@ namespace Phonebook {
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
-		bool IsAdmin = false;
-
 		Lazy<AddWindow> addWindow = new Lazy<AddWindow>();
 		Lazy<LoginWindow> loginWindow = new Lazy<LoginWindow>();
 		Lazy<RemoveWindow> removeWindow = new Lazy<RemoveWindow>();
@@ -141,16 +139,19 @@ namespace Phonebook {
 		}
 
 		private void LoginBtn_Click(object sender, RoutedEventArgs e) {
-			IsAdmin = !IsAdmin;
+			if(!LoginWindow.IsAdmin)
+				LoginWindow.ShowDialog();
+			else
+				LoginWindow.IsAdmin = false;
 
-			if(IsAdmin)
+			if(LoginWindow.IsAdmin)
 				LoginBtn.Content = "Logout";
 			else
 				LoginBtn.Content = "Login";
 
 			foreach(UIElement c in stackPanel.Children)
 				if(!(c is Button b && (b == LoginBtn || b == FindBtn)))
-					c.IsEnabled = IsAdmin;
+					c.IsEnabled = LoginWindow.IsAdmin;
 		}
 
 		string MakeFirstUpper(string str) {
@@ -180,6 +181,8 @@ namespace Phonebook {
 				removeWindow.Value.Close();
 			if(findWindow.IsValueCreated)
 				findWindow.Value.Close();
+			if(loginWindow.IsValueCreated)
+				loginWindow.Value.Close();
 		}
 	}
 }

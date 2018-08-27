@@ -22,7 +22,7 @@
 					<Setter Property="HorizontalAlignment" Value="Left"/>
 				</Style>
 				<Style TargetType="TextBox">
-					<Setter Property="Margin" Value="0 13 0 13"/>
+					<Setter Property="Margin" Value="0 3 0 3"/>
 				</Style>
 			</Grid.Resources>
 

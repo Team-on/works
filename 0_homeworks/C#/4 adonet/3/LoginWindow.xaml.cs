@@ -17,8 +17,11 @@ namespace Phonebook {
 	/// Interaction logic for LoginWindow.xaml
 	/// </summary>
 	public partial class LoginWindow : Window {
+		public bool IsAdmin { get; set; }
+
 		public LoginWindow() {
 			InitializeComponent();
+			IsAdmin = false;
 		}
 
 		private void backBtn_Click(object sender, RoutedEventArgs e) {
@@ -33,7 +36,8 @@ namespace Phonebook {
 		}
 
 		private void LoginBtn_Click(object sender, RoutedEventArgs e) {
-
+			IsAdmin = BoxLogin.Text.Trim() == "admin" && BoxPass.Text.Trim() == "admin";
+			this.Hide();
 		}
 	}
 }
