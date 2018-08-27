@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Phonebook"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Phonebook" Height="500" Width="900"
 		Loaded="Window_Loaded"
+		Style="{StaticResource PixelWindow}"
 		>
 	<DockPanel Margin="10">
-		<StackPanel Height="50" Orientation="Horizontal" DockPanel.Dock="Bottom">
+		<StackPanel Height="50" Orientation="Horizontal" DockPanel.Dock="Bottom" x:Name="stackPanel">
 			<StackPanel.Resources>
 				<Style TargetType="Button">
 					<Setter Property="Width" Value="70"/>
@@ -19,16 +20,16 @@
 				</Style>
 			</StackPanel.Resources>
 
-			<Button Content="Add" Click="AddBtn_Click" x:Name="AddBtn"/>
-			<Button Content="Remove" Click="RemoveBtn_Click" x:Name="RemoveBtn"/>
-			
-			<UniformGrid>
-
-			</UniformGrid>
-
+			<Button Content="Login" Click="LoginBtn_Click" x:Name="LoginBtn"/>
+			<Button Content="Add random" Click="AddRandomBtn_Click" x:Name="AddRandomBtn" IsEnabled="False"/>
+			<Button Content="Add" Click="AddBtn_Click" x:Name="AddBtn" IsEnabled="False"/>
+			<Button Content="Find" Click="FindBtn_Click" x:Name="FindBtn" IsEnabled="False"/>
+			<Button Content="Remove" Click="RemoveBtn_Click" x:Name="RemoveBtn" IsEnabled="False"/>
 		</StackPanel>
 
 		<DataGrid x:Name="dataGrid" Margin="0 0 0 10" AutoGenerateColumns="True" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" AlternatingRowBackground="White"/>
+    RowBackground="LightGray" AlternatingRowBackground="White" IsReadOnly="True" CanUserAddRows="False" FontSize="14">
+			
+		</DataGrid>
 	</DockPanel>
 </Window>

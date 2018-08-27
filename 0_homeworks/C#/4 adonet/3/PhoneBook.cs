@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 namespace Phonebook {
 	class PhoneBook {
 		public int Id {get; set;}
-		public string Phone {get; set;}
+		public string FirstName {get; set;}
+		public string LastName {get; set;}
+		public string Phone {get; set; }
 		public string AdressCity {get; set;}
 		public string AdressStreet { get; set;}
-		public string AdressStreetNum { get; set;}
-		public string AdressHome { get; set;}
+		public int AdressStreetNum { get; set;}
+		public int AdressHome { get; set;}
 
 		public PhoneBook() {}
 
-		public PhoneBook(string phone, string adressCity, string adressStreet, string adressStreetNum, string adressHome) {
+		public PhoneBook(string firstName, string lastName, string phone, string adressCity, string adressStreet, int adressStreetNum, int adressHome) {
+			FirstName = firstName;
+			LastName = lastName;
 			Phone = phone;
 			AdressCity = adressCity;
 			AdressStreet = adressStreet;

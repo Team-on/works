@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Phonebook"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+		<FontFamily x:Key="PixelFont">pack://application:,,,/Resources/fonts/#Visitor TT1 BRK</FontFamily>
+		<FontFamily x:Key="MyFlavourSans">Comic Sans MS</FontFamily>
+
+		<Style x:Key="PixelWindow" TargetType="Window">
+			<Setter Property="FontFamily" Value="{DynamicResource MyFlavourSans}"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
     </Application.Resources>
 </Application>
