@@ -29,6 +29,7 @@ namespace Phonebook {
 		bool IsAdmin = false;
 
 		Lazy<AddWindow> addWindow = new Lazy<AddWindow>();
+		Lazy<LoginWindow> loginWindow = new Lazy<LoginWindow>();
 		Lazy<RemoveWindow> removeWindow = new Lazy<RemoveWindow>();
 		Lazy<FindWindow> findWindow = new Lazy<FindWindow>();
 
@@ -39,6 +40,7 @@ namespace Phonebook {
 		RemoveWindow RemoveWindow => removeWindow.Value;
 		AddWindow AddWindow => addWindow.Value;
 		FindWindow FindWindow => findWindow.Value;
+		LoginWindow LoginWindow => loginWindow.Value;
 
 		static public MainWindow Window { get; set; }
 
@@ -147,7 +149,7 @@ namespace Phonebook {
 				LoginBtn.Content = "Login";
 
 			foreach(UIElement c in stackPanel.Children)
-				if(c is Button b && b != LoginBtn)
+				if(!(c is Button b && (b == LoginBtn || b == FindBtn)))
 					c.IsEnabled = IsAdmin;
 		}
 

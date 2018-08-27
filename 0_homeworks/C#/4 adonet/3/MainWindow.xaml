@@ -25,7 +25,7 @@
 			<Button Content="Login" Click="LoginBtn_Click" x:Name="LoginBtn"/>
 			<Button Content="Add random" Click="AddRandomBtn_Click" x:Name="AddRandomBtn" IsEnabled="False"/>
 			<Button Content="Add" Click="AddBtn_Click" x:Name="AddBtn" IsEnabled="False"/>
-			<Button Content="Find" Click="FindBtn_Click" x:Name="FindBtn" IsEnabled="False"/>
+			<Button Content="Find" Click="FindBtn_Click" x:Name="FindBtn" IsEnabled="True"/>
 			<Button Content="Remove" Click="RemoveBtn_Click" x:Name="RemoveBtn" IsEnabled="False"/>
 		</StackPanel>
 

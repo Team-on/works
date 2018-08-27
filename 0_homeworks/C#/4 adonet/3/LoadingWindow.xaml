@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Phonebook"
         mc:Ignorable="d"
-        Title="LoadingWindow" Height="450" Width="800">
-    <Grid>
+        Title="Phonebook" Height="227.064" Width="323.165"
+		Style="{StaticResource PixelWindow}" WindowStartupLocation="CenterScreen"
+		>
+	<Grid>
 		<Viewbox>
 			<TextBlock Text="Loading"/>
 		</Viewbox>
