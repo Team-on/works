@@ -44,5 +44,12 @@ namespace Phonebook {
 		void ShowIdError() {
 			MessageBox.Show(this, "Cant find record with this Id", "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK);
 		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			if(this.IsActive) {
+				e.Cancel = true;
+				this.Hide();
+			}
+		}
 	}
 }

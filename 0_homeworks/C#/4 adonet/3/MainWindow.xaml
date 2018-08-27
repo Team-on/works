@@ -8,6 +8,8 @@
         Title="Phonebook" Height="500" Width="900"
 		Loaded="Window_Loaded"
 		Style="{StaticResource PixelWindow}"
+		Closed="Window_Closed"
+		Closing="Window_Closing"
 		>
 	<DockPanel Margin="10">
 		<StackPanel Height="50" Orientation="Horizontal" DockPanel.Dock="Bottom" x:Name="stackPanel">

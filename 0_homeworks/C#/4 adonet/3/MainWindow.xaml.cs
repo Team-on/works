@@ -38,7 +38,7 @@ namespace Phonebook {
 		WebClient Client { get; set; }
 		RemoveWindow RemoveWindow => removeWindow.Value;
 		AddWindow AddWindow => addWindow.Value;
-		FindWindow FindWindow => findWindow.Value; 
+		FindWindow FindWindow => findWindow.Value;
 
 		static public MainWindow Window { get; set; }
 
@@ -52,9 +52,9 @@ namespace Phonebook {
 
 			phonebook = new EzDBList<PhoneBook>("System.Data.SqlClient", @"Server=(localdb)\mssqllocaldb; Database=master; Integrated Security=True", false);
 
-			try {
-				ushort MaxUsers = 1000;
-				if(phonebook.Count() < MaxUsers) {
+			ushort MaxUsers = 1000;
+			if(phonebook.Count() < MaxUsers / 2) {
+				try {
 					Stream data = Client.OpenRead($"https://randomuser.me/api/?nat=us&inc=gender,name,location,phone&results={MaxUsers}");
 					StreamReader reader = new StreamReader(data);
 					dynamic human = JsonConvert.DeserializeObject(reader.ReadToEnd());
@@ -79,10 +79,10 @@ namespace Phonebook {
 						));
 					}
 				}
-			}
-			catch(Exception ex) {
-				MessageBox.Show("Cant download random humans from randomuser.me\nCheck your internet connection", "Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-				MessageBox.Show(ex.Message + "\n\n" + ex.Source + "\n\n" + ex.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+				catch(Exception ex) {
+					MessageBox.Show("Cant download random humans from randomuser.me\nCheck your internet connection", "Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+					MessageBox.Show(ex.Message + "\n\n" + ex.Source + "\n\n" + ex.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+				}
 			}
 
 			dataGrid.ItemsSource = phonebook;
@@ -143,12 +143,12 @@ namespace Phonebook {
 			else
 				LoginBtn.Content = "Login";
 
-			foreach(UIElement c in stackPanel.Children) 
-				if(c is Button b && b != LoginBtn) 
+			foreach(UIElement c in stackPanel.Children)
+				if(c is Button b && b != LoginBtn)
 					c.IsEnabled = IsAdmin;
 		}
 
-		string MakeFirstUpper(string str){
+		string MakeFirstUpper(string str) {
 			if(str.Length == 0)
 				return str;
 			if(str.Length == 1)
@@ -162,6 +162,19 @@ namespace Phonebook {
 				rez += MakeFirstUpper(s) + ' ';
 			rez.TrimEnd();
 			return rez;
+		}
+
+		private void Window_Closed(object sender, EventArgs e) {
+
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			if(addWindow.IsValueCreated)
+				addWindow.Value.Close();
+			if(removeWindow.IsValueCreated)
+				removeWindow.Value.Close();
+			if(findWindow.IsValueCreated)
+				findWindow.Value.Close();
 		}
 	}
 }

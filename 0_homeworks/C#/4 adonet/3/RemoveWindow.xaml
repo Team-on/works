@@ -8,6 +8,7 @@
         Title="Phonebook"
 		Height="158.168" Width="298.762"
 		Style="{StaticResource PixelWindow}"
+		Closing="Window_Closing"
 		>
 	<DockPanel>
 		<UniformGrid DockPanel.Dock="Bottom" Rows="1">
@@ -15,8 +16,8 @@
 			<Button Content="Return to main page" x:Name="backBtn" Click="backBtn_Click"/>
 		</UniformGrid>
 
-		<TextBlock DockPanel.Dock="Top" Text="Input id to delete: " HorizontalAlignment="Center" FontSize="20" x:Name="IdTextBox"/>
+		<TextBlock DockPanel.Dock="Top" Text="Input id to delete: " HorizontalAlignment="Center" FontSize="20"/>
 
-		<TextBox Margin="10 30 10 30"/>
+		<TextBox Margin="10 30 10 30"  x:Name="IdTextBox"/>
 	</DockPanel>
 </Window>
