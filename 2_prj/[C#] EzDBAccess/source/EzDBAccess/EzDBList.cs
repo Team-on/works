@@ -97,7 +97,16 @@ namespace EzDBAccess {
 			return null;
 		}
 
-		public int Count() => list.Count;
+		public T[] FindAll(Predicate<T> predicate) {
+			List<T> rez = new List<T>();
+			foreach(T i in list)
+				if(predicate.Invoke(i))
+					rez.Add(i);
+			return rez.ToArray();
+		}
+
+
+		public int Count => list.Count;
 
 		public T this[int id]{
 			get => list[id];
