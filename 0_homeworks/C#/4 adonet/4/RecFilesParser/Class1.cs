@@ -89,32 +89,12 @@ namespace RecFilesParser {
 						break;
 					}
 				}
-				if(isFind) {
+				if(isFind) 
 					filesList.AddFirst(new FileInfo(currFile));
-					Console.WriteLine(currFile);
-				}
 			}
 
 			foreach(string currDir in dirs)
 				RecParse(currDir);
-		}
-	}
-
-	class Program {
-		static void Main(string[] args) {
-			DateTime start = DateTime.Now;
-
-			FileFinderSettings settings = new FileFinderSettings(
-				new string[] { "jpg", "png", "gif" },
-				10
-			);
-			settings.ReadFromXml(@".\settings.xml");
-
-			FileFinder finder = new FileFinder(settings);
-
-			finder.Find();
-
-			Console.WriteLine(DateTime.Now - start);
 		}
 	}
 }
