@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 
-namespace FileParser {
+namespace RecFilesParser {
 	public class FileFinderSettings {
 		string[] usedExt;
 		ushort maxFileLength;
@@ -11,7 +11,7 @@ namespace FileParser {
 		public ushort MaxFileLength => maxFileLength;
 		public string[] UsedExt => usedExt;
 
-		public FileFinderSettings() {}
+		public FileFinderSettings() { }
 
 		public FileFinderSettings(string[] ext, ushort maxfilelength) {
 			maxFileLength = maxfilelength;
@@ -29,10 +29,10 @@ namespace FileParser {
 				switch(i.Name.ToLower()) {
 					case "maxlength":
 						ushort.TryParse(i.InnerText, out maxFileLength);
-					break;
+						break;
 					case "fileextension":
 						tmpExt.Add(i.InnerText);
-					break;
+						break;
 				}
 			}
 
@@ -43,10 +43,10 @@ namespace FileParser {
 		}
 
 		void FixExt() {
-			for(ushort i = 0; i < usedExt.Length; ++i) 
+			for(ushort i = 0; i < usedExt.Length; ++i)
 				usedExt[i] = usedExt[i].ToLower();
 		}
-		
+
 	}
 
 	public class FileFinder {
@@ -95,7 +95,7 @@ namespace FileParser {
 				}
 			}
 
-			foreach(string currDir in dirs) 
+			foreach(string currDir in dirs)
 				RecParse(currDir);
 		}
 	}
@@ -105,7 +105,7 @@ namespace FileParser {
 			DateTime start = DateTime.Now;
 
 			FileFinderSettings settings = new FileFinderSettings(
-				new string[] { "jpg", "png", "gif" }, 
+				new string[] { "jpg", "png", "gif" },
 				10
 			);
 			settings.ReadFromXml(@".\settings.xml");
