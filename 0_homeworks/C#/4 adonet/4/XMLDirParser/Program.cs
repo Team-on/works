@@ -1,129 +1,119 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
-using TeamCommander.Output;
-using TeamCommander.Support;
+using System.Collections.Generic;
 
-namespace XMLDirParser {
-	static class DirFileParserOptimized {
-		static XmlDocument xml;
-		static XmlAttribute attrib;
-		static FileInfo finf;
+namespace FileParser {
+	public class FileFinderSettings {
+		string[] usedExt;
+		ushort maxFileLength;
 
-		static public void Parse(string path) {
-			xml = new XmlDocument();
+		public ushort MaxFileLength => maxFileLength;
+		public string[] UsedExt => usedExt;
 
-			XmlDeclaration decl = xml.CreateXmlDeclaration("1.0", "utf-8", "yes");
-			xml.AppendChild(decl);
+		public FileFinderSettings() {}
 
-			XmlElement root = xml.CreateElement("root");
-
-			DriveInfo[] drives = DriveInfo.GetDrives();
-			foreach (DriveInfo drive in drives) {
-				XmlElement disk = xml.CreateElement("disk");
-
-				attrib = xml.CreateAttribute("driverName");
-				attrib.Value = drive.Name;
-				disk.Attributes.Append(attrib);
-
-				attrib = xml.CreateAttribute("driveType");
-				attrib.Value = drive.DriveType.ToString();
-				disk.Attributes.Append(attrib);
-
-				attrib = xml.CreateAttribute("isReady");
-				attrib.Value = drive.IsReady.ToString();
-				disk.Attributes.Append(attrib);
-
-				if (drive.IsReady) {
-					attrib = xml.CreateAttribute("driveFormat");
-					attrib.Value = drive.DriveFormat.ToString();
-					disk.Attributes.Append(attrib);
-
-					attrib = xml.CreateAttribute("totalSize");
-					attrib.Value = drive.TotalSize.ToString();
-					disk.Attributes.Append(attrib);
-
-					attrib = xml.CreateAttribute("freeSpace");
-					attrib.Value = drive.TotalFreeSpace.ToString();
-					disk.Attributes.Append(attrib);
-
-					attrib = xml.CreateAttribute("availableFreeSpace");
-					attrib.Value = drive.AvailableFreeSpace.ToString();
-					disk.Attributes.Append(attrib);
-
-					GetDirsAndFiles(drive.Name, disk);
-				}
-
-				root.AppendChild(disk);
-			}
-
-			xml.AppendChild(root);
-			xml.Save(path);
+		public FileFinderSettings(string[] ext, ushort maxfilelength) {
+			maxFileLength = maxfilelength;
+			usedExt = ext;
+			FixExt();
 		}
 
-		static ulong GetDirsAndFiles(string dirName, XmlElement father) {
-            //if (dirName.Length > 10)
-            //    return 0;
+		public void ReadFromXml(string path) {
+			List<string> tmpExt = new List<string>();
+
+			XmlDocument xml = new XmlDocument();
+			xml.Load(path);
+
+			foreach(XmlNode i in xml.ChildNodes[1].ChildNodes) {
+				switch(i.Name.ToLower()) {
+					case "maxlength":
+						ushort.TryParse(i.InnerText, out maxFileLength);
+					break;
+					case "fileextension":
+						tmpExt.Add(i.InnerText);
+					break;
+				}
+			}
+
+			usedExt = tmpExt.ToArray();
+			tmpExt.Clear();
+
+			FixExt();
+		}
+
+		void FixExt() {
+			for(ushort i = 0; i < usedExt.Length; ++i) 
+				usedExt[i] = usedExt[i].ToLower();
+		}
+		
+	}
+
+	public class FileFinder {
+		LinkedList<FileInfo> filesList;
+		FileFinderSettings settings;
+
+		public LinkedList<FileInfo> Files => filesList;
+
+		public FileFinder(FileFinderSettings Settings) {
+			filesList = new LinkedList<FileInfo>();
+			settings = Settings;
+		}
+
+		public void Find() {
+			DriveInfo[] drives = DriveInfo.GetDrives();
+			foreach(DriveInfo drive in drives)
+				if(drive.IsReady)
+					RecParse(drive.Name);
+		}
+
+		void RecParse(string dirName) {
+			if(settings.MaxFileLength != 0 && dirName.Length > settings.MaxFileLength)
+				return;
+
 			string[] dirs, files;
 			try {
 				dirs = Directory.GetDirectories(dirName);
 				files = Directory.GetFiles(dirName);
 			}
-			catch (Exception exception) {
-				attrib = xml.CreateAttribute("protected");
-				attrib.Value = "yes";
-				father.Attributes.Append(attrib);
-
-				return 0;
+			catch(Exception exception) {
+				return;
 			}
 
-			XmlElement currElem;
-			ulong sizeCurrDir = 0;
-			foreach (string currFile in files) {
-				if(currFile.Substring(currFile.LastIndexOf('.') + 1) != "txt")
-					continue;
-
-				finf = new FileInfo(currFile);
-				currElem = xml.CreateElement("file");
-
-				attrib = xml.CreateAttribute("name");
-				attrib.Value = currFile.Substring(currFile.LastIndexOf('\\') + 1);
-				currElem.Attributes.Append(attrib);
-
-				attrib = xml.CreateAttribute("size");
-				attrib.Value = finf.Length.ToString();
-				currElem.Attributes.Append(attrib);
-
-				sizeCurrDir += (ulong)finf.Length;
-
-				father.AppendChild(currElem);
+			bool isFind = false;
+			foreach(string currFile in files) {
+				isFind = false;
+				foreach(var ext in settings.UsedExt) {
+					if(currFile.Substring(currFile.LastIndexOf('.') + 1).ToLower() == ext) {
+						isFind = true;
+						break;
+					}
+				}
+				if(isFind) {
+					filesList.AddFirst(new FileInfo(currFile));
+					Console.WriteLine(currFile);
+				}
 			}
 
-			foreach (string currDir in dirs) {
-				currElem = xml.CreateElement("folder");
-
-				attrib = xml.CreateAttribute("name");
-				attrib.Value = currDir.Substring(currDir.LastIndexOf('\\') + 1);
-				currElem.Attributes.Append(attrib);
-
-				ulong sizeUpperDir = GetDirsAndFiles(currDir, currElem);
-				sizeCurrDir += sizeUpperDir;
-
-				attrib = xml.CreateAttribute("size");
-				attrib.Value = sizeUpperDir.ToString();
-				currElem.Attributes.Append(attrib);
-
-				father.AppendChild(currElem);
-			}
-
-			return sizeCurrDir;
+			foreach(string currDir in dirs) 
+				RecParse(currDir);
 		}
 	}
 
 	class Program {
 		static void Main(string[] args) {
 			DateTime start = DateTime.Now;
-			DirFileParserOptimized.Parse(@"D:\test.xml");
+
+			FileFinderSettings settings = new FileFinderSettings(
+				new string[] { "jpg", "png", "gif" }, 
+				10
+			);
+			settings.ReadFromXml(@".\settings.xml");
+
+			FileFinder finder = new FileFinder(settings);
+
+			finder.Find();
+
 			Console.WriteLine(DateTime.Now - start);
 		}
 	}
