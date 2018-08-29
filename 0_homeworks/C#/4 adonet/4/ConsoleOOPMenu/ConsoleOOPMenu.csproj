@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoConfigurableMenuState.cs" />
     <Compile Include="ConfigurableMenuState.cs" />
     <Compile Include="MenuState.cs" />
     <Compile Include="IState.cs" />

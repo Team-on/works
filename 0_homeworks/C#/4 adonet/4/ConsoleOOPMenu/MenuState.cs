@@ -11,10 +11,9 @@ namespace ConsoleOOPMenu{
 		}
 
 		protected virtual KeyValuePair<int, MenuItem> ReadOption() {
-			Console.WriteLine("Please, select option:");
+			Console.WriteLine("\nPlease, select option:");
 			ShowMenu();
 
-			Console.Write("> ");
 			var str = Console.ReadLine();
 			Console.WriteLine();
 
