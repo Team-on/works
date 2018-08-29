@@ -46,7 +46,6 @@ namespace RecFilesParser {
 			for(ushort i = 0; i < usedExt.Length; ++i)
 				usedExt[i] = usedExt[i].ToLower();
 		}
-
 	}
 
 	public class FileFinder {
@@ -95,6 +94,32 @@ namespace RecFilesParser {
 
 			foreach(string currDir in dirs)
 				RecParse(currDir);
+		}
+
+		public void SaveAsXml(string path) {
+			XmlDocument xml = new XmlDocument();
+			XmlDeclaration decl = xml.CreateXmlDeclaration("1.0", "utf-8", "yes");
+			xml.AppendChild(decl);
+			XmlElement root = xml.CreateElement("files");
+
+			XmlElement fileElem;
+			XmlAttribute attrib;
+			foreach(var file in Files) {
+				fileElem = xml.CreateElement("file");
+
+				attrib = xml.CreateAttribute("path");
+				attrib.Value = file.FullName;
+				fileElem.Attributes.Append(attrib);
+
+				attrib = xml.CreateAttribute("size");
+				attrib.Value = file.Length.ToString();
+				fileElem.Attributes.Append(attrib);
+
+				root.AppendChild(fileElem);
+			}
+
+			xml.AppendChild(root);
+			xml.Save(path);
 		}
 	}
 }
