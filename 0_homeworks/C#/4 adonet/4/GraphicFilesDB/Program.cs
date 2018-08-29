@@ -25,7 +25,7 @@ namespace GraphicFilesDB {
 				FileFinder fileFinder = new FileFinder(settings);
 				fileFinder.Find();
 
-				foreach(var file in fileFinder.Files) 
+				foreach(var file in fileFinder.Files)
 					Console.WriteLine(file.FullName);
 			}
 			else if(selectedMenu.Key == 3)
@@ -35,35 +35,66 @@ namespace GraphicFilesDB {
 		}
 	}
 
-	class Program {
-		static void Main(string[] args) {
-			//-------------------------------- 1 --------------------------------
-			//IState startState = new TestMenuState();
-			//while(startState != null)
-			//	startState = startState.RunState();
+	class DBMenu {
+		AutoConfigurableMenuState menuState;
+		List<System.IO.FileInfo> fileInfo;
 
-			var menuState = new ConfigurableMenuState();
-			menuState.AddMenuItem(1, new MenuItem() { Text = "Print 10" }, () => {
-				Console.WriteLine(10);
+		public DBMenu() {
+		}
+
+		public void Start() {
+			Init();
+			Loop();
+		}
+
+		void Init() {
+			menuState = new AutoConfigurableMenuState();
+
+			menuState.AddMenuItem(new MenuItem() { Text = "Parse files" }, () => {
+				Action func = new Action(() => {
+					FileFinderSettings settings = new FileFinderSettings();
+					settings.ReadFromXml(@".\settings.xml");
+					FileFinder fileFinder = new FileFinder(settings);
+					fileFinder.Find();
+
+					fileInfo = new List<System.IO.FileInfo>();
+					foreach(var i in fileFinder.Files)
+						fileInfo.Add(i);
+
+					Console.WriteLine("End file parsing!");
+				});
+
+				func.BeginInvoke(null, null);
+
 				return menuState;
 			});
-			menuState.AddMenuItem(2, new MenuItem() { Text = "Print files" }, () => {
-				FileFinderSettings settings = new FileFinderSettings();
-				settings.ReadFromXml(@".\settings.xml");
 
-				FileFinder fileFinder = new FileFinder(settings);
-				fileFinder.Find();
-
-				foreach(var file in fileFinder.Files)
-					Console.WriteLine(file.FullName);
+			menuState.AddMenuItem(new MenuItem() { Text = "Print files" }, () => {
+				try {
+					foreach(var file in fileInfo)
+						Console.WriteLine(file.FullName);
+				}
+				catch(Exception ex) {
+					Console.WriteLine("Error! First you need parse files");
+				}
 
 				return menuState;
 			});
-			menuState.AddMenuItem(3, new MenuItem() { Text = "Exit" }, () => null);
 
+			menuState.AddMenuItem(new MenuItem() { Text = "Exit" }, () => null);
+		}
+
+		void Loop() {
 			IState startState = menuState;
 			while(startState != null)
 				startState = startState.RunState();
+		}
+	}
+
+	class Program {
+		static void Main(string[] args) {
+			DBMenu menu = new DBMenu();
+			menu.Start();
 		}
 	}
 }
