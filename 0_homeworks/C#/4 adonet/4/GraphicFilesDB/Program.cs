@@ -194,29 +194,18 @@ namespace GraphicFilesDB {
 
 			menuState.AddMenuItem(new MenuItem() { Text = "Print files" }, () => {
 				//dataSet.ReadXml(@".\files.xml");
+				try {
+					using(SqlConnection connection = new SqlConnection(connectionString)) {
+						connection.Open();
+						SqlDataAdapter adapter = new SqlDataAdapter("select * from DBFileInfo", connection);
+						DataSet dataSet = new DataSet();
+						adapter.Fill(dataSet);
+						SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
 
-				using(SqlConnection connection = new SqlConnection(connectionString)) {
-					connection.Open();
-					SqlDataAdapter adapter = new SqlDataAdapter("select * from DBFileInfo", connection);
-					DataSet dataSet = new DataSet();
-					adapter.Fill(dataSet);
-					SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
-
-					foreach(DataTable t in dataSet.Tables) {
-						Console.WriteLine($" => {t.TableName}");
-						for(byte i = 0; i < t.Columns.Count; ++i) {
-							string str = t.Columns[i].ToString();
-							if(str.Length > 20)
-								str = str.Substring(0, 17) + "...";
-							str = str.PadRight(20);
-							str += ' ';
-							Console.Write(str);
-						}
-						Console.WriteLine();
-
-						foreach(DataRow r in t.Rows) {
+						foreach(DataTable t in dataSet.Tables) {
+							Console.WriteLine($" => {t.TableName}");
 							for(byte i = 0; i < t.Columns.Count; ++i) {
-								string str = r[i].ToString();
+								string str = t.Columns[i].ToString();
 								if(str.Length > 20)
 									str = str.Substring(0, 17) + "...";
 								str = str.PadRight(20);
@@ -224,12 +213,29 @@ namespace GraphicFilesDB {
 								Console.Write(str);
 							}
 							Console.WriteLine();
-						}
-					}
 
-					commandBuilder.Dispose();
-					dataSet.Dispose();
-					adapter.Dispose();
+							foreach(DataRow r in t.Rows) {
+								for(byte i = 0; i < t.Columns.Count; ++i) {
+									string str = r[i].ToString();
+									if(str.Length > 20)
+										str = str.Substring(0, 17) + "...";
+									str = str.PadRight(20);
+									str += ' ';
+									Console.Write(str);
+								}
+								Console.WriteLine();
+							}
+						}
+
+						commandBuilder.Dispose();
+						dataSet.Dispose();
+						adapter.Dispose();
+					}
+				}
+				catch(Exception ex) {
+					new MenuItem() { Text = "Cant read from DB. Choose ", PreText = "Error: ", PreTextColor = ConsoleColor.Red }.Print();
+					new MenuItem() { Text = "Parse, create and fill DB ", TextColor = ConsoleColor.Blue }.Print();
+					new MenuItem() { Text = "before print files\n" }.Print();
 				}
 
 				return menuState;
@@ -250,9 +256,8 @@ namespace GraphicFilesDB {
 			settingsState.AddMenuItem(new MenuItem() { Text = "Set max path length", InBrakesText="Щоб шукати не у всiй системi.", InBrakesTextColor=attentionColor }, () => {
 				ushort rez = ushort.MaxValue;
 				do {
-					if(rez == 0) {
+					if(rez == 0) 
 						new MenuItem() {Text="Cant parse number\n", PreText="Error: ", PreTextColor=ConsoleColor.Red }.Print();
-					}
 					Console.Write("New length: ");
 				} while(!ushort.TryParse(Console.ReadLine(), out rez));
 
@@ -280,6 +285,19 @@ namespace GraphicFilesDB {
 			});
 
 			usedExtensionsManagerState.AddMenuItem(new MenuItem() { Text = "Remove extension" }, () => {
+				int rez = ushort.MaxValue;
+				do {
+					Console.Write("Input id: ");
+					if(!int.TryParse(Console.ReadLine(), out rez))
+						new MenuItem() { Text = "Cant parse number\n", PreText = "Error: ", PreTextColor = ConsoleColor.Red }.Print();
+
+					if(rez < 0 || rez >= settingsManager.UsedExt.Count)
+						new MenuItem() { Text = "Number bounds outside of the array\n", PreText = "Error: ", PreTextColor = ConsoleColor.Red }.Print();
+					else
+						break;
+				} while(true);
+
+				settingsManager.UsedExt.RemoveAt(rez);
 
 				return usedExtensionsManagerState;
 			});
