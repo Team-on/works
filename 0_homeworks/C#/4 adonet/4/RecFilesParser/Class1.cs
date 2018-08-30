@@ -42,6 +42,29 @@ namespace RecFilesParser {
 			FixExt();
 		}
 
+		public void SaveToXml(string path) {
+			FixExt();
+
+			XmlDocument xml = new XmlDocument();
+			XmlDeclaration decl = xml.CreateXmlDeclaration("1.0", "utf-8", "yes");
+			xml.AppendChild(decl);
+			XmlElement root = xml.CreateElement("settings");
+
+			XmlElement currElem = xml.CreateElement("fileExtension");
+			currElem.InnerText = MaxFileLength.ToString();
+			root.AppendChild(currElem);
+
+			foreach(var ext in UsedExt) {
+				currElem = xml.CreateElement("fileExtension");
+				currElem.InnerText = ext;
+				root.AppendChild(currElem);
+			}
+
+			xml.AppendChild(root);
+			xml.Save(path);
+		}
+
+
 		void FixExt() {
 			for(ushort i = 0; i < usedExt.Length; ++i)
 				usedExt[i] = usedExt[i].ToLower();
