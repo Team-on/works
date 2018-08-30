@@ -34,17 +34,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConsoleOOPMenu">
-      <HintPath>..\ConsoleOOPMenu\bin\Debug\ConsoleOOPMenu.dll</HintPath>
+    <Reference Include="ConsoleOOPMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ConsoleOOPMenu.dll</HintPath>
     </Reference>
-    <Reference Include="EzDBAccess">
-      <HintPath>..\..\3\EzDBAccess.dll</HintPath>
+    <Reference Include="EzDBAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EzDBAccess.dll</HintPath>
     </Reference>
-    <Reference Include="RecFilesParser">
-      <HintPath>..\RecFilesParser\bin\Release\RecFilesParser.dll</HintPath>
+    <Reference Include="RecFilesParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RecFilesParser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>packages\System.Data.SQLite.Core.1.0.109.1\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>

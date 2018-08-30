@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using System.Data;
-using System.Data;
+using System.Data.Linq;
 using System.Data.SqlClient;
 
 using ConsoleOOPMenu;
@@ -49,9 +49,10 @@ namespace GraphicFilesDB {
 	class DBMenu {
 		const string connectionString = @"Server=(localdb)\mssqllocaldb; Database=DBFileInfos; Integrated Security=True";
 		const ConsoleColor attentionColor = ConsoleColor.DarkYellow;
-		AutoConfigurableMenuState menuState;
+		AutoConfigurableMenuState menuState, settingsState, usedExtensionsManagerState;
 
 		public DBMenu() {
+			EzDBAccess.EzDBList<DBFileInfo>.maxStringLength = 270;
 		}
 
 		public void Start() {
@@ -60,6 +61,8 @@ namespace GraphicFilesDB {
 		}
 
 		void Init() {
+			FileFinderSettings settingsManager = null;
+
 			menuState = new AutoConfigurableMenuState();
 			{ 
 			//menuState.AddMenuItem(new MenuItem() { Text = "Create DB" }, () => {
@@ -233,7 +236,55 @@ namespace GraphicFilesDB {
 
 			});
 
+			menuState.AddMenuItem(new MenuItem() { Text = "Settings file finder" }, () => {
+				settingsManager = new FileFinderSettings();
+				settingsManager.ReadFromXml(@".\settings.xml");
+				return settingsState;
+			});
+
+
 			menuState.AddMenuItem(new MenuItem() { Text = "Exit" }, () => null);
+
+			settingsState = new AutoConfigurableMenuState();
+
+			settingsState.AddMenuItem(new MenuItem() { Text = "Set max path length", InBrakesText="Щоб шукати не у всiй системi.", InBrakesTextColor=attentionColor }, () => {
+				ushort rez = ushort.MaxValue;
+				do {
+					if(rez == 0) {
+						new MenuItem() {Text="Cant parse number\n", PreText="Error: ", PreTextColor=ConsoleColor.Red }.Print();
+					}
+					Console.Write("New length: ");
+				} while(!ushort.TryParse(Console.ReadLine(), out rez));
+
+				return settingsState;
+			});
+
+			settingsState.AddMenuItem(new MenuItem() { Text = "Manage used extensions" }, () => { return usedExtensionsManagerState; });
+				
+			settingsState.AddMenuItem(new MenuItem() { Text = "Back" }, () => { settingsManager.SaveToXml(@".\settings.xml"); return menuState; });
+
+			usedExtensionsManagerState = new AutoConfigurableMenuState();
+
+			usedExtensionsManagerState.AddMenuItem(new MenuItem() { Text = "Print extensions" }, () => {
+				Console.WriteLine($"{"Id",-4} Path");
+				for(byte i = 0; i < settingsManager.UsedExt.Count; ++i) 
+					Console.WriteLine($"{i, -4} {settingsManager.UsedExt[i]}");
+				return usedExtensionsManagerState;
+			});
+
+			usedExtensionsManagerState.AddMenuItem(new MenuItem() { Text = "Add extension" }, () => {
+				Console.Write("Input extension: ");
+				settingsManager.UsedExt.Add(Console.ReadLine());
+
+				return usedExtensionsManagerState;
+			});
+
+			usedExtensionsManagerState.AddMenuItem(new MenuItem() { Text = "Remove extension" }, () => {
+
+				return usedExtensionsManagerState;
+			});
+
+			usedExtensionsManagerState.AddMenuItem(new MenuItem() { Text = "Back" }, () => { return settingsState; });
 		}
 
 		void Loop() {
