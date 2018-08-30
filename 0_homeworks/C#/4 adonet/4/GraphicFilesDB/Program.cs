@@ -202,13 +202,14 @@ namespace GraphicFilesDB {
 						adapter.Fill(dataSet);
 						SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
 
+						int[] columnWidths = new int[] {7, 50, 10};
 						foreach(DataTable t in dataSet.Tables) {
 							Console.WriteLine($" => {t.TableName}");
 							for(byte i = 0; i < t.Columns.Count; ++i) {
 								string str = t.Columns[i].ToString();
-								if(str.Length > 20)
-									str = str.Substring(0, 17) + "...";
-								str = str.PadRight(20);
+								if(str.Length > columnWidths[i])
+									str = str.Substring(0, columnWidths[i] - 3) + "...";
+								str = str.PadRight(columnWidths[i]);
 								str += ' ';
 								Console.Write(str);
 							}
@@ -217,9 +218,9 @@ namespace GraphicFilesDB {
 							foreach(DataRow r in t.Rows) {
 								for(byte i = 0; i < t.Columns.Count; ++i) {
 									string str = r[i].ToString();
-									if(str.Length > 20)
-										str = str.Substring(0, 17) + "...";
-									str = str.PadRight(20);
+									if(str.Length > columnWidths[i])
+										str = str.Substring(0, columnWidths[i] - 3) + "...";
+									str = str.PadRight(columnWidths[i]);
 									str += ' ';
 									Console.Write(str);
 								}
