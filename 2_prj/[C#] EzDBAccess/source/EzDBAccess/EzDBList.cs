@@ -10,6 +10,7 @@ namespace EzDBAccess {
 	//Працює лише з повністю публічними свойствами
 	//Має бути свойсто Id
 	public class EzDBList<T> : IEnumerable<T> where T : class, new() {
+		public static int maxStringLength = 260;
 		//string debugStr = "EMPTY";
 
 		Type type;
@@ -141,7 +142,7 @@ namespace EzDBAccess {
 					if(prop.PropertyType.Name.ToLower() == "bool")
 						command.CommandText += "BIT ";
 					else if(prop.PropertyType.Name.ToLower() == "string")
-						command.CommandText += "NVARCHAR(100) ";
+						command.CommandText += $"NVARCHAR({maxStringLength}) ";
 					else
 						command.CommandText += "INT ";
 
