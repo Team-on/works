@@ -5,22 +5,21 @@ using System.Collections.Generic;
 
 namespace RecFilesParser {
 	public class FileFinderSettings {
-		string[] usedExt;
+		List<string> usedExt;
 		ushort maxFileLength;
 
 		public ushort MaxFileLength => maxFileLength;
-		public string[] UsedExt => usedExt;
+		public List<string> UsedExt => usedExt;
 
 		public FileFinderSettings() { }
 
 		public FileFinderSettings(string[] ext, ushort maxfilelength) {
 			maxFileLength = maxfilelength;
-			usedExt = ext;
+			usedExt = new List<string>(ext);
 			FixExt();
 		}
 
 		public void ReadFromXml(string path) {
-			List<string> tmpExt = new List<string>();
 
 			XmlDocument xml = new XmlDocument();
 			xml.Load(path);
@@ -31,13 +30,10 @@ namespace RecFilesParser {
 						ushort.TryParse(i.InnerText, out maxFileLength);
 						break;
 					case "fileextension":
-						tmpExt.Add(i.InnerText);
+						usedExt.Add(i.InnerText);
 						break;
 				}
 			}
-
-			usedExt = tmpExt.ToArray();
-			tmpExt.Clear();
 
 			FixExt();
 		}
@@ -64,9 +60,8 @@ namespace RecFilesParser {
 			xml.Save(path);
 		}
 
-
 		void FixExt() {
-			for(ushort i = 0; i < usedExt.Length; ++i)
+			for(ushort i = 0; i < usedExt.Count; ++i)
 				usedExt[i] = usedExt[i].ToLower();
 		}
 	}
