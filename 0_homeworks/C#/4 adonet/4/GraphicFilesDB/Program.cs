@@ -4,11 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 using System.Data;
-using System.Data.Common;
-using System.Data.SQLite;
-using System.Data.SQLite.Linq;
-using System.Data.SQLite.Generic;
-
+using System.Data;
+using System.Data.SqlClient;
 
 using ConsoleOOPMenu;
 using RecFilesParser;
@@ -43,8 +40,14 @@ namespace GraphicFilesDB {
 		}
 	}
 
+	class DBFileInfo {
+		public int Id { get; set; }
+		public string Path { get; set; }
+		public long Size { get; set; }
+	}
+
 	class DBMenu {
-		const string connectionString = @"Data Source = .\files.db";
+		const string connectionString = @"Server=(localdb)\mssqllocaldb; Database=DBFileInfos; Integrated Security=True";
 		const ConsoleColor attentionColor = ConsoleColor.DarkYellow;
 		AutoConfigurableMenuState menuState;
 
@@ -58,7 +61,7 @@ namespace GraphicFilesDB {
 
 		void Init() {
 			menuState = new AutoConfigurableMenuState();
-
+			{ 
 			//menuState.AddMenuItem(new MenuItem() { Text = "Create DB" }, () => {
 			//	//Вроде і без цього робить
 			//	//if(!System.IO.File.Exists(dbName))
@@ -139,6 +142,7 @@ namespace GraphicFilesDB {
 
 			//	return menuState;
 			//});
+		}
 
 			menuState.AddMenuItem(new MenuItem() { Text = "Parse, create and fill DB" }, () => {
 				FileFinderSettings settings = new FileFinderSettings();
@@ -150,17 +154,55 @@ namespace GraphicFilesDB {
 				new MenuItem() { Text = "End file parsing.\n", TextColor = attentionColor }.Print();
 
 				new MenuItem() { Text = "Start saving as DB.\n", TextColor = attentionColor }.Print();
-				fileFinder.SaveAsXml(@".\files.xml");
+				{
+					EzDBAccess.EzDBList<DBFileInfo> tmpList = new EzDBAccess.EzDBList<DBFileInfo>("System.Data.SqlClient", @"Server=(localdb)\mssqllocaldb; Database=master; Integrated Security=True", true);
+				}
+				//fileFinder.SaveAsXml(@".\files.xml");
 
 				DataSet dataSet = new DataSet();
-				dataSet.ReadXml(@".\files.xml");
+				//dataSet.ReadXml(@".\files.xml");
+
+				using(SqlConnection connection = new SqlConnection(connectionString)) {
+					connection.Open();
+					SqlDataAdapter adapter = new SqlDataAdapter("select * from DBFileInfo", connection);
+					adapter.Fill(dataSet);
+					foreach(var i in fileFinder.Files) {
+						DataRow row = dataSet.Tables[0].NewRow();
+						row[1] = i.FullName;
+						row[2] = i.Length;
+						dataSet.Tables[0].Rows.Add(row);
+					}
+					SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+					adapter.Update(dataSet);
+					//dataSet.AcceptChanges();
+					//dataSet.Clear();
+					//adapter.Fill(dataSet);
+
+					adapter.Dispose();
+				}
+
 				new MenuItem() { Text = "End saving as DB.\n", TextColor = attentionColor }.Print();
 
-				foreach(DataTable t in dataSet.Tables) {
-					Console.WriteLine($" => {t.TableName}");
-					foreach(DataRow r in t.Rows) {
+
+				dataSet.Dispose();
+
+				return menuState;
+			});
+
+			menuState.AddMenuItem(new MenuItem() { Text = "Print files" }, () => {
+				//dataSet.ReadXml(@".\files.xml");
+
+				using(SqlConnection connection = new SqlConnection(connectionString)) {
+					connection.Open();
+					SqlDataAdapter adapter = new SqlDataAdapter("select * from DBFileInfo", connection);
+					DataSet dataSet = new DataSet();
+					adapter.Fill(dataSet);
+					SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+
+					foreach(DataTable t in dataSet.Tables) {
+						Console.WriteLine($" => {t.TableName}");
 						for(byte i = 0; i < t.Columns.Count; ++i) {
-							string str = r[i].ToString();
+							string str = t.Columns[i].ToString();
 							if(str.Length > 20)
 								str = str.Substring(0, 17) + "...";
 							str = str.PadRight(20);
@@ -168,13 +210,28 @@ namespace GraphicFilesDB {
 							Console.Write(str);
 						}
 						Console.WriteLine();
+
+						foreach(DataRow r in t.Rows) {
+							for(byte i = 0; i < t.Columns.Count; ++i) {
+								string str = r[i].ToString();
+								if(str.Length > 20)
+									str = str.Substring(0, 17) + "...";
+								str = str.PadRight(20);
+								str += ' ';
+								Console.Write(str);
+							}
+							Console.WriteLine();
+						}
 					}
+
+					commandBuilder.Dispose();
+					dataSet.Dispose();
+					adapter.Dispose();
 				}
 
 				return menuState;
+
 			});
-
-
 
 			menuState.AddMenuItem(new MenuItem() { Text = "Exit" }, () => null);
 		}

@@ -37,6 +37,9 @@
     <Reference Include="ConsoleOOPMenu">
       <HintPath>..\ConsoleOOPMenu\bin\Debug\ConsoleOOPMenu.dll</HintPath>
     </Reference>
+    <Reference Include="EzDBAccess">
+      <HintPath>..\..\3\EzDBAccess.dll</HintPath>
+    </Reference>
     <Reference Include="RecFilesParser">
       <HintPath>..\RecFilesParser\bin\Release\RecFilesParser.dll</HintPath>
     </Reference>
