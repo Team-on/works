@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using System.Configuration;
+using System.Data.Common;
+using System.Data.SqlClient;
+
+namespace ConsoleApp21
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			//string connectionString =
+			//@"Server=(localdb)\mssqllocaldb; Database=pubs;Integrated Security=True";
+
+			//@"Data Source=10.7.0.5; Database=Chat32; Integrated Security=false;User Id=test;Password=123456qwerty";
+
+			//ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+
+			string connectionString = ConfigurationManager.AppSettings["cnStr"];
+
+
+			String dp= ConfigurationManager.AppSettings["provider"];
+
+
+			DbProviderFactory df = DbProviderFactories.GetFactory(dp);
+			
+			DbConnection cn = df.CreateConnection();
+
+			Console.WriteLine(cn.GetType().FullName);
+			cn.ConnectionString = connectionString;
+			cn.Open();
+			
+
+						DbCommand cmd = df.CreateCommand();
+						Console.WriteLine(cmd.GetType().FullName);
+						cmd.Connection = cn;
+						cmd.CommandText = "select * from authors";
+
+
+						DbDataReader dr = cmd.ExecuteReader();
+						Console.WriteLine(dr.GetType().FullName);
+						while (dr.Read())
+						{
+							Console.WriteLine("->{0}, {1}", dr["au_lname"], dr["au_fname"]);
+
+						}
+
+						dr.Close();
+						
+
+
+
+
+
+			//SqlConnection sq1 = new SqlConnection(connectionString);
+
+			//using (SqlConnection sq = new SqlConnection(connectionString))
+			//{
+
+			//	sq.Open();
+			
+			//	SqlCommand ss = new SqlCommand();//"insert into fg (au_fname, au_lname, royalty, title) values ('ghj','qwerty',12,'qqqqqqqqqqqq'),('ghj','qwerty',12,'qqqqqqqqqqqq')", sq);
+			//	ss.CommandText = "select * from fg";
+			//	ss.Connection = sq;
+
+			//	SqlDataReader r= ss.ExecuteReader();
+
+			//		Console.WriteLine("{0}, {1}, {2}", r.GetName(0), r.GetName(1), r.GetName(3));
+
+			//Console.WriteLine(r.);
+			//	Console.WriteLine("____________________________________________________________________");
+
+			//	while (r.Read())
+			//{
+
+			//	Console.WriteLine("{0}, {1}, {2}", r.GetValue(0), r.GetValue(1), r.GetValue(3));
+
+
+			//	}
+
+			//int max =(int) ss.ExecuteNonQuery();
+
+			//Console.WriteLine(sq.ClientConnectionId);
+			//sq.Close();
+			//sq1.Open();
+			//Console.WriteLine(sq1.ClientConnectionId);
+
+		}
+
+		/*
+		try
+		{
+
+			sq.Open();
+			Console.WriteLine(sq.ConnectionTimeout);
+			//SqlCommand ss = new SqlCommand("select * from fg", sq);
+
+			//Console.WriteLine(ss.ExecuteScalar());
+			//var read = ss.ExecuteReader();
+
+			/*	while (read.Read())
+				{
+
+					Console.WriteLine("{0}, {1}", read.GetValue(0), read.GetValue(1));
+
+
+				}
+				*/
+
+		/*}
+		catch (SqlException e)
+		{
+
+			Console.WriteLine(e.Message);
+
+		}
+		finally
+		{
+			Console.WriteLine("Close");
+			sq.Close();
+
+		}
+*/
+
+		//}
+	}
+}
