@@ -24,6 +24,8 @@ namespace RecFilesParser {
 			XmlDocument xml = new XmlDocument();
 			xml.Load(path);
 
+			usedExt = new List<string>(xml.ChildNodes[1].ChildNodes.Count - 1);
+
 			foreach(XmlNode i in xml.ChildNodes[1].ChildNodes) {
 				switch(i.Name.ToLower()) {
 					case "maxlength":
