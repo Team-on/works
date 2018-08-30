@@ -64,14 +64,29 @@ namespace Phonebook {
 			bool usestrnum = int.TryParse(BoxAdressStreetNum.Text, out int strnum);
 			bool usehm = int.TryParse(BoxAdressHome.Text, out int hm);
 
-			BoxFirstName.Text.Trim();
-			BoxSecondName.Text.Trim();
-			BoxPhone.Text.Trim();
-			BoxAdressCity.Text.Trim();
-			BoxAdressStreet.Text.Trim();
+			BoxFirstName.Text = BoxFirstName.Text.Trim();
+			BoxSecondName.Text = BoxSecondName.Text.Trim();
+			BoxPhone.Text = BoxPhone.Text.Trim();
+			BoxAdressCity.Text = BoxAdressCity.Text.Trim();
+			BoxAdressStreet.Text = BoxAdressStreet.Text.Trim();
+
 
 			rezults.Clear();
-			rezults.AddRange(MainWindow.Window.phonebook.FindAll((a) => {
+
+			var query = from a in MainWindow.Window.phonebook
+						where (!useid || (useid && a.Id == id)) &&
+							  (!usefn || (usefn && Regex.Match(a.FirstName, BoxFirstName.Text).Success)) &&
+							  (!usesn || (usesn && Regex.Match(a.LastName, BoxSecondName.Text).Success)) &&
+							  (!useph || (useph && Regex.Match(a.Phone, BoxPhone.Text).Success)) &&
+							  (!usect || (usect && Regex.Match(a.AdressCity, BoxAdressCity.Text).Success)) &&
+							  (!usestr || (usestr && Regex.Match(a.AdressStreet, BoxAdressStreet.Text).Success)) &&
+							  (!usestrnum || (usestrnum && a.AdressStreetNum == strnum)) &&
+							  (!usehm || (usehm && a.AdressHome == hm))
+						select a;
+			rezults.AddRange(query);
+
+			/*
+			  rezults.AddRange(MainWindow.Window.phonebook.FindAll((a) => {
 				bool rez = true;
 
 				if(rez && useid)
@@ -93,13 +108,15 @@ namespace Phonebook {
 					rez = Regex.Match(a.AdressStreet, BoxAdressStreet.Text).Success;
 
 				if(rez && usestrnum)
-					rez = a.Id == strnum;
+					rez = a.AdressStreetNum == strnum;
 
 				if(rez && usehm)
-					rez = a.Id == hm;
+					rez = a.AdressHome == hm;
 
 				return rez;
 			}));
+			*/
+
 			dataGrid.Items.Refresh();
 		}
 	}
