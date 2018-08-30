@@ -20,7 +20,6 @@ namespace RecFilesParser {
 		}
 
 		public void ReadFromXml(string path) {
-
 			XmlDocument xml = new XmlDocument();
 			xml.Load(path);
 
@@ -48,7 +47,7 @@ namespace RecFilesParser {
 			xml.AppendChild(decl);
 			XmlElement root = xml.CreateElement("settings");
 
-			XmlElement currElem = xml.CreateElement("fileExtension");
+			XmlElement currElem = xml.CreateElement("maxLength");
 			currElem.InnerText = MaxFileLength.ToString();
 			root.AppendChild(currElem);
 
