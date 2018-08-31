@@ -13,8 +13,15 @@ namespace TestFramework {
 
 		[UlTableColumn(DBType:"nvarchar(100)")]
 		public string Name { get; set; }
-
+		
 		[UlTableColumn(CanBeNull:true, DBType:"nvarchar(100)")]
 		public string Surname { get; set; }
+
+		public Human() {}
+
+		public Human(string name, string surname) {
+			Name = name;
+			Surname = surname;
+		}
 	}
 }
