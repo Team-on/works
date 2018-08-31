@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.Sql;
+using System.Data.SqlClient;
 
 namespace DBUnlinked {
 	/// <summary>
@@ -22,6 +25,8 @@ namespace DBUnlinked {
 		/// </param>
 		/// <returns>true якщо була створена нова БД</returns>
 		public bool CreateOrLinkToDB(string connectionString, string initialCatalog) {
+			
+
 			return false;
 		}
 
