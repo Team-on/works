@@ -8,11 +8,13 @@ using DBUnlinked;
 
 namespace TestFramework {
 	class Human {
-		[UlTableColumn(IsPrimaryKey : true)]
-		int Id { get; set; }
-		[UlTableColumn(DBType: "nvarchar(100)")]
-		string Name { get; set; }
+		[UlTableColumn(IsPrimaryKey:true)]
+		public int Id { get; set; }
+
+		[UlTableColumn(DBType:"nvarchar(100)")]
+		public string Name { get; set; }
+
 		[UlTableColumn(CanBeNull:true, DBType:"nvarchar(100)")]
-		string Surname { get; set; }
+		public string Surname { get; set; }
 	}
 }

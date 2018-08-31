@@ -12,8 +12,6 @@ namespace DBUnlinked {
 
 		public int Count => throw new NotImplementedException();
 
-		public bool IsReadOnly => throw new NotImplementedException();
-
 		public void Add(T item) {
 			throw new NotImplementedException();
 		}
@@ -31,11 +29,11 @@ namespace DBUnlinked {
 		}
 
 		public IEnumerator<T> GetEnumerator() {
-			throw new NotImplementedException();
+			return ((IEnumerable<T>) list).GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {
-			throw new NotImplementedException();
+			return ((IEnumerable<T>) list).GetEnumerator();
 		}
 	}
 }

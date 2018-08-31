@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DBUnlinked {
@@ -6,10 +7,8 @@ namespace DBUnlinked {
 	/// Таблиця яка створюватиметься на основі класу
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class UlTable<T> {
+	public class UlTable<T> : IEnumerable<T> {
 		UlTableList<T> table;
-
-		public UlTableList<T> Get() => table; 
 
 		/// <summary>
 		/// Зчитує всю таблицю з бд
@@ -48,6 +47,26 @@ namespace DBUnlinked {
 		/// </summary>
 		public void Update() {
 
+		}
+
+		public void Add(T item) {
+			throw new NotImplementedException();
+		}
+
+		public T Find(Func<bool> predicate) {
+			throw new NotImplementedException();
+		}
+
+		public bool Remove(T item) {
+			throw new NotImplementedException();
+		}
+
+		public IEnumerator<T> GetEnumerator() {
+			return ((IEnumerable<T>) table).GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return ((IEnumerable<T>) table).GetEnumerator();
 		}
 	}
 }

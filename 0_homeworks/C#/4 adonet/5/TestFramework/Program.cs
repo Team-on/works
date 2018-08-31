@@ -18,7 +18,16 @@ namespace TestFramework {
 	class Program {
 		//[Column()]
 		static void Main(string[] args) {
-			Console.WriteLine("asfsaf");
+			UlDb database = new UlDb(/*@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB"*/);
+			bool isCreated = database.CreateOrLinkToDB(@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB", false);
+			Console.WriteLine($"Is create new DB: {0}", isCreated);
+
+			UlTable<Human> table = database.CreateOrLinkToTable<Human>();
+			table.Fill();
+
+			foreach(var i in table) {
+				Console.WriteLine("{0, -5} {1, -10} {2}", i.Id, i.Name, i.Surname);
+			}
 		}
 	}
 }
