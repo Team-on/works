@@ -8,10 +8,10 @@ namespace DBUnlinked {
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
 	public sealed class UlTableColumnAttribute : Attribute {
-		bool isPrimaryKey;
-		bool canBeNull;
-		string dbType;
-		string name;
+		internal bool isPrimaryKey;
+		internal bool canBeNull;
+		internal string dbType;
+		internal string name;
 
 		public UlTableColumnAttribute(bool IsPrimaryKey = false, bool CanBeNull = false, string DBType = "", string Name = "") {
 			isPrimaryKey = IsPrimaryKey;
@@ -26,7 +26,7 @@ namespace DBUnlinked {
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public sealed class UlTableAttribute : Attribute {
-		string name;
+		internal string name;
 
 		public UlTableAttribute(string Name = "") {
 			name = Name;

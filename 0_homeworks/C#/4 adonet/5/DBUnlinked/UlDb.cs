@@ -63,7 +63,45 @@ namespace DBUnlinked {
 		}
 
 		public UlTable<T> CreateOrLinkToTable<T>() {
-			return null;
+			string tableName;
+			Type type = typeof(T);
+			UlTable<T> rez = new UlTable<T>();
+			rez.ownerDb = this;
+
+			UlTableAttribute ulTableAttribute = (UlTableAttribute) type.GetCustomAttributes(false).First((a) => {
+				if(a is UlTableAttribute)
+					return true;
+				return false;
+			});
+			if(ulTableAttribute != null && ulTableAttribute.name != "") 
+				tableName = ulTableAttribute.name;
+			else
+				tableName = type.Name;
+
+			command.CommandType = CommandType.Text;
+			command.CommandText = $"IF NOT EXISTS(select * from sys.tables where name='{tableName}') " +
+						$"CREATE TABLE {tableName} ( ";
+			foreach(var prop in type.GetProperties()) {
+				if(prop.GetGetMethod().IsPublic && prop.GetSetMethod().IsPublic) {
+					command.CommandText += prop.Name + ' ';
+					if(prop.PropertyType.Name.ToLower() == "bool")
+						command.CommandText += "BIT ";
+					else if(prop.PropertyType.Name.ToLower() == "string")
+						command.CommandText += $"NVARCHAR({maxStringLength}) ";
+					else
+						command.CommandText += "INT ";
+
+					if(prop.Name == "Id")
+						command.CommandText += "IDENTITY PRIMARY KEY ";
+
+					command.CommandText += ", ";
+				}
+			}
+			command.CommandText = command.CommandText.Substring(0, command.CommandText.Length - 2);
+			command.CommandText += ")";
+			command.ExecuteNonQuery();
+
+			return rez;
 		}
 	}
 }

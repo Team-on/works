@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DBUnlinked;
 
 namespace TestFramework {
+	[UlTable]
 	class Human {
 		[UlTableColumn(IsPrimaryKey:true)]
 		public int Id { get; set; }

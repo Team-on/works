@@ -8,6 +8,7 @@ namespace DBUnlinked {
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class UlTable<T> : IEnumerable<T> {
+		internal UlDb ownerDb;
 		UlTableList<T> table;
 
 		/// <summary>
