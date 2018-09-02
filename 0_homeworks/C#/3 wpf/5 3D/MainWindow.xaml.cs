@@ -83,7 +83,6 @@ namespace Like3D {
 
 			Vector3D lookDir = camera.LookDirection;
 
-
 			if(currMousePos.X > prevMousePos.X)
 				lookDir.X += 0.1;
 			else if(currMousePos.X < prevMousePos.X)
