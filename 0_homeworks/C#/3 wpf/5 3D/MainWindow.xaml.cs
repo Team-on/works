@@ -46,29 +46,41 @@ namespace Like3D {
 
 		private void Window_KeyDown(object sender, KeyEventArgs e) {
 			Point3D newPos = camera.Position;
+			Vector3D upDir = camera.UpDirection;
 			switch(e.Key) {
 			case Key.Escape:
 			this.Close();
 			break;
+
 			case Key.A:
 			newPos.X -= 0.1;
 			break;
 			case Key.D:
 			newPos.X += 0.1;
 			break;
+
 			case Key.W:
 			newPos.Z -= 0.1;
 			break;
 			case Key.S:
 			newPos.Z += 0.1;
 			break;
+
 			case Key.LeftShift:
 			newPos.Y -= 0.1;
 			break;
 			case Key.Space:
 			newPos.Y += 0.1;
 			break;
+
+			case Key.Q:
+			upDir.X -= 0.1;
+			break;
+			case Key.E:
+			upDir.X += 0.1;
+			break;
 			}
+			camera.UpDirection = upDir;
 			camera.Position = newPos;
 		}
 
