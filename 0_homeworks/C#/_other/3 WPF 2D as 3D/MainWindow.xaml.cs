@@ -24,10 +24,10 @@ namespace Like3D {
 		Line line2d;
 		double x1, y1, x2, y2, z1, z2;
 
-		public Line3D(double x1, double y1, double x2, double y2, double z1, double z2) {
+		public Line3D(double x1, double y1, double z1, double x2, double y2, double z2, Brush color = null) {
 			line2d = new Line() {
 				StrokeThickness = 2,
-				Stroke = Brushes.Black,
+				Stroke = color ?? Brushes.Black,
 				StrokeStartLineCap = PenLineCap.Flat,
 				StrokeEndLineCap = PenLineCap.Flat,
 			};
@@ -59,7 +59,9 @@ namespace Like3D {
 			r2 = Cos(b) * -Sin(a);
 		}
 
-		public Line Get2DLine() => line2d;
+		public void SetCanvas(Canvas c) {
+			c.Children.Add(line2d);
+		}
 	}
 
 	/// <summary>
@@ -67,16 +69,16 @@ namespace Like3D {
 	/// </summary>
 	public partial class MainWindow : Window {
 		Line3D[] lines3D = new Line3D[] {
-			new Line3D(-100, -100, 0, -100,  100, 0),
-			new Line3D(-100, -100, 0,  100, -100, 0),
+			new Line3D(-100, -100, 0, -100,  100, 0, Brushes.Blue),
+			new Line3D(-100, -100, 0,  100, -100, 0, Brushes.BlueViolet),
 
-			new Line3D(100, 100, 0, -100,  100, 0),
-			new Line3D(100, 100, 0,  100, -100, 0),
+			new Line3D(100, 100, 0, -100,  100, 0, Brushes.Aqua),
+			new Line3D(100, 100, 0,  100, -100, 0, Brushes.DarkBlue),
 
-			//new Line3D(0, 0, 200,  100,  100, 0),
-			//new Line3D(0, 0, 200, -100,  100, 0),
-			//new Line3D(0, 0, 200,  100, -100, 0),
-			//new Line3D(0, 0, 200, -100, -100, 0),
+			new Line3D(0, 0, 200,  100,  100, 0, Brushes.Red),
+			new Line3D(0, 0, 200, -100,  100, 0, Brushes.OrangeRed),
+			new Line3D(0, 0, 200,  100, -100, 0, Brushes.Yellow),
+			new Line3D(0, 0, 200, -100, -100, 0, Brushes.Orange),
 		};
 
 		public MainWindow() {
@@ -88,6 +90,7 @@ namespace Like3D {
 			Line3D.CalcValues(out double p1, out double q1, out double r1, out double p2, out double q2, out double r2, sliderx.Value, slidery.Value, sliderz.Value);
 			foreach(var line in lines3D)
 				line.Recalc2DLine(p1, q1, r1, p2, q2, r2);
+			this.Title = string.Format("{0:0.##} {1:0.##} {2:0.##} {3:0.##} {4:0.##} {5:0.##}", p1, p2, q1, q2, r1, r2);
 		}
 
 		private void slidery_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
@@ -95,19 +98,23 @@ namespace Like3D {
 			Line3D.CalcValues(out double p1, out double q1, out double r1, out double p2, out double q2, out double r2, sliderx.Value, slidery.Value, sliderz.Value);
 			foreach(var line in lines3D)
 				line.Recalc2DLine(p1, q1, r1, p2, q2, r2);
+			this.Title = string.Format("{0:0.##} {1:0.##} {2:0.##} {3:0.##} {4:0.##} {5:0.##}", p1, p2, q1, q2, r1, r2);
 		}
 
 		private void sliderx_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
 			labelx.Content = "X: " + sliderx.Value.ToString();
 			Line3D.CalcValues(out double p1, out double q1, out double r1, out double p2, out double q2, out double r2, sliderx.Value, slidery.Value, sliderz.Value);
-			this.Title = string.Format("{0:0.##} {1:0.##} {2:0.##} {3:0.##} {4:0.##} {5:0.##}", p1, p2, q1, q2, r1, r2);
 			foreach(var line in lines3D)
 				line.Recalc2DLine(p1, q1, r1, p2, q2, r2);
+			this.Title = string.Format("{0:0.##} {1:0.##} {2:0.##} {3:0.##} {4:0.##} {5:0.##}", p1, p2, q1, q2, r1, r2);
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			foreach(var line in lines3D) 
-				canvas.Children.Add(line.Get2DLine());
+			Line3D.CalcValues(out double p1, out double q1, out double r1, out double p2, out double q2, out double r2, sliderx.Value, slidery.Value, sliderz.Value);
+			foreach(var line in lines3D) {
+				line.SetCanvas(canvas);
+				line.Recalc2DLine(p1, q1, r1, p2, q2, r2);
+			}
 		}
 	}
 }
