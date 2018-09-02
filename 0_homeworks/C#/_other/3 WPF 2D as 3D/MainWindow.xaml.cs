@@ -24,10 +24,10 @@ namespace Like3D {
 		Line line2d;
 		double x1, y1, x2, y2, z1, z2;
 
-		public Line3D(double x1, double y1, double z1, double x2, double y2, double z2, Brush color = null) {
+		public Line3D(double x1, double y1, double z1, double x2, double y2, double z2) {
 			line2d = new Line() {
 				StrokeThickness = 2,
-				Stroke = color ?? Brushes.Black,
+				Stroke = Brushes.Black,
 				StrokeStartLineCap = PenLineCap.Flat,
 				StrokeEndLineCap = PenLineCap.Flat,
 			};
@@ -59,9 +59,7 @@ namespace Like3D {
 			r2 = Cos(b) * -Sin(a);
 		}
 
-		public void SetCanvas(Canvas c) {
-			c.Children.Add(line2d);
-		}
+		public Line Get2DLine() => line2d;
 	}
 
 	/// <summary>
@@ -69,16 +67,16 @@ namespace Like3D {
 	/// </summary>
 	public partial class MainWindow : Window {
 		Line3D[] lines3D = new Line3D[] {
-			new Line3D(-100, -100, 0, -100,  100, 0, Brushes.Blue),
-			new Line3D(-100, -100, 0,  100, -100, 0, Brushes.BlueViolet),
+			new Line3D(-100, -100, 0, -100,  100, 0),
+			new Line3D(-100, -100, 0,  100, -100, 0),
 
-			new Line3D(100, 100, 0, -100,  100, 0, Brushes.Aqua),
-			new Line3D(100, 100, 0,  100, -100, 0, Brushes.DarkBlue),
+			new Line3D(100, 100, 0, -100,  100, 0),
+			new Line3D(100, 100, 0,  100, -100, 0),
 
-			new Line3D(0, 0, 200,  100,  100, 0, Brushes.Red),
-			new Line3D(0, 0, 200, -100,  100, 0, Brushes.OrangeRed),
-			new Line3D(0, 0, 200,  100, -100, 0, Brushes.Yellow),
-			new Line3D(0, 0, 200, -100, -100, 0, Brushes.Orange),
+			new Line3D(0, 0, 200,  100,  100, 0),
+			new Line3D(0, 0, 200, -100,  100, 0),
+			new Line3D(0, 0, 200,  100, -100, 0),
+			new Line3D(0, 0, 200, -100, -100, 0),
 		};
 
 		public MainWindow() {
@@ -112,7 +110,7 @@ namespace Like3D {
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			Line3D.CalcValues(out double p1, out double q1, out double r1, out double p2, out double q2, out double r2, sliderx.Value, slidery.Value, sliderz.Value);
 			foreach(var line in lines3D) {
-				line.SetCanvas(canvas);
+				canvas.Children.Add(line.Get2DLine());
 				line.Recalc2DLine(p1, q1, r1, p2, q2, r2);
 			}
 		}
