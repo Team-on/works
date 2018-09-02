@@ -6,17 +6,18 @@
         xmlns:local="clr-namespace:Like3D"
         mc:Ignorable="d"
         Title="MainWindow" 
-		Height="450" Width="800"
-		MinHeight="450" MinWidth="800"
-		MaxHeight="450" MaxWidth="800"
+		Height="600" Width="600"
 		Loaded="Window_Loaded"
+		KeyDown="Window_KeyDown"
+		MouseMove="Window_MouseMove"
 		>
 	<Grid>
 		<Viewport3D>
 			<Viewport3D.Camera>
 				<!--Установка камеры - перспективная проекция-->
-				<PerspectiveCamera Position="0,0,2" LookDirection="0,0,-2" />
+				<PerspectiveCamera Position="0,0,2" LookDirection="0,0,-2" x:Name="camera"/>
 			</Viewport3D.Camera>
+			
 			<Viewport3D.Children>
 				<ModelVisual3D>
 					<ModelVisual3D.Content>
@@ -24,6 +25,7 @@
 						<DirectionalLight Color="White" Direction="-1,-1,-2" />
 					</ModelVisual3D.Content>
 				</ModelVisual3D>
+				
 				<ModelVisual3D>
 					<ModelVisual3D.Content>
 						<GeometryModel3D>
@@ -38,6 +40,7 @@
 						</GeometryModel3D>
 					</ModelVisual3D.Content>
 				</ModelVisual3D>
+				
 			</Viewport3D.Children>
 		</Viewport3D>
 	</Grid>
