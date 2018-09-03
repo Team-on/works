@@ -64,8 +64,14 @@ namespace DBUnlinked {
 				}
 			}
 
-			if(table.Count != 0)
-				lastId = (int) type.GetProperty("Id").GetValue(table[table.Count - 1]);
+			if(table.Count != 0) {
+				for(byte j = 0; j < columnAttributes.Count; ++j) {
+					if(columnAttributes[j].isPrimaryKey) {
+						lastId = (int) type.GetProperties()[j].GetValue(table[table.Count - 1]);
+						break;
+					}
+				}
+			}
 			else
 				lastId = 0;
 
