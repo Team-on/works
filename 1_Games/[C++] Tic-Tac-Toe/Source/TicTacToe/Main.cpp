@@ -60,6 +60,12 @@ BOOL CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp){
 
 			if (LOWORD(wp) == IDC_BUTTON1) {
 				game.SetIsXFirst(IsDlgButtonChecked(hWnd, IDC_RADIO1));
+				for (char i = 0; i < 4; ++i) {
+					if (IsDlgButtonChecked(hWnd, IDC_RADIO3 + i)) {
+						game.SetBotType((Game::BotType)i);
+					}
+				}
+
 				game.StartNewGame();
 			}
 			break;
