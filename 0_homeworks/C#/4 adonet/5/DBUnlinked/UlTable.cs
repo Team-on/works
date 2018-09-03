@@ -1,21 +1,73 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Data;
+using System.Data.Sql;
+using System.Data.SqlClient;
 
 namespace DBUnlinked {
 	/// <summary>
 	/// Таблиця яка створюватиметься на основі класу
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class UlTable<T> : IEnumerable<T> {
-		internal UlDb ownerDb;
+	public class UlTable<T> : IEnumerable<T> where T : class, new() {
+		UlTableAttribute tableAttribute;
+		List<UlTableColumnAttribute> columnAttributes;
+
+		UlDb ownerDb;
+		SqlCommand command;
 		UlTableList<T> table;
+
+		public UlTable(UlDb OwnerDB, UlTableAttribute attribute, List<UlTableColumnAttribute> ColumnAttributes) {
+			tableAttribute = attribute;
+			columnAttributes = ColumnAttributes;
+
+			ownerDb = OwnerDB;
+			command = new SqlCommand() {
+				Connection = ownerDb.connection,
+			};
+
+			table = new UlTableList<T>();
+		}
 
 		/// <summary>
 		/// Зчитує всю таблицю з бд
 		/// </summary>
 		public void Fill() {
+			Console.WriteLine(columnAttributes.Count);
+			/*command.CommandType = CommandType.Text;
+			command.CommandText = $"select * from {tableAttribute.name}";
 
+			ownerDb.connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+
+			if(reader.HasRows) {
+				T curr;
+				while(reader.Read()) {
+					curr = new T();
+					for(byte i = 0; i < reader.FieldCount; ++i) {
+						var name = reader.GetName(i);
+						var value = reader.GetValue(i);
+
+						foreach(var prop in type.GetProperties()) {
+							if(prop.Name == name) {
+								prop.SetValue(curr, value);
+								break;
+							}
+						}
+					}
+					list.Add(curr);
+				}
+			}
+
+			if(list.Count != 0)
+				lastId = (int) type.GetProperty("Id").GetValue(list[list.Count - 1]);
+			else
+				lastId = 0;
+
+			reader.Close();
+			ownerDb.connection.Close();*/
 		}
 
 		/// <summary>

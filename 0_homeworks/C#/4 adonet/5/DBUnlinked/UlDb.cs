@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 using System.Data.Sql;
@@ -9,7 +10,7 @@ namespace DBUnlinked {
 	/// Працює лише з MS SQL Server
 	/// </summary>
 	public class UlDb {
-		SqlConnection connection;
+		internal SqlConnection connection;
 		SqlCommand command;
 
 		public UlDb() {
@@ -65,17 +66,21 @@ namespace DBUnlinked {
 			return rez;
 		}
 
-		public UlTable<T> CreateOrLinkToTable<T>() {
+		public UlTable<T> CreateOrLinkToTable<T>() where T : class, new() {
 			string tableName;
 			Type type = typeof(T);
-			UlTable<T> rez = new UlTable<T>();
-			rez.ownerDb = this;
+			UlTable<T> rez;
+			List<UlTableColumnAttribute> columnAttributes = new List<UlTableColumnAttribute>();
 
 			UlTableAttribute ulTableAttribute = (UlTableAttribute) type.GetCustomAttributes(false).First((a) => a is UlTableAttribute);
-			if(ulTableAttribute?.name?.Equals("") ?? true)
+			if(ulTableAttribute?.name?.Equals("") ?? true) {
 				tableName = type.Name;
-			else
+				rez = new UlTable<T>(this, new UlTableAttribute(tableName), columnAttributes);
+			}
+			else {
 				tableName = ulTableAttribute.name;
+				rez = new UlTable<T>(this, ulTableAttribute, columnAttributes);
+			}
 
 			command.CommandType = CommandType.Text;
 			command.CommandText = $"IF NOT EXISTS(select * from sys.tables where name='{tableName}') " +
@@ -136,13 +141,13 @@ namespace DBUnlinked {
 						command.CommandText += "NOT NULL ";
 
 					command.CommandText += ", ";
+
+					columnAttributes.Add(columnAttribute);
 				}
 			}
 
 			command.CommandText = command.CommandText.Substring(0, command.CommandText.Length - 2);
 			command.CommandText += ")";
-
-			Console.WriteLine(command.CommandText);
 
 			connection.Open();
 			command.ExecuteNonQuery();

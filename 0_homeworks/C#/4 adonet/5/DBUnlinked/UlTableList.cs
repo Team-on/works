@@ -6,25 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DBUnlinked {
-	public class UlTableList<T> : IEnumerable<T> {
+	internal class UlTableList<T> : IEnumerable<T> {
 		List<T> list;
 		List<UlChanges> changes;
 
-		public int Count => throw new NotImplementedException();
+		internal UlTableList() {
+			list = new List<T>();
+			changes = new List<UlChanges>();
+		}
 
-		public void Add(T item) {
+		internal int Count => throw new NotImplementedException();
+
+		internal void Add(T item) {
 			throw new NotImplementedException();
 		}
 
-		public T Find(Func<bool> predicate) {
+		internal T Find(Func<bool> predicate) {
 			throw new NotImplementedException();
 		}
 
-		public bool Remove(T item) {
+		internal bool Remove(T item) {
 			throw new NotImplementedException();
 		}
 
-		public void Clear() {
+		internal void Clear() {
 			throw new NotImplementedException();
 		}
 

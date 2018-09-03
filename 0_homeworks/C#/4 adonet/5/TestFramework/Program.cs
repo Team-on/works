@@ -21,7 +21,7 @@ namespace TestFramework {
 		//[Column()]
 		static void Main(string[] args) {
 			UlDb database = new UlDb(/*@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB"*/);
-			bool isCreated = database.CreateOrLinkToDB(@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB", true);
+			bool isCreated = database.CreateOrLinkToDB(@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB", false);
 			Console.WriteLine("Is create new DB: {0}", isCreated);
 
 			UlTable<Human> table = database.CreateOrLinkToTable<Human>();
