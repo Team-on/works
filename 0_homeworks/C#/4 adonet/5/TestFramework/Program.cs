@@ -27,13 +27,14 @@ namespace TestFramework {
 			UlTable<Human> table = database.CreateOrLinkToTable<Human>();
 			table.Fill();
 
-			/*table.Add(new Human("1", "1s"));
+			table.Add(new Human("1", "1s"));
 			table.Add(new Human("2", "2s"));
 			table.Add(new Human("3", "3s"));
 			table.Add(new Human("4", null));
 			table.Add(new Human("5", null));
-			table.Update();
+			/*table.Update();
 
+			
 			table.Clear();
 			table.Fill();
 			*/
@@ -41,7 +42,7 @@ namespace TestFramework {
 			var columnNames = table.GetColumnNames();
 				Console.WriteLine("{0, -5} {1, -10} {2}", columnNames[0], columnNames[1], columnNames[2]);
 			foreach(var i in table) 
-				Console.WriteLine("{0, -5} {1, -10} {2}", i.Id, i.Name, i.Surname);
+				Console.WriteLine("{0, -5} {1, -10} {2}", i.Id, i.Name, i.Surname??"NULL");
 		}
 	}
 }
