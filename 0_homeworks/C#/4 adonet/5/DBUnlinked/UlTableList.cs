@@ -15,7 +15,7 @@ namespace DBUnlinked {
 			changes = new List<UlChanges>();
 		}
 
-		internal int Count => throw new NotImplementedException();
+		internal int Count => list.Count;
 
 		internal void Add(T item) {
 			changes.Add(new UlChanges(list.Count));
@@ -33,6 +33,8 @@ namespace DBUnlinked {
 		internal void Clear() {
 			throw new NotImplementedException();
 		}
+
+		public T this[int index] { get => ((IList<T>) list)[index]; set => ((IList<T>) list)[index] = value; }
 
 		public IEnumerator<T> GetEnumerator() {
 			return ((IEnumerable<T>) list).GetEnumerator();

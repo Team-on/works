@@ -64,10 +64,10 @@ namespace DBUnlinked {
 				}
 			}
 
-			//if(table.Count != 0)
-			//	lastId = (int) type.GetProperty("Id").GetValue(table[table.Count - 1]);
-			//else
-			//	lastId = 0;
+			if(table.Count != 0)
+				lastId = (int) type.GetProperty("Id").GetValue(table[table.Count - 1]);
+			else
+				lastId = 0;
 
 			reader.Close();
 			ownerDb.connection.Close();
