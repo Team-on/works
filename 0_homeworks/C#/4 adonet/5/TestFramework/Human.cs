@@ -33,6 +33,9 @@ namespace TestFramework {
 		[UlTableColumn(NotNull:false, DBType:"nvarchar(100)", Name:"LastName")]
 		public string Surname { get; set; }
 
+		public string UnusedinDb { get; set; }
+
+
 		public Human() {}
 
 		public Human(string name, string surname) {

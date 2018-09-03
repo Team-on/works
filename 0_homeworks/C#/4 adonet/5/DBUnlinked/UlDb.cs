@@ -72,7 +72,7 @@ namespace DBUnlinked {
 			UlTable<T> rez;
 			List<UlTableColumnAttribute> columnAttributes = new List<UlTableColumnAttribute>();
 
-			UlTableAttribute ulTableAttribute = (UlTableAttribute) type.GetCustomAttributes(false).First((a) => a is UlTableAttribute);
+			UlTableAttribute ulTableAttribute = (UlTableAttribute) type.GetCustomAttributes(false).FirstOrDefault((a) => a is UlTableAttribute);
 			if(ulTableAttribute?.name?.Equals("") ?? true) {
 				tableName = type.Name;
 				rez = new UlTable<T>(this, new UlTableAttribute(tableName), columnAttributes);
@@ -89,7 +89,7 @@ namespace DBUnlinked {
 				if(prop.GetGetMethod().IsPrivate || prop.GetSetMethod().IsPrivate)
 					continue;
 
-				if(prop.GetCustomAttributes(false).First((a) => a is UlTableColumnAttribute) is UlTableColumnAttribute columnAttribute) {
+				if(prop.GetCustomAttributes(false).FirstOrDefault((a) => a is UlTableColumnAttribute) is UlTableColumnAttribute columnAttribute) {
 					if(columnAttribute.name?.Equals("") ?? true)
 						columnAttribute.name = prop.Name;
 
