@@ -1,15 +1,17 @@
 #include "stdafx.h"
 #include "Game.h"
+#include <ctime>
+#include <random>
 
 
 
 Game::Game() :
-	map(new GameCell*[3]
-	){
+	map(new GameCell*[3]),
+	isXFirst(true),
+	botType(Medium)
+{
 	for(char i = 0; i < 3; ++i)
 		map[i] = new GameCell[3];
-	isXFirst = true;
-	botType = Medium;
 }
 
 
@@ -67,12 +69,22 @@ bool Game::IsPlayerTurn(){
 }
 
 void Game::BotTurn(){
-	(this->*botFunc)();
-
-	isXTurn = !isXTurn;
+	for(char i = 0; i < 3; ++i)
+		for(char j = 0; j < 3; ++j)
+			if(map[i][j].GetCellState() == GameCell::CellState::Empty){
+				(this->*botFunc)();
+				isXTurn = !isXTurn;
+				return;
+			}
 }
 
 void Game::BotTurnEazy(){
+	char x, y;
+	do{
+		x = rand() % 3;
+		y = rand() % 3;
+	} while(map[x][y].GetCellState() != GameCell::CellState::Empty);
+	map[x][y].Place0();
 }
 
 void Game::BotTurnMedium(){
