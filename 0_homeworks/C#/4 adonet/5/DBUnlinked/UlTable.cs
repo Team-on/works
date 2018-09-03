@@ -12,11 +12,14 @@ namespace DBUnlinked {
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class UlTable<T> : IEnumerable<T> where T : class, new() {
+		Type type = typeof(T);
 		UlTableAttribute tableAttribute;
 		List<UlTableColumnAttribute> columnAttributes;
 
 		UlDb ownerDb;
 		SqlCommand command;
+		//Трохи костиль(
+		int lastId;
 		UlTableList<T> table;
 
 		public UlTable(UlDb OwnerDB, UlTableAttribute attribute, List<UlTableColumnAttribute> ColumnAttributes) {
@@ -35,8 +38,7 @@ namespace DBUnlinked {
 		/// Зчитує всю таблицю з бд
 		/// </summary>
 		public void Fill() {
-			Console.WriteLine(columnAttributes.Count);
-			/*command.CommandType = CommandType.Text;
+			command.CommandType = CommandType.Text;
 			command.CommandText = $"select * from {tableAttribute.name}";
 
 			ownerDb.connection.Open();
@@ -45,29 +47,42 @@ namespace DBUnlinked {
 			if(reader.HasRows) {
 				T curr;
 				while(reader.Read()) {
+
 					curr = new T();
 					for(byte i = 0; i < reader.FieldCount; ++i) {
 						var name = reader.GetName(i);
 						var value = reader.GetValue(i);
 
-						foreach(var prop in type.GetProperties()) {
-							if(prop.Name == name) {
-								prop.SetValue(curr, value);
+						for(byte j = 0; j < columnAttributes.Count; ++j) {
+							if(columnAttributes[j].name == name) {
+								type.GetProperties()[i].SetValue(curr, value);
 								break;
 							}
 						}
 					}
-					list.Add(curr);
+					table.Add(curr);
 				}
 			}
 
-			if(list.Count != 0)
-				lastId = (int) type.GetProperty("Id").GetValue(list[list.Count - 1]);
-			else
-				lastId = 0;
+			//if(table.Count != 0)
+			//	lastId = (int) type.GetProperty("Id").GetValue(table[table.Count - 1]);
+			//else
+			//	lastId = 0;
 
 			reader.Close();
-			ownerDb.connection.Close();*/
+			ownerDb.connection.Close();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>Повертає масив імен стовбців</returns>
+		public string[] GetColumnNames() {
+			List<string> rez = new List<string>();
+			foreach(var attr in columnAttributes) {
+				rez.Add(attr.name);
+			}
+			return rez.ToArray();
 		}
 
 		/// <summary>

@@ -18,7 +18,8 @@ namespace DBUnlinked {
 		internal int Count => throw new NotImplementedException();
 
 		internal void Add(T item) {
-			throw new NotImplementedException();
+			changes.Add(new UlChanges(list.Count));
+			list.Add(item);
 		}
 
 		internal T Find(Func<bool> predicate) {

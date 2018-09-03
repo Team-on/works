@@ -11,5 +11,15 @@ namespace DBUnlinked {
 	class UlChanges {
 		public int row;
 		public UlRowChangedType changedType;
+
+		public UlChanges(int Row) {
+			row = Row;
+			changedType = UlRowChangedType.Nothing;
+		}
+
+		public UlChanges(int Row, UlRowChangedType ChangedType) {
+			row = Row;
+			changedType = ChangedType;
+		}
 	}
 }
