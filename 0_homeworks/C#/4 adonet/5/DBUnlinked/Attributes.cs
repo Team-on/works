@@ -20,6 +20,12 @@ namespace DBUnlinked {
 			dbType = DBType;
 			name = Name;
 		}
+
+		public override bool Equals(object obj) {
+			if(obj is UlTableColumnAttribute o)
+				return isPrimaryKey == o.isPrimaryKey && notNull == o.notNull && dbType == o.dbType && name == o.name;
+			return false;
+		}
 	}
 
 	/// <summary>
@@ -32,6 +38,12 @@ namespace DBUnlinked {
 
 		public UlTableAttribute(string Name = null) {
 			name = Name;
+		}
+
+		public override bool Equals(object obj) {
+			if(obj is UlTableAttribute o)
+				return name == o.name;
+			return false;
 		}
 	}
 }

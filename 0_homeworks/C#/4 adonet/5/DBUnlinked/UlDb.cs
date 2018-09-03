@@ -108,33 +108,33 @@ namespace DBUnlinked {
 					if(columnAttribute.dbType?.Equals("") ?? true)
 						switch(prop.PropertyType.FullName) {
 						case "System.Byte":
-						columnAttribute.dbType += "tinyint";
+						columnAttribute.dbType = "tinyint";
 						break;
 						case "System.Int16":
-						columnAttribute.dbType += "smallint";
+						columnAttribute.dbType = "smallint";
 						break;
 						case "System.Int32":
-						columnAttribute.dbType += "int";
+						columnAttribute.dbType = "int";
 						break;
 						case "System.Int64":
-						columnAttribute.dbType += "bigint";
+						columnAttribute.dbType = "bigint";
 						break;
 						case "System.Float":
-						columnAttribute.dbType += "real";
+						columnAttribute.dbType = "real";
 						break;
 						case "System.Double":
-						columnAttribute.dbType += "float";
+						columnAttribute.dbType = "float";
 						break;
 						case "System.Decimal":
-						columnAttribute.dbType += "decimal";
+						columnAttribute.dbType = "decimal";
 						break;
 						case "System.DateTime":
-						columnAttribute.dbType += "datetime";
+						columnAttribute.dbType = "datetime";
 						break;
 
 						case "System.String":
 						default:
-						columnAttribute.dbType += "nvarchar(100)";
+						columnAttribute.dbType = "nvarchar(100)";
 						break;
 						}
 
@@ -146,7 +146,6 @@ namespace DBUnlinked {
 						command.CommandText += "NOT NULL ";
 
 					command.CommandText += ", ";
-
 					columnAttributes.Add(columnAttribute);
 				}
 			}

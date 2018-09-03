@@ -55,7 +55,7 @@ namespace DBUnlinked {
 
 						for(byte j = 0; j < columnAttributes.Count; ++j) {
 							if(columnAttributes[j].name == name) {
-								type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(columnAttributes[i])).SetValue(curr, value);
+								type.GetProperties()[j].SetValue(curr, value);
 								break;
 							}
 						}
@@ -65,15 +65,34 @@ namespace DBUnlinked {
 			}
 
 			if(table.Count != 0) {
-				for(byte j = 0; j < columnAttributes.Count; ++j) {
-					if(columnAttributes[j].isPrimaryKey) {
-						lastId = (int) type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(columnAttributes[j])).GetValue(table[table.Count - 1]);
-						break;
+				//UlTableColumnAttribute indexer = columnAttributes.FirstOrDefault((a) => a.isPrimaryKey);
+
+				//Console.WriteLine(type.
+				//			GetProperties().
+				//			FirstOrDefault((a) => {
+				//				if(a.GetCustomAttributes(false).Length == 1) {
+				//					var b = a.GetCustomAttributes(false)[0] as UlTableColumnAttribute;
+				//					Console.WriteLine("{0} {1}", indexer.name, b.name);
+				//					Console.WriteLine("{0} {1}", indexer.dbType, b.dbType);
+				//					Console.WriteLine("{0} {1}", indexer.isPrimaryKey, b.isPrimaryKey);
+				//					Console.WriteLine("{0} {1}", indexer.notNull, b.notNull);
+				//					Console.WriteLine();
+				//				}
+				//				return false;
+				//			})
+				//			);
+
+				if(table.Count != 0) {
+					for(byte j = 0; j < columnAttributes.Count; ++j) {
+						if(columnAttributes[j].isPrimaryKey) {
+							lastId = (int) type.GetProperties()[j].GetValue(table[table.Count - 1]);
+							break;
+						}
 					}
 				}
+				else
+					lastId = 0;
 			}
-			else
-				lastId = 0;
 
 			reader.Close();
 			ownerDb.connection.Close();
@@ -157,9 +176,12 @@ namespace DBUnlinked {
 		}
 
 		public void Add(T item) {
+			//var indexer = columnAttributes.FirstOrDefault((a) => a.isPrimaryKey);
+			//type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(indexer))?.SetValue(item, ++lastId);
+
 			for(byte j = 0; j < columnAttributes.Count; ++j) {
 				if(columnAttributes[j].isPrimaryKey) {
-					type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(columnAttributes[j])).SetValue(item, ++lastId);
+					type.GetProperties()[j].SetValue(item, ++lastId);
 					break;
 				}
 			}
