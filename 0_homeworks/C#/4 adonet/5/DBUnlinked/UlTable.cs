@@ -92,6 +92,12 @@ namespace DBUnlinked {
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>Повертає масив атрибутів стовбців</returns>
+		public UlTableColumnAttribute[] GetColumnAttributes() => columnAttributes.ToArray();
+
+		/// <summary>
 		/// Пропускає n рядків. Продовжеє пропускати з місця на якому зупинився TakeN() останній раз, або з місця де закінчився SkipN()
 		/// Працює лише коли в таблиці є Primary key
 		/// </summary>
