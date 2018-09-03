@@ -14,8 +14,9 @@ namespace DBUnlinked {
 
 		public UlDb() {
 			connection = new SqlConnection();
-			command = new SqlCommand();
-			command.Connection = connection;
+			command = new SqlCommand {
+				Connection = connection
+			};
 		}
 
 		/// <summary>
@@ -46,7 +47,6 @@ namespace DBUnlinked {
 				$"CREATE DATABASE {dbName}";
 				rez = true;
 				command.ExecuteNonQuery();
-				connection.ChangeDatabase(dbName);
 			}
 			else {
 				command.CommandText = $"IF NOT EXISTS(select * from sys.databases where name='{dbName}') select 1 else select 0";
@@ -54,11 +54,14 @@ namespace DBUnlinked {
 				if(rez) {
 					command.CommandText = $"CREATE DATABASE {dbName}";
 					command.ExecuteNonQuery();
-					connection.ChangeDatabase(dbName);
 				}
 			}
 
 			connection.Close();
+			connection.ConnectionString = connection.ConnectionString.Replace("master", dbName);
+			connection.Open();
+			connection.Close();
+
 			return rez;
 		}
 
@@ -68,38 +71,82 @@ namespace DBUnlinked {
 			UlTable<T> rez = new UlTable<T>();
 			rez.ownerDb = this;
 
-			UlTableAttribute ulTableAttribute = (UlTableAttribute) type.GetCustomAttributes(false).First((a) => {
-				if(a is UlTableAttribute)
-					return true;
-				return false;
-			});
-			if(ulTableAttribute != null && ulTableAttribute.name != "") 
-				tableName = ulTableAttribute.name;
-			else
+			UlTableAttribute ulTableAttribute = (UlTableAttribute) type.GetCustomAttributes(false).First((a) => a is UlTableAttribute);
+			if(ulTableAttribute?.name?.Equals("") ?? true)
 				tableName = type.Name;
+			else
+				tableName = ulTableAttribute.name;
 
 			command.CommandType = CommandType.Text;
 			command.CommandText = $"IF NOT EXISTS(select * from sys.tables where name='{tableName}') " +
 						$"CREATE TABLE {tableName} ( ";
 			foreach(var prop in type.GetProperties()) {
-				if(prop.GetGetMethod().IsPublic && prop.GetSetMethod().IsPublic) {
-					command.CommandText += prop.Name + ' ';
-					if(prop.PropertyType.Name.ToLower() == "bool")
-						command.CommandText += "BIT ";
-					else if(prop.PropertyType.Name.ToLower() == "string")
-						command.CommandText += $"NVARCHAR({maxStringLength}) ";
-					else
-						command.CommandText += "INT ";
+				if(prop.GetGetMethod().IsPrivate || prop.GetSetMethod().IsPrivate)
+					continue;
 
-					if(prop.Name == "Id")
+				if(prop.GetCustomAttributes(false).First((a) => a is UlTableColumnAttribute) is UlTableColumnAttribute columnAttribute) {
+					if(columnAttribute.name?.Equals("") ?? true)
+						columnAttribute.name = prop.Name;
+
+					command.CommandText += columnAttribute.name + ' ';
+
+					//for(int i = 0; i < table.Columns.Count; i++) {
+					//	sqlsc += ",";
+					//}
+					//return sqlsc.Substring(0, sqlsc.Length - 1) + "\n)";
+
+					if(columnAttribute.dbType?.Equals("") ?? true)
+						switch(prop.PropertyType.FullName) {
+						case "System.Byte":
+						columnAttribute.dbType += "tinyint";
+						break;
+						case "System.Int16":
+						columnAttribute.dbType += "smallint";
+						break;
+						case "System.Int32":
+						columnAttribute.dbType += "int";
+						break;
+						case "System.Int64":
+						columnAttribute.dbType += "bigint";
+						break;
+						case "System.Float":
+						columnAttribute.dbType += "real";
+						break;
+						case "System.Double":
+						columnAttribute.dbType += "float";
+						break;
+						case "System.Decimal":
+						columnAttribute.dbType += "decimal";
+						break;
+						case "System.DateTime":
+						columnAttribute.dbType += "datetime";
+						break;
+
+						case "System.String":
+						default:
+						columnAttribute.dbType += "nvarchar(100)";
+						break;
+						}
+
+					command.CommandText += columnAttribute.dbType + ' ';
+
+					if(columnAttribute.isPrimaryKey)
 						command.CommandText += "IDENTITY PRIMARY KEY ";
+					if(columnAttribute.notNull && !columnAttribute.isPrimaryKey)
+						command.CommandText += "NOT NULL ";
 
 					command.CommandText += ", ";
 				}
 			}
+
 			command.CommandText = command.CommandText.Substring(0, command.CommandText.Length - 2);
 			command.CommandText += ")";
+
+			Console.WriteLine(command.CommandText);
+
+			connection.Open();
 			command.ExecuteNonQuery();
+			connection.Close();
 
 			return rez;
 		}
