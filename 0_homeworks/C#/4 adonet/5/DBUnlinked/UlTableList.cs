@@ -17,8 +17,8 @@ namespace DBUnlinked {
 
 		internal int Count => list.Count;
 
-		internal void Add(T item) {
-			changes.Add(new UlChanges(list.Count));
+		internal void Add(T item, bool isLoadFromDB = false) {
+			changes.Add(new UlChanges(list.Count, isLoadFromDB?UlRowChangedType.Nothing:UlRowChangedType.Added));
 			list.Add(item);
 		}
 

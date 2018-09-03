@@ -66,6 +66,11 @@ namespace DBUnlinked {
 			return rez;
 		}
 
+		/// <summary>
+		/// Створює чи привязуються до таблиці. Всі дані беруться з атрибутів класу T
+		/// </summary>
+		/// <typeparam name="T">Клас-шаблон для таблиці</typeparam>
+		/// <returns>Таблиця, яка відповідатиме класу T</returns>
 		public UlTable<T> CreateOrLinkToTable<T>() where T : class, new() {
 			string tableName;
 			Type type = typeof(T);

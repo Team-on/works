@@ -55,19 +55,19 @@ namespace DBUnlinked {
 
 						for(byte j = 0; j < columnAttributes.Count; ++j) {
 							if(columnAttributes[j].name == name) {
-								type.GetProperties()[i].SetValue(curr, value);
+								type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(columnAttributes[i])).SetValue(curr, value);
 								break;
 							}
 						}
 					}
-					table.Add(curr);
+					table.Add(curr, true);
 				}
 			}
 
 			if(table.Count != 0) {
 				for(byte j = 0; j < columnAttributes.Count; ++j) {
 					if(columnAttributes[j].isPrimaryKey) {
-						lastId = (int) type.GetProperties()[j].GetValue(table[table.Count - 1]);
+						lastId = (int) type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(columnAttributes[j])).GetValue(table[table.Count - 1]);
 						break;
 					}
 				}
@@ -126,11 +126,45 @@ namespace DBUnlinked {
 		/// Вносить зміни з локальної копії у таблицю з БД.
 		/// </summary>
 		public void Update() {
+			command.Parameters.Clear();
+			command.CommandType = CommandType.Text;
+			command.CommandText = $"INSERT INTO {tableAttribute.name} (";
 
+			var props = type.GetProperties();
+			for(byte i = 0; i < props.Length; ++i) {
+				if(props[i].GetGetMethod().IsPublic && props[i].GetSetMethod().IsPublic && props[i].Name != "Id")
+					command.CommandText += props[i].Name + (i == props.Length - 1 ? " " : ", ");
+			}
+			command.CommandText += ") VALUES (";
+			//for(byte i = 0; i < props.Length; ++i) {
+			//	if(props[i].GetGetMethod().IsPublic && props[i].GetSetMethod().IsPublic && props[i].Name != "Id") {
+			//		var param = factory.CreateParameter();
+			//		param.ParameterName = $"@p{i}";
+			//		param.Value = props[i].GetValue(obj);
+			//		command.Parameters.Add(param);
+
+			//		command.CommandText += $"{param.ParameterName}";
+
+			//		command.CommandText += i == props.Length - 1 ? " " : ", ";
+			//	}
+			//}
+			//command.CommandText += ")";
+			//command.ExecuteNonQuery();
+
+			ownerDb.connection.Open();
+			command.ExecuteNonQuery();
+			ownerDb.connection.Close();
 		}
 
 		public void Add(T item) {
-			throw new NotImplementedException();
+			for(byte j = 0; j < columnAttributes.Count; ++j) {
+				if(columnAttributes[j].isPrimaryKey) {
+					type.GetProperties().FirstOrDefault((a) => a.GetCustomAttributes(false).Contains(columnAttributes[j])).SetValue(item, ++lastId);
+					break;
+				}
+			}
+
+			table.Add(item);
 		}
 
 		public T Find(Func<bool> predicate) {
