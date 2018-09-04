@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DBUnlinked {
-	internal class UlTableList<T> : IEnumerable<T> {
+	internal class UlTableList<T> : IEnumerable<T> where T : class {
 		List<T> list;
 		List<UlChanges> changes;
 
@@ -22,16 +22,26 @@ namespace DBUnlinked {
 			list.Add(item);
 		}
 
-		internal T Find(Func<bool> predicate) {
-			throw new NotImplementedException();
+		internal T Find(Func<T, bool> predicate) {
+			foreach(var i in list)
+				if(predicate.Invoke(i))
+					return i;
+			return null;
 		}
 
-		internal bool Remove(T item) {
-			throw new NotImplementedException();
+		internal void Remove(T item) {
+			changes.RemoveAt(list.IndexOf(item));
+			list.Remove(item);
+		}
+
+		internal void RemoveAt(int id) {
+			list.RemoveAt(id);
+			changes.RemoveAt(id);
 		}
 
 		internal void Clear() {
-			throw new NotImplementedException();
+			list.Clear();
+			changes.Clear();
 		}
 
 		public T this[int index] { get => ((IList<T>) list)[index]; set => ((IList<T>) list)[index] = value; }
