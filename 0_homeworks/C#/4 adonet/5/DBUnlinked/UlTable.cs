@@ -52,6 +52,8 @@ namespace DBUnlinked {
 					for(byte i = 0; i < reader.FieldCount; ++i) {
 						var name = reader.GetName(i);
 						var value = reader.GetValue(i);
+						if(value is DBNull)
+							value = null;
 
 						for(byte j = 0; j < columnAttributes.Count; ++j) {
 							if(columnAttributes[j].name == name) {
@@ -64,7 +66,7 @@ namespace DBUnlinked {
 				}
 			}
 
-			if(table.Count != 0) {
+			if(table.Count != 0) {	
 				//UlTableColumnAttribute indexer = columnAttributes.FirstOrDefault((a) => a.isPrimaryKey);
 
 				//Console.WriteLine(type.
@@ -145,34 +147,57 @@ namespace DBUnlinked {
 		/// Вносить зміни з локальної копії у таблицю з БД.
 		/// </summary>
 		public void Update() {
-			command.Parameters.Clear();
-			command.CommandType = CommandType.Text;
-			command.CommandText = $"INSERT INTO {tableAttribute.name} (";
-
-			var props = type.GetProperties();
-			for(byte i = 0; i < props.Length; ++i) {
-				if(props[i].GetGetMethod().IsPublic && props[i].GetSetMethod().IsPublic && props[i].Name != "Id")
-					command.CommandText += props[i].Name + (i == props.Length - 1 ? " " : ", ");
+			List<T> changedElemAdd = new List<T>();
+			List<T> changedElemDelete = new List<T>();
+			List<T> changedElemUpdate = new List<T>();
+			for(int i = 0; i < table.Count; i++) {
+				if(table[i, 0].changedType == UlRowChangedType.Added)
+					changedElemAdd.Add(table[i]);
+				else if(table[i, 0].changedType == UlRowChangedType.Deleted)
+					changedElemDelete.Add(table[i]);
+				else if(table[i, 0].changedType == UlRowChangedType.Updated)
+					changedElemUpdate.Add(table[i]);
 			}
-			command.CommandText += ") VALUES (";
-			//for(byte i = 0; i < props.Length; ++i) {
-			//	if(props[i].GetGetMethod().IsPublic && props[i].GetSetMethod().IsPublic && props[i].Name != "Id") {
-			//		var param = factory.CreateParameter();
-			//		param.ParameterName = $"@p{i}";
-			//		param.Value = props[i].GetValue(obj);
-			//		command.Parameters.Add(param);
 
-			//		command.CommandText += $"{param.ParameterName}";
+			if(changedElemAdd.Count != 0) {
+				command.Parameters.Clear();
+				command.CommandType = CommandType.Text;
+				command.CommandText = $"INSERT INTO {tableAttribute.name} (";
 
-			//		command.CommandText += i == props.Length - 1 ? " " : ", ";
-			//	}
-			//}
-			//command.CommandText += ")";
-			//command.ExecuteNonQuery();
+				for(byte i = 0; i < columnAttributes.Count; ++i) {
+					if(!columnAttributes[i].isPrimaryKey)
+						command.CommandText += columnAttributes[i].name + (i == columnAttributes.Count - 1 ? " " : ", ");
+				}
+				command.CommandText += ") VALUES";
 
-			ownerDb.connection.Open();
-			command.ExecuteNonQuery();
-			ownerDb.connection.Close();
+				var props = type.GetProperties();
+				for(byte j = 0; j < changedElemAdd.Count; ++j) {
+					command.CommandText += "(";
+					for(byte i = 0; i < columnAttributes.Count; ++i) {
+						if(!columnAttributes[i].isPrimaryKey) {
+							var value = props[i].GetValue(changedElemAdd[j]);
+							if(value == null) {
+								command.CommandText += $"NULL";
+							}
+							else {
+								SqlParameter param = new SqlParameter($"@p{j}{i}", value);
+								command.Parameters.Add(param);
+								command.CommandText += $"{param.ParameterName}";
+							}
+							command.CommandText += i == columnAttributes.Count - 1 ? "" : ", ";
+						}
+					}
+					command.CommandText += "), ";
+				}
+
+				command.CommandText = command.CommandText.Substring(0, command.CommandText.Length - 2);
+				//Console.WriteLine(command.CommandText);
+
+				ownerDb.connection.Open();
+				command.ExecuteNonQuery();
+				ownerDb.connection.Close();
+			}
+
 		}
 
 		public void Add(T item) {

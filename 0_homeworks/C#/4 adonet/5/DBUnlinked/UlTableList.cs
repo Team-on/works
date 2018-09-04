@@ -35,6 +35,7 @@ namespace DBUnlinked {
 		}
 
 		public T this[int index] { get => ((IList<T>) list)[index]; set => ((IList<T>) list)[index] = value; }
+		public UlChanges this[int index, int nothing] { get => changes[index]; set => changes[index] = value; }
 
 		public IEnumerator<T> GetEnumerator() {
 			return ((IEnumerable<T>) list).GetEnumerator();

@@ -32,12 +32,10 @@ namespace TestFramework {
 			table.Add(new Human("3", "3s"));
 			table.Add(new Human("4", null));
 			table.Add(new Human("5", null));
-			/*table.Update();
 
-			
-			table.Clear();
-			table.Fill();
-			*/
+			table.Update();
+			//table.Clear();
+			//table.Fill();
 
 			var columnNames = table.GetColumnNames();
 				Console.WriteLine("{0, -5} {1, -10} {2}", columnNames[0], columnNames[1], columnNames[2]);
