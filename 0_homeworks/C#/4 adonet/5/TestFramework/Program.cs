@@ -16,9 +16,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace TestFramework {
-	//[Table()]
 	class Program {
-		//[Column()]
 		static void Main(string[] args) {
 			UlDb database = new UlDb(/*@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB"*/);
 			bool isCreated = database.CreateOrLinkToDB(@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB", false);
@@ -27,15 +25,15 @@ namespace TestFramework {
 			UlTable<Human> table = database.CreateOrLinkToTable<Human>();
 			table.Fill();
 
-			table.Add(new Human("1", "1s"));
+			table.Add(new Human("wsdefr", "asg"));
 			table.Add(new Human("2", "2s"));
 			table.Add(new Human("3", "3s"));
 			table.Add(new Human("4", null));
 			table.Add(new Human("5", null));
 
 			table.Update();
-			//table.Clear();
-			//table.Fill();
+			table.Clear();
+			table.Fill();
 
 			var columnNames = table.GetColumnNames();
 				Console.WriteLine("{0, -5} {1, -10} {2}", columnNames[0], columnNames[1], columnNames[2]);

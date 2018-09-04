@@ -18,7 +18,7 @@ namespace DBUnlinked {
 
 		UlDb ownerDb;
 		SqlCommand command;
-		//Трохи костиль(
+		//Трохи костиль =(
 		int lastId;
 		UlTableList<T> table;
 
@@ -140,7 +140,7 @@ namespace DBUnlinked {
 		/// Очищує локальну копію таблиці і скидає позиції TakeN і SkipN
 		/// </summary>
 		public void Clear() {
-
+			table.Clear();
 		}
 
 		/// <summary>
@@ -214,12 +214,15 @@ namespace DBUnlinked {
 			table.Add(item);
 		}
 
-		public T Find(Func<bool> predicate) {
-			throw new NotImplementedException();
+		public T Find(Func<T, bool> predicate) {
+			foreach(var i in table)
+				if(predicate.Invoke(i))
+					return i;
+			return null;
 		}
 
-		public bool Remove(T item) {
-			throw new NotImplementedException();
+		public void Remove(T item) {
+			table.Remove(item);
 		}
 
 		public IEnumerator<T> GetEnumerator() {
