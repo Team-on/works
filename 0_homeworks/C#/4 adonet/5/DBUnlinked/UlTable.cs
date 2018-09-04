@@ -198,6 +198,9 @@ namespace DBUnlinked {
 				ownerDb.connection.Close();
 			}
 
+			if(changedElemDelete.Count != 0) {
+
+			}
 		}
 
 		public void Add(T item) {

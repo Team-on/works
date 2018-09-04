@@ -39,6 +39,10 @@ namespace TestFramework {
 				Console.WriteLine("{0, -5} {1, -10} {2}", columnNames[0], columnNames[1], columnNames[2]);
 			foreach(var i in table) 
 				Console.WriteLine("{0, -5} {1, -10} {2}", i.Id, i.Name, i.Surname??"NULL");
+
+
+			table.Find((a)=> a.Name=="5").Name = "Non 5";
+
 		}
 	}
 }
