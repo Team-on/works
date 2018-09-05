@@ -202,7 +202,6 @@ namespace DBUnlinked {
 			}
 
 			if(changedElemDelete.Count != 0) {
-				command.Parameters.Clear();
 				command.CommandType = CommandType.Text;
 				command.CommandText = $"DELETE FROM {tableAttribute.name} WHERE ";
 
@@ -227,6 +226,39 @@ namespace DBUnlinked {
 				ownerDb.connection.Close();
 			}
 
+			if(changedElemUpdate.Count != 0) {
+				command.CommandType = CommandType.Text;
+
+				System.Reflection.PropertyInfo idProp = null;
+				UlTableColumnAttribute idAttrib = null;
+				for(byte i = 0; i < columnAttributes.Count; ++i) {
+					if(columnAttributes[i].isPrimaryKey) {
+						idProp = type.GetProperties()[i];
+						idAttrib = columnAttributes[i];
+					}
+				}
+
+				var props = type.GetProperties();
+				ownerDb.connection.Open();
+				for(byte i = 0; i < changedElemUpdate.Count; ++i) {
+					command.CommandText = $"UPDATE {tableAttribute.name} SET ";
+
+					for(byte j = 0; j < columnAttributes.Count; ++j) {
+						if(!columnAttributes[j].isPrimaryKey) {
+							command.CommandText += $"{columnAttributes[j].name}={props[j].GetValue(changedElemUpdate[i])}";
+							if(j != columnAttributes.Count - 1)
+								command.CommandText += ", ";
+						}
+					}
+
+					command.CommandText += $" WHERE {idAttrib.name}={(int) (idProp.GetValue(changedElemUpdate[i])) - 1};";
+					Console.WriteLine(command.CommandText);
+					command.ExecuteNonQuery();
+				}
+
+				ownerDb.connection.Close();
+			}
+			
 			table.ClearChanges();
 		}
 
@@ -245,10 +277,7 @@ namespace DBUnlinked {
 		}
 
 		public T Find(Func<T, bool> predicate) {
-			foreach(var i in table)
-				if(predicate.Invoke(i))
-					return i;
-			return null;
+			return table.Find(predicate);
 		}
 
 		public void Remove(T item) {

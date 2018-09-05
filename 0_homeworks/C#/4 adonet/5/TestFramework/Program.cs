@@ -26,8 +26,8 @@ namespace TestFramework {
 			table.Fill();
 
 			table.Add(new Human("wsdefr", "asg"));
-			table.Add(new Human("2", "2s"));
-			table.Add(new Human("3", "3s"));
+			table.Add(new Human("2", "2"));
+			table.Add(new Human("3", "3"));
 			table.Add(new Human("4", null));
 			table.Add(new Human("5", null));
 
@@ -38,8 +38,16 @@ namespace TestFramework {
 			PrintTable(table);
 
 
-			var non5 = table.Find((a) => a.Name == "5");
-			table.Remove(non5);
+			var todelete = table.Find((a) => a.Name == "5");
+			table.Remove(todelete);
+			table.Update();
+
+			table.Clear();
+			table.Fill();
+			PrintTable(table);
+
+			var find = table.Find((a) => a.Name == "3");
+			find.Name = "Three";
 			table.Update();
 
 			table.Clear();
