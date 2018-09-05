@@ -27,12 +27,13 @@ namespace TestFramework {
 		[UlTableColumn(IsPrimaryKey:true)]
 		public int Id { get; set; }
 
-		[UlTableColumn(DBType:"nvarchar(100)", Name:"FirstName")]
+		[UlTableColumn(DBType:"nvarchar(30)", Name:"FirstName")]
 		public string Name { get; set; }
 		
 		[UlTableColumn(NotNull:false, DBType:"nvarchar(100)", Name:"LastName")]
 		public string Surname { get; set; }
 
+		//Це поле не матиме колонки в БД, бо воно не відмічене атрибутом
 		public string UnusedinDb { get; set; }
 
 

@@ -151,15 +151,13 @@ namespace DBUnlinked {
 			List<T> changedElemDelete = new List<T>();
 			List<T> changedElemUpdate = new List<T>();
 
-			table.Changes.Sort((a, b)=>a.CompareTo(b.row));
-
 			foreach(var i in table.Changes) {
 				if(i.changedType == UlRowChangedType.Added)
-					changedElemAdd.Add(table[i.row]);
+					changedElemAdd.Add(i.changedItem as T);
 				else if(i.changedType == UlRowChangedType.Deleted)
-					changedElemDelete.Add(table[i.row]);
+					changedElemDelete.Add(i.changedItem as T);
 				else if(i.changedType == UlRowChangedType.Updated)
-					changedElemUpdate.Add(table[i.row]);
+					changedElemUpdate.Add(i.changedItem as T);
 			}
 
 			if(changedElemAdd.Count != 0) {
@@ -215,7 +213,7 @@ namespace DBUnlinked {
 				}
 
 				for(byte i = 0; i < changedElemDelete.Count; ++i) {
-					command.CommandText += $"{idAttrib.name}={(int)(idProp.GetValue(changedElemDelete[i]))-1}";
+					command.CommandText += $"{idAttrib.name}={(int)(idProp.GetValue(changedElemDelete[i]))}";
 					
 					if(i != changedElemDelete.Count - 1)
 						command.CommandText += " or ";
@@ -254,7 +252,7 @@ namespace DBUnlinked {
 						}
 					}
 
-					command.CommandText += $" WHERE {idAttrib.name}={(int) (idProp.GetValue(changedElemUpdate[i])) - 1};";
+					command.CommandText += $" WHERE {idAttrib.name}={(int) (idProp.GetValue(changedElemUpdate[i]))};";
 					command.ExecuteNonQuery();
 				}
 

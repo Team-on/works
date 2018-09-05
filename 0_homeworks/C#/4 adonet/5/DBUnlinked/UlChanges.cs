@@ -8,22 +8,18 @@ namespace DBUnlinked {
 	/// <summary>
 	/// Використовується всередині UlTableList для синхронізації з БД.
 	/// </summary>
-	class UlChanges : IComparable {
-		public int row;
+	class UlChanges {
 		public UlRowChangedType changedType;
+		public object changedItem;
 
-		public UlChanges(int Row) {
-			row = Row;
+		public UlChanges(object changedItem) {
 			changedType = UlRowChangedType.Nothing;
+			this.changedItem = changedItem;
 		}
 
-		public UlChanges(int Row, UlRowChangedType ChangedType) {
-			row = Row;
+		public UlChanges(object changedItem, UlRowChangedType ChangedType) {
 			changedType = ChangedType;
-		}
-
-		public int CompareTo(object obj) {
-			return -row.CompareTo(obj);
+			this.changedItem = changedItem;
 		}
 	}
 }

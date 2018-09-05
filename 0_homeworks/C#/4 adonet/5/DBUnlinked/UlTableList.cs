@@ -21,16 +21,16 @@ namespace DBUnlinked {
 
 		internal void Add(T item, bool isLoadFromDB = false) {
 			if(!isLoadFromDB)
-				changes.Add(new UlChanges(list.Count, UlRowChangedType.Added));
+				changes.Add(new UlChanges(item, UlRowChangedType.Added));
 			list.Add(item);
 		}
 
 		internal T Find(Func<T, bool> predicate) {
 			for(int i = 0; i < list.Count; ++i)
 				if(predicate.Invoke(list[i])) {
-					var listItem = changes.FirstOrDefault(a => a.row == i);
+					var listItem = changes.FirstOrDefault(a => a.changedItem == list[i]);
 					if(listItem == null) 
-						changes.Add(new UlChanges(i, UlRowChangedType.Updated));
+						changes.Add(new UlChanges(list[i], UlRowChangedType.Updated));
 					return list[i];
 				}
 			return null;
@@ -39,18 +39,16 @@ namespace DBUnlinked {
 		internal void Remove(T item) {
 			for(int i = 0; i < list.Count; ++i) {
 				if(list[i] == item) {
-					changes.RemoveAll((a) => a.row == i);
-					changes.Add(new UlChanges(i, UlRowChangedType.Deleted));
-					break;
+					RemoveAt(i);
+					return;
 				}
 			}
-			list.Remove(item);
 		}
 
 		internal void RemoveAt(int id) {
+			changes.RemoveAll((a) => a.changedItem == list[id]);
+			changes.Add(new UlChanges(list[id], UlRowChangedType.Deleted));
 			list.RemoveAt(id);
-			changes.RemoveAll((a) => a.row == id);
-			changes.Add(new UlChanges(id, UlRowChangedType.Deleted));
 		}
 
 		internal void Clear() {
