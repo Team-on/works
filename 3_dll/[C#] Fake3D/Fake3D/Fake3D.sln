@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fake3D", "Fake3D.csproj", "{BC0839A4-5D04-42EE-8FAF-FF42A5BA81FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC0839A4-5D04-42EE-8FAF-FF42A5BA81FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0839A4-5D04-42EE-8FAF-FF42A5BA81FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0839A4-5D04-42EE-8FAF-FF42A5BA81FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0839A4-5D04-42EE-8FAF-FF42A5BA81FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E970CC7-C3CB-4E50-A776-AF601F0CB0E8}
+	EndGlobalSection
+EndGlobal
