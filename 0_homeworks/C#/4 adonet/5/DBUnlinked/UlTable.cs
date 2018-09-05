@@ -227,6 +227,7 @@ namespace DBUnlinked {
 			}
 
 			if(changedElemUpdate.Count != 0) {
+				command.Parameters.Clear();
 				command.CommandType = CommandType.Text;
 
 				System.Reflection.PropertyInfo idProp = null;
@@ -245,14 +246,15 @@ namespace DBUnlinked {
 
 					for(byte j = 0; j < columnAttributes.Count; ++j) {
 						if(!columnAttributes[j].isPrimaryKey) {
-							command.CommandText += $"{columnAttributes[j].name}={props[j].GetValue(changedElemUpdate[i])}";
+							SqlParameter param = new SqlParameter($"@p{j}{i}", props[j].GetValue(changedElemUpdate[i]));
+							command.Parameters.Add(param);
+							command.CommandText += $"{columnAttributes[j].name}=@p{j}{i}";
 							if(j != columnAttributes.Count - 1)
 								command.CommandText += ", ";
 						}
 					}
 
 					command.CommandText += $" WHERE {idAttrib.name}={(int) (idProp.GetValue(changedElemUpdate[i])) - 1};";
-					Console.WriteLine(command.CommandText);
 					command.ExecuteNonQuery();
 				}
 
