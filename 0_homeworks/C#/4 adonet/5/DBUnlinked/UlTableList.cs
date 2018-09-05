@@ -17,8 +17,11 @@ namespace DBUnlinked {
 
 		internal int Count => list.Count;
 
+		internal List<UlChanges> Changes => changes;
+
 		internal void Add(T item, bool isLoadFromDB = false) {
-			changes.Add(new UlChanges(list.Count, isLoadFromDB?UlRowChangedType.Nothing:UlRowChangedType.Added));
+			if(!isLoadFromDB)
+				changes.Add(new UlChanges(list.Count, UlRowChangedType.Added));
 			list.Add(item);
 		}
 
@@ -30,17 +33,26 @@ namespace DBUnlinked {
 		}
 
 		internal void Remove(T item) {
-			changes.RemoveAt(list.IndexOf(item));
+			for(int i = 0; i < list.Count; ++i) {
+				if(list[i] == item) {
+					changes.Add(new UlChanges(i, UlRowChangedType.Deleted));
+					break;
+				}
+			}
 			list.Remove(item);
 		}
 
 		internal void RemoveAt(int id) {
 			list.RemoveAt(id);
-			changes.RemoveAt(id);
+			changes.Add(new UlChanges(id, UlRowChangedType.Deleted));
 		}
 
 		internal void Clear() {
 			list.Clear();
+			ClearChanges();
+		}
+
+		internal void ClearChanges() {
 			changes.Clear();
 		}
 

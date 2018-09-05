@@ -150,13 +150,16 @@ namespace DBUnlinked {
 			List<T> changedElemAdd = new List<T>();
 			List<T> changedElemDelete = new List<T>();
 			List<T> changedElemUpdate = new List<T>();
-			for(int i = 0; i < table.Count; i++) {
-				if(table[i, 0].changedType == UlRowChangedType.Added)
-					changedElemAdd.Add(table[i]);
-				else if(table[i, 0].changedType == UlRowChangedType.Deleted)
-					changedElemDelete.Add(table[i]);
-				else if(table[i, 0].changedType == UlRowChangedType.Updated)
-					changedElemUpdate.Add(table[i]);
+
+			table.Changes.Sort((a, b)=>a.CompareTo(b.row));
+
+			foreach(var i in table.Changes) {
+				if(i.changedType == UlRowChangedType.Added)
+					changedElemAdd.Add(table[i.row]);
+				else if(i.changedType == UlRowChangedType.Deleted)
+					changedElemDelete.Add(table[i.row]);
+				else if(i.changedType == UlRowChangedType.Updated)
+					changedElemUpdate.Add(table[i.row]);
 			}
 
 			if(changedElemAdd.Count != 0) {
@@ -199,8 +202,32 @@ namespace DBUnlinked {
 			}
 
 			if(changedElemDelete.Count != 0) {
+				command.Parameters.Clear();
+				command.CommandType = CommandType.Text;
+				command.CommandText = $"DELETE FROM {tableAttribute.name} WHERE ";
 
+				System.Reflection.PropertyInfo idProp = null;
+				UlTableColumnAttribute idAttrib = null;
+				for(byte i = 0; i < columnAttributes.Count; ++i) {
+					if(columnAttributes[i].isPrimaryKey) {
+						idProp = type.GetProperties()[i];
+						idAttrib = columnAttributes[i];
+					}
+				}
+
+				for(byte i = 0; i < changedElemDelete.Count; ++i) {
+					command.CommandText += $"{idAttrib.name}={(int)(idProp.GetValue(changedElemDelete[i]))-1}";
+					
+					if(i != changedElemDelete.Count - 1)
+						command.CommandText += " or ";
+				}
+
+				ownerDb.connection.Open();
+				command.ExecuteNonQuery();
+				ownerDb.connection.Close();
 			}
+
+			table.ClearChanges();
 		}
 
 		public void Add(T item) {

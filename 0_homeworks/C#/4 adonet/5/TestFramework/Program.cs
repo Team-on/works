@@ -19,7 +19,7 @@ namespace TestFramework {
 	class Program {
 		static void Main(string[] args) {
 			UlDb database = new UlDb(/*@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB"*/);
-			bool isCreated = database.CreateOrLinkToDB(@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB", false);
+			bool isCreated = database.CreateOrLinkToDB(@"Server=(localdb)\mssqllocaldb; Integrated Security=True", "UlTestDB", true);
 			Console.WriteLine("Is create new DB: {0}\n", isCreated);
 
 			UlTable<Human> table = database.CreateOrLinkToTable<Human>();
@@ -32,17 +32,27 @@ namespace TestFramework {
 			table.Add(new Human("5", null));
 
 			table.Update();
+
 			table.Clear();
 			table.Fill();
+			PrintTable(table);
 
+
+			var non5 = table.Find((a) => a.Name == "5");
+			table.Remove(non5);
+			table.Update();
+
+			table.Clear();
+			table.Fill();
+			PrintTable(table);
+		}
+
+		static void PrintTable(dynamic table) {
 			var columnNames = table.GetColumnNames();
-				Console.WriteLine("{0, -5} {1, -10} {2}", columnNames[0], columnNames[1], columnNames[2]);
-			foreach(var i in table) 
-				Console.WriteLine("{0, -5} {1, -10} {2}", i.Id, i.Name, i.Surname??"NULL");
-
-
-			table.Find((a)=> a.Name=="5").Name = "Non 5";
-
+			Console.WriteLine("{0, -5} {1, -10} {2}", columnNames[0], columnNames[1], columnNames[2]);
+			foreach(var i in table)
+				Console.WriteLine("{0, -5} {1, -10} {2}", i.Id, i.Name, i.Surname ?? "NULL");
+			Console.WriteLine();
 		}
 	}
 }
