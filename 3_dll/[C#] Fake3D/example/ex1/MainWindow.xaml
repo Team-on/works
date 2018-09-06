@@ -12,9 +12,16 @@
 		Loaded="Window_Loaded"
 		>
 	<DockPanel LastChildFill="True">
-		<Canvas Margin="200" Width="10" Height="10" DockPanel.Dock="Left" x:Name="canvas">
+		<Menu Width="Auto" Height="20" Background="DarkGray" DockPanel.Dock="Top">
+			<MenuItem Header="Figure">
+				<MenuItem Header="Piramide" IsCheckable="True" IsChecked="True" x:Name="PiramideMenuItem" Click="PiramideMenuItem_Click"/>
+				<MenuItem Header="Cube" IsCheckable="True" x:Name="CubeMenuItem" Click="CubeMenuItem_Click"/>
+				<Separator />
+				<MenuItem Header="Human" IsCheckable="True" x:Name="HumanMenuItem" Click="HumanMenuItem_Click"/>
+			</MenuItem>
+		</Menu>
 
-		</Canvas>
+		<Canvas Margin="200" Width="10" Height="10" DockPanel.Dock="Left" x:Name="canvas"/>
 		<StackPanel Margin="10" Orientation="Vertical" DockPanel.Dock="Right">
 			<Label Content="X: 0" x:Name="labelx"/>
 			<Slider Margin="0 10 0 10" x:Name="sliderx" Minimum="0" Maximum="360" Value="0" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="sliderx_ValueChanged"/>
