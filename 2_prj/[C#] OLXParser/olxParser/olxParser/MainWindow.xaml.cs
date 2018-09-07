@@ -36,7 +36,12 @@ namespace olxParser {
 
 			var loadWindow = new LoadingWindow();
 			loadWindow.Show();
+
+			//Database.SetInitializer<FlatsContext>(new DropCreateDatabaseIfModelChanges<FlatsContext>());
+
 			db = new FlatsContext();
+			//db.Database.Delete();
+			//db.Database.Create();
 			db.Flats.Load();
 			dataGrid.ItemsSource = db.Flats.Local;
 			loadWindow.Close();
@@ -77,13 +82,27 @@ namespace olxParser {
 						var offerDetails = titlebox.ChildNodes.First(a => a.HasClass("offer-titlebox__details"));
 						var dateText = offerDetails.ChildNodes.FindFirst("em").InnerText;
 						var start = dateText.IndexOfAny(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' });
-						var end = dateText.LastIndexOf(',') - 1;
+						var end = dateText.LastIndexOf(',');
+
+						var price = flatDescription.GetElementbyId("offeractions").ChildNodes.FindFirst("div").ChildNodes.FindFirst("strong").InnerText;
+						var priceArr = price.Split(' ');
+						int priceNum = 0;
+						string priceSym = "";
+						foreach(var i in priceArr) {
+							foreach(var c in i) {
+								if(char.IsDigit(c))
+									priceNum = priceNum * 10 + c - '0';
+								else
+									priceSym += c;
+							}
+						}
 
 						Flat flat = new Flat() {
 							Title = titlebox.ChildNodes.FindFirst("h1").InnerText.Trim(),
 							City = offerDetails.ChildNodes.FindFirst("a").InnerText.Trim(),
 							DateAdd = dateText.Substring(start, end - start),
-							Price = flatDescription.GetElementbyId("offeractions").ChildNodes.FindFirst("div").ChildNodes.FindFirst("strong").InnerText,
+							Price = priceNum,
+							PriceSymbol = priceSym,
 							Description = textcontent.InnerText.Trim(),
 							link = flatHtml.Attributes[0].Value,
 						};

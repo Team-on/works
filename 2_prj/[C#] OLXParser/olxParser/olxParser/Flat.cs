@@ -12,7 +12,8 @@ namespace olxParser {
 		public string City { get; set; }
 		public string DateAdd { get; set; }
 
-		public string Price { get; set; }
+		public int Price { get; set; }
+		public string PriceSymbol { get; set; }
 		public int? Rooms { get; set; }
 		public double? Area { get; set; }
 		public double? KitchenArea { get; set; }

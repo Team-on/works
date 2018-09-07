@@ -12,6 +12,6 @@
 		>
     <DockPanel>
 		<DataGrid x:Name="dataGrid" Margin="0 0 0 10" AutoGenerateColumns="True" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" AlternatingRowBackground="White" IsReadOnly="True" CanUserAddRows="False" FontSize="14" />
+    RowBackground="LightGray" AlternatingRowBackground="White" CanUserAddRows="False" FontSize="14" />
 	</DockPanel>
 </Window>
