@@ -36,38 +36,85 @@ namespace olxParser {
 			try {
 				string phpArgs = @"page=1";
 				string city = @"rovno";
-				string url = $@"https://www.olx.ua/nedvizhimost/{city}/?{phpArgs}";
+				string url = $@"https://www.olx.ua/nedvizhimost/kvartiry-komnaty/prodazha-kvartir-komnat/{city}/?{phpArgs}";
 				HtmlWeb web = new HtmlWeb();
 				HtmlDocument doc = web.Load(url);
 
-				var nodes = doc.GetElementbyId("offers_table").ChildNodes.FindFirst("tbody").ChildNodes.Where(a=>a.HasClass("wrap"));
+				var nodes = doc.GetElementbyId("offers_table").ChildNodes.FindFirst("tbody").ChildNodes.Where(a => a.HasClass("wrap"));
 
 				foreach(var node in nodes) {
-					var flat = node.ChildNodes.FindFirst("td")
+					var flatHtml = node.ChildNodes.FindFirst("td")
 							.ChildNodes.FindFirst("div")
 							.ChildNodes.FindFirst("table")
 							.ChildNodes.FindFirst("tbody")
 							.ChildNodes.FindFirst("tr")
-							.ChildNodes.First(a=>a.HasClass("title-cell"))
+							.ChildNodes.First(a => a.HasClass("title-cell"))
 							.ChildNodes.FindFirst("div")
 							.ChildNodes.FindFirst("h3")
 							.ChildNodes.FindFirst("a")
 						;
 
-					HtmlDocument flatDescription = web.Load(flat.Attributes[0].Value);
+					HtmlDocument flatDescription = web.Load(flatHtml.Attributes[0].Value);
 
 					var flattable = flatDescription.GetElementbyId("offerdescription");
 
-					var titlebox = flattable.ChildNodes.FirstOrDefault(a => a.HasClass("offer-titlebox"));
-					var infoTable = flattable.ChildNodes.FirstOrDefault(a => a.HasClass("clr descriptioncontent marginbott20"));
+					var titlebox = flattable.ChildNodes.First(a => a.HasClass("offer-titlebox"));
+					var infoTable = flattable.ChildNodes.First(a => a.GetClasses().Contains("clr") && a.GetClasses().Contains("descriptioncontent") && a.GetClasses().Contains("marginbott20"))
+						.ChildNodes.First(a => a.GetClasses().Contains("details") && a.GetClasses().Contains("fixed") && a.GetClasses().Contains("marginbott20") && a.GetClasses().Contains("margintop5") && a.GetClasses().Contains("full"));
 					var textcontent = flatDescription.GetElementbyId("textContent");
 
-					var text1 = titlebox.ChildNodes.FindFirst("h1").InnerText;
-					var text2 = titlebox.ChildNodes.FirstOrDefault(a => a.HasClass("offer - titlebox__details"))?.InnerText ?? "No info";
-					var text3 = infoTable?.InnerText ?? "No info";
-					var text4 = textcontent?.InnerText ?? "No info";
+					var offerDetails = titlebox.ChildNodes.First(a => a.HasClass("offer-titlebox__details"));
+					var dateText = offerDetails.ChildNodes.FindFirst("em").InnerText;
+					var start = dateText.IndexOfAny(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' });
+					var end = dateText.LastIndexOf(',') - 1;
 
-					flats.Add(new Flat(text1.Trim(), text2.Trim(), text3.Trim(), text4.Trim()));
+					Flat flat = new Flat() {
+						Title = titlebox.ChildNodes.FindFirst("h1").InnerText.Trim(),
+						City = offerDetails.ChildNodes.FindFirst("a").InnerText.Trim(),
+						DateAdd = dateText.Substring(start, end - start),
+						price = flatDescription.GetElementbyId("offeractions").ChildNodes.FindFirst("div").ChildNodes.FindFirst("strong").InnerText,
+						Description = textcontent.InnerText.Trim(),
+						link = flatHtml.Attributes[0].Value,
+					};
+
+					//var attribsTable = .ChildNodes.FindFirst("table");
+					foreach(var tr in infoTable.ChildNodes) {
+						if(tr.InnerHtml.Trim().Length == 0)
+							continue;
+
+						var datacol = tr.ChildNodes.FindFirst("td")
+							.ChildNodes.FindFirst("strong");
+
+						string text;
+						if(datacol.ChildNodes.Where(a => a.Name == "a").Count() != 0)
+							text = datacol.ChildNodes.FindFirst("a").InnerText.Trim();
+						else
+							text = datacol.InnerText.Trim();
+
+						if(text.Length != 0) {
+							switch(tr.ChildNodes.FindFirst("th").InnerText.Trim()) {
+							case "Этаж":
+							flat.floor = int.Parse(text);
+							break;
+							case "Этажность":
+							flat.floors = int.Parse(text);
+							break;
+							case "Общая площадь":
+							//MessageBox.Show(text.Split(' ')[0]);
+							flat.area = double.Parse(text.Split(' ')[0].Replace('.', ','));
+							break;
+							case "Площадь кухни":
+							flat.kitchenArea = double.Parse(text.Split(' ')[0]);
+							break;
+							case "Количество комнат":
+							flat.rooms = int.Parse(text);
+							break;
+							}
+						}
+					}
+
+
+					flats.Add(flat);
 				}
 			}
 			catch(Exception ex) {
