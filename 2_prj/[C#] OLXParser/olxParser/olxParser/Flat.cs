@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace olxParser {
 	class Flat {
+		public int Id { get; set; }
+
 		public string Title { get; set; }
 		public string City { get; set; }
 		public string DateAdd { get; set; }
+
+		public string Price { get; set; }
+		public int? Rooms { get; set; }
+		public double? Area { get; set; }
+		public double? KitchenArea { get; set; }
+		public int? Floor { get; set; }
+		public int? Floors { get; set; }
+
 		public string Description { get; set; }
-
-		public string price { get; set; }
-		public int? rooms { get; set; }
-		public double? area { get; set; }
-		public double? kitchenArea { get; set; }
-		public int? floor { get; set; }
-		public int? floors { get; set; }
-
 		public string link { get; set; }
 
 		//public string FlatBy { get; set; }

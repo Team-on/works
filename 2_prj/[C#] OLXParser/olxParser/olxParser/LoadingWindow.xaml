@@ -1,0 +1,19 @@
+﻿<Window x:Class="olxParser.LoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:olxParser"
+        mc:Ignorable="d"
+        Title="!Loading!" 
+		Height="227" Width="323"
+		MinHeight="227" MinWidth="323"
+		MaxHeight="227" MaxWidth="323"
+		WindowStartupLocation="CenterScreen"
+		>
+	<Grid>
+		<Viewbox>
+			<TextBlock Text="Loading"/>
+		</Viewbox>
+	</Grid>
+</Window>
