@@ -20,6 +20,7 @@ namespace olxParser {
 		public int? Floor { get; set; }
 		public int? Floors { get; set; }
 
+		//Description OFF
 		public string Description { get; set; }
 		public string link { get; set; }
 

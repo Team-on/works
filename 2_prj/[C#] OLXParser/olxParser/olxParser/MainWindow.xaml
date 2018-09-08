@@ -11,7 +11,49 @@
 		Loaded="Window_Loaded"
 		>
     <DockPanel>
-		<DataGrid x:Name="dataGrid" Margin="0 0 0 10" AutoGenerateColumns="True" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" AlternatingRowBackground="White" CanUserAddRows="False" FontSize="14" />
+		<DataGrid x:Name="dataGrid" Margin="0 0 0 10" HorizontalGridLinesBrush="DarkGray"
+    RowBackground="LightGray" AlternatingRowBackground="White" CanUserAddRows="False" FontSize="14" ItemsSource="{Binding}" AutoGenerateColumns="False">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+				<DataGridTextColumn Header="DateAdd" Binding="{Binding DateAdd}"/>
+
+				<DataGridTemplateColumn Header="Price">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<UniformGrid Rows="1">
+								<TextBlock Text="{Binding Price}"/>
+								<TextBlock Text="{Binding PriceSymbol}" TextAlignment="Right"/>
+							</UniformGrid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTextColumn Header="Rooms" Binding="{Binding Rooms}"/>
+
+				<DataGridTemplateColumn Header="Area">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<UniformGrid Rows="1">
+								<TextBlock Text="{Binding Area}"/>
+								<TextBlock Text="{Binding KitchenArea}" TextAlignment="Right"/>
+							</UniformGrid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Floor">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<UniformGrid Rows="1">
+								<TextBlock Text="{Binding Floor}"/>
+								<TextBlock Text="{Binding Floors}" TextAlignment="Right"/>
+							</UniformGrid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTextColumn Header="link" Binding="{Binding link}"/>
+			</DataGrid.Columns>
+		</DataGrid>
 	</DockPanel>
 </Window>
