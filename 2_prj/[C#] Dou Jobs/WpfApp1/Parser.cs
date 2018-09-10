@@ -15,10 +15,15 @@ namespace WpfApp1
         HtmlDocument doc;
         string mainUrl;
 
+        List<Vacancy> list;
+
         public Parser()
         {
             web = new HtmlWeb();
+            list = new List<Vacancy>(1000);
         }
+
+        public List<Vacancy> GetList() => list;
 
         public void Parse(string category, string search, string city)
         {
@@ -39,6 +44,14 @@ namespace WpfApp1
             }
 
             doc = web.Load(mainUrl);
+
+
+            using(VacancyContext db = new VacancyContext())
+            {
+                //db.Vacancies.Add(new Vacancy() {Title="Job" });
+                //db.SaveChanges();
+                System.Windows.MessageBox.Show(db.Vacancies.First().Title);
+            }
 
         }
 

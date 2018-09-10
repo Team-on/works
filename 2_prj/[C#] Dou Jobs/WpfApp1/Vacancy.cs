@@ -8,11 +8,11 @@ namespace WpfApp1
 {
     class Vacancy
     {
-        int Id { get; set; }
-        string Title { get; set; }
-        string Salary { get; set; }
-        string City { get; set; }
-        string Date { get; set; }
-        string Link { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Salary { get; set; }
+        public string City { get; set; }
+        public string Date { get; set; }
+        public string Link { get; set; }
     }
 }
