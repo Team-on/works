@@ -48,8 +48,8 @@ namespace WpfApp1
 
             using(VacancyContext db = new VacancyContext())
             {
-                //db.Vacancies.Add(new Vacancy() {Title="Job" });
-                //db.SaveChanges();
+                db.Vacancies.Add(new Vacancy() {Title="Job" });
+                db.SaveChanges();
                 System.Windows.MessageBox.Show(db.Vacancies.First().Title);
             }
 
