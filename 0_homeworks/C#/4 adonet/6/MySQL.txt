@@ -1,0 +1,148 @@
+MySQL - Windows, Linux and Mac OS
+MS SQL Server - windows. Не повністю на Linux or Mac OS X
+
+---
+
+Both RDBMS support Java, PHP, C++, Python, Ruby, Visual Basic, Delphi, Go and R. 
+
+But MySQL additionally supports programming languages like Perl, Scheme, Tcl, Haskel and Eiffel
+
+---
+MySQL supports a number of storage engines
+ InnoDB - механизм транзакций и внешних ключей. Инфа  хранятся в  больших совместно используемых файлах
+ XtraDB - розвиток InnoDB для высокопроизводительних систем
+ MyISAM - имеет возможности по сжатию данных, по созданию полнотекстовых индексов. Однако не является устойчивой к сбоям и не выполняет требования ACID
+ NDB - распределенная работа
+ RocksDB - embedded db
+ MariaDB - розвиток MyISAM більша производительность, можливість відкату до будь-якої операції. Дуже устойчива система
+ Aria - розвиток з MariaDB. Virtual columns(на значенні з інших колонок. Не З СТАНДАРТУ), специфічні типи даних(типу координата)
+ TokuDB - розвиток з MariaDB. Uses a Fractal tree index tree data structure that keeps data sorted and allows searches and sequential access in the same time as a B-tree but with insertions and deletions that are asymptotically faster than a B-tree.
+
+ * ACID  * Атомарность - никакая транзакция не будет зафиксирована в системе частично.
+ 	* Согласованность - каждая успешная транзакцияфиксирует только допустимые результаты
+ 	* Изолированность - Во время выполнения транзакции параллельные транзакции не должны оказывать влияния на её результа
+ 	* Устойчивость - Независимо от проблем на нижних уровнях (к примеру, обесточивание системы или сбои в оборудовании) изменения, сделанные успешно завершённой транзакцией, должны остаться сохранёнными после возвращения системы в работу.
+
+MS SQL Server - developers have to use a single storage engine while working
+
+---
+
+MySQL, developers have to backup data by extracting all data as SQL statements
+
+SQL Server does not block the database while backing up data. The feature enables users to backup and restore huge amount of data without putting extra time and effort.
+
+---
+
+MySQL does not allow users to kill or cancel a query when it is running
+SQL Server programmers can truncate a database query during execution without killing the entire process
+
+MySQL allow the database files to be accessed and manipulated by other processes at runtime
+SQL Server does not allow any process to access or manipulate its database files or binaries. The design rule makes MS SQL Server more secure than MySQL
+
+---
+
+MySQL is open source and free
+
+MS SQL Server have many editions enterprise, standard, web, workgroup, or express edition.
+
+---
+
+MySQL не позволяет корректно применять регулярные выражения (операторы REGEXP и RLIKE) на строках в многобайтовых кодировках, например, для Юникода (UTF-8)[27]. При необходимости таких операций приходится переходить на однобайтовые кодировки, например русскую Win-1251 или KOI-8.
+
+---
+
+MySQL
+Начиная с версии 4.1 в СУБД MySQL внедрена новая система кодировок и сопоставлений. При использовании кодировки Windows-1251, перед выполнением SQL-инструкций необходимо настроить кодировку соединения при помощи операторов:
+  SET character_set_client='cp1251';
+  SET character_set_results='cp1251'; 
+  SET character_set_connection='cp1251'
+
+---
+
+Requirements for EF6
+- Connector/NET 6.10.x or 8.0.x
+- MySQL Server 5.5 or higher
+- Entity Framework 6 assemblies
+- .NET Framework 4.0 or higher (.NET Framework 4.5.1 or higher is required for Connector/NET 6.10 and 8.0)
+
+<connectionStrings>
+    <add name="MyContext" providerName="MySql.Data.MySqlClient"
+        connectionString="server=localhost;port=3306;database=mycontext;uid=root;password=********"/>
+</connectionStrings>
+
+<entityFramework codeConfigurationType="MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6">
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework"/>
+    <providers>
+        <provider invariantName="MySql.Data.MySqlClient"
+            type="MySql.Data.MySqlClient.MySqlProviderServices, MySql.Data.Entity.EF6"/>
+        <provider invariantName="System.Data.SqlClient"
+            type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer"/>
+    </providers>
+</entityFramework>
+
+
+---
+
+//Use in entity framework
+Install Nuget Package:
+
+Install-Package EntityFramework
+
+Install-Package MySql.Data.Entity -Version 6.9.9
+
+Install MySQL for Visual Studio 1.2.6 - https://dev.mysql.com/downloads/windows/visualstudio/
+
+<EntityFramework codeConfigurationType = "MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6">
+
+<connectionStrings>
+
+<add name="**YourContextName**" connectionString="server=**xxx.xxx.xxx.xxx**;port=3306;user id=**your user**;password=**your password**;database=**your database**" providerName="MySql.Data.MySqlClient" />
+
+<add name="OldMysqlConnection" providerName="System.Data.SqlClient" connectionString="User Id=root;Password=root;Host=localhost;Database=custodian; port=3306;Charset=utf8;connection timeout = 15"/>
+
+<add name="conn" providerName="MySql.Data.MySqlClient"
+        connectionString="server=localhost;UserId=root;Password=password1;database=mobiledb;CharSet=utf8;Persist Security Info=True" />
+
+</connectionStrings>
+
+
+//При создании контекста данных к нему надо применить атрибут 
+//DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration)). 
+///В остальном особых различий при подключении к mysql по сравнению с MSSQL нет.
+public class Phone
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Company { get; set; }
+}
+ 
+[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+public class MobileContext : DbContext
+{
+    public DbSet<Phone> Phones { get; set; }
+    public MobileContext(): base("conn"){ }
+}
+
+public class MobileContext : DbContext{
+        public PhoneUsers { get; set; }
+ 
+        protected override void OnConfiguring(DbContDbSet<User> tionsBuilder optionsBuilder){
+            optionsBuilder.UseMySQL("server=localhost;UserId=root;Password=mypassword;database=usersdb2;");
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
