@@ -24,10 +24,30 @@ namespace TaskManager {
 			dataGrid.ItemsSource = pr;
 
 			dataGrid.Columns.Add(new DataGridTextColumn() {
+				Header = "PID",
+				Binding = new Binding("Id"),
+			});
+
+			dataGrid.Columns.Add(new DataGridTextColumn() {
 				Header = "ProcessName",
 				Binding = new Binding("ProcessName"),
 			});
 
+			dataGrid.Columns.Add(new DataGridTextColumn() {
+				Header = "TotalProcessorTime",
+				Binding = new Binding("TotalProcessorTime"),
+			});
+
+			dataGrid.Columns.Add(new DataGridTextColumn() {
+				Header = "UserProcessorTime",
+				Binding = new Binding("UserProcessorTime"),
+			});
+
+
+			dataGrid.Columns.Add(new DataGridTextColumn() {
+				Header = "Used memory",
+				Binding = new Binding("PrivateMemorySize"),
+			});
 		}
 
 
@@ -35,6 +55,47 @@ namespace TaskManager {
 			foreach(var p in Process.GetProcesses()) 
 				pr.Add(p);
 			dataGrid.Items.Refresh();
+
+			System.Timers.Timer t = new System.Timers.Timer() {
+				AutoReset = true,
+				Interval = 1000,
+				Enabled = false,
+			};
+			t.Elapsed += T_Elapsed;
+			t.Start();
+		}
+
+		private void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e) {
+			pr.Clear();
+			foreach(var p in Process.GetProcesses()) {
+				pr.Add(p);
+			}
+			dataGrid.Items.Refresh();
+		}
+
+		private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+			if(dataGrid.SelectedItem == null)
+				return;
+
+			try {
+				Process p = (Process)dataGrid.SelectedItem;
+
+				string arg = $@"/c taskkill /f /pid {p.Id}";
+				ProcessStartInfo process = new ProcessStartInfo("cmd") {
+					UseShellExecute = true,
+					CreateNoWindow = true,
+					//Verb = "runas",
+					Arguments = arg,
+				};
+				Process.Start(process);
+
+				//pr.Remove(p);
+				//dataGrid.Items.Refresh();
+				//p.Kill();
+			}
+			catch(Exception ex) {
+				MessageBox.Show(ex.Message + '\n' + ex.StackTrace);
+			}
 		}
 	}
 }

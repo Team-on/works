@@ -11,10 +11,27 @@
         
         Loaded="Window_Loaded"
         >
-    <Grid>
-        <DataGrid x:Name="dataGrid" Margin="0 0 0 10" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" AlternatingRowBackground="White" CanUserAddRows="False" FontSize="14" ItemsSource="{Binding}" AutoGenerateColumns="False">
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Menu item"/>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="Status bar item"/>
+        </StatusBar>
+
+        <DockPanel DockPanel.Dock="Bottom" FlowDirection="LeftToRight" LastChildFill="False">
+            <Button DockPanel.Dock="Right" Content="End Process"/>
+        </DockPanel>
+
+        <DataGrid x:Name="dataGrid" 
+                  Margin="0 0 0 10" HorizontalGridLinesBrush="DarkGray"
+                  RowBackground="LightGray" AlternatingRowBackground="White" CanUserAddRows="False" 
+                  FontSize="14" 
+                  ItemsSource="{Binding}" AutoGenerateColumns="False"
+                  PreviewMouseDoubleClick="dataGrid_MouseDoubleClick"
+                  >
         </DataGrid>
 
-    </Grid>
+    </DockPanel>
 </Window>
