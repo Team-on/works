@@ -47,6 +47,9 @@ namespace Like3D {
 		private void Window_KeyDown(object sender, KeyEventArgs e) {
 			Point3D newPos = camera.Position;
 			Vector3D upDir = camera.UpDirection;
+
+			//double angle = Math.Atan2(y2 - y1, x2 - x1) - Math.Atan2(y4 - y3, x4 - x3);
+
 			switch(e.Key) {
 			case Key.Escape:
 			this.Close();
