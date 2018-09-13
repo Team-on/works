@@ -82,11 +82,48 @@ namespace WpfApp1 {
 				categoryItems.SelectedIndex == 0 ? "" : (string)categoryItems.SelectedItem,
 				cityItems.SelectedIndex == 0 ? "" : (string)cityItems.SelectedItem);
 
+				Brush background = Brushes.DarkGray;
+				listBox.Items.Clear();
+				foreach (var vac in parser.Parsed) {
+					ListBoxItem item = new ListBoxItem() { Background = background };
+					Grid grid = new Grid();
+
+					grid.Children.Add(new TextBlock() { Text=vac.Id.ToString() });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.IdDou.ToString() });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.Date ?? "NULL" });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.Title ?? "NULL" });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.Company ?? "NULL" });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.Salary ?? "NULL" });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.City ?? "NULL" });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					grid.Children.Add(new TextBlock() { Text = vac.Link ?? "NULL" });
+					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					//grid.Children.Add(new TextBlock() { Text = vac.ShortDescription?? "NULL" });
+					//Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+
+					for (byte i = 0; i < grid.Children.Count; ++i) {
+						grid.ColumnDefinitions.Add(new ColumnDefinition());
+						if (grid.Children[i] is FrameworkElement elem)
+							elem.Margin = new Thickness(10, 0, 10, 0);
+					}
+
+					item.Content = grid;
+					listBox.Items.Add(item);
+
+					background = background == Brushes.DarkGray ? Brushes.LightGray : Brushes.DarkGray;
+				} 
+
 				Application.Current.Dispatcher.Invoke(() => Parse.IsEnabled = true);
 			});
 
 			//ac.BeginInvoke(null, null);
-			ac.Invoke();
+			ac();
 		}
 
 		string startSearchBoxText;

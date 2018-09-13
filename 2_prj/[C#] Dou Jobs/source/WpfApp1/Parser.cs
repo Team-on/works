@@ -69,8 +69,6 @@ namespace WpfApp1 {
 				*/
 				try {
 					vacancy.IdDou = vacancyDiv.GetAttributeValue("_id", 1);
-					if (VacancyContext.db.Vacancies.FirstOrDefault((a) => a.IdDou == vacancy.IdDou) != null)
-						continue;
 					vacancy.ShortDescription = vacancyDiv.ChildNodes.FirstOrDefault((a) => a.HasClass("sh-info"))?.InnerText?.Trim()?.ClearFromHTML();
 
 					titleNode = vacancyDiv.ChildNodes.FirstOrDefault((a) => a.HasClass("title"));
@@ -93,7 +91,8 @@ namespace WpfApp1 {
 
 					System.Windows.Application.Current.Dispatcher.Invoke(() => {
 						parsed.Add(vacancy);
-						VacancyContext.db.Vacancies.Add(vacancy);
+						if (VacancyContext.db.Vacancies.FirstOrDefault((a) => a.IdDou == vacancy.IdDou) == null)
+							VacancyContext.db.Vacancies.Add(vacancy);
 					});
 				}
 				catch (Exception ex) {

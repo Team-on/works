@@ -11,7 +11,7 @@ namespace WpfApp1 {
 		}
 
 		public static string ClearFromHTML(this string s) {
-			return s.Replace("&amp;", "").Replace("&nbsp;", "");
+			return s.Replace("&amp;", " ").Replace("&nbsp;", " ");
 		}
 	}
 }
