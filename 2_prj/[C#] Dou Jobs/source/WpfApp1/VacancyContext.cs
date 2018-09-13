@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Entity;
 
-namespace WpfApp1
-{
-    class VacancyContext : DbContext
-    {
-        public DbSet<Vacancy> Vacancies { get; set; }
+namespace WpfApp1 {
+	class VacancyContext : DbContext {
+		public DbSet<Vacancy> Vacancies { get; set; }
 
-        public VacancyContext() : base("Default"){ }
-    }
+		public VacancyContext() : base("Default") { }
+	}
 }
