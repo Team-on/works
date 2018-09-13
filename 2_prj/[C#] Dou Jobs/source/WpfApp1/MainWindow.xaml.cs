@@ -88,8 +88,8 @@ namespace WpfApp1 {
 					ListBoxItem item = new ListBoxItem() { Background = background };
 					Grid grid = new Grid();
 
-					grid.Children.Add(new TextBlock() { Text=vac.Id.ToString() });
-					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+					//grid.Children.Add(new TextBlock() { Text=vac.Id.ToString() });
+					//Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
 					grid.Children.Add(new TextBlock() { Text = vac.IdDou.ToString() });
 					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
 					grid.Children.Add(new TextBlock() { Text = vac.Date ?? "NULL" });
