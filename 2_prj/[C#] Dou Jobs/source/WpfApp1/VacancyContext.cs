@@ -12,5 +12,7 @@ namespace WpfApp1 {
 		public DbSet<Vacancy> Vacancies { get; set; }
 
 		public VacancyContext() : base("Default") { }
+
+		public static VacancyContext db = new VacancyContext();
 	}
 }
