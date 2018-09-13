@@ -62,6 +62,8 @@ namespace WpfApp1 {
 				*/
 				try {
 					vacancy.IdDou = vacancyDiv.GetAttributeValue("_id", 1);
+                    if (VacancyContext.db.Vacancies.FirstOrDefault((a) => a.IdDou == vacancy.IdDou) != null)
+                        continue;
 					vacancy.ShortDescription = vacancyDiv.ChildNodes.FirstOrDefault((a) => a.HasClass("sh-info"))?.InnerText.Trim();
 
 					titleNode = vacancyDiv.ChildNodes.FirstOrDefault((a) => a.HasClass("title"));
@@ -90,7 +92,7 @@ namespace WpfApp1 {
 				}
 			}
 
-			VacancyContext.db.SaveChanges();
+            VacancyContext.db.SaveChanges();
 			System.Windows.MessageBox.Show("Done!");
 
 		}
