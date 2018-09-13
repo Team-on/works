@@ -13,22 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp1
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+namespace WpfApp1 {
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window {
+		public MainWindow() {
+			InitializeComponent();
+		}
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Parser parser = new Parser();
-            parser.Parse(".NET", "Jun", "");
-        }
-    }
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			Parser parser = new Parser();
+			parser.Parse(".NET", "Jun", "");
+		}
+	}
 }
