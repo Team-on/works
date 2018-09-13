@@ -23,21 +23,24 @@ namespace WpfApp1 {
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
-		Parser parser = new Parser();
+		Parser parser;
 
 
 		public MainWindow() {
 			Database.SetInitializer<VacancyContext>(new DropCreateDatabaseIfModelChanges<VacancyContext>());
+
 			InitializeComponent();
 			startSearchBoxText = searchTextBox.Text;
 			startSearchBoxForeground = searchTextBox.Foreground;
+
+			parser = new Parser();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			HtmlDocument doc = new HtmlWeb().Load("https://jobs.dou.ua/vacancies/");
 
 			foreach (var node in doc.DocumentNode.Descendants("select")
-				.First((a)=>a.GetAttributeValue("name", "n")== "category").Descendants("option")) {
+				.First((a) => a.GetAttributeValue("name", "n") == "category").Descendants("option")) {
 				string attrVal = node.GetAttributeValue("value", "n");
 				if (attrVal != "" && attrVal != "n")
 					categoryItems.Items.Add(attrVal);
@@ -55,7 +58,7 @@ namespace WpfApp1 {
 		}
 
 		private void searchTextBox_KeyDown(object sender, KeyEventArgs e) {
-			if(searchTextBox.Text == startSearchBoxText) {
+			if (searchTextBox.Text == startSearchBoxText) {
 				searchTextBox.Text = "";
 				searchTextBox.Foreground = Brushes.Black;
 			}
@@ -72,9 +75,18 @@ namespace WpfApp1 {
 			searchTextBox.Text = startSearchBoxText;
 			searchTextBox.Foreground = startSearchBoxForeground;
 
-			parser.Parse(searchTextBox.Text == startSearchBoxText ? null: searchTextBox.Text,
-				categoryItems.SelectedIndex == 0? "" : (string)categoryItems.SelectedItem,
+			Action ac = new Action(() => {
+				Application.Current.Dispatcher.Invoke(() => Parse.IsEnabled = false);
+
+				parser.Parse(searchTextBox.Text == startSearchBoxText ? null : searchTextBox.Text,
+				categoryItems.SelectedIndex == 0 ? "" : (string)categoryItems.SelectedItem,
 				cityItems.SelectedIndex == 0 ? "" : (string)cityItems.SelectedItem);
+
+				Application.Current.Dispatcher.Invoke(() => Parse.IsEnabled = true);
+			});
+
+			//ac.BeginInvoke(null, null);
+			ac.Invoke();
 		}
 
 		string startSearchBoxText;

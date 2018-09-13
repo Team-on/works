@@ -31,7 +31,7 @@
             <TextBox Margin="10 0 10 0" x:Name="searchTextBox" Text="Строка пошуку" Foreground="Gray" MouseLeftButtonDown="searchTextBox_MouseLeftButtonDown" KeyDown="searchTextBox_KeyDown" Grid.Column="0"/>
             <ComboBox Margin="10 0 10 0" x:Name="categoryItems" Grid.Column="1"/>
             <ComboBox Margin="10 0 10 0" x:Name="cityItems" Grid.Column="2"/>
-            <Button Margin="10 0 10 0" Content="Parse" Grid.Column="3" Click="Parse_Click"/>
+            <Button Margin="10 0 10 0" Content="Parse" Grid.Column="3" x:Name="Parse" Click="Parse_Click"/>
         </Grid>
 
         <ListBox x:Name="listBox" Margin="0 0 0 10" />
