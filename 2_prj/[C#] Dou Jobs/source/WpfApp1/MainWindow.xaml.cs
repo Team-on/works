@@ -84,6 +84,7 @@ namespace WpfApp1 {
 
 				Brush background = Brushes.DarkGray;
 				listBox.Items.Clear();
+
 				foreach (var vac in parser.Parsed) {
 					ListBoxItem item = new ListBoxItem() { Background = background };
 					Grid grid = new Grid();
