@@ -72,9 +72,6 @@ namespace WpfApp1 {
 		}
 
 		private void Parse_Click(object sender, RoutedEventArgs e) {
-			searchTextBox.Text = startSearchBoxText;
-			searchTextBox.Foreground = startSearchBoxForeground;
-
 			Action ac = new Action(() => {
 				Application.Current.Dispatcher.Invoke(() => Parse.IsEnabled = false);
 
@@ -82,11 +79,11 @@ namespace WpfApp1 {
 				categoryItems.SelectedIndex == 0 ? "" : (string)categoryItems.SelectedItem,
 				cityItems.SelectedIndex == 0 ? "" : (string)cityItems.SelectedItem);
 
-				Brush background = Brushes.DarkGray;
+				bool background = false;
 				listBox.Items.Clear();
 
 				foreach (var vac in parser.Parsed) {
-					ListBoxItem item = new ListBoxItem() { Background = background };
+					ListBoxItem item = new ListBoxItem() { Background = background ? Brushes.LightGray : Brushes.White };
 					Grid grid = new Grid();
 
 					//grid.Children.Add(new TextBlock() { Text=vac.Id.ToString() });
@@ -117,7 +114,7 @@ namespace WpfApp1 {
 					item.Content = grid;
 					listBox.Items.Add(item);
 
-					background = background == Brushes.DarkGray ? Brushes.LightGray : Brushes.DarkGray;
+					background = !background;
 				} 
 
 				Application.Current.Dispatcher.Invoke(() => Parse.IsEnabled = true);
@@ -125,7 +122,10 @@ namespace WpfApp1 {
 
 			//ac.BeginInvoke(null, null);
 			ac();
-		}
+
+            //searchTextBox.Text = startSearchBoxText;
+            //searchTextBox.Foreground = startSearchBoxForeground;
+        }
 
 		string startSearchBoxText;
 		Brush startSearchBoxForeground;
