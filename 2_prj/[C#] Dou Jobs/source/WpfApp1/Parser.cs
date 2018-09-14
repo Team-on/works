@@ -40,8 +40,12 @@ namespace WpfApp1 {
                     mainUrl += $"remote";
                 if (city == "работа за рубежом")
                     mainUrl += $"relocation";
-                else
+                else {
+                    sbyte i = (sbyte)city.IndexOf('(');
+                    if (i > 0)
+                        city = city.Substring(0, i);
                     mainUrl += $"city={city}";
+                }
 			}
 
 			doc = web.Load(mainUrl);
