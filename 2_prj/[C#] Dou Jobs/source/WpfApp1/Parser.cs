@@ -31,12 +31,17 @@ namespace WpfApp1 {
 			if (!search?.Equals("") ?? false) {
 				if (mainUrl.LastChar() != '?')
 					mainUrl += '&';
-				mainUrl += $"search={search}";
+                mainUrl += $"search={search}";
 			}
 			if (!city?.Equals("") ?? false) {
 				if (mainUrl.LastChar() != '?')
 					mainUrl += '&';
-				mainUrl += $"city={city}";
+                if (city == "удаленная работа")
+                    mainUrl += $"remote";
+                if (city == "работа за рубежом")
+                    mainUrl += $"relocation";
+                else
+                    mainUrl += $"city={city}";
 			}
 
 			doc = web.Load(mainUrl);
@@ -74,7 +79,7 @@ namespace WpfApp1 {
 					titleNode = vacancyDiv.ChildNodes.FirstOrDefault((a) => a.HasClass("title"));
 					aNode = titleNode.ChildNodes.FindFirst("a");
 
-					vacancy.Title = aNode.InnerText;
+					vacancy.Title = aNode.InnerText.ClearFromHTML();
 					vacancy.Link = aNode.GetAttributeValue("href", null);
 					if (vacancy.Link != null) {
 						short len = (short)(vacancy.Link.IndexOf('?'));
