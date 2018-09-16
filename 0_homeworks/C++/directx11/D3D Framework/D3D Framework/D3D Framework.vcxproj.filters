@@ -26,6 +26,9 @@
     <ClInclude Include="Window.h">
       <Filter>Render System</Filter>
     </ClInclude>
+    <ClInclude Include="WindowDescription.h">
+      <Filter>Render System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -36,6 +39,9 @@
       <Filter>Input System</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
+      <Filter>Render System</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowDescription.cpp">
       <Filter>Render System</Filter>
     </ClCompile>
   </ItemGroup>
