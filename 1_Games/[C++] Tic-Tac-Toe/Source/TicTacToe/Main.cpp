@@ -68,6 +68,10 @@ BOOL CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp){
 
 				game.StartNewGame();
 			}
+
+			else if(LOWORD(wp) == IDC_BUTTON2){
+				PostMessage(hWnd, WM_CLOSE, 0, 0);
+			}
 			break;
 		}
 		break;

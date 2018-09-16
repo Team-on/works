@@ -17,18 +17,23 @@ void GameCell::Init(){
 		(LPARAM)(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP3)))
 	);
 	cellState = Empty;
+	isActive = true;
 }
 
 void GameCell::PlaceX(){
-	SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP,
-		(LPARAM)(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1)))
-	);
-	cellState = X;
+	if(isActive){
+		SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP,
+			(LPARAM) (LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1)))
+		);
+		cellState = X;
+	}
 }
 
 void GameCell::Place0(){
-	SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP,
-		(LPARAM)(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2)))
-	);
-	cellState = O;
+	if(isActive){
+		SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP,
+			(LPARAM) (LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2)))
+		);
+		cellState = O;
+	}
 }

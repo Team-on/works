@@ -58,10 +58,63 @@ bool Game::MakeTurn(char x, char y){
 
 	isXTurn = !isXTurn;
 
-	if(botType != Player)
+	Winner w = CheckWinner();
+	if(w != Winner::GameContinue){
+		if(map[0][0].isActive)
+			RevertActive();
+		if(w == Winner::XWin){
+
+		}
+		else if(w == Winner::YWin){
+
+		}
+		else /*if(w == Winner::NoneWin)*/{
+
+		}
+	}
+	else if(botType != Player)
 		BotTurn();
 
 	return true;
+}
+
+Game::Winner Game::CheckWinner(){
+	char streaks[8];
+
+	for(char type = GameCell::CellState::X; type <= GameCell::CellState::O; type++){
+		memset(streaks, 0, sizeof(streaks[0]) * sizeof(streaks));
+
+		for(char i = 0; i < 3; ++i){
+			if(map[i][0].GetCellState() == type)
+				++streaks[0];
+			if(map[i][1].GetCellState() == type)
+				++streaks[1];
+			if(map[i][2].GetCellState() == type)
+				++streaks[2];
+
+			if(map[0][i].GetCellState() == type)
+				++streaks[3];
+			if(map[1][i].GetCellState() == type)
+				++streaks[4];
+			if(map[2][i].GetCellState() == type)
+				++streaks[5];
+
+			if(map[i][i].GetCellState() == type)
+				++streaks[6];
+			if(map[2 - i][i].GetCellState() == type)
+				++streaks[7];
+		}
+
+		for(char i = 0; i < sizeof(streaks[0]) * sizeof(streaks); ++i){
+			if(streaks[i] == 3)
+				return type == GameCell::CellState::X ? Winner::XWin : Winner::YWin;
+		}
+	}
+	for(char i = 0; i < 3; ++i)
+		for(char j = 0; j < 3; ++j)
+			if(map[i][j].GetCellState() == GameCell::CellState::Empty)
+				return Winner::GameContinue;
+	return Winner::NoneWin;
 }
 
 bool Game::IsPlayerTurn(){
@@ -91,4 +144,10 @@ void Game::BotTurnMedium(){
 }
 
 void Game::BotTurnHard(){
+}
+
+void Game::RevertActive(){
+	for(char i = 0; i < 3; ++i)
+		for(char j = 0; j < 3; ++j)
+			map[i][j].isActive = !map[i][j].isActive;
 }

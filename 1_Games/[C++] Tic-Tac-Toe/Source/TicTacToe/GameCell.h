@@ -3,6 +3,7 @@ class GameCell{
 public:
 	enum CellState  : char {Empty, X, O};
 
+	bool isActive;
 	HWND hButton;
 
 	GameCell();

@@ -3,7 +3,7 @@
 
 class Game{
 public:
-	enum BotType : char {Eazy, Medium, Hard, Player};
+	enum BotType : char{ Eazy, Medium, Hard, Player };
 
 	Game();
 	~Game();
@@ -17,11 +17,15 @@ public:
 	bool MakeTurn(char x, char y);
 	
 private:
+	enum Winner : char{ XWin, YWin, NoneWin, GameContinue };
+
 	BotType botType;
 	void (Game::*botFunc)(void);
 
 	GameCell **map;
 	bool isXFirst, isXTurn;
+
+	Winner CheckWinner();
 
 	bool IsPlayerTurn();
 	void BotTurn();
@@ -29,5 +33,7 @@ private:
 	void BotTurnEazy();
 	void BotTurnMedium();
 	void BotTurnHard();
+
+	void RevertActive();
 };
 
