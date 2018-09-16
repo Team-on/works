@@ -10,32 +10,28 @@ namespace dxFramework{
 		}
 
 		void InputManager::Close(){
+			//TODO: освободить память для елементов массива, ведь тут InputListener *.
 			if(!listeners.empty())
 				listeners.clear();
-			dxFramework::Util::Log::Debug("Init inputManager");
+			dxFramework::Util::Log::Debug("Close inputManager");
 		}
 
 		void InputManager::Run(const UINT & msg, WPARAM wParam, LPARAM lParam){
 			if(listeners.empty())
 				return;
 
-			eKeyCodes KeyIndex;
-			wchar_t buffer[1];
-			BYTE lpKeyState[256];
-
 			EventMouseMove();
 			switch(msg){
-			case WM_KEYDOWN:
+			case WM_KEYUP: case WM_KEYDOWN:
+			{
+				eKeyCodes KeyIndex;
+				wchar_t buffer[1];
+				BYTE lpKeyState[256];
 				KeyIndex = static_cast<eKeyCodes>(wParam);
 				GetKeyboardState(lpKeyState);
 				ToUnicode(wParam, HIWORD(lParam) & 0xFF, lpKeyState, buffer, 1, 0);
-				EventKey(KeyIndex, buffer[0], true);
-				break;
-			case WM_KEYUP:
-				KeyIndex = static_cast<eKeyCodes>(wParam);
-				GetKeyboardState(lpKeyState);
-				ToUnicode(wParam, HIWORD(lParam) & 0xFF, lpKeyState, buffer, 1, 0);
-				EventKey(KeyIndex, buffer[0], false);
+				EventKey(KeyIndex, buffer[0], msg == WM_KEYDOWN);
+			}
 				break;
 			case WM_LBUTTONDOWN:
 				EventMouseButton(MOUSE_LEFT, true);
