@@ -1,0 +1,7 @@
+beepbox.co
+
+-Aseprite for the pixel art
+-sfxr for the shooting sound
+-BeepBox.com for the music track
+-Visual Studio Community 2015 for everything code related
+-notepad for the readme (yes im going to note that here.)

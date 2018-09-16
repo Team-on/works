@@ -1,0 +1,22 @@
+void CreateConsole()
+{
+if (AllocConsole()) 
+{ 
+int hCrt = _open_osfhandle((long)GetStdHandle(STD_OUTPUT_HANDLE), 4); 
+*stdout = *(::_fdopen(hCrt, "w")); 
+::setvbuf(stdout, NULL, _IONBF, 0); 
+*stderr = *(::_fdopen(hCrt, "w")); 
+::setvbuf(stderr, NULL, _IONBF, 0);
+std::ios::sync_with_stdio();
+}
+
+
+////////////////////////////////////////////////////////
+
+//Вызванная консоль работает только в режиме вывода и работает он также как и в консольных приложениях. Выводите информацию как и обычно — cout/wcout.
+//Для работоспособности данного кода необходимо включить в прект следующие файлы:
+//#include <fcntl.h>
+//#include #include <io.h>
+//и включить пространство имен std в глобальное пространство имён:
+//using namespace std;
+//Конечно же, если вы не хотите этого делать, то просто допишите std:: ко всем сущностям которые в ней находятся.

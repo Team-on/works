@@ -1,0 +1,7 @@
+SQL - рел€ц≥йна бд.
+	в Oracle Database используетс€ PL/SQL (поддерживаетс€ также в DB2 и Timesten[en]), в Interbase и Firebird Ч PSQL, в 	DB2 Ч SQL PL[en], в Microsoft SQL Server и Adaptive Server Enterprise Ч Transact-SQL, в PostgreSQL Ч PL/pgSQL.
+
+sql - structured query language
+—”Ѕƒ - системи управл≥нн€ базаю даних. —убд - к≥лка файл≥в чи файл
+
+(localdb)\mssqllocaldb
