@@ -1,7 +1,7 @@
 #pragma once
 namespace dxFramework{
 	namespace Input{
-		enum eMouseKeyCodes{
+		enum eMouseKeyCodes : char{
 			MOUSE_LEFT = 0,
 			MOUSE_MIDDLE,
 			MOUSE_RIGHT,
@@ -9,7 +9,7 @@ namespace dxFramework{
 			MOUSE_END
 		};
 
-		enum eKeyCodes{
+		enum eKeyCodes : char{
 			KEY_LBUTTON = 0x01, // Left mouse button
 			KEY_RBUTTON = 0x02, // Right mouse button
 			KEY_CANCEL = 0x03, // Control-break processing
@@ -162,7 +162,7 @@ namespace dxFramework{
 			KEY_PA1 = 0xFD,
 			KEY_OEMCLEAR = 0xFE,
 
-			KEY_MAX = 0x100
+			KEY_MAX = 0x0FF
 		};
 	}
 }
