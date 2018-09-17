@@ -1,0 +1,10 @@
+lock(object){
+
+}
+
+
+Monitor.Enter(object);
+Monitor.Exit(object);
+
+Mutex.WaitOne();
+Mutex.Exit();
