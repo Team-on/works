@@ -14,5 +14,14 @@ namespace WpfApp1 {
            
 			return s.Replace("&amp;", " ").Replace("&nbsp;", " ").Replace("&#34;", " ");
 		}
+
+        public static string Pad(this string s, byte length){
+            if (length == 0)
+                return s;
+            ++length;
+            if (length >= s.Length)
+                return s.PadRight(length);
+            return s.Substring(0, length - 3) + "...";
+        }
 	}
 }

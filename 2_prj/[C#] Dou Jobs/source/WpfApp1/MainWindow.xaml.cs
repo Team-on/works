@@ -73,6 +73,9 @@ namespace WpfApp1 {
 
 		private void Parse_Click(object sender, RoutedEventArgs e) {
 			Action ac = new Action(() => {
+                byte[] padSize = {8, 10, 32, 32, 10, 20, 0 };
+
+
 				Application.Current.Dispatcher.Invoke(() => Parse.IsEnabled = false);
 
 				parser.Parse(searchTextBox.Text == startSearchBoxText ? null : searchTextBox.Text,
@@ -102,16 +105,24 @@ namespace WpfApp1 {
 					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
 					grid.Children.Add(new TextBlock() { Text = vac.Link ?? "NULL" });
 					Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
-					//grid.Children.Add(new TextBlock() { Text = vac.ShortDescription?? "NULL" });
-					//Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+                    //grid.Children.Add(new TextBlock() { Text = vac.ShortDescription?? "NULL" });
+                    //Grid.SetColumn(grid.Children[grid.Children.Count - 1], grid.Children.Count - 1);
+                    grid.Tag = vac;
 
-					for (byte i = 0; i < grid.Children.Count; ++i) {
-						grid.ColumnDefinitions.Add(new ColumnDefinition());
-						if (grid.Children[i] is FrameworkElement elem)
-							elem.Margin = new Thickness(10, 0, 10, 0);
-					}
+                    for (byte i = 0; i < grid.Children.Count; ++i) {
+                        double width = padSize[i] * 5;
+                        if (width == 0)
+                            grid.ColumnDefinitions.Add(new ColumnDefinition());
+                        else
+                           grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(width, GridUnitType.Pixel) });
+                        if (grid.Children[i] is FrameworkElement elem)
+                            elem.Margin = new Thickness(10, 0, 10, 0);
+                        if (grid.Children[i] is TextBlock tb)
+                            tb.Text = tb.Text.Pad(padSize[i]);
 
-					item.Content = grid;
+                    }
+
+                    item.Content = grid;
 					listBox.Items.Add(item);
 
 					background = !background;
@@ -129,5 +140,16 @@ namespace WpfApp1 {
 
 		string startSearchBoxText;
 		Brush startSearchBoxForeground;
-	}
+
+        private void listBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (listBox.SelectedItem == null)
+                return;
+
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                new VacancyInfo(((listBox.SelectedItem as ListBoxItem).Content as Grid).Tag as Vacancy).Show();
+            }
+        }
+    }
 }

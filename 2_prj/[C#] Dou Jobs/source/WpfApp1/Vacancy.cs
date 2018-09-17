@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WpfApp1 {
-	class Vacancy {
+	public class Vacancy {
 		public int Id { get; set; }
 		public int IdDou { get; set; }
 

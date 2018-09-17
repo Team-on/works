@@ -1,0 +1,43 @@
+﻿<Window x:Class="WpfApp1.VacancyInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="VacancyInfo" Height="600" Width="800">
+    <StackPanel>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="IdDou:"/>
+            <TextBlock IsEnabled="False" Text="{Binding IdDou}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="Salary:"/>
+            <TextBlock IsEnabled="False" Text="{Binding Salary}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="IdDou:"/>
+            <TextBlock IsEnabled="False" Text="{Binding Title}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="Company:"/>
+            <TextBlock IsEnabled="False" Text="{Binding Company}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="Date:"/>
+            <TextBlock IsEnabled="False" Text="{Binding Date}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="City:"/>
+            <TextBlock IsEnabled="False" Text="{Binding City}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="Link:"/>
+            <TextBlock IsEnabled="False" Text="{Binding Link}"/>
+        </UniformGrid>
+        <UniformGrid Rows="1" Margin="0 10 0 0">
+            <Label Content="Description:"/>
+                <TextBlock TextWrapping="Wrap" IsEnabled="False" Text="{Binding ShortDescription}"/>
+        </UniformGrid>
+    </StackPanel>
+</Window>
