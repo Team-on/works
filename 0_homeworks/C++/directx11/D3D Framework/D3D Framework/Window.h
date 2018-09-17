@@ -33,20 +33,21 @@ namespace dxFramework{
 			}
 
 			// обработка событий
-			LRESULT WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
+			/*virtual*/ LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 		private:
+			enum WindowState : char {None, Minimized, Maximized};
+
 			void UpdateWindowState();
 
 			static Window *wndthis;
 
 			WindowDescription desc;			// описание окна
-			Input::InputManager *inputmgr;
+			Input::InputManager *inputManager;
 			HWND hwnd;						// дескриптор окна	
 			bool isExit;					// флаг сообщающий о событии выхода	
 			bool isActive;					// окно активно?
-			bool isMinimized;
-			bool isMaximized;
+			WindowState windowState;
 			bool isResize;					// если окно изменило размер
 		};
 
