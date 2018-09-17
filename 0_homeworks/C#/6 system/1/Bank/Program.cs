@@ -21,13 +21,15 @@ namespace Bank {
 
         public override IState RunState() {
             Console.Clear();
+			Thread.Sleep(50);
             return base.RunState();
         }
 
         Bank bank;
 
         public MainState() {
-            bank = new Bank();
+			Console.Title = "Asyns bank";
+			bank = new Bank();
 
             System.Timers.Timer t = new System.Timers.Timer() {
                 Interval = 100,
@@ -45,7 +47,9 @@ namespace Bank {
         }
 
         protected override IState NextState(KeyValuePair<int, MenuItem> selectedMenu) {
-            if (selectedMenu.Key == 0) return null;
+			Console.Title = "Asyns bank";
+
+			if(selectedMenu.Key == 0) return null;
 
             int money;
             do
@@ -94,20 +98,35 @@ namespace Bank {
         string filename = @".\bank.txt";
 
         public Bank() {
-            locker.Lock();
-            ReadFile();
-            locker.Unlock();
+			if(!File.Exists(filename)) {
+				File.Create(filename).Dispose();
+				locker.Lock();
+				balance = 1000;
+				WriteFile();
+				locker.Unlock();
+			}
+			else {
+				locker.Lock();
+				ReadFile();
+				locker.Unlock();
+			}
         }
 
-        //Синхронізує через свойство
         public void TakeMoney(int count, int time) {
             Thread t = new Thread(() => {
                 if (locker.IsUsed()) {
-                    new MenuItem() {Text = "Error. Already used", TextColor=ConsoleColor.Red }.Print();
+					Console.Title = "Error. Already used";
+					//new MenuItem() {Text = "Error. Already used", TextColor=ConsoleColor.Red }.Print();
                     return;
                 }
 
-                locker.Lock();
+				if(balance < count) {
+					Console.Title = "Error. Cant take more money than have";
+					//new MenuItem() {Text = "Error. Try to take more than have", TextColor=ConsoleColor.Red }.Print();
+					return;
+				}
+
+				locker.Lock();
                 if (time == 0)
                     balance -= count;
                 else {
@@ -124,11 +143,11 @@ namespace Bank {
             t.Start();
         }
 
-        //Синхронізує в обход свойства
         public void AddMoney(int count, int time) {
             Thread t = new Thread(() => {
                 if (locker.IsUsed()) {
-                    new MenuItem() { Text = "Error. Already used", TextColor = ConsoleColor.Red }.Print();
+					Console.Title = "Error. Already used";
+					//new MenuItem() { Text = "Error. Already used", TextColor = ConsoleColor.Red }.Print();
                     return;
                 }
 
