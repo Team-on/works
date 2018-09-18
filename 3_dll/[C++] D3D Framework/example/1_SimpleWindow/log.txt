@@ -1,0 +1,10 @@
+Create log: 09/19/18 00:32:29
+---------------------------------------
+
+00:32:29 DEBUG: Window create
+00:32:29 DEBUG: Init inputManager
+00:32:44 DEBUG: Close inputManager
+00:32:45 DEBUG: Window close
+---------------------------------------
+
+Close log: 09/19/18 00:32:50
