@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:TaskManager"
         mc:Ignorable="d"
         Title="MainWindow" 
-        MinHeight="350" MinWidth="525"
-        Height="350" Width="525"
+        Height="600" Width="525"
         
         Loaded="Window_Loaded"
         >
@@ -21,7 +20,14 @@
         </StatusBar>
 
         <DockPanel DockPanel.Dock="Bottom" FlowDirection="LeftToRight" LastChildFill="False">
-            <Button DockPanel.Dock="Right" Content="End Process"/>
+            <DockPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="10 0 10 0"/>
+                </Style>
+            </DockPanel.Resources>
+            
+            <Button DockPanel.Dock="Right" Content="End Process" Click="Button_Click"/>
+            <Button DockPanel.Dock="Right" Content="Refresh" Click="RefreshTable"/>
         </DockPanel>
 
         <DataGrid x:Name="dataGrid" 
@@ -30,6 +36,7 @@
                   FontSize="14" 
                   ItemsSource="{Binding}" AutoGenerateColumns="False"
                   PreviewMouseDoubleClick="dataGrid_MouseDoubleClick"
+                  ScrollViewer.CanContentScroll="False"
                   >
         </DataGrid>
 
