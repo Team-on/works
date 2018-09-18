@@ -9,7 +9,7 @@ namespace dxFramework{
 
 			virtual bool Init(HWND hwnd) = 0;
 			virtual bool Draw() = 0;
-			virtual bool Close() = 0;
+			virtual void Close() = 0;
 		};
 	}
 }

@@ -42,7 +42,7 @@ namespace dxFramework{
 				Util::Log::Error("Render == nullptr. Use SetRender() before Init()");
 				return false;
 			}
-			if(render->Init(window->GetHWND())){
+			if(!render->Init(window->GetHWND())){
 				Util::Log::Error("Cant initialize render");
 				return false;
 			}
@@ -69,14 +69,13 @@ namespace dxFramework{
 		}
 
 		bool Framework::Frame(){
-			if(!window->IsActive())
-				return true;
-
 			if(window->IsExit())
 				return false;
 
-			//TODO: Може це треба перед IsActive та IsExit.
 			window->RunEvent();
+
+			if(!window->IsActive())
+				return true;
 
 			if(window->IsResize()){
 				//TODO:
