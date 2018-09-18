@@ -293,3 +293,6 @@ __pycache__/
 
 #GameMaker files
 *.gb1
+
+#D3D engine files
+3_dll/\[C++\]\ D3D\ Framework/example/HotTest/
