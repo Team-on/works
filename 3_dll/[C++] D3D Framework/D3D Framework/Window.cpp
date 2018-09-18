@@ -1,7 +1,4 @@
 #include "stdafx.h"
-//TODO: Вияснити чому неможна підключати в порядку Window -> (WindowDescription InputManager), а лише навпаки
-#include "WindowDescription.h"
-#include "InputManager.h"
 #include "Window.h"
 #include "Log.h"
 #include "macros.h"

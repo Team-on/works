@@ -16,7 +16,7 @@ namespace dxFramework{
 			void Run();
 			void Close();
 
-			void SetRender(Render::Render *render){ this->SetRender = render; }
+			void SetRender(Render::Render *render){ this->render = render; }
 			void AddInputListener(Input::InputListener *listener);
 		
 		protected:

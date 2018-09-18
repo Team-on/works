@@ -1,5 +1,6 @@
 #pragma once
-
+#include "WindowDescription.h"
+#include "InputManager.h"
 
 namespace dxFramework{
 	namespace Render{

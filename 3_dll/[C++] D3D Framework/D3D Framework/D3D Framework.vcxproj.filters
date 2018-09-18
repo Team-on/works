@@ -35,6 +35,7 @@
     <ClInclude Include="Framework.h">
       <Filter>Framework System</Filter>
     </ClInclude>
+    <ClInclude Include="D3DFramework.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
