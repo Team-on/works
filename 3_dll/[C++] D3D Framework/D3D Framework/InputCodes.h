@@ -9,7 +9,7 @@ namespace dxFramework{
 			MOUSE_END
 		};
 
-		enum eKeyCodes : char{
+		enum eKeyCodes : unsigned char{
 			KEY_LBUTTON = 0x01, // Left mouse button
 			KEY_RBUTTON = 0x02, // Right mouse button
 			KEY_CANCEL = 0x03, // Control-break processing
