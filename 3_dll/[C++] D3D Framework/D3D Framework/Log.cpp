@@ -95,11 +95,11 @@ namespace dxFramework{
 			char timer[9];
 			_strtime_s(timer, 9);
 #ifdef LOG_PRINT_CONSOLE
-			printf("%s %s: %s", timer, levtext, text);
+			printf("%s %s%s\n", timer, levtext, text);
 #endif 
 #ifdef LOG_PRINT_FILE
 			if(file){
-				fprintf(file ,"%s %s%s", timer, levtext, text);
+				fprintf(file ,"%s %s%s\n", timer, levtext, text);
 				fflush(file);
 			}
 #endif 
