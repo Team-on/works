@@ -33,9 +33,14 @@ namespace FileLocker {
 
 		void _AddFile(string filePath) {
 			Thread t = new Thread((a) => {
-				File.Open(a as string, FileMode.Open);
-				while (true) {
-					Thread.Sleep(int.MaxValue);
+				try {
+					File.Open(a as string, FileMode.Open);
+					while (true) {
+						Thread.Sleep(int.MaxValue);
+					}
+				}
+				catch(Exception ex) {
+					System.Windows.Forms.MessageBox.Show(ex.ToString());
 				}
 
 				//FileStream f = new FileStream(a as string, FileMode.Open);

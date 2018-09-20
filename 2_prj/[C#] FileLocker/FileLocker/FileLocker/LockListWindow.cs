@@ -14,6 +14,14 @@ namespace FileLocker {
 			InitializeComponent();
 			textBox.Text = Properties.Settings.Default.TextBoxStandart;
 			textBox.ForeColor = Color.Gray;
+
+			//RefilListBox();
+		}
+
+		void RefilListBox() {
+			listBox.Items.Clear();
+			foreach (var i in Properties.Settings.Default.Files)
+				listBox.Items.Add(i);
 		}
 
 		private void textBox_KeyDown(object sender, KeyEventArgs e) {
@@ -41,6 +49,10 @@ namespace FileLocker {
 				e.Cancel = true;
 				this.Hide();
 			}
+		}
+
+		private void LockListWindow_Activated(object sender, EventArgs e) {
+			RefilListBox();
 		}
 	}
 }
