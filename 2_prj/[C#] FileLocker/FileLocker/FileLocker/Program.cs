@@ -8,9 +8,12 @@ using System.Windows.Forms;
 
 namespace FileLocker {
 	static class Program {
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
+		public static Lazy<OpenFileDialog> fileDialog = new Lazy<OpenFileDialog>(() => new OpenFileDialog() { Multiselect = false });
+		public static FileLocker fileLocker = new FileLocker();
+
+		static Lazy<LockListWindow> form = new Lazy<LockListWindow>();
+
+
 		[STAThread]
 		static void Main() {
 			Application.EnableVisualStyles();
@@ -55,18 +58,17 @@ namespace FileLocker {
 		}
 
 		static void CloseApp(object Sender, EventArgs e) {
+			fileLocker.UnlockAll();
 			Application.Exit();
 		}
 
-		public static Lazy<OpenFileDialog> fileDialog = new Lazy<OpenFileDialog>(()=>new OpenFileDialog() { Multiselect = false});
-		static Lazy<LockListWindow> form = new Lazy<LockListWindow>();
 		static void ShowForm(object Sender, EventArgs e) {
 			form.Value.Show();
 		}
 
 		static void AddFile(object Sender, EventArgs e) {
 			if (fileDialog.Value.ShowDialog() == DialogResult.OK) {
-				string s = fileDialog.Value.FileName;
+				fileLocker.AddFile(fileDialog.Value.FileName);
 			}
 		}
 	}

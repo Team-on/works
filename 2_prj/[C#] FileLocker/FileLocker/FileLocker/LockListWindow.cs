@@ -31,6 +31,7 @@ namespace FileLocker {
 		}
 
 		private void buttonLock_Click(object sender, EventArgs e) {
+			Program.fileLocker.AddFile(textBox.Text);
 			textBox.Text = Properties.Settings.Default.TextBoxStandart;
 			textBox.ForeColor = Color.Gray;
 		}
