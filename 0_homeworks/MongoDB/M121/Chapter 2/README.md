@@ -2,12 +2,12 @@
 ## Lab: Using Cursor-like Stages
 Answer: 
 ```
-
+The Heat
 ```
 
 
 ## Lab - Bringing it all together
 Answer: 
 ```
-
+The Christmas Tree
 ```
