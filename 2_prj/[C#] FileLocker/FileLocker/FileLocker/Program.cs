@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace FileLocker {
 	static class Program {
@@ -37,6 +38,13 @@ namespace FileLocker {
 
 			menuItem = new MenuItem() {
 				Index = 2,
+				Text = "Add to auto launch",
+			};
+			menuItem.Click += AddToStartup;
+			contextMenu.MenuItems.Add(menuItem);
+
+			menuItem = new MenuItem() {
+				Index = 3,
 				Text = "Exit",
 			};
 			menuItem.Click += CloseApp;
@@ -70,6 +78,11 @@ namespace FileLocker {
 			if (fileDialog.Value.ShowDialog() == DialogResult.OK) {
 				fileLocker.AddFile(fileDialog.Value.FileName);
 			}
+		}
+
+		static void AddToStartup(object Sender, EventArgs e) {
+			RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			rk.SetValue("FileLocker", Application.ExecutablePath);
 		}
 	}
 }
