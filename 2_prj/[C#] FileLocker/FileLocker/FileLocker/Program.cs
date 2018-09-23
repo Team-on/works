@@ -13,10 +13,14 @@ namespace FileLocker {
 		public static FileLocker fileLocker = new FileLocker();
 
 		static Lazy<LockListWindow> form = new Lazy<LockListWindow>();
-
+		static Mutex mutex;
 
 		[STAThread]
 		static void Main() {
+			Mutex mutex = new Mutex(true, "FileLocker", out bool isNew);
+			if(!isNew) 
+				return;
+
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
