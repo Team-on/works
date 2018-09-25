@@ -2,6 +2,8 @@
 
 namespace Hameleons {
 	class Hameleon {
+		Random r = new Random();
+
 		public ConsoleColor Color { get; set; }
 		public Point Pos => pos;
 
@@ -20,13 +22,13 @@ namespace Hameleons {
 		}
 
 		public void StartLogic() {
-			SharedMutex.consoleMutex.WaitOne();
+			SharedMutex.console.WaitOne();
 			Console.CursorLeft = pos.x;
 			Console.CursorTop = pos.y;
 			Console.ForegroundColor = Color;
 			Console.BackgroundColor = ConsoleColor.Black;
 			Console.Write('@');
-			SharedMutex.consoleMutex.ReleaseMutex();
+			SharedMutex.console.ReleaseMutex();
 
 			while (true) {
 				++currCnt;
@@ -34,12 +36,11 @@ namespace Hameleons {
 
 				if (currCnt == cntToMove) {
 					currCnt = 0;
-					
-					SharedMutex.consoleMutex.WaitOne();
+
+					SharedMutex.console.WaitOne();
 
 					Console.CursorLeft = pos.x;
 					Console.CursorTop = pos.y;
-					Console.BackgroundColor = ConsoleColor.Black;
 					Console.Write(' ');
 
 					pos.x += move.x;
@@ -47,10 +48,10 @@ namespace Hameleons {
 
 					Console.CursorLeft = pos.x;
 					Console.CursorTop = pos.y;
-					Console.BackgroundColor = Color;
+					Console.ForegroundColor = Color;
 					Console.Write('@');
 
-					SharedMutex.consoleMutex.ReleaseMutex();
+					SharedMutex.console.ReleaseMutex();
 				}
 
 				if (pos.x == 80 && move.x > 0) {
@@ -75,7 +76,13 @@ namespace Hameleons {
 					System.Threading.Thread.CurrentThread.Abort();
 				}
 
-				System.Threading.Thread.Sleep(100);
+				int pause = r.Next(0, 10);
+				if(pause >= 7) 
+					System.Threading.Thread.Sleep(r.Next(0, 100));
+				else if(pause >= 3) 
+					System.Threading.Thread.Sleep(r.Next(50, 500));
+				else 
+					System.Threading.Thread.Sleep(r.Next(400, 1000));
 			}
 		}
 	}

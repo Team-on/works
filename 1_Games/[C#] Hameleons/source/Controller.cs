@@ -48,7 +48,7 @@ namespace Hameleons {
 			System.Threading.Thread.Sleep(1);
 
 			void PrintLog() {
-				Log.log.PrintLog(new Point(2, (byte)(output.rightDownCorner.y + 1)), (byte)(Console.LargestWindowHeight - 5 - output.rightDownCorner.y), (byte)(Console.LargestWindowWidth - 12));
+				Log.log.PrintLog(new Point(2, (byte)(output.rightDownCorner.y + 1)), (byte)(Console.LargestWindowHeight - 5 - output.rightDownCorner.y), (byte)(Console.LargestWindowWidth - 20));
 			}
 
 			void PrintRightTab() {

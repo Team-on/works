@@ -34,9 +34,9 @@ namespace Hameleons {
 			HameleonCommander.meatingCounter = meatingCounter;
 
 			AddHameleon(new Hameleon(ConsoleColor.Red,		new Point(10, 2),	new Point(1, 0),	1));
-			//AddHameleon(new Hameleon(ConsoleColor.Blue,		new Point(10, 3),	new Point(1, 0),	25));
-			//AddHameleon(new Hameleon(ConsoleColor.Yellow,	new Point(10, 4),	new Point(1, 0),	50));
-			//AddHameleon(new Hameleon(ConsoleColor.White,	new Point(10, 5),	new Point(1, 0),	100));
+			AddHameleon(new Hameleon(ConsoleColor.Blue,		new Point(10, 3),	new Point(1, 0),	2));
+			AddHameleon(new Hameleon(ConsoleColor.Yellow,	new Point(10, 4),	new Point(1, 0),	1));
+			AddHameleon(new Hameleon(ConsoleColor.White,	new Point(10, 5),	new Point(1, 0),	2));
 		}
 
 		void AddHameleon(Hameleon h) {

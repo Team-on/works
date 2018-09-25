@@ -30,7 +30,7 @@ namespace Hameleons {
 		public void PrintLog(Point pos, byte cnt, byte maxLength) {
 			Point startPos = pos;
 
-			SharedMutex.consoleMutex.WaitOne();
+			SharedMutex.console.WaitOne();
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.BackgroundColor = ConsoleColor.Black;
 
@@ -39,8 +39,10 @@ namespace Hameleons {
 			for (byte i = 1; i < cnt; ++i) {
 				if (pos.y - startPos.y == cnt)
 					break;
-				if (log.Count - i < 0)
+				if (log.Count - i < 0) {
+					SharedMutex.console.ReleaseMutex();
 					return;
+				}
 				if (((string)log[log.Count - i]).Length > maxLength) {
 					Console.Write(((string)log[log.Count - i]).Substring(0, maxLength));
 					Console.SetCursorPosition(pos.x, ++pos.y);
@@ -53,7 +55,7 @@ namespace Hameleons {
 				}
 				Console.SetCursorPosition(pos.x, ++pos.y);
 			}
-			SharedMutex.consoleMutex.ReleaseMutex();
+			SharedMutex.console.ReleaseMutex();
 		}
 
 		public void Clear() {

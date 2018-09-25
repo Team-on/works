@@ -24,7 +24,7 @@ namespace Hameleons {
 		}
 
 		public void InitOutput(string[] menuPuncts) {
-			SharedMutex.consoleMutex.WaitOne();
+			SharedMutex.console.WaitOne();
 			Console.SetWindowSize(Console.LargestWindowWidth - 2, Console.LargestWindowHeight - 2);
 			Console.CursorVisible = false;
 
@@ -34,7 +34,7 @@ namespace Hameleons {
 			InitStatus();
 			InitPeregorodka();
 			InitMenu();
-			SharedMutex.consoleMutex.ReleaseMutex();
+			SharedMutex.console.ReleaseMutex();
 
 			void InitLog() {
 				string str = "║" + new string(' ', Console.LargestWindowWidth - 7) + "║";
@@ -97,12 +97,13 @@ namespace Hameleons {
 
 		void PrintMenuPunctArrow() {
 			if (menuChoose != menuChoosePrevPos) {
-				SharedMutex.consoleMutex.WaitOne();
+				SharedMutex.console.WaitOne();
 				Console.SetCursorPosition(Console.LargestWindowWidth - 19, leftUpCorner.y + 1 + menuChoosePrevPos);
 				Console.Write(' ');
 				menuChoosePrevPos = menuChoose;
 				Console.SetCursorPosition(Console.LargestWindowWidth - 19, leftUpCorner.y + 1 + menuChoose);
 				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.BackgroundColor = ConsoleColor.Black;
 				Console.Write('→');
 
 				string space = new string(' ', Console.LargestWindowWidth - rightDownCorner.x - 22);
@@ -110,17 +111,18 @@ namespace Hameleons {
 					Console.SetCursorPosition(rightDownCorner.x + 2, i);
 					Console.WriteLine(space);
 				}
-				SharedMutex.consoleMutex.ReleaseMutex();
+				SharedMutex.console.ReleaseMutex();
 			}
 		}
 
 		string[] text;
 		int height;
 		void PrintTextInFrame(string textToPrint) {
-			SharedMutex.consoleMutex.WaitOne();
+			SharedMutex.console.WaitOne();
 
 			ConsoleColor prev = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.White;
+			Console.BackgroundColor = ConsoleColor.Black;
 
 			if(textToPrint != null)
 				text = textToPrint.Split('\n');
@@ -136,7 +138,7 @@ namespace Hameleons {
 			}
 
 			Console.ForegroundColor = prev;
-			SharedMutex.consoleMutex.ReleaseMutex();
+			SharedMutex.console.ReleaseMutex();
 		}
 
 		public void MoveArrowDown() {
