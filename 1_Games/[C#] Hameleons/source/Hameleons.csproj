@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5150E60F-44BF-4864-8F79-ADAC5CFF3F34}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CarParking</RootNamespace>
-    <AssemblyName>CarParking</AssemblyName>
+    <RootNamespace>Hameleons</RootNamespace>
+    <AssemblyName>Hameleons</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -47,6 +47,7 @@
     <Compile Include="Controller.cs" />
     <Compile Include="Input\InputField.cs" />
     <Compile Include="Output\Output.cs" />
+    <Compile Include="Output\SharedMutex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

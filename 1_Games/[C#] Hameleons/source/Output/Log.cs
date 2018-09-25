@@ -29,6 +29,8 @@ namespace Hameleons {
 
 		public void PrintLog(Point pos, byte cnt, byte maxLength) {
 			Point startPos = pos;
+
+			SharedMutex.consoleMutex.WaitOne();
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.BackgroundColor = ConsoleColor.Black;
 
@@ -51,6 +53,7 @@ namespace Hameleons {
 				}
 				Console.SetCursorPosition(pos.x, ++pos.y);
 			}
+			SharedMutex.consoleMutex.ReleaseMutex();
 		}
 
 		public void Clear() {

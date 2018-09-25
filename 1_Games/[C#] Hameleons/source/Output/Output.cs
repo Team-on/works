@@ -24,6 +24,7 @@ namespace Hameleons {
 		}
 
 		public void InitOutput(string[] menuPuncts) {
+			SharedMutex.consoleMutex.WaitOne();
 			Console.SetWindowSize(Console.LargestWindowWidth - 2, Console.LargestWindowHeight - 2);
 			Console.CursorVisible = false;
 
@@ -33,6 +34,7 @@ namespace Hameleons {
 			InitStatus();
 			InitPeregorodka();
 			InitMenu();
+			SharedMutex.consoleMutex.ReleaseMutex();
 
 			void InitLog() {
 				string str = "║" + new string(' ', Console.LargestWindowWidth - 7) + "║";
@@ -95,6 +97,7 @@ namespace Hameleons {
 
 		void PrintMenuPunctArrow() {
 			if (menuChoose != menuChoosePrevPos) {
+				SharedMutex.consoleMutex.WaitOne();
 				Console.SetCursorPosition(Console.LargestWindowWidth - 19, leftUpCorner.y + 1 + menuChoosePrevPos);
 				Console.Write(' ');
 				menuChoosePrevPos = menuChoose;
@@ -107,12 +110,15 @@ namespace Hameleons {
 					Console.SetCursorPosition(rightDownCorner.x + 2, i);
 					Console.WriteLine(space);
 				}
+				SharedMutex.consoleMutex.ReleaseMutex();
 			}
 		}
 
 		string[] text;
 		int height;
 		void PrintTextInFrame(string textToPrint) {
+			SharedMutex.consoleMutex.WaitOne();
+
 			ConsoleColor prev = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.White;
 
@@ -130,6 +136,7 @@ namespace Hameleons {
 			}
 
 			Console.ForegroundColor = prev;
+			SharedMutex.consoleMutex.ReleaseMutex();
 		}
 
 		public void MoveArrowDown() {
