@@ -18,7 +18,7 @@ namespace Hameleons {
 			menuChoosePrevPos = 1;
 
 			leftUpCorner = new Point(0, 0);
-			rightDownCorner = new Point(51, 31);
+			rightDownCorner = new Point(100, 41);
 
 			height = rightDownCorner.y - 2 - leftUpCorner.y;
 		}
@@ -168,9 +168,10 @@ namespace Hameleons {
 	}
 
 	class Point{
-		public byte x, y;
+		public short x, y;
 
 		public Point() : this(0,0) { }
 		public Point(byte X, byte Y) { x = X; y = Y; }
+		public Point(short X, short Y) { x = X; y = Y; }
 	}
 }

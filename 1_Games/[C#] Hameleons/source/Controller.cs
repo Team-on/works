@@ -7,7 +7,8 @@ using static Hameleons.Output;
 namespace Hameleons {
 	sealed class Controller {
 		bool isRunning = true;
-		bool needNewText = true;
+		//bool needNewText = true;
+		HameleonCommander hameleonCommander = new HameleonCommander();
 
 		public void Launch() {
 			Init();
@@ -17,8 +18,9 @@ namespace Hameleons {
 
 		void Init() {
 			InitConsole();
-
 			InitOutput();
+
+			hameleonCommander.Start(10);
 
 			void InitConsole() {
 				Console.Title = "Hameleons";
@@ -50,10 +52,27 @@ namespace Hameleons {
 			}
 
 			void PrintRightTab() {
-				if (needNewText) {
-					needNewText = false;
+				if (/*needNewText*/true) {
+					//needNewText = false;
 
 					string str = null;
+					switch (output.GetMenuChoose()) {
+						case 0:
+							str = $"Remaing meatings: {HameleonCommander.MeatingCounter}";
+							break;
+						case 1:
+							str = "Text 1";
+							break;
+						case 2:
+							str = "Text 2";
+							break;
+						case 3:
+							str = "Text 3";
+							break;
+						case 4:
+							str = "Text 4";
+							break;
+					}
 					output.Print(str);
 				}
 			}
@@ -69,11 +88,11 @@ namespace Hameleons {
 				switch (key.Key) {
 				case ConsoleKey.DownArrow:
 				output.MoveArrowDown();
-				needNewText = true;
+				//needNewText = true;
 				break;
 				case ConsoleKey.UpArrow:
 				output.MoveArrowUp();
-				needNewText = true;
+				//needNewText = true;
 				break;
 
 				case ConsoleKey.LeftArrow:

@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Directions.cs" />
+    <Compile Include="Logic\Hameleon.cs" />
+    <Compile Include="Logic\HameleonCommander.cs" />
     <Compile Include="Output\Log.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Input\InputField.cs" />
