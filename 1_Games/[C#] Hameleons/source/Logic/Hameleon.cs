@@ -61,9 +61,9 @@ namespace Hameleons {
 					//HameleonCommander.meatingSpot.WaitOne();
 
 					//Wait another hameleon and change color
-					--HameleonCommander.MeatingCounter;
+					//--HameleonCommander.MeatingCounter;
 
-					//HameleonCommander.meatingSpot.ReleaseMutex();
+					//HameleonCommander.meatingSpot.Release();
 				}
 
 				if(pos.x == 10 && move.x < 0) {

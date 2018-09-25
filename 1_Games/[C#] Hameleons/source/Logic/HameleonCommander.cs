@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Hameleons {
 	class HameleonCommander {
-		public static Mutex meatingSpot;
+		public static Semaphore meatingSpot;
 
 		static Mutex meatingMutex;
 		static ushort meatingCounter;
@@ -25,7 +25,7 @@ namespace Hameleons {
 		}
 
 		static HameleonCommander() {
-			meatingSpot = new Mutex();
+			meatingSpot = new Semaphore(2, 2);
 			meatingMutex = new Mutex();
 			meatingCounter = 0;
 		}
