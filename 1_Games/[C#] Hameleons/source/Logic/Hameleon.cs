@@ -32,7 +32,7 @@ namespace Hameleons {
 
 			while (true) {
 				++currCnt;
-				Log.log.LogNewLine("Logic! " + Color.ToString() + "\t\t" + currCnt.ToString() + "/" + cntToMove.ToString());
+				//Log.log.LogNewLine("Logic! " + Color.ToString() + "\t\t" + currCnt.ToString() + "/" + cntToMove.ToString());
 
 				if (currCnt == cntToMove) {
 					currCnt = 0;
@@ -58,15 +58,57 @@ namespace Hameleons {
 					move.x = (short)-move.x;
 					move.y = (short)-move.y;
 
-					//HameleonCommander.meatingSpot.WaitOne();
+					if (HameleonCommander.meatingSpot1 != null) {
+						HameleonCommander.meatingSpot2 = this;
+					}
+					else {
+						HameleonCommander.meatingSpot1 = this;
+						while (HameleonCommander.meatingSpot2 == null);
 
-					//Wait another hameleon and change color
-					//--HameleonCommander.MeatingCounter;
+						ConsoleColor c1 = HameleonCommander.meatingSpot1.Color, c2 = HameleonCommander.meatingSpot2.Color;
+						/*
+							Blue
+							Red
+							White
+							Yellow
+						 */
+						if (c1.ToString()[0] > c2.ToString()[0]) {
+							var tmp = c2;
+							c2 = c1;
+							c1 = tmp;
+						}
+						if (c1 == ConsoleColor.Blue && c2 == ConsoleColor.Blue)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Red;
+						else if (c1 == ConsoleColor.Blue && c2 == ConsoleColor.Red)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.White;
+						else if(c1 == ConsoleColor.Blue && c2 == ConsoleColor.White)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Yellow;
+						else if(c1 == ConsoleColor.Blue && c2 == ConsoleColor.Yellow)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Yellow;
 
-					//HameleonCommander.meatingSpot.Release();
+						else if (c1 == ConsoleColor.Red && c2 == ConsoleColor.Red)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.White;
+						else if (c1 == ConsoleColor.Red && c2 == ConsoleColor.White)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Yellow;
+						else if (c1 == ConsoleColor.Red && c2 == ConsoleColor.Yellow)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Blue;
+
+						else if (c1 == ConsoleColor.White && c2 == ConsoleColor.White)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Yellow;
+						else if (c1 == ConsoleColor.White && c2 == ConsoleColor.Yellow)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Red;
+
+						else if (c1 == ConsoleColor.Yellow && c2 == ConsoleColor.Yellow)
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Blue;
+						else
+							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Green;/*Bug color*/
+
+						HameleonCommander.meatingSpot1 = HameleonCommander.meatingSpot2 = null;
+						--HameleonCommander.MeatingCounter;
+					}
 				}
 
-				if(pos.x == 10 && move.x < 0) {
+				if (pos.x == 10 && move.x < 0) {
 					move.x = (short)-move.x;
 					move.y = (short)-move.y;
 				}
@@ -76,12 +118,14 @@ namespace Hameleons {
 					System.Threading.Thread.CurrentThread.Abort();
 				}
 
-				int pause = r.Next(0, 10);
-				if(pause >= 7) 
+				int pause = r.Next(0, 100);
+				if (pause >= 90)
+					;
+				else if (pause >= 50)
 					System.Threading.Thread.Sleep(r.Next(0, 100));
-				else if(pause >= 3) 
-					System.Threading.Thread.Sleep(r.Next(50, 500));
-				else 
+				else if (pause >= 20)
+					System.Threading.Thread.Sleep(r.Next(50, 400));
+				else
 					System.Threading.Thread.Sleep(r.Next(400, 1000));
 			}
 		}

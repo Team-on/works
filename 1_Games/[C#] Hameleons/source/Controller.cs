@@ -29,10 +29,6 @@ namespace Hameleons {
 			void InitOutput() {
 				output.InitOutput(new string[]{
 					"All info",
-					"Hameleon 1",
-					"Hameleon 2",
-					"Hameleon 3",
-					"Hameleon 4",
 				});
 			}
 		}
