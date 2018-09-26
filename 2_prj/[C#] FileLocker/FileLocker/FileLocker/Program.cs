@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+
 using Microsoft.Win32;
 
 namespace FileLocker {
@@ -18,7 +19,7 @@ namespace FileLocker {
 		[STAThread]
 		static void Main() {
 			Mutex mutex = new Mutex(true, "FileLocker", out bool isNew);
-			if(!isNew) 
+			if (!isNew)
 				return;
 
 			Application.EnableVisualStyles();
@@ -63,7 +64,7 @@ namespace FileLocker {
 			};
 			notifyIcon.DoubleClick += ShowForm;
 
-
+			Hooker.SetHook();
 			Application.Run();
 
 			//notifyIcon.Visible = false;
@@ -71,6 +72,7 @@ namespace FileLocker {
 
 		static void CloseApp(object Sender, EventArgs e) {
 			fileLocker.UnlockAll();
+			Hooker.UnsetHook();
 			Application.Exit();
 		}
 

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileLocker.cs" />
+    <Compile Include="Hooker.cs" />
     <Compile Include="LockListWindow.cs">
       <SubType>Form</SubType>
     </Compile>
