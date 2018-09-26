@@ -8,7 +8,9 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace FileLocker {
-	class Hooker {
+	static class Hooker {
+		static Rect buttonRect = new Rect();
+
 		enum HookType : sbyte {
 			WH_MIN = (-1),
 			WH_MSGFILTER = (-1),
@@ -27,6 +29,15 @@ namespace FileLocker {
 			WH_CALLWNDPROCRET = 12,
 			WH_KEYBOARD_LL = 13,
 			WH_MOUSE_LL = 14
+		}
+
+		private enum MouseMessages {
+			WM_LBUTTONDOWN = 0x0201,
+			WM_LBUTTONUP = 0x0202,
+			WM_MOUSEMOVE = 0x0200,
+			WM_MOUSEWHEEL = 0x020A,
+			WM_RBUTTONDOWN = 0x0204,
+			WM_RBUTTONUP = 0x0205
 		}
 
 		private const UInt32 WM_CLOSE = 0x0010;
@@ -49,7 +60,7 @@ namespace FileLocker {
 
 			EnumChildWindows(hWnd, EnumWindow, hWnd);
 
-			//hook = SetHook(HookCallback);
+			hook = SetHook(HookCallback);
 		}
 
 		public static void UnsetHook() {
@@ -58,15 +69,22 @@ namespace FileLocker {
 
 		private static IntPtr SetHook(HookProc proc) {
 			using (ProcessModule curModule = Process.GetCurrentProcess().MainModule) {
-				return SetWindowsHookEx((int)HookType.WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
+				return SetWindowsHookEx((int)HookType.WH_MOUSE_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
 			}
 		}
 
 		private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
-			//if ((nCode >= 0) && (wParam == (IntPtr)WM_KEYDOWN)) {
-			Console.WriteLine("blocked!");
-			return (IntPtr)1;
-			//}
+			if (nCode >= 0 && MouseMessages.WM_LBUTTONDOWN == (MouseMessages)wParam) {
+				MSLLHOOKSTRUCT hookStruct = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
+				var p = hookStruct.pt;
+				if (
+					buttonRect.Left <= p.x && p.x <= buttonRect.Right &&
+					buttonRect.Top <= p.y && p.y <= buttonRect.Bottom
+					) {
+					Console.WriteLine("blocked!");
+					return (IntPtr)1;
+				}
+			}
 			return CallNextHookEx(hook, nCode, wParam, lParam);
 		}
 
@@ -80,11 +98,42 @@ namespace FileLocker {
 				//SetParent(hWnd, hWindow);
 				//SetWindowPos(hWnd, hWnd, 10, 10, 20, 20, NULL);
 
-				SetParent(hWnd, IntPtr.Zero);
+				GetWindowRect(hWnd, ref buttonRect);
+				Console.WriteLine($"{buttonRect.Left} {buttonRect.Top} {buttonRect.Right} {buttonRect.Bottom}");
+
+				//SetParent(hWnd, IntPtr.Zero);
 			}
 
 			return true;
 		}
+
+		[StructLayout(LayoutKind.Sequential)]
+		public struct Rect {
+			public int Left;        // x position of upper-left corner
+			public int Top;         // y position of upper-left corner
+			public int Right;       // x position of lower-right corner
+			public int Bottom;      // y position of lower-right corner
+		}
+
+		[StructLayout(LayoutKind.Sequential)]
+
+		private struct POINT {
+			public int x;
+			public int y;
+		}
+
+
+		[StructLayout(LayoutKind.Sequential)]
+		private struct MSLLHOOKSTRUCT {
+			public POINT pt;
+			public uint mouseData;
+			public uint flags;
+			public uint time;
+			public IntPtr dwExtraInfo;
+		}
+
+		[DllImport("user32.dll")]
+		public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
 
 		[DllImport("user32")]
 		[return: MarshalAs(UnmanagedType.Bool)]
