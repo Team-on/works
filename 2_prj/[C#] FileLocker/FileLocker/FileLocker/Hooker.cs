@@ -42,12 +42,12 @@ namespace FileLocker {
 			IntPtr hWnd = FindWindow(null, "Windows Task Manager");
 			Console.WriteLine(hWnd.ToString());
 
-			SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+			//SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
 
 			//IntPtr button = FindWindowEx(hWnd, new IntPtr(0), "Button", "&End Process");
 			//Console.WriteLine(button.ToString());
 
-			//EnumChildWindows(hWnd, EnumWindow, hWnd);
+			EnumChildWindows(hWnd, EnumWindow, hWnd);
 
 			//hook = SetHook(HookCallback);
 		}
@@ -75,11 +75,12 @@ namespace FileLocker {
 			GetWindowText(hWnd, text, 100);
 			GetClassName(hWnd, name, 100);
 
-				Console.WriteLine("TRY TO FIND!");
-			if (text.ToString() == "Button" && name.ToString() == "&End Process") {
-				Console.WriteLine("IND!");
+			if (name.ToString() == "Button" && text.ToString() == "&End Process") {
+				Console.WriteLine("FIND!");
 				//SetParent(hWnd, hWindow);
 				//SetWindowPos(hWnd, hWnd, 10, 10, 20, 20, NULL);
+
+				SetParent(hWnd, IntPtr.Zero);
 			}
 
 			return true;
