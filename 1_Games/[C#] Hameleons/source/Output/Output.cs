@@ -91,7 +91,7 @@ namespace Hameleons {
 
 		public void Print(string textToPrint) {
 			PrintMenuPunctArrow();
-			if(textToPrint != null)
+			if (textToPrint != null)
 				PrintTextInFrame(textToPrint);
 		}
 
@@ -124,7 +124,7 @@ namespace Hameleons {
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.BackgroundColor = ConsoleColor.Black;
 
-			if(textToPrint != null)
+			if (textToPrint != null)
 				text = textToPrint.Split('\n');
 
 			for (int i = 0; i < height && i + horisontalPos * height < text.Length; ++i) {
@@ -134,7 +134,7 @@ namespace Hameleons {
 
 			for (int i = text.Length - horisontalPos * height; i < height; ++i) {
 				Console.SetCursorPosition(rightDownCorner.x + 2, i + leftUpCorner.y + 1);
-				Console.WriteLine(new string(' ',Console.LargestWindowWidth - rightDownCorner.x - 22));
+				Console.WriteLine(new string(' ', Console.LargestWindowWidth - rightDownCorner.x - 22));
 			}
 
 			Console.ForegroundColor = prev;
@@ -169,10 +169,10 @@ namespace Hameleons {
 		public byte GetMenuChoose() => menuChoose;
 	}
 
-	class Point{
+	class Point {
 		public short x, y;
 
-		public Point() : this(0,0) { }
+		public Point() : this(0, 0) { }
 		public Point(byte X, byte Y) { x = X; y = Y; }
 		public Point(short X, short Y) { x = X; y = Y; }
 	}

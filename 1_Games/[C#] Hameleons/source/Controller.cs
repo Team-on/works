@@ -20,7 +20,7 @@ namespace Hameleons {
 			InitConsole();
 			InitOutput();
 
-			hameleonCommander.Start(10);
+			hameleonCommander.Start(3);
 
 			void InitConsole() {
 				Console.Title = "Hameleons";

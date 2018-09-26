@@ -63,7 +63,7 @@ namespace Hameleons {
 					}
 					else {
 						HameleonCommander.meatingSpot1 = this;
-						while (HameleonCommander.meatingSpot2 == null);
+						while (HameleonCommander.meatingSpot2 == null) ;
 
 						ConsoleColor c1 = HameleonCommander.meatingSpot1.Color, c2 = HameleonCommander.meatingSpot2.Color;
 						/*
@@ -81,9 +81,9 @@ namespace Hameleons {
 							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Red;
 						else if (c1 == ConsoleColor.Blue && c2 == ConsoleColor.Red)
 							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.White;
-						else if(c1 == ConsoleColor.Blue && c2 == ConsoleColor.White)
+						else if (c1 == ConsoleColor.Blue && c2 == ConsoleColor.White)
 							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Yellow;
-						else if(c1 == ConsoleColor.Blue && c2 == ConsoleColor.Yellow)
+						else if (c1 == ConsoleColor.Blue && c2 == ConsoleColor.Yellow)
 							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Yellow;
 
 						else if (c1 == ConsoleColor.Red && c2 == ConsoleColor.Red)
@@ -103,6 +103,15 @@ namespace Hameleons {
 						else
 							HameleonCommander.meatingSpot1.Color = HameleonCommander.meatingSpot2.Color = ConsoleColor.Green;/*Bug color*/
 
+						SharedMutex.console.WaitOne();
+						foreach (var i in new[] { HameleonCommander.meatingSpot1, HameleonCommander.meatingSpot2 }) {
+							Console.CursorLeft = i.pos.x;
+							Console.CursorTop = i.pos.y;
+							Console.ForegroundColor = i.Color;
+							Console.Write('@');
+						}
+						SharedMutex.console.ReleaseMutex();
+
 						HameleonCommander.meatingSpot1 = HameleonCommander.meatingSpot2 = null;
 						--HameleonCommander.MeatingCounter;
 					}
@@ -118,15 +127,16 @@ namespace Hameleons {
 					System.Threading.Thread.CurrentThread.Abort();
 				}
 
-				int pause = r.Next(0, 100);
-				if (pause >= 90)
-					;
-				else if (pause >= 50)
-					System.Threading.Thread.Sleep(r.Next(0, 100));
-				else if (pause >= 20)
-					System.Threading.Thread.Sleep(r.Next(50, 400));
-				else
-					System.Threading.Thread.Sleep(r.Next(400, 1000));
+
+				//int pause = r.Next(0, 100);
+				//if (pause >= 20)
+				System.Threading.Thread.Sleep(r.Next(0, 100));
+				//else //if (pause >= 50)
+				//	System.Threading.Thread.Sleep(r.Next(100, 300));
+				//else if (pause >= 20)
+				//	System.Threading.Thread.Sleep(r.Next(50, 400));
+				//else
+				//	System.Threading.Thread.Sleep(r.Next(400, 1000));
 			}
 		}
 	}
