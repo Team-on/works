@@ -9,3 +9,19 @@ Wi-Fi 802.11ac
 
 Фарба для принтера
 NVIDIA GeForce GTX 1050
+
+
+https://rozetka.com.ua/ua/notebooks/c80004/filter/processor=intel_core_i7;seriya-diskretnoi-videokarti=geforce-gtx-1050,geforce-gtx-1050-ti,geforce-mx150;sort=cheap;20861=6308,6310;20863=10-12-gb,48089;20881=6283;20882=6317,27975;28042=27978;72566=305312,1167447;73143=326613/
+
+14 https://rozetka.com.ua/ua/hp_250_g6_2rr95es/p24753351/#tab=characteristics 			 - i7-7500U  + 8 ГБ  + HD Graphics 620 + HDD 1ТБ
+15 https://rozetka.com.ua/ua/asus_x555qg_dm206d/p31276247/#tab=characteristics			 - A12-9720P + 12 ГБ + Radeon R5 M430 + HDD 1ТБ
+16 https://rozetka.com.ua/ua/asus_r540up_dm216d/p44431008/characteristics 			 - i5-7200U  + 12 ГБ + Radeon R5 M420 + HDD 1ТБ
+
+21 https://rozetka.com.ua/ua/lenovo_81bg00v1ra/p44837968/#tab=characteristics			 - i5-8250U  + 16 ГБ + MX150   + БЕЗ HDD + SSD 256 ГБ 
+23 https://rozetka.com.ua/ua/lenovo_81bg00v4ra/p44841112/#tab=characteristics 			 - i7-8550U  + 16 ГБ + MX150   + БЕЗ HDD + SSD 256 ГБ 
+28 https://rozetka.com.ua/ua/lenovo_81bj005mra/p38275624/#tab=characteristics 			 - i7-8550U  + 16 ГБ + MX150   + HDD 1ТБ 		більший екран
+29 https://rozetka.com.ua/ua/lenovo_81bj005hra/p38255680/#tab=characteristics 			 - i7-8550U  + 16 ГБ + MX150   + HDD 1ТБ + SSD 128 	більший екран
+
+31 https://rozetka.com.ua/ua/lenovo_ideapad_520_15ikb_81bf00l3ra/p46270024/#tab=characteristics  - i7-8550U  + 16 ГБ + MX150   + HDD 1ТБ + SSD 256 ГБ
+31 https://rozetka.com.ua/ua/lenovo_ideapad_330_17ikbr_81dm007jra/p46268848/#tab=characteristics - i7-8550U  + 16 ГБ + MX150   + HDD 1ТБ + SSD 128 ГБ	більший екран
+32 https://rozetka.com.ua/ua/lenovo_legion_y530_15ich_81fv00lvra/p46078152/#tab=characteristics  - i7-8750H  + 16 ГБ + GTX1050 + HDD 1ТБ 		- топчик
