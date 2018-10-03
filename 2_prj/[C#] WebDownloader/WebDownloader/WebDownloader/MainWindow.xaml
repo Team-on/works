@@ -11,6 +11,8 @@
 		Loaded="Window_Loaded"
 		>
     <Grid>
-        
+		<ListBox x:Name="listBox">
+			
+		</ListBox>
     </Grid>
 </Window>
