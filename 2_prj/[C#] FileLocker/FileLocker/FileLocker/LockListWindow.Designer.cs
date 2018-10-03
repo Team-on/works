@@ -28,11 +28,21 @@
 			this.buttonMore = new System.Windows.Forms.Button();
 			this.textBox = new System.Windows.Forms.TextBox();
 			this.listBox = new System.Windows.Forms.ListBox();
+			this.buttonRemove = new System.Windows.Forms.Button();
+			this.buttonUnlock = new System.Windows.Forms.Button();
+			this.buttonLockback = new System.Windows.Forms.Button();
+			this.buttonLockAll = new System.Windows.Forms.Button();
+			this.buttonUnlockAll = new System.Windows.Forms.Button();
 			this.groupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox
 			// 
+			this.groupBox.Controls.Add(this.buttonUnlockAll);
+			this.groupBox.Controls.Add(this.buttonLockAll);
+			this.groupBox.Controls.Add(this.buttonUnlock);
+			this.groupBox.Controls.Add(this.buttonLockback);
+			this.groupBox.Controls.Add(this.buttonRemove);
 			this.groupBox.Controls.Add(this.buttonLock);
 			this.groupBox.Controls.Add(this.buttonMore);
 			this.groupBox.Controls.Add(this.textBox);
@@ -83,6 +93,56 @@
 			this.listBox.Size = new System.Drawing.Size(389, 222);
 			this.listBox.TabIndex = 5;
 			// 
+			// buttonRemove
+			// 
+			this.buttonRemove.Location = new System.Drawing.Point(310, 19);
+			this.buttonRemove.Name = "buttonRemove";
+			this.buttonRemove.Size = new System.Drawing.Size(67, 22);
+			this.buttonRemove.TabIndex = 2;
+			this.buttonRemove.Text = "Remove";
+			this.buttonRemove.UseVisualStyleBackColor = true;
+			this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+			// 
+			// buttonUnlock
+			// 
+			this.buttonUnlock.Location = new System.Drawing.Point(233, 19);
+			this.buttonUnlock.Name = "buttonUnlock";
+			this.buttonUnlock.Size = new System.Drawing.Size(67, 22);
+			this.buttonUnlock.TabIndex = 2;
+			this.buttonUnlock.Text = "Unlock";
+			this.buttonUnlock.UseVisualStyleBackColor = true;
+			this.buttonUnlock.Click += new System.EventHandler(this.buttonUnlock_Click);
+			// 
+			// buttonLockback
+			// 
+			this.buttonLockback.Location = new System.Drawing.Point(160, 19);
+			this.buttonLockback.Name = "buttonLockback";
+			this.buttonLockback.Size = new System.Drawing.Size(67, 22);
+			this.buttonLockback.TabIndex = 2;
+			this.buttonLockback.Text = "Lockback";
+			this.buttonLockback.UseVisualStyleBackColor = true;
+			this.buttonLockback.Click += new System.EventHandler(this.buttonLockback_Click);
+			// 
+			// buttonLockAll
+			// 
+			this.buttonLockAll.Location = new System.Drawing.Point(14, 19);
+			this.buttonLockAll.Name = "buttonLockAll";
+			this.buttonLockAll.Size = new System.Drawing.Size(67, 22);
+			this.buttonLockAll.TabIndex = 2;
+			this.buttonLockAll.Text = "Lock all";
+			this.buttonLockAll.UseVisualStyleBackColor = true;
+			this.buttonLockAll.Click += new System.EventHandler(this.buttonLockAll_Click);
+			// 
+			// buttonUnlockAll
+			// 
+			this.buttonUnlockAll.Location = new System.Drawing.Point(87, 19);
+			this.buttonUnlockAll.Name = "buttonUnlockAll";
+			this.buttonUnlockAll.Size = new System.Drawing.Size(67, 22);
+			this.buttonUnlockAll.TabIndex = 2;
+			this.buttonUnlockAll.Text = "Unlock all";
+			this.buttonUnlockAll.UseVisualStyleBackColor = true;
+			this.buttonUnlockAll.Click += new System.EventHandler(this.buttonUnlockAll_Click);
+			// 
 			// LockListWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -106,5 +166,10 @@
 		private System.Windows.Forms.Button buttonMore;
 		private System.Windows.Forms.TextBox textBox;
 		private System.Windows.Forms.ListBox listBox;
+		private System.Windows.Forms.Button buttonUnlock;
+		private System.Windows.Forms.Button buttonLockback;
+		private System.Windows.Forms.Button buttonRemove;
+		private System.Windows.Forms.Button buttonUnlockAll;
+		private System.Windows.Forms.Button buttonLockAll;
 	}
 }

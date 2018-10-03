@@ -77,7 +77,8 @@ namespace FileLocker {
 
 		public static void UnsetHook() {
 			//UnhookWindowsHookEx(hook);
-			deleter.Abort();
+			if(deleter?.IsAlive ?? false)
+				deleter.Abort();
 		}
 
 		private static IntPtr SetHook(HookProc proc) {
