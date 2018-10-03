@@ -9,6 +9,8 @@ using System.Runtime.InteropServices;
 
 namespace FileLocker {
 	static class Hooker {
+		static IntPtr taskManagerHwnd = IntPtr.Zero;
+		static Thread deleter;
 		static Rect buttonRect = new Rect();
 
 		enum HookType : sbyte {
@@ -48,23 +50,34 @@ namespace FileLocker {
 		private static IntPtr hook = IntPtr.Zero;
 
 		public static void SetHook() {
-			AllocConsole();
+			//AllocConsole();
 
-			IntPtr hWnd = FindWindow(null, "Windows Task Manager");
-			Console.WriteLine(hWnd.ToString());
+			//Console.WriteLine(hWnd.ToString());
 
 			//SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
 
 			//IntPtr button = FindWindowEx(hWnd, new IntPtr(0), "Button", "&End Process");
 			//Console.WriteLine(button.ToString());
 
-			EnumChildWindows(hWnd, EnumWindow, hWnd);
-
-			hook = SetHook(HookCallback);
+			var t = new System.Timers.Timer() {
+				Interval = 1000,
+				AutoReset = true,
+			};
+			t.Elapsed += (a, b)=> {
+				IntPtr hWnd = FindWindow(null, "Windows Task Manager");
+				if (taskManagerHwnd != hWnd) {
+					taskManagerHwnd = hWnd;
+					if (taskManagerHwnd != IntPtr.Zero)
+						EnumChildWindows(hWnd, EnumWindow, hWnd);
+				}
+			};
+			t.Start();
+			//hook = SetHook(HookCallback);
 		}
 
 		public static void UnsetHook() {
-			UnhookWindowsHookEx(hook);
+			//UnhookWindowsHookEx(hook);
+			deleter.Abort();
 		}
 
 		private static IntPtr SetHook(HookProc proc) {
@@ -93,36 +106,53 @@ namespace FileLocker {
 			GetWindowText(hWnd, text, 100);
 			GetClassName(hWnd, name, 100);
 
-			if (name.ToString() == "Button" && text.ToString() == "&End Process") {
-				Console.WriteLine("FIND! Button");
-				//SetParent(hWnd, hWindow);
-				//SetWindowPos(hWnd, hWnd, 10, 10, 20, 20, NULL);
+			//if (name.ToString() == "Button" && text.ToString() == "&End Process") {
+			//	Console.WriteLine("FIND! Button");
+			//	//SetParent(hWnd, hWindow);
+			//	//SetWindowPos(hWnd, hWnd, 10, 10, 20, 20, NULL);
 
-				GetWindowRect(hWnd, ref buttonRect);
-				Console.WriteLine($"{buttonRect.Left} {buttonRect.Top} {buttonRect.Right} {buttonRect.Bottom}");
+			//	GetWindowRect(hWnd, ref buttonRect);
+			//	Console.WriteLine($"{buttonRect.Left} {buttonRect.Top} {buttonRect.Right} {buttonRect.Bottom}");
 
-                //DestroyWindow(hWnd);
-            }
+   //             //DestroyWindow(hWnd);
+   //         }
 
             if (name.ToString() == "SysListView32" && text.ToString() == "Processes")
             {
                 Console.WriteLine($"find! SysListView32");
 
-                // получаем первую выделенную строку
-                //int nSelectedItem = ListView_GetNextItem(hListView, -1, );
-                // получаем текст из 3-го столбца выделенной строки
-                //TCHAR szText[100];
-                //int nSubItem = 2; // нумерация с нуля
-                // ListView_GetItemText(hListView, nSelectedItem, nSubItem, szText, 100);
+				// получаем первую выделенную строку
+				//int nSelectedItem = ListView_GetNextItem(hListView, -1, );
+				// получаем текст из 3-го столбца выделенной строки
+				//TCHAR szText[100];
+				//int nSubItem = 2; // нумерация с нуля
+				// ListView_GetItemText(hListView, nSelectedItem, nSubItem, szText, 100);
 
-                //#define ListView_GetNextItem(hwnd, i, flags) \
-               // (int)SNDMSG((hwnd), LVM_GETNEXTITEM, (WPARAM)(int)(i), MAKELPARAM((flags), 0))
+				//#define ListView_GetNextItem(hwnd, i, flags) \
+				// (int)SNDMSG((hwnd), LVM_GETNEXTITEM, (WPARAM)(int)(i), MAKELPARAM((flags), 0))
 
-                int item = SendMessage(hWnd, 0x1000 + 12, (IntPtr)(-1), (IntPtr)(2));
-                int rez = item;
-                Console.WriteLine("rez: " + rez.ToString());
+				deleter?.Abort();
+				deleter = new Thread(() => {
+					try {
+						int item;
+						IntPtr internalWnd = hWnd;
+						do {
+							while ((item = SendMessage(internalWnd, 0/*0x1000 + 12*/, (IntPtr)(-1), (IntPtr)(2))) != -1) {
+								//Console.WriteLine("Find: " + item.ToString());
+								item = SendMessage(internalWnd, 0x1000 + 8, (IntPtr)(item), (IntPtr)(0));
+								//Console.WriteLine("Delete: " + item.ToString());
+								System.Threading.Thread.Sleep(2);
+							}
+							System.Threading.Thread.Sleep(100);
+						} while (true);
+					}
+					catch(Exception ex) {
 
-                /*
+					}
+				});
+				deleter.Start();
+
+				/*
                  LV_ITEM _macro_lvi;\
   _macro_lvi.iSubItem = (iSubItem_);\
   _macro_lvi.cchTextMax = (cchTextMax_);\
@@ -130,26 +160,26 @@ namespace FileLocker {
   SNDMSG((hwndLV), LVM_GETITEMTEXT, (WPARAM)(i), (LPARAM)(LV_ITEM *)&_macro_lvi);\
                  */
 
-                ListViewInfo info = new ListViewInfo();
-                info.iSubItem = 0;
-                info.cchTextMax = 100;
-                info.pszText = new StringBuilder();
+				//ListViewInfo info = new ListViewInfo();
+				//info.iSubItem = 0;
+				//info.cchTextMax = 100;
+				//info.pszText = new StringBuilder();
 
-                IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(lParam));
-                Marshal.StructureToPtr(lParam, ptr, false);
+				//IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(lParam));
+				//Marshal.StructureToPtr(lParam, ptr, false);
 
-                rez = SendMessage(hWnd, 0x1000 + 45/*115*/, (IntPtr)(item), ptr);
-                Console.WriteLine("str size: " + rez.ToString());
-                Console.WriteLine("text: " + info.pszText);
+				//rez = SendMessage(hWnd, 0x1000 + 45/*115*/, (IntPtr)(item), ptr);
+				//Console.WriteLine("str size: " + rez.ToString());
+				//Console.WriteLine("text: " + info.pszText);
 
-                Marshal.FreeHGlobal(ptr);
+				//Marshal.FreeHGlobal(ptr);
 
-                //ListView_DeleteItem(hwnd, i) \
-                //(BOOL)SNDMSG((hwnd), LVM_DELETEITEM, (WPARAM)(int)(i), 0L)
-                rez = SendMessage(hWnd, 0x1000 + 8, (IntPtr)(item), (IntPtr)(0));
-                Console.WriteLine("rez: " + rez.ToString());
+				//ListView_DeleteItem(hwnd, i) \
+				//(BOOL)SNDMSG((hwnd), LVM_DELETEITEM, (WPARAM)(int)(i), 0L)
+				//rez = SendMessage(hWnd, 0x1000 + 8, (IntPtr)(item), (IntPtr)(0));
+				//Console.WriteLine("rez: " + rez.ToString());
 
-                DestroyWindow(hWnd);
+				//DestroyWindow(hWnd);
             }
 
 			return true;
