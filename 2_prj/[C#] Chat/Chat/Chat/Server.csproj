@@ -17,7 +17,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
+<<<<<<< HEAD
     <OutputPath>..\..\exe\Server\</OutputPath>
+=======
+    <OutputPath>bin\Debug\</OutputPath>
+>>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Server.cs" />
+=======
+    <Compile Include="Program.cs" />
+>>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
