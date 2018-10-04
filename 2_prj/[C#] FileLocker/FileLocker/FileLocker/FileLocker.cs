@@ -10,6 +10,7 @@ namespace FileLocker {
 	class FileLocker {
 		List<Thread> threads = new List<Thread>();
 		List<bool> isWorking = new List<bool>();
+		Dictionary<int, FileStream> files = new Dictionary<int, FileStream>();
 
 		public FileLocker() {
 			//Properties.Settings.Default.Files.Clear();
@@ -20,7 +21,9 @@ namespace FileLocker {
 
 		public void Unlock(int id) {
 			if (isWorking[id]) {
-				threads[id].Abort();
+                threads[id].Abort();
+                if (files.ContainsKey(id))
+                    files.First(a => a.Key == id).Value.Dispose();
 				isWorking[id] = false;
 			}
 		}
@@ -28,21 +31,26 @@ namespace FileLocker {
 		public void UnlockAll() {
 			for(int i = 0; i < threads.Count; ++i) {
 				if (isWorking[i]) {
-					threads[i].Abort();
+                    threads[i].Abort();
+                    if (files.ContainsKey(i))
+                        files.First(a => a.Key == i).Value.Dispose();
 					isWorking[i] = false;
 				}
 			}
 		}
 
 		public void Remove(int id) {
-			Properties.Settings.Default.Files.RemoveAt(id);
-			Properties.Settings.Default.Save();
 			Unlock(id);
+            threads.RemoveAt(id);
+            isWorking.RemoveAt(id);
+            files.Remove(id);
+            Properties.Settings.Default.Files.RemoveAt(id);
+			Properties.Settings.Default.Save();
 		}
 
 		public void Lock(int id) {
 			if (!isWorking[id]) {
-				threads[id] = CreateThread(Properties.Settings.Default.Files[id]);
+				threads[id] = CreateThread(id, Properties.Settings.Default.Files[id]);
 				threads[id].Start();
 				isWorking[id] = true;
 			}
@@ -51,7 +59,7 @@ namespace FileLocker {
 		public void LockAll() {
 			for(ushort i = 0; i < threads.Count; ++i) {
 				if (!isWorking[i]) {
-					threads[i] = CreateThread(Properties.Settings.Default.Files[i]);
+					threads[i] = CreateThread(i, Properties.Settings.Default.Files[i]);
 					threads[i].Start();
 					isWorking[i] = true;
 				}
@@ -59,20 +67,23 @@ namespace FileLocker {
 		}
 
 		void _AddFile(string filePath) {
-			Thread t = CreateThread(filePath);
+			Thread t = CreateThread(threads.Count, filePath);
 
 			t.Start();
 			threads.Add(t);
 			isWorking.Add(true);
-		}
+        }
 
-		Thread CreateThread(string filePath) {
+		Thread CreateThread(int id, string filePath) {
 			return new Thread(() => {
 				string path = filePath.Clone() as string;
-				File.Open(path as string, FileMode.Open);
+                if (files.ContainsKey(id)) {
+                    files.First(a => a.Key == id).Value.Dispose();
+                    files.Remove(id);
+                }
+                files.Add(id, File.Open(path as string, FileMode.Open));
 				while (true)
 					Thread.Sleep(int.MaxValue);
-
 			});
 		}
 
