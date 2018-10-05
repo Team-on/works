@@ -7,14 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Chat\Server.cspro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{B6B78E03-74FC-4D3A-B7B9-676B86FF1DB0}"
 EndProject
-<<<<<<< HEAD
-<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLib", "Client\ClientLib.csproj", "{8286DF35-371F-44EE-BFC4-67DDF6AC755C}"
 EndProject
-=======
->>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
-=======
->>>>>>> parent of d09f892... [Chat] Done core clien
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLib", "Client\ClientLib.csproj", "{8286DF35-371F-44EE-BFC4-67DDF6AC755C}"
+EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,16 +26,10 @@ Global
 		{B6B78E03-74FC-4D3A-B7B9-676B86FF1DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6B78E03-74FC-4D3A-B7B9-676B86FF1DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6B78E03-74FC-4D3A-B7B9-676B86FF1DB0}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
-<<<<<<< HEAD
 		{8286DF35-371F-44EE-BFC4-67DDF6AC755C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8286DF35-371F-44EE-BFC4-67DDF6AC755C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8286DF35-371F-44EE-BFC4-67DDF6AC755C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8286DF35-371F-44EE-BFC4-67DDF6AC755C}.Release|Any CPU.Build.0 = Release|Any CPU
-=======
->>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
-=======
->>>>>>> parent of d09f892... [Chat] Done core clien
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
