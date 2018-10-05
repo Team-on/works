@@ -18,10 +18,14 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <OutputPath>..\..\exe\Client\</OutputPath>
 =======
     <OutputPath>bin\Debug\</OutputPath>
 >>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
+=======
+    <OutputPath>bin\Debug\</OutputPath>
+>>>>>>> parent of d09f892... [Chat] Done core clien
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,12 +41,15 @@
   </PropertyGroup>
   <ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Reference Include="ClientLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\exe\Client\ClientLib.dll</HintPath>
     </Reference>
 =======
 >>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
+=======
+>>>>>>> parent of d09f892... [Chat] Done core clien
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,10 +61,14 @@
   </ItemGroup>
   <ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Compile Include="ClientConsole.cs" />
 =======
     <Compile Include="Program.cs" />
 >>>>>>> 29a28f436b16eb74f6407d44f066c1941f53b095
+=======
+    <Compile Include="Program.cs" />
+>>>>>>> parent of d09f892... [Chat] Done core clien
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
