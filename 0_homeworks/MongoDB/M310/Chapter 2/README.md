@@ -17,7 +17,7 @@ Answer:
 
 ## Homework 2.5 : Update replica set nodes to enable encrypted storage engine
 Answer: 
-```{"doc":{"_id":{},"str":"The quick brown fox jumps over the lazy dog"},"isEnabled":true}```
+```{"doc":{"str":"The quick brown fox jumps over the lazy dog"},"isEnabled":true}```
 
 ## Homework 2.6 : Configure KMIP backed mongod
 Answer: 
