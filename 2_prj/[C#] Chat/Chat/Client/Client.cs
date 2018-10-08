@@ -50,7 +50,7 @@ namespace ClientLib {
 				int bytes = stream.Read(data, 0, data.Length);
 				response.Append(Encoding.UTF8.GetString(data, 0, bytes));
 			}
-			while (stream.DataAvailable);
+			while(stream.DataAvailable);
 
 			return response.ToString();
 		}
@@ -58,7 +58,7 @@ namespace ClientLib {
 
 		bool isClosed = false;
 		public void Close() {
-			if (!isClosed) {
+			if(!isClosed) {
 				isClosed = true;
 				stream?.Close();
 				client?.Close();
