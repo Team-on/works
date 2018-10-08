@@ -18,11 +18,12 @@ namespace ConsoleClient {
 			Client client = new Client();
 			Console.CancelKeyPress += (a, b) => client.Dispose();
 			client.SetUser(user);
-			//client.SetConnection("127.0.0.1", 63255);
+			client.SetConnection("127.0.0.1", 63255);
 
-			//client.Send("Hi, its me - " + user.Name);
+			client.Send("Hi, its me - " + user.Name);
 
 			string message = "";
+			int x = 0, y = 0;
 
 			while (isRunning) {
 				if(Console.CursorLeft != 9 && message == "") {
@@ -31,9 +32,14 @@ namespace ConsoleClient {
 					Console.Write("Message: ");
 				}
 
-				//if(client.IsRecieve()) {
-				//	Console.WriteLine(client.Recieve());
-				//}
+				if(client.IsRecieve()) {
+					if(y >= Console.WindowHeight - 2) {
+						Console.Clear();
+						y = 0;
+					}
+					Console.SetCursorPosition(x, y++);
+					Console.WriteLine(client.Recieve());
+				}
 
 				if (Console.KeyAvailable) {
 					Console.CursorVisible = false;
@@ -44,7 +50,7 @@ namespace ConsoleClient {
 						isRunning = false;
 					}
 					else if(key.Key == ConsoleKey.Enter) {
-						//client.Send(message);
+						client.Send(message);
 						message = "";
 						Console.SetCursorPosition(0, Console.WindowHeight - 1);
 						Console.Write(new string(' ', Console.WindowWidth));

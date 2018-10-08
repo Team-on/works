@@ -59,6 +59,7 @@ namespace ClientLib {
 		bool isClosed = false;
 		public void Close() {
 			if(!isClosed) {
+				Send("exit");
 				isClosed = true;
 				stream?.Close();
 				client?.Close();
