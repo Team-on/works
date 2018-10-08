@@ -4,6 +4,7 @@ using System.Threading;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using MyProtocol;
 
 namespace Server {
 	public class Server {
@@ -37,6 +38,11 @@ namespace Server {
 		public void StopServer() {
 			server.Stop();
 			serverThread.Abort();
+			foreach (var user in users) {
+				user.thread.Abort();
+				user.stream.Dispose();
+				user.client.Dispose();
+			}
 		}
 
 		void ProcessServer() {
@@ -53,33 +59,41 @@ namespace Server {
 				return;
 			NetworkStream stream = client.GetStream();
 
-			byte[] dataUser = Recieve(stream);
+			CommandType command = Recieve(stream, out byte[] data);
+			if (command != CommandType.Connect)
+				return;
 
 			var currUser = new ServerSideUser() {
-				user = ClientLib.User.Deserialize(dataUser),
+				user = ClientLib.User.Deserialize(data),
 				client = client,
 				stream = stream,
 				thread = Thread.CurrentThread
 			};
-
 			users.Add(currUser);
+			SendAll(null, currUser.user.Name + " connected!");
 
 			bool isRunning = true;
-			StringBuilder response = new StringBuilder();
 			do {
 				while (!stream.CanRead)
 					Thread.Sleep(100);
 
-				byte[] data = Recieve(stream);
+				command = Recieve(stream, out data);
 
-				response.Clear();
-				response.Append(Encoding.UTF8.GetString(data, 0, data.Length));
-
-				if (response.ToString().ToLower() == "exit")
-					isRunning = false;
-
-				SendAll(currUser, response.ToString());
-				Console.WriteLine(response);
+				switch (command) {
+					case CommandType.None:
+						break;
+					case CommandType.Exit:
+						SendAll(null, currUser.user.Name + " has left!");
+						isRunning = false;
+						break;
+					case CommandType.String:
+						SendAll(null, currUser.user.Name + ": " + Encoding.UTF8.GetString(data, 0, data.Length));
+						break;
+					case CommandType.RawData:
+						break;
+					default:
+						break;
+				}
 			} while (isRunning);
 
 			users.Remove(currUser);
@@ -87,16 +101,16 @@ namespace Server {
 			client.Close();
 		}
 
-		public byte[] Recieve(NetworkStream stream) {
-			return MyProtocol.Protocol.Recieve(stream);
+		public CommandType Recieve(NetworkStream stream, out byte[] data) {
+			return Protocol.Recieve(stream, out data); 
 		}
 
 		public void Send(NetworkStream stream, string message) {
-			MyProtocol.Protocol.Send(stream, message);
+			MyProtocol.Protocol.SendString(stream, message);
 		}
 
 		public void Send(NetworkStream stream, byte[] data) {
-			MyProtocol.Protocol.Send(stream, data);
+			MyProtocol.Protocol.SendRawData(stream, data);
 		}
 
 		public void SendAll(ServerSideUser sender, string message) {

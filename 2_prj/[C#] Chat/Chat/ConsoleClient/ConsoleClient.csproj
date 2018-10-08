@@ -18,7 +18,6 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\exe\Client\</OutputPath>
-
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\exe\Client\ClientLib.dll</HintPath>
     </Reference>
-
+    <Reference Include="MyProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\exe\Client\MyProtocol.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

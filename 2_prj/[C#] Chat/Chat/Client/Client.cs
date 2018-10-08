@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using MyProtocol;
 
 namespace ClientLib {
 	public class Client : IDisposable {
@@ -28,7 +29,7 @@ namespace ClientLib {
 			client = new TcpClient();
 			client.Connect(ip, port);
 			stream = client.GetStream();
-			Send(User.Serialize(user));
+			Protocol.SendCommand(stream, CommandType.Connect, User.Serialize(user));
 		}
 
 		public void SetUser(User user) {
@@ -39,16 +40,16 @@ namespace ClientLib {
 			return stream.DataAvailable;
 		}
 
-		public byte[] Recieve() {
-			return MyProtocol.Protocol.Recieve(stream);
+		public CommandType Recieve(out byte[] data) {
+			return Protocol.Recieve(stream, out data);
 		}
 
 		public void Send(string message) {
-			MyProtocol.Protocol.Send(stream, message);
+			MyProtocol.Protocol.SendString(stream, message);
 		}
 
 		public void Send(byte[] data) {
-			MyProtocol.Protocol.Send(stream, data);
+			MyProtocol.Protocol.SendRawData(stream, data);
 		}
 
 		bool isClosed = false;

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ClientLib;
+using MyProtocol;
 
 namespace ConsoleClient {
 	class ClientConsole {
@@ -36,7 +37,7 @@ namespace ConsoleClient {
 						y = 0;
 					}
 					Console.SetCursorPosition(x, y++);
-					byte[] data = client.Recieve();
+					CommandType command = client.Recieve(out byte[] data);
 					Console.WriteLine(Encoding.UTF8.GetString(data, 0, data.Length));
 				}
 
