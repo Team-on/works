@@ -35,26 +35,20 @@ namespace ClientLib {
 			this.user = user;
 		}
 
-		public void Send(string message) {
-			Send(Encoding.UTF8.GetBytes(message));
-		}
-
-		public void Send(byte[] data) {
-			byte[] intBytes = BitConverter.GetBytes(data.Length);
-			stream.Write(intBytes, 0, 4);
-			stream.Write(data, 0, data.Length);
-		}
-
 		public bool IsRecieve() {
 			return stream.DataAvailable;
 		}
 
 		public byte[] Recieve() {
-			byte[] data = new byte[4];
-			stream.Read(data, 0, 4);
-			data = new byte[BitConverter.ToInt32(data, 0)];
-			stream.Read(data, 0, data.Length);
-			return data;
+			return MyProtocol.Protocol.Recieve(stream);
+		}
+
+		public void Send(string message) {
+			MyProtocol.Protocol.Send(stream, message);
+		}
+
+		public void Send(byte[] data) {
+			MyProtocol.Protocol.Send(stream, data);
 		}
 
 		bool isClosed = false;
