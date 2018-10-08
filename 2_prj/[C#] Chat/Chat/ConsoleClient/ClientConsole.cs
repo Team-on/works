@@ -20,8 +20,6 @@ namespace ConsoleClient {
 			client.SetUser(user);
 			client.SetConnection("127.0.0.1", 63255);
 
-			client.Send("Hi, its me - " + user.Name);
-
 			string message = "";
 			int x = 0, y = 0;
 
@@ -38,7 +36,8 @@ namespace ConsoleClient {
 						y = 0;
 					}
 					Console.SetCursorPosition(x, y++);
-					Console.WriteLine(client.Recieve());
+					byte[] data = client.Recieve();
+					Console.WriteLine(Encoding.UTF8.GetString(data, 0, data.Length));
 				}
 
 				if (Console.KeyAvailable) {

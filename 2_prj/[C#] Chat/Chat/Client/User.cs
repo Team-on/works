@@ -1,8 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 
 namespace ClientLib {
+	[Serializable]
 	public class User {
+		static BinaryFormatter binaryFormatter = new BinaryFormatter();
+
 		public enum ErrorName : byte{ None, BannedName, ContainsBannedCharacter}
 		public enum ErrorColor : byte { None, BannedColor}
 
@@ -68,6 +73,22 @@ namespace ClientLib {
 				return ErrorColor.BannedColor;
 
 			return ErrorColor.None;
+		}
+
+		static public byte[] Serialize(User obj) {
+			if (obj == null)
+				return null;
+			using (MemoryStream ms = new MemoryStream()) {
+				binaryFormatter.Serialize(ms, obj);
+				return ms.ToArray();
+			}
+		}
+
+		static public User Deserialize(byte[] bytes) {
+			if (bytes == null)
+				return null;
+			using (MemoryStream ms = new MemoryStream(bytes)) 
+				return binaryFormatter.Deserialize(ms) as User;
 		}
 	}
 }

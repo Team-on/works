@@ -28,6 +28,7 @@ namespace ClientLib {
 			client = new TcpClient();
 			client.Connect(ip, port);
 			stream = client.GetStream();
+			Send(User.Serialize(user));
 		}
 
 		public void SetUser(User user) {
@@ -35,7 +36,12 @@ namespace ClientLib {
 		}
 
 		public void Send(string message) {
-			byte[] data = Encoding.UTF8.GetBytes(message);
+			Send(Encoding.UTF8.GetBytes(message));
+		}
+
+		public void Send(byte[] data) {
+			byte[] intBytes = BitConverter.GetBytes(data.Length);
+			stream.Write(intBytes, 0, 4);
 			stream.Write(data, 0, data.Length);
 		}
 
@@ -43,18 +49,13 @@ namespace ClientLib {
 			return stream.DataAvailable;
 		}
 
-		public string Recieve() {
-			byte[] data = new byte[256];
-			StringBuilder response = new StringBuilder();
-			do {
-				int bytes = stream.Read(data, 0, data.Length);
-				response.Append(Encoding.UTF8.GetString(data, 0, bytes));
-			}
-			while(stream.DataAvailable);
-
-			return response.ToString();
+		public byte[] Recieve() {
+			byte[] data = new byte[4];
+			stream.Read(data, 0, 4);
+			data = new byte[BitConverter.ToInt32(data, 0)];
+			stream.Read(data, 0, data.Length);
+			return data;
 		}
-
 
 		bool isClosed = false;
 		public void Close() {

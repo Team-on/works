@@ -51,11 +51,12 @@ namespace Server {
 			TcpClient client = o as TcpClient;
 			if (client is null)
 				return;
-
 			NetworkStream stream = client.GetStream();
 
+			byte[] dataUser = Recieve(stream);
+
 			var currUser = new ServerSideUser() {
-				user = null,
+				user = ClientLib.User.Deserialize(dataUser),
 				client = client,
 				stream = stream,
 				thread = Thread.CurrentThread
@@ -63,20 +64,16 @@ namespace Server {
 
 			users.Add(currUser);
 
-			Send(stream, "Welcome, User!");
-
 			bool isRunning = true;
+			StringBuilder response = new StringBuilder();
 			do {
 				while (!stream.CanRead)
 					Thread.Sleep(100);
 
-				byte[] data = new byte[256];
-				StringBuilder response = new StringBuilder();
-				do {
-					int bytes = stream.Read(data, 0, data.Length);
-					response.Append(Encoding.UTF8.GetString(data, 0, bytes));
-				}
-				while (stream.DataAvailable);
+				byte[] data = Recieve(stream);
+
+				response.Clear();
+				response.Append(Encoding.UTF8.GetString(data, 0, data.Length));
 
 				if (response.ToString().ToLower() == "exit")
 					isRunning = false;
@@ -90,8 +87,23 @@ namespace Server {
 			client.Close();
 		}
 
+		public byte[] Recieve(NetworkStream stream) {
+			byte[] data = new byte[4];
+			stream.Read(data, 0, 4);
+			data = new byte[BitConverter.ToInt32(data, 0)];
+			Console.WriteLine("Rec: " + data.Length);
+			stream.Read(data, 0, data.Length);
+			return data;
+		}
+
 		public void Send(NetworkStream stream, string message) {
-			byte[] data = Encoding.UTF8.GetBytes(message);
+			Send(stream, Encoding.UTF8.GetBytes(message));
+		}
+
+		public void Send(NetworkStream stream, byte[] data) {
+			byte[] intBytes = BitConverter.GetBytes(data.Length);
+			stream.Write(intBytes, 0, 4);
+			Console.WriteLine("Sen: " + data.Length);
 			stream.Write(data, 0, data.Length);
 		}
 
