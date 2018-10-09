@@ -38,8 +38,10 @@ namespace ConsoleClient {
 					}
 					Console.SetCursorPosition(x, y++);
 					RecieveResult result = client.Recieve(out byte[] data);
-					if (result == null)
+					if (result == null) {
+						isRunning = false;
 						continue;
+					}
 
 					if (Protocol.IsServerMessage(result.receiverType)) {
 						ConsoleColor prev = Console.ForegroundColor;
@@ -55,8 +57,6 @@ namespace ConsoleClient {
 					else if (Protocol.IsClientMessage(result.receiverType)) {
 						ConsoleWriteMultiline(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ' + Encoding.UTF8.GetString(data, 0, data.Length));
 					}
-
-					
 				}
 
 				if (Console.KeyAvailable) {

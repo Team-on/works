@@ -31,14 +31,14 @@ namespace ConsoleServer {
 					server.SendEveryoneMessage(message.Replace(split[0], "").Trim());
 				}
 				else if (sub == "stop") {
+					server.SendEveryoneMessage("All kicked!");
 					server.SendEveryoneCommand(MyProtocol.CommandType.Exit);
 				}
 				else if (sub == "exit") {
+					server.SendEveryoneMessage("All kicked!");
 					isRunning = false;
 				}
 			}
-
-
 
 			server.StopServer();
 		}

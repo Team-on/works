@@ -98,6 +98,7 @@ namespace Server {
 								break;
 							case CommandType.Exit:
 								isRunning = false;
+								users.Remove(currUser);
 								SendEveryone(null, currUser.user.Name + " has left!");
 								break;
 						}
