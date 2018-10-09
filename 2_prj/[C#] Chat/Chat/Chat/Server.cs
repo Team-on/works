@@ -38,7 +38,7 @@ namespace Server {
 		public void StopServer() {
 			server.Stop();
 			serverThread.Abort();
-			SendEveryoneCommand(CommandType.Exit);
+			SendEveryoneCommand(CommandType.Abort);
 			foreach (var user in users) {
 				user.thread.Abort();
 				user.stream.Dispose();

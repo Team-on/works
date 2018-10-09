@@ -47,6 +47,9 @@ namespace ClientLib {
 					case CommandType.Exit:
 						Close();
 						return null;
+					case CommandType.Abort:
+						Abort();
+						return null;
 					case CommandType.String:
 						break;
 					case CommandType.RawData:
@@ -65,6 +68,14 @@ namespace ClientLib {
 		}
 
 		bool isClosed = false;
+		public void Abort() {
+			if (!isClosed) {
+				isClosed = true;
+				stream.Close();
+				client.Close();
+			}
+		}
+
 		public void Close() {
 			if(!isClosed) {
 				Protocol.SendCommand(stream, ReceiverType.Client_Server, CommandType.Exit);
