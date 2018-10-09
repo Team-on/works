@@ -25,7 +25,7 @@ namespace ConsoleClient {
 			int x = 0, y = 0;
 
 			while (isRunning) {
-				if(Console.CursorLeft != 9 && message == "") {
+				if (Console.CursorLeft != 9 && message == "") {
 					Console.SetCursorPosition(0, 0);
 					Console.SetCursorPosition(0, Console.WindowHeight - 1);
 					Console.Write("Message: ");
@@ -38,8 +38,23 @@ namespace ConsoleClient {
 					}
 					Console.SetCursorPosition(x, y++);
 					RecieveResult result = client.Recieve(out byte[] data);
-					Console.Write(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ');
-					Console.WriteLine(Encoding.UTF8.GetString(data, 0, data.Length));
+					if (result == null)
+						continue;
+
+					if (Protocol.IsServerMessage(result.receiverType)) {
+						ConsoleColor prev = Console.ForegroundColor;
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write("I got server message" + result.commandType.ToString());
+						if (result.commandType == CommandType.String) {
+							Console.ForegroundColor = ConsoleColor.Red;
+							Console.Write(": " + Encoding.UTF8.GetString(data, 0, data.Length));
+						}
+						Console.ForegroundColor = prev;
+					}
+					else if (Protocol.IsClientMessage(result.receiverType)) {
+						Console.Write(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ');
+						Console.WriteLine(Encoding.UTF8.GetString(data, 0, data.Length));
+					}
 				}
 
 				if (Console.KeyAvailable) {
@@ -60,6 +75,7 @@ namespace ConsoleClient {
 						message += key.KeyChar;
 					}
 				}
+
 			}
 
 			client.Dispose();

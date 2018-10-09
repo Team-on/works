@@ -37,11 +37,23 @@ namespace ClientLib {
 		}
 
 		public bool IsRecieve() {
-			return stream.DataAvailable;
+			return stream.CanRead && stream.DataAvailable;
 		}
 
 		public RecieveResult Recieve(out byte[] data) {
-			return Protocol.Recieve(stream, out data);
+			var res = Protocol.Recieve(stream, out data);
+			if (Protocol.IsServerMessage(res.receiverType)) {
+				switch (res.commandType) {
+					case CommandType.Exit:
+						Close();
+						return null;
+					case CommandType.String:
+						break;
+					case CommandType.RawData:
+						break;
+				}
+			}
+			return res;
 		}
 
 		public void Send(string message) {
@@ -57,8 +69,8 @@ namespace ClientLib {
 			if(!isClosed) {
 				Protocol.SendCommand(stream, ReceiverType.Client_Server, CommandType.Exit);
 				isClosed = true;
-				stream?.Close();
-				client?.Close();
+				stream.Close();
+				client.Close();
 			}
 		}
 

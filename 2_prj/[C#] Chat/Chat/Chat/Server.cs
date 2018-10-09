@@ -38,11 +38,22 @@ namespace Server {
 		public void StopServer() {
 			server.Stop();
 			serverThread.Abort();
+			SendEveryoneCommand(CommandType.Exit);
 			foreach (var user in users) {
 				user.thread.Abort();
 				user.stream.Dispose();
 				user.client.Dispose();
 			}
+		}
+
+		public void SendEveryoneMessage(string message) {
+			foreach (var user in users)
+				Send(user.stream, ReceiverType.Server_Everyone, message);
+		}
+
+		public void SendEveryoneCommand(CommandType commandType) {
+			foreach (var user in users)
+				Send(user.stream, ReceiverType.Server_Everyone, commandType);
 		}
 
 		void ProcessServer() {
@@ -59,35 +70,39 @@ namespace Server {
 				return;
 			NetworkStream stream = client.GetStream();
 
-			RecieveResult recieveResult = Recieve(stream, out byte[] data);
-			if (recieveResult.commandType != CommandType.Connect || recieveResult.receiverType != ReceiverType.Client_Server)
-				return;
+			byte[] data;
+			RecieveResult res;
 
-			var currUser = new ServerSideUser() {
-				user = ClientLib.User.Deserialize(data),
+
+			ServerSideUser currUser = new ServerSideUser() {
+				user = null,
 				client = client,
 				stream = stream,
 				thread = Thread.CurrentThread
 			};
 			users.Add(currUser);
-			SendEveryone(null, currUser.user.Name + " has connected!");
 
 			bool isRunning = true;
 			do {
 				while (!stream.CanRead)
 					Thread.Sleep(100);
 
-				RecieveResult res = Recieve(stream, out data);
+				res = Recieve(stream, out data);
 
 				switch (res.receiverType) {
 					case ReceiverType.Client_Server:
 						switch (res.commandType) {
+							case CommandType.Connect:
+								currUser.user = ClientLib.User.Deserialize(data);
+								SendEveryone(null, currUser.user.Name + " has connected!");
+								break;
 							case CommandType.Exit:
-								SendEveryone(null, currUser.user.Name + " has left!");
 								isRunning = false;
+								SendEveryone(null, currUser.user.Name + " has left!");
 								break;
 						}
 						break;
+
 					case ReceiverType.Client_Everyone:
 						switch (res.commandType) {
 							case CommandType.String:
@@ -97,13 +112,12 @@ namespace Server {
 								break;
 						}
 						break;
+
 					case ReceiverType.Client_GroupById:
 						switch (res.commandType) {
 							default:
 								break;
 						}
-						break;
-					default:
 						break;
 				}
 
@@ -115,20 +129,24 @@ namespace Server {
 		}
 
 		public RecieveResult Recieve(NetworkStream stream, out byte[] data) {
-			return Protocol.Recieve(stream, out data); 
+			return Protocol.Recieve(stream, out data);
 		}
 
-		public void Send(NetworkStream stream, ReceiverType receiverType, string message) {
+		void Send(NetworkStream stream, ReceiverType receiverType, string message) {
 			MyProtocol.Protocol.SendString(stream, receiverType, message);
 		}
 
-		public void Send(NetworkStream stream, ReceiverType receiverType, byte[] data) {
+		void Send(NetworkStream stream, ReceiverType receiverType, byte[] data) {
 			MyProtocol.Protocol.SendRawData(stream, receiverType, data);
 		}
 
-		public void SendEveryone(ServerSideUser sender, string message) {
-			foreach (var user in users) 
-				Send(user.stream, sender == null? ReceiverType.Server_Everyone : ReceiverType.Client_Everyone, message);
+		void Send(NetworkStream stream, ReceiverType receiverType, CommandType command) {
+			MyProtocol.Protocol.SendCommand(stream, receiverType, command);
+		}
+
+		void SendEveryone(ServerSideUser sender, string message) {
+			foreach (var user in users)
+				Send(user.stream, sender == null ? ReceiverType.Server_Everyone : ReceiverType.Client_Everyone, message);
 		}
 	}
 }

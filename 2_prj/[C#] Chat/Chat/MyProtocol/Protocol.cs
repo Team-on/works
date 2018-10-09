@@ -61,5 +61,13 @@ namespace MyProtocol {
 				stream.Write(data, 0, data.Length);
 			}
 		}
+
+		static public bool IsServerMessage(ReceiverType receiverType) {
+			return receiverType == ReceiverType.Server_Everyone || receiverType == ReceiverType.Server_GroupById || receiverType == ReceiverType.Server_Client;
+		}
+
+		static public bool IsClientMessage(ReceiverType receiverType) {
+			return receiverType == ReceiverType.Client_Everyone || receiverType == ReceiverType.Client_GroupById || receiverType == ReceiverType.Client_Server;
+		}
 	}
 }

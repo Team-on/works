@@ -11,7 +11,7 @@ namespace MyProtocol {
 		Client_Server,
 		Client_Everyone,
 		Client_GroupById,
-		Server_User,
+		Server_Client,
 		Server_Everyone,
 		Server_GroupById
 	}
