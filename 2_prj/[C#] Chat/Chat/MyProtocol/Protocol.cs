@@ -5,13 +5,18 @@ using System.Net.Sockets;
 
 namespace MyProtocol {
 	static public class Protocol {
-		static public CommandType Recieve(NetworkStream stream, out byte[] data) {
-			//Recieve command
+		static public RecieveResult Recieve(NetworkStream stream, out byte[] data) {
+			//Recieve ReceiverType
 			data = new byte[1];
 			stream.Read(data, 0, 1);
-			CommandType command = (CommandType)data[0];
+			ReceiverType receiverType = (ReceiverType)data[0];
 
-			if (command == CommandType.RawData || command == CommandType.String || command == CommandType.Connect) {
+			//Recieve CommandType
+			data = new byte[1];
+			stream.Read(data, 0, 1);
+			CommandType commandType = (CommandType)data[0];
+
+			if (commandType == CommandType.RawData || commandType == CommandType.String || commandType == CommandType.Connect) {
 				//Recieve bytes size
 				data = new byte[4];
 				stream.Read(data, 0, 4);
@@ -21,27 +26,31 @@ namespace MyProtocol {
 				stream.Read(data, 0, data.Length);
 			}
 
-			return command;
+			return new RecieveResult(receiverType, commandType);
 		}
 
-		static public void SendCommand(NetworkStream stream, CommandType type, byte[] data = null) {
+		static public void SendCommand(NetworkStream stream, ReceiverType receiverType, CommandType type, byte[] data = null) {
 			if (type == CommandType.String || type == CommandType.RawData)
 				throw new Exception("Wrong command");
 
-			BaseSend(stream, type, data);
+			BaseSend(stream, receiverType, type, data);
 		}
 
-		static public void SendRawData(NetworkStream stream, byte[] data) {
-			BaseSend(stream, CommandType.RawData, data);
+		static public void SendRawData(NetworkStream stream, ReceiverType receiverType, byte[] data) {
+			BaseSend(stream, receiverType, CommandType.RawData, data);
 		}
 
-		static public void SendString(NetworkStream stream, string message) {
-			BaseSend(stream, CommandType.String, Encoding.UTF8.GetBytes(message));
+		static public void SendString(NetworkStream stream, ReceiverType receiverType, string message) {
+			BaseSend(stream, receiverType, CommandType.String, Encoding.UTF8.GetBytes(message));
 		}
 
-		static void BaseSend(NetworkStream stream, CommandType type, byte[] data) {
-			//Send command
-			byte[] intBytes = BitConverter.GetBytes((byte)type);
+		static void BaseSend(NetworkStream stream, ReceiverType receiverType, CommandType commandType, byte[] data) {
+			//Send ReceiverType
+			byte[] intBytes = BitConverter.GetBytes((byte)receiverType);
+			stream.Write(intBytes, 0, 1);
+
+			//Send CommandType
+			intBytes = BitConverter.GetBytes((byte)commandType);
 			stream.Write(intBytes, 0, 1);
 
 			if (data != null) {

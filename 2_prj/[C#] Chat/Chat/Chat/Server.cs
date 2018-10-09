@@ -59,8 +59,8 @@ namespace Server {
 				return;
 			NetworkStream stream = client.GetStream();
 
-			CommandType command = Recieve(stream, out byte[] data);
-			if (command != CommandType.Connect)
+			RecieveResult recieveResult = Recieve(stream, out byte[] data);
+			if (recieveResult.commandType != CommandType.Connect || recieveResult.receiverType != ReceiverType.Client_Server)
 				return;
 
 			var currUser = new ServerSideUser() {
@@ -70,30 +70,43 @@ namespace Server {
 				thread = Thread.CurrentThread
 			};
 			users.Add(currUser);
-			SendAll(null, currUser.user.Name + " connected!");
+			SendEveryone(null, currUser.user.Name + " has connected!");
 
 			bool isRunning = true;
 			do {
 				while (!stream.CanRead)
 					Thread.Sleep(100);
 
-				command = Recieve(stream, out data);
+				RecieveResult res = Recieve(stream, out data);
 
-				switch (command) {
-					case CommandType.None:
+				switch (res.receiverType) {
+					case ReceiverType.Client_Server:
+						switch (res.commandType) {
+							case CommandType.Exit:
+								SendEveryone(null, currUser.user.Name + " has left!");
+								isRunning = false;
+								break;
+						}
 						break;
-					case CommandType.Exit:
-						SendAll(null, currUser.user.Name + " has left!");
-						isRunning = false;
+					case ReceiverType.Client_Everyone:
+						switch (res.commandType) {
+							case CommandType.String:
+								SendEveryone(currUser, currUser.user.Name + ": " + Encoding.UTF8.GetString(data, 0, data.Length));
+								break;
+							case CommandType.RawData:
+								break;
+						}
 						break;
-					case CommandType.String:
-						SendAll(null, currUser.user.Name + ": " + Encoding.UTF8.GetString(data, 0, data.Length));
-						break;
-					case CommandType.RawData:
+					case ReceiverType.Client_GroupById:
+						switch (res.commandType) {
+							default:
+								break;
+						}
 						break;
 					default:
 						break;
 				}
+
 			} while (isRunning);
 
 			users.Remove(currUser);
@@ -101,22 +114,21 @@ namespace Server {
 			client.Close();
 		}
 
-		public CommandType Recieve(NetworkStream stream, out byte[] data) {
+		public RecieveResult Recieve(NetworkStream stream, out byte[] data) {
 			return Protocol.Recieve(stream, out data); 
 		}
 
-		public void Send(NetworkStream stream, string message) {
-			MyProtocol.Protocol.SendString(stream, message);
+		public void Send(NetworkStream stream, ReceiverType receiverType, string message) {
+			MyProtocol.Protocol.SendString(stream, receiverType, message);
 		}
 
-		public void Send(NetworkStream stream, byte[] data) {
-			MyProtocol.Protocol.SendRawData(stream, data);
+		public void Send(NetworkStream stream, ReceiverType receiverType, byte[] data) {
+			MyProtocol.Protocol.SendRawData(stream, receiverType, data);
 		}
 
-		public void SendAll(ServerSideUser sender, string message) {
-			foreach (var user in users) {
-				Send(user.stream, message);
-			}
+		public void SendEveryone(ServerSideUser sender, string message) {
+			foreach (var user in users) 
+				Send(user.stream, sender == null? ReceiverType.Server_Everyone : ReceiverType.Client_Everyone, message);
 		}
 	}
 }

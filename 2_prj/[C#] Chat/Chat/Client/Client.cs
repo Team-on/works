@@ -29,7 +29,7 @@ namespace ClientLib {
 			client = new TcpClient();
 			client.Connect(ip, port);
 			stream = client.GetStream();
-			Protocol.SendCommand(stream, CommandType.Connect, User.Serialize(user));
+			Protocol.SendCommand(stream, ReceiverType.Client_Server, CommandType.Connect, User.Serialize(user));
 		}
 
 		public void SetUser(User user) {
@@ -40,22 +40,22 @@ namespace ClientLib {
 			return stream.DataAvailable;
 		}
 
-		public CommandType Recieve(out byte[] data) {
+		public RecieveResult Recieve(out byte[] data) {
 			return Protocol.Recieve(stream, out data);
 		}
 
 		public void Send(string message) {
-			MyProtocol.Protocol.SendString(stream, message);
+			MyProtocol.Protocol.SendString(stream, ReceiverType.Client_Everyone, message);
 		}
 
 		public void Send(byte[] data) {
-			MyProtocol.Protocol.SendRawData(stream, data);
+			MyProtocol.Protocol.SendRawData(stream, ReceiverType.Client_Everyone, data);
 		}
 
 		bool isClosed = false;
 		public void Close() {
 			if(!isClosed) {
-				Send("exit");
+				Protocol.SendCommand(stream, ReceiverType.Client_Server, CommandType.Exit);
 				isClosed = true;
 				stream?.Close();
 				client?.Close();

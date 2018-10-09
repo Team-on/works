@@ -37,7 +37,8 @@ namespace ConsoleClient {
 						y = 0;
 					}
 					Console.SetCursorPosition(x, y++);
-					CommandType command = client.Recieve(out byte[] data);
+					RecieveResult result = client.Recieve(out byte[] data);
+					Console.Write(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ');
 					Console.WriteLine(Encoding.UTF8.GetString(data, 0, data.Length));
 				}
 
