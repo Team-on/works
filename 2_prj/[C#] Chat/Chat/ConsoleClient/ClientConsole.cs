@@ -46,15 +46,17 @@ namespace ConsoleClient {
 						Console.ForegroundColor = ConsoleColor.Yellow;
 						Console.Write("I got server message" + result.commandType.ToString());
 						if (result.commandType == CommandType.String) {
+							Console.Write(": ");
 							Console.ForegroundColor = ConsoleColor.Red;
-							Console.Write(": " + Encoding.UTF8.GetString(data, 0, data.Length));
+							ConsoleWriteMultiline(Encoding.UTF8.GetString(data, 0, data.Length));
 						}
 						Console.ForegroundColor = prev;
 					}
 					else if (Protocol.IsClientMessage(result.receiverType)) {
-						Console.Write(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ');
-						Console.WriteLine(Encoding.UTF8.GetString(data, 0, data.Length));
+						ConsoleWriteMultiline(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ' + Encoding.UTF8.GetString(data, 0, data.Length));
 					}
+
+					
 				}
 
 				if (Console.KeyAvailable) {
@@ -79,6 +81,12 @@ namespace ConsoleClient {
 			}
 
 			client.Dispose();
+
+			void ConsoleWriteMultiline(string str) {
+				if (str != null)
+					Console.WriteLine(str);
+				y += str.Length / Console.BufferWidth;
+			}
 		}
 	}
 }
