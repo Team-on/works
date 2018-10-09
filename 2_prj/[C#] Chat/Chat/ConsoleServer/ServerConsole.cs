@@ -1,5 +1,6 @@
 ﻿using System;
 using Server;
+using System.Net;
 
 namespace ConsoleServer {
 	class ServerConsole {
@@ -9,6 +10,38 @@ namespace ConsoleServer {
 
 			Server.Server server = new Server.Server();
 			Console.CancelKeyPress += (a, b) => server.StopServer();
+
+			string ip, tmp;
+			ushort port;
+
+			while(true) {
+				Console.Write("Input ip: ");
+				tmp = Console.ReadLine();
+				if (!IPAddress.TryParse(tmp, out IPAddress tmpIp)) {
+					ConsoleColor prev = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Wrong ip!");
+					Console.ForegroundColor = prev;
+				}
+				else
+					break;
+			}
+			ip = tmp;
+
+			while (true) {
+				Console.Write("Input port: ");
+				tmp = Console.ReadLine();
+				if (!ushort.TryParse(tmp, out port)) {
+					ConsoleColor prev = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Wrong port!");
+					Console.ForegroundColor = prev;
+				}
+				else
+					break;
+			}
+
+
 			Console.WriteLine("Setting Connection...");
 			server.SetConnection(port: 63255);
 			Console.WriteLine("Starting Server...");
@@ -35,7 +68,7 @@ namespace ConsoleServer {
 					server.SendEveryoneCommand(MyProtocol.CommandType.Exit);
 				}
 				else if (sub == "exit") {
-					server.SendEveryoneMessage("All kicked!");
+					server.SendEveryoneMessage("Server shutdown!");
 					isRunning = false;
 				}
 			}
