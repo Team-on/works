@@ -22,7 +22,7 @@ Answer:
 
 ## Question 5: 
 Answer: 
-```var pipeline = [{"$sort": {"city": 1}}, {"$addFields": { "min": {"$min": "$sunnydays"}}}, {"$addFields": { "mean": {"$avg": "$sunnydays" }}}, {"$match": { "country": "USA", "min": {"$gte": 200}, "mean": {"$gte": 220}}},]```
+```var pipeline = [{"$match": { "country": "USA"}}, {"$addFields": { "mean": {"$avg": "$sunnydays"}}}, {"$match": { "mean": {"$gte": 220}, "sunnydays": {"$not": {"$lt": 200 }}}}, {"$sort": {"city": 1}},]```
 
 ## Question 6: 
 Answer: 
@@ -30,4 +30,4 @@ Answer:
 
 ## Question 7: 
 Answer: 
-```OneWorld, with 8 carriers```
+```OneWorld, with 4 carriers```
