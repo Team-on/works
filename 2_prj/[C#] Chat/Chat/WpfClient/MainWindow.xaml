@@ -6,16 +6,106 @@
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Menu1"/>
+            <MenuItem Header="Menu2"/>
+            <MenuItem Header="Menu3"/>
+        </Menu>
 
-        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-    </Grid>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="Ready..."/>
+        </StatusBar>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.Column="1" Background="Black" ShowsPreview="False" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+            <ScrollViewer Grid.Row="2">
+                <StackPanel Name="dockPanelGroups">
+                    <Viewbox Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}">
+                        <Grid>
+                            <Ellipse Width="100" Height="100">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="Resourses\groupBack.jpeg"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock Text="Everyone" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Viewbox>
+
+                    <Viewbox Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}">
+                        <Grid>
+                            <Ellipse Width="100" Height="100">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="Resourses\groupBack.jpeg"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock Text="Group: 123-456-789" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Viewbox>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <GridSplitter Grid.Row="1" Background="Black" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <GridSplitter Grid.Row="3" Background="Black" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+
+                <Grid Grid.Row="0" Name="gridVideo">
+                    <Image x:Name="imageVideo"/>
+                </Grid>
+
+                <ScrollViewer Grid.Row="2">
+                    <StackPanel Name="dockPanelMessages">
+                        <Grid HorizontalAlignment="Right">
+                            <Ellipse Width="100" Height="25" Fill="Gray"/>
+                            <TextBlock Text="125125" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Right">
+                            <Ellipse Width="100" Height="25" Fill="Gray"/>
+                            <TextBlock Text="125125" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Left">
+                            <Ellipse Width="100" Height="25" Fill="LightBlue"/>
+                            <TextBlock Text="125125" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Right">
+                            <Ellipse Width="100" Height="25" Fill="Gray"/>
+                            <TextBlock Text="125125" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Left">
+                            <Ellipse Width="100" Height="25" Fill="LightBlue"/>
+                            <TextBlock Text="125125" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Left">
+                            <Ellipse Width="100" Height="25" Fill="LightBlue"/>
+                            <TextBlock Text="125125" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <DockPanel Grid.Row="4">
+                    <Button Name="buttonSend" Content="Send" DockPanel.Dock="Right"/>
+                    <TextBox Name="textBoxSend"/>
+                </DockPanel>
+
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
