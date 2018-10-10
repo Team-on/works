@@ -9,10 +9,6 @@ Answer:
 Certificate:
     Data:
         Version: 3 (0x2)
-
-Certificate:
-    Data:
-        Version: 3 (0x2)
         Serial Number: 266611 (0x41173)
     Signature Algorithm: sha1WithRSAEncryption
         Issuer: C=US,ST=New York,L=New York City,O=MongoDB,OU=University,CN=localhost
@@ -44,7 +40,7 @@ Certificate:
                     a0:ed
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
-            X509v3 Subject Alternative Name: 
+            X509v3 Subject Alternative Name:
                 DNS:localhost, IP Address:127.0.0.1, DNS:database.m310.mongodb.university, DNS:infrastructure.m310.mongodb.university
     Signature Algorithm: sha1WithRSAEncryption
          01:90:dc:e0:2b:04:5d:9e:f0:ba:66:ee:cf:db:63:ee:dc:96:
