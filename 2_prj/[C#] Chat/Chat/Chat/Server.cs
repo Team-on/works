@@ -6,8 +6,10 @@ using System.Net;
 using System.Net.Sockets;
 using MyProtocol;
 
-namespace Server {
-	public class Server {
+namespace Server
+{
+	public class Server
+	{
 		string ip;
 		ushort port;
 
@@ -58,9 +60,14 @@ namespace Server {
 
 		void ProcessServer() {
 			while (true) {
-				TcpClient client = server.AcceptTcpClient();
-				Thread clientThread = new Thread(new ParameterizedThreadStart(ProcessClient));
-				clientThread.Start(client);
+				try {
+					TcpClient client = server.AcceptTcpClient();
+					Thread clientThread = new Thread(new ParameterizedThreadStart(ProcessClient));
+					clientThread.Start(client);
+				}
+				catch (Exception ex) {
+
+				}
 			}
 		}
 
