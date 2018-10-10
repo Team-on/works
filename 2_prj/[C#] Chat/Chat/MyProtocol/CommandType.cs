@@ -5,6 +5,7 @@
 		Abort,
 		Exit,
 		String,
-		RawData
+		RawData,
+		UserData
 	}
 }

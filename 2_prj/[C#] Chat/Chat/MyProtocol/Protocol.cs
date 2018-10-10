@@ -16,7 +16,7 @@ namespace MyProtocol {
 			stream.Read(data, 0, 1);
 			CommandType commandType = (CommandType)data[0];
 
-			if (commandType == CommandType.RawData || commandType == CommandType.String || commandType == CommandType.Connect) {
+			if (commandType == CommandType.UserData || commandType == CommandType.RawData || commandType == CommandType.String || commandType == CommandType.Connect) {
 				//Recieve bytes size
 				data = new byte[4];
 				stream.Read(data, 0, 4);
@@ -38,6 +38,10 @@ namespace MyProtocol {
 
 		static public void SendRawData(NetworkStream stream, ReceiverType receiverType, byte[] data) {
 			BaseSend(stream, receiverType, CommandType.RawData, data);
+		}
+
+		static public void SendUserData(NetworkStream stream, ReceiverType receiverType, byte[] data) {
+			BaseSend(stream, receiverType, CommandType.UserData, data);
 		}
 
 		static public void SendString(NetworkStream stream, ReceiverType receiverType, string message) {

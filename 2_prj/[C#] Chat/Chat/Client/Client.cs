@@ -43,8 +43,13 @@ namespace ClientLib {
 			return stream.CanRead && stream.DataAvailable;
 		}
 
-		public RecieveResult Recieve(out byte[] data) {
+		public ServerResponse Recieve(out byte[] data) {
+			ServerResponse sr = new ServerResponse();
+
+REPEAT_RECIEVE:
 			var res = Protocol.Recieve(stream, out data);
+			sr.recieveResult = res;
+
 			if (Protocol.IsServerMessage(res.receiverType)) {
 				switch (res.commandType) {
 					case CommandType.Exit:
@@ -59,7 +64,13 @@ namespace ClientLib {
 						break;
 				}
 			}
-			return res;
+
+			if (res.commandType == CommandType.UserData) {
+				sr.sender = User.Deserialize(data);
+				goto REPEAT_RECIEVE;
+			}
+
+			return sr;
 		}
 
 		public void Send(string message) {

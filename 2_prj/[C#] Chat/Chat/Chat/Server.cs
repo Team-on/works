@@ -50,16 +50,6 @@ namespace Server {
 			}
 		}
 
-		public void SendEveryoneMessage(string message) {
-			foreach (var user in users)
-				Send(user.stream, ReceiverType.Server_Everyone, message);
-		}
-
-		public void SendEveryoneCommand(CommandType commandType) {
-			foreach (var user in users)
-				Send(user.stream, ReceiverType.Server_Everyone, commandType);
-		}
-
 		void ProcessServer() {
 			while (true) {
 				try {
@@ -115,7 +105,8 @@ namespace Server {
 					case ReceiverType.Client_Everyone:
 						switch (res.commandType) {
 							case CommandType.String:
-								SendEveryone(currUser, currUser.user.Name + ": " + Encoding.UTF8.GetString(data, 0, data.Length));
+								SendEveryoneUserData(currUser.user);
+								SendEveryone(currUser, Encoding.UTF8.GetString(data, 0, data.Length));
 								break;
 							case CommandType.RawData:
 								break;
@@ -157,5 +148,22 @@ namespace Server {
 			foreach (var user in users)
 				Send(user.stream, sender == null ? ReceiverType.Server_Everyone : ReceiverType.Client_Everyone, message);
 		}
+
+		public void SendEveryoneMessage(string message) {
+			foreach (var user in users)
+				Send(user.stream, ReceiverType.Server_Everyone, message);
+		}
+
+		public void SendEveryoneCommand(CommandType commandType) {
+			foreach (var user in users)
+				Send(user.stream, ReceiverType.Server_Everyone, commandType);
+		}
+
+		public void SendEveryoneUserData(ClientLib.User user) {
+			byte[] userData = ClientLib.User.Serialize(user);
+			foreach (var u in users)
+				Protocol.SendUserData(u.stream, ReceiverType.Server_Everyone, userData);
+		}
+
 	}
 }

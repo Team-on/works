@@ -128,25 +128,32 @@ namespace ConsoleClient {
 						y = 0;
 					}
 					Console.SetCursorPosition(x, y++);
-					RecieveResult result = client.Recieve(out byte[] data);
+					ServerResponse result = client.Recieve(out byte[] data);
 					if (result == null) {
 						isRunning = false;
 						continue;
 					}
 
-					if (Protocol.IsServerMessage(result.receiverType)) {
+					if (Protocol.IsServerMessage(result.recieveResult.receiverType)) {
 						ConsoleColor prev = Console.ForegroundColor;
 						Console.ForegroundColor = ConsoleColor.Yellow;
-						Console.Write("I got server message" + result.commandType.ToString());
-						if (result.commandType == CommandType.String) {
+						Console.Write("I got server message " + result.recieveResult.commandType.ToString());
+						if (result.recieveResult.commandType == CommandType.String) {
 							Console.Write(": ");
 							Console.ForegroundColor = ConsoleColor.Red;
 							ConsoleWriteMultiline(Encoding.UTF8.GetString(data, 0, data.Length));
 						}
 						Console.ForegroundColor = prev;
 					}
-					else if (Protocol.IsClientMessage(result.receiverType)) {
-						ConsoleWriteMultiline(result.receiverType.ToString() + ' ' + result.commandType.ToString() + ' ' + Encoding.UTF8.GetString(data, 0, data.Length));
+
+					else if (Protocol.IsClientMessage(result.recieveResult.receiverType)) {
+						ConsoleColor prev = Console.ForegroundColor;
+						Console.ForegroundColor = result.sender.Color;
+						ConsoleWriteMultiline(result.recieveResult.receiverType.ToString() + ' ' +
+							result.recieveResult.commandType.ToString() + ' ' +
+							result.sender.Name + ": " +
+							Encoding.UTF8.GetString(data, 0, data.Length));
+						Console.ForegroundColor = prev;
 					}
 				}
 

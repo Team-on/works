@@ -49,6 +49,7 @@
     <Compile Include="ErrorColor.cs" />
     <Compile Include="ErrorName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerResponse.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
