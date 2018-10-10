@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
 
 using ClientLib;
 using MyProtocol;
@@ -12,17 +12,108 @@ namespace ConsoleClient {
 		static bool isRunning = true;
 
 		static void Main(string[] args) {
+			Console.WriteLine("Starting programm...");
 			Console.Title = "Chat";
-
-			User user = new User("ConsoleUser", ConsoleColor.White);
 
 			Client client = new Client();
 			Console.CancelKeyPress += (a, b) => client.Dispose();
+
+			string ip, tmp = null;
+			ushort port;
+
+			while (true) {
+				Console.Write("Input ip, or [Enter] for {0}: ", Client.defaultIp);
+				tmp = Console.ReadLine();
+				if (tmp.Length == 0)
+					tmp = Client.defaultIp;
+				if (!IPAddress.TryParse(tmp, out IPAddress tmpIp)) {
+					ConsoleColor prev = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Error: Cant parse ip!");
+					Console.ForegroundColor = prev;
+				}
+				else
+					break;
+			}
+			ip = tmp;
+
+			while (true) {
+				Console.Write("Input port, or [Enter] for {0}: ", Client.defaultPort);
+				tmp = Console.ReadLine();
+				if (tmp.Length == 0)
+					tmp = Client.defaultPort.ToString();
+				if (!ushort.TryParse(tmp, out port)) {
+					ConsoleColor prev = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Error: Wrong port!");
+					Console.ForegroundColor = prev;
+				}
+				else
+					break;
+			}
+
+			ConsoleColor userColor;
+			string userName;
+
+			while (true) {
+				userName = "ConsoleUser";
+				Console.Write("Input user name, or [Enter] for {0}: ", userName);
+				tmp = Console.ReadLine();
+				if (tmp.Length == 0)
+					tmp = userName;
+
+				ErrorName error = User.IsAllowedName(tmp);
+				if (error == ErrorName.None) {
+					userName = tmp;
+					break;
+				}
+				else {
+					ConsoleColor prev = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Error: {0}", error);
+					Console.ForegroundColor = prev;
+				}
+			}
+
+			while (true) {
+				userColor = ConsoleColor.White;
+				Console.Write("Input color, or [Enter] for {0}: ", userColor);
+				tmp = Console.ReadLine();
+				if (tmp.Length == 0)
+					tmp = userColor.ToString();
+
+				if (!Enum.TryParse(tmp, out userColor)) {
+					ConsoleColor prev = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Error: Color not supported");
+					Console.ForegroundColor = prev;
+				}
+				else {
+					ErrorColor error = User.IsAllowedColor(userColor);
+					if (error == ErrorColor.None) {
+						break;
+					}
+					else {
+						ConsoleColor prev = Console.ForegroundColor;
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine("Error: {0}", error);
+						Console.ForegroundColor = prev;
+					}
+				}
+			}
+
+			User user = new User(userName, userColor);
 			client.SetUser(user);
-			client.SetConnection("127.0.0.1", 63255);
+
+
+			Console.WriteLine("Setting Connection...");
+			client.SetConnection(ip, port);
+			Console.WriteLine("Connection established!");
+			Console.WriteLine("Type anything and press [Enter] to send message");
+
 
 			string message = "";
-			int x = 0, y = 0;
+			int x = 0, y = Console.CursorTop;
 
 			while (isRunning) {
 				if (Console.CursorLeft != 9 && message == "") {

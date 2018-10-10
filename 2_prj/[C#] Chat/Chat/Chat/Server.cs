@@ -6,10 +6,11 @@ using System.Net;
 using System.Net.Sockets;
 using MyProtocol;
 
-namespace Server
-{
-	public class Server
-	{
+namespace Server {
+	public class Server {
+		public const string defaultIp = "127.0.0.1";
+		public const ushort defaultPort = 63255;
+
 		string ip;
 		ushort port;
 
@@ -18,16 +19,17 @@ namespace Server
 		List<ServerSideUser> users = new List<ServerSideUser>();
 
 		public Server() {
-			ip = "127.0.0.1";
-			port = 63255;
+			ip = defaultIp;
+			port = defaultPort;
+			users = new List<ServerSideUser>();
 		}
 
-		public void SetConnection(string ip = "127.0.0.1", ushort port = 63255) {
+		public void SetConnection(string ip = defaultIp, ushort port = defaultPort) {
 			this.ip = ip;
 			this.port = port;
 
 			server = new TcpListener(IPAddress.Parse(ip), port);
-			users = new List<ServerSideUser>();
+			users.Clear();
 		}
 
 		public void StartServer() {
@@ -79,7 +81,6 @@ namespace Server
 
 			byte[] data;
 			RecieveResult res;
-
 
 			ServerSideUser currUser = new ServerSideUser() {
 				user = null,

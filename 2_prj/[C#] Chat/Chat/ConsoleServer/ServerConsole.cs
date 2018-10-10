@@ -11,16 +11,18 @@ namespace ConsoleServer {
 			Server.Server server = new Server.Server();
 			Console.CancelKeyPress += (a, b) => server.StopServer();
 
-			string ip, tmp;
+			string ip, tmp = null;
 			ushort port;
 
-			while(true) {
-				Console.Write("Input ip: ");
+			while (true) {
+				Console.Write("Input ip, or [Enter] for {0}: ", Server.Server.defaultIp);
 				tmp = Console.ReadLine();
+				if(tmp.Length == 0)
+					tmp = Server.Server.defaultIp;
 				if (!IPAddress.TryParse(tmp, out IPAddress tmpIp)) {
 					ConsoleColor prev = Console.ForegroundColor;
 					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine("Wrong ip!");
+					Console.WriteLine("Error: Cant parse ip!");
 					Console.ForegroundColor = prev;
 				}
 				else
@@ -29,21 +31,22 @@ namespace ConsoleServer {
 			ip = tmp;
 
 			while (true) {
-				Console.Write("Input port: ");
+				Console.Write("Input port, or [Enter] for {0}: ", Server.Server.defaultPort);
 				tmp = Console.ReadLine();
+				if (tmp.Length == 0)
+					tmp = Server.Server.defaultPort.ToString();
 				if (!ushort.TryParse(tmp, out port)) {
 					ConsoleColor prev = Console.ForegroundColor;
 					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine("Wrong port!");
+					Console.WriteLine("Error: Wrong port!");
 					Console.ForegroundColor = prev;
 				}
 				else
 					break;
 			}
 
-
 			Console.WriteLine("Setting Connection...");
-			server.SetConnection(port: 63255);
+			server.SetConnection(ip, port);
 			Console.WriteLine("Starting Server...");
 			server.StartServer();
 

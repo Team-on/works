@@ -6,27 +6,6 @@ using System.Collections.Generic;
 namespace ClientLib {
 	[Serializable]
 	public class User {
-		static BinaryFormatter binaryFormatter = new BinaryFormatter();
-
-		public enum ErrorName : byte{ None, BannedName, ContainsBannedCharacter}
-		public enum ErrorColor : byte { None, BannedColor}
-
-		const byte MAX_NAME_LENGTH = 16;
-		Func<char, bool> IsBannedSymbol = (a) => !char.IsLetterOrDigit(a);
-		static readonly List<string> bannedNames = new List<string>(){
-			"admin",
-			"administrator",
-			"moder",
-			"moderator",
-			"system",
-			"system",
-		};
-
-		static readonly List<ConsoleColor> bannedColors = new List<ConsoleColor>(){
-			ConsoleColor.Red,
-			ConsoleColor.Yellow,
-		};
-
 		string name;
 		ConsoleColor color;
 
@@ -42,6 +21,8 @@ namespace ClientLib {
 					throw new Exception("[" + name + "] is a banned name");
 				case ErrorName.ContainsBannedCharacter:
 					throw new Exception("[" + name + "] contains banned symbol. Use only letters and digits");
+				case ErrorName.MustContainAtLeast1Letter:
+					throw new Exception("[" + name + "] must contain at least 1 letter");
 				default:
 					throw new Exception("Unknow return code in IsAllowedName()");
 			}
@@ -57,23 +38,48 @@ namespace ClientLib {
 			}
 		}
 
-		public ErrorName IsAllowedName(string name) {
-			if (bannedNames.Contains(name.ToLower()) || name.Length > MAX_NAME_LENGTH)
+		static readonly Func<char, bool> IsBannedSymbol = (a) => !(char.IsLetterOrDigit(a) || a == '_' || a == '-' || a == '=');
+		static readonly List<string> bannedNames = new List<string>(){
+			"admin",
+			"administrator",
+			"moder",
+			"moderator",
+			"system",
+			"system",
+		};
+
+		static readonly List<ConsoleColor> bannedColors = new List<ConsoleColor>(){
+			ConsoleColor.Red,
+			ConsoleColor.Yellow,
+		};
+
+		static public ErrorName IsAllowedName(string name) {
+			if (bannedNames.Contains(name.ToLower()))
 				return ErrorName.BannedName;
 
-			for (byte i = 0; i < name.Length; ++i)
+			bool haveLetter = false;
+			for (byte i = 0; i < name.Length; ++i) {
 				if (IsBannedSymbol(name[i]))
 					return ErrorName.ContainsBannedCharacter;
+				if (!haveLetter && char.IsLetter(name[i]))
+					haveLetter = true;
+			}
+
+			if (!haveLetter)
+				return ErrorName.MustContainAtLeast1Letter;
 
 			return ErrorName.None;
 		}
 
-		public ErrorColor IsAllowedColor(ConsoleColor color) {
+		static public ErrorColor IsAllowedColor(ConsoleColor color) {
 			if (bannedColors.Contains(color))
 				return ErrorColor.BannedColor;
 
 			return ErrorColor.None;
 		}
+
+
+		static BinaryFormatter binaryFormatter = new BinaryFormatter();
 
 		static public byte[] Serialize(User obj) {
 			if (obj == null)

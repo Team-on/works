@@ -7,6 +7,9 @@ using MyProtocol;
 
 namespace ClientLib {
 	public class Client : IDisposable {
+		public const string defaultIp = "127.0.0.1";
+		public const ushort defaultPort = 63255;
+
 		const ushort MAX_MESSAGE_LENGTH = 10000;
 
 		User user;
@@ -18,11 +21,11 @@ namespace ClientLib {
 
 		public Client() {
 			user = new User();
-			ip = "127.0.0.1";
-			port = 63255;
+			ip = defaultIp;
+			port = defaultPort;
 		}
 
-		public void SetConnection(string ip, ushort port = 63255) {
+		public void SetConnection(string ip = defaultIp, ushort port = defaultPort) {
 			this.ip = ip;
 			this.port = port;
 
