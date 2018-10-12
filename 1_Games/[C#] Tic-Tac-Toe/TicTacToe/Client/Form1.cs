@@ -27,6 +27,8 @@ namespace Client {
 			int readRez = 0;
 
 			while(true) {
+				while(!(stream?.DataAvailable ?? false))
+					Thread.Sleep(2);
 				readRez = stream?.ReadByte() ?? -1;
 
 				if(readRez == -1) {
@@ -35,8 +37,10 @@ namespace Client {
 				}
 
 				else if(readRez == 1) {
+					while(!stream.DataAvailable)
+						Thread.Sleep(2);
 					stream.Read(arr, 0, 3);
-					MessageBox.Show(string.Format($"\tRecieve: {arr[0]} {arr[1]} {arr[2]}"));
+					/*MessageBox.Show*/ this.Text =  (string.Format($"\tRecieve: {arr[0]} {arr[1]} {arr[2]}"));
 
 					foreach(var item in this.Controls) {
 						if(item != null && (((item as Button)?.Tag as string)?.Equals(arr[0].ToString()) ?? false)) {

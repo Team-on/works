@@ -97,10 +97,11 @@ namespace TicTacToe {
 				gameState = game.MakeTurn(data[0], currPlayer);
 
 				Console.WriteLine("Try to send turn rez");
-				stream.WriteByte((byte)(gameState == GameState.CantMakeTurn ? 0 : 1));
 				Console.WriteLine("Send turn rez");
-				if(gameState == GameState.CantMakeTurn)
+				if(gameState == GameState.CantMakeTurn) {
+					stream.WriteByte(0);
 					continue;
+				}
 
 				if(gameState == GameState.Draw || gameState == GameState.Win0 || gameState == GameState.WinX)
 					isRunning = false;
@@ -108,6 +109,7 @@ namespace TicTacToe {
 				data[1] = (byte)currPlayer;
 				data[2] = (byte)gameState;
 				Console.WriteLine("Try to send player input back");
+				stream.WriteByte(1);
 				for(i = 0; i < users.Count; ++i) {
 					Console.WriteLine($"\tSend: {data[0]} {data[1]} {data[2]}");
 					users[i].stream.Write(data, 0, 3);
