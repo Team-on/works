@@ -24,44 +24,33 @@ namespace Client {
 
 		public void recieve() {
 			byte[] arr = new byte[3];
-			int readRez = 0;
 
 			while(true) {
 				while(!(stream?.DataAvailable ?? false))
-					Thread.Sleep(2);
-				readRez = stream?.ReadByte() ?? -1;
-
-				if(readRez == -1) {
 					Thread.Sleep(10);
-					continue;
-				}
+				stream.Read(arr, 0, 3);
+				/*MessageBox.Show*/
+				this.Text = (string.Format($"\tRecieve: {arr[0]} {arr[1]} {arr[2]}"));
 
-				else if(readRez == 1) {
-					while(!stream.DataAvailable)
-						Thread.Sleep(2);
-					stream.Read(arr, 0, 3);
-					/*MessageBox.Show*/ this.Text =  (string.Format($"\tRecieve: {arr[0]} {arr[1]} {arr[2]}"));
+				foreach(var item in this.Controls) {
+					if(item != null && (((item as Button)?.Tag as string)?.Equals(arr[0].ToString()) ?? false)) {
+						(item as Button).Text = arr[1] == 0 ? "0" : "X";
 
-					foreach(var item in this.Controls) {
-						if(item != null && (((item as Button)?.Tag as string)?.Equals(arr[0].ToString()) ?? false)) {
-							(item as Button).Text = arr[1] == 0 ? "0" : "X";
+						//MessageBox.Show(arr[0].ToString() + "  |  " + ((item as Button)?.Tag as string));
 
-							//MessageBox.Show(arr[0].ToString() + "  |  " + ((item as Button)?.Tag as string));
-
-							switch(arr[2]) {
-								case 1: MessageBox.Show("Nichiya"); break;
-								case 2: MessageBox.Show("Win: O"); break;
-								case 3: MessageBox.Show("Win: X"); break;
-							}
-
-							if(arr[2] != 0) {
-								stream.Close();
-								tcp.Close();
-								return;
-							}
-
-							break;
+						switch(arr[2]) {
+							case 1: MessageBox.Show("Nichiya"); break;
+							case 2: MessageBox.Show("Win: O"); break;
+							case 3: MessageBox.Show("Win: X"); break;
 						}
+
+						if(arr[2] != 0) {
+							stream.Close();
+							tcp.Close();
+							return;
+						}
+
+						break;
 					}
 				}
 
@@ -89,6 +78,8 @@ namespace Client {
 			new Task(
 				new Action(delegate () {
 					stream.WriteByte(byte.Parse(((sender as Button).Tag as string)));
+					while(!(stream?.DataAvailable ?? false)) ;
+					stream.ReadByte();
 				})
 			).Start();
 		}
