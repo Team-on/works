@@ -42,25 +42,24 @@ namespace GameLib {
 				return GameState.CantMakeTurn;
 
 			field[id] = (FieldState)player;
+			currPlayer = (currPlayer == PlayerType.Player0 ? PlayerType.PlayerX : PlayerType.Player0);
+
+			if(
+				(field[0] == field[1] && field[1] == field[2] && field[2] == (FieldState)player) ||
+				(field[3] == field[4] && field[4] == field[5] && field[5] == (FieldState)player) ||
+				(field[6] == field[7] && field[7] == field[8] && field[8] == (FieldState)player) ||
+
+				(field[0] == field[3] && field[3] == field[6] && field[6] == (FieldState)player) ||
+				(field[1] == field[4] && field[4] == field[7] && field[7] == (FieldState)player) ||
+				(field[2] == field[5] && field[5] == field[8] && field[8] == (FieldState)player) ||
+
+				(field[0] == field[4] && field[4] == field[8] && field[8] == (FieldState)player) ||
+				(field[2] == field[4] && field[4] == field[6] && field[6] == (FieldState)player)
+			)
+				return (GameState)(player + 2);
 
 			for(byte i = 0; i < 9; ++i) {
 				if(field[i] == FieldState.Empty) {
-					currPlayer = currPlayer == PlayerType.Player0 ? PlayerType.PlayerX : PlayerType.Player0;
-
-					if(
-						(field[0] == field[1] && field[1] == field[2] && field[2] == (FieldState)player) ||
-						(field[3] == field[4] && field[4] == field[5] && field[5] == (FieldState)player) ||
-						(field[6] == field[7] && field[7] == field[8] && field[8] == (FieldState)player) ||
-
-						(field[0] == field[3] && field[3] == field[6] && field[6] == (FieldState)player) ||
-						(field[1] == field[4] && field[4] == field[7] && field[7] == (FieldState)player) ||
-						(field[2] == field[5] && field[5] == field[8] && field[8] == (FieldState)player) ||
-
-						(field[0] == field[4] && field[4] == field[8] && field[8] == (FieldState)player) ||
-						(field[2] == field[4] && field[4] == field[7] && field[7] == (FieldState)player)
-					)
-						return (GameState)(player + 2);
-
 					return GameState.Continue;
 				}
 			}
