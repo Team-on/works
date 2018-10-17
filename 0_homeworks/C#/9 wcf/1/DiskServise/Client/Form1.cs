@@ -29,10 +29,39 @@ namespace Client {
 
 				listBox1.Items.Clear();
 				listBox1.BeginUpdate();
+				listBox1.Items.Add("Directory\t..");
 				foreach (var i in result) 
 					listBox1.Items.Add((Path.GetExtension(i) == ""? "Directory\t" : "File\t") + i);
 				listBox1.EndUpdate();
 			}
+		}
+
+		private void listBox1_DoubleClick(object sender, EventArgs e) {
+			if (listBox1.SelectedItem == null)
+				return;
+
+			string path = listBox1.SelectedItem.ToString().Split('\t')[1];
+
+			if (Path.HasExtension(path)) {
+				MessageBox.Show("Not a folder!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+
+			if (path == "..") {
+				if (textBox1.Text != "D:\\" && textBox1.Text != "C:\\") {
+					if (textBox1.Text.Last() == '\\')
+						textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.Length - 1);
+					textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.LastIndexOf('\\') + 1);
+				}
+			}
+			else {
+				if (textBox1.Text.Last() != '\\')
+					textBox1.Text += '\\';
+				textBox1.Text += path;
+			}
+
+			button1_Click(null, null);
 		}
 	}
 }

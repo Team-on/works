@@ -35,7 +35,8 @@
 			this.listBox1.Location = new System.Drawing.Point(0, 0);
 			this.listBox1.Name = "listBox1";
 			this.listBox1.Size = new System.Drawing.Size(284, 262);
-			this.listBox1.TabIndex = 0;
+			this.listBox1.TabIndex = 3;
+			this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
 			// 
 			// button1
 			// 
@@ -55,6 +56,7 @@
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(284, 20);
 			this.textBox1.TabIndex = 2;
+			this.textBox1.Text = "D:\\";
 			// 
 			// Form1
 			// 
