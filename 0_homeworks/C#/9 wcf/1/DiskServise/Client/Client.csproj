@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,11 +47,47 @@
     <Compile Include="..\WcfServiceLibrary1\IDiskServise.cs">
       <Link>IDiskServise.cs</Link>
     </Compile>
+    <Compile Include="Connected Services\DiskServiseLink\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\DiskServiseLink\DiskServise.wsdl" />
+    <None Include="Connected Services\DiskServiseLink\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DiskServiseLink\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DiskServiseLink\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\DiskServiseLink\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DiskServiseLink\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DiskServiseLink\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DiskServiseLink\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DiskServiseLink\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

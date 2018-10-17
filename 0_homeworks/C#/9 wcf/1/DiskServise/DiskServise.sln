@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskServiseDll", "WcfServiceLibrary1\DiskServiseDll.csproj", "{656C8E9B-ED3F-4982-A896-E884B12EB46A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{ABF3F8DC-3813-4DC2-807E-E1B1053D5651}"
+	ProjectSection(ProjectDependencies) = postProject
+		{656C8E9B-ED3F-4982-A896-E884B12EB46A} = {656C8E9B-ED3F-4982-A896-E884B12EB46A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
