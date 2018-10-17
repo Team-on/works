@@ -10,7 +10,7 @@ namespace DiskServise {
 			List<string> rez = new List<string>();
 
 			foreach (var dir in Directory.EnumerateDirectories(path))
-				rez.Add(Path.GetDirectoryName(dir));
+				rez.Add(Path.GetFileName(dir));
 
 			foreach (var file in Directory.EnumerateFiles(path))
 				rez.Add(Path.GetFileName(file));
