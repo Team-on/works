@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Converter/Service1/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Converter" />
+  <xs:element name="LinearMeasure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="meters" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LinearMeasureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Converter" minOccurs="0" name="LinearMeasureResult" nillable="true" type="q1:ConvertedUnits" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CelsiusToFahrenheit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="c" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CelsiusToFahrenheitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Converter" minOccurs="0" name="CelsiusToFahrenheitResult" nillable="true" type="q2:ConvertedUnits" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FahrenheitToCelsius">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="f" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FahrenheitToCelsiusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Converter" minOccurs="0" name="FahrenheitToCelsiusResult" nillable="true" type="q3:ConvertedUnits" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

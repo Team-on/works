@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8289347b-6566-4d77-b532-63bc297202fb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Converter/Service1/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="c4248ed8-1726-46f2-b27f-a3ee14753408" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Converter/Service1/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="c41ee14c-a16c-4ee1-9707-29ea2e97987a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Converter/Service1/?disco" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="71d9a3e8-1b83-40bb-9b93-7f7efa666bd3" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Converter/Service1/?xsd=xsd0" />
+    <MetadataFile FileName="Converter.wsdl" MetadataType="Wsdl" ID="47915df6-9dfa-4e93-91ee-ef5c219b61c2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Converter/Service1/?wsdl" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="5ff6362e-c095-48a1-9ec6-a26462d88d00" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Converter/Service1/?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
