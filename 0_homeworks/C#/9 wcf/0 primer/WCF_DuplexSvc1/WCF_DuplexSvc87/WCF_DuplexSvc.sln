@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF_DuplexSvc", "WCF_DuplexSvc\WCF_DuplexSvc.csproj", "{83718CFD-39D6-4895-9319-3B61E36272B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF_DuplexClient", "WCF_DuplexClient\WCF_DuplexClient.csproj", "{CCFD2767-5FEF-4F42-B4FD-0D42DB2CD279}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83718CFD-39D6-4895-9319-3B61E36272B0} = {83718CFD-39D6-4895-9319-3B61E36272B0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83718CFD-39D6-4895-9319-3B61E36272B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83718CFD-39D6-4895-9319-3B61E36272B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83718CFD-39D6-4895-9319-3B61E36272B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83718CFD-39D6-4895-9319-3B61E36272B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCFD2767-5FEF-4F42-B4FD-0D42DB2CD279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCFD2767-5FEF-4F42-B4FD-0D42DB2CD279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCFD2767-5FEF-4F42-B4FD-0D42DB2CD279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCFD2767-5FEF-4F42-B4FD-0D42DB2CD279}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
