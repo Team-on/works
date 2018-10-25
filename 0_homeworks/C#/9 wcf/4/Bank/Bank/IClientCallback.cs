@@ -8,6 +8,6 @@ using System.ServiceModel;
 namespace DualHttp {
 	interface IClientCallback {
 		[OperationContract(IsOneWay = true)]
-		void TextForUsers(string txt);
+		void Balance(int m);
 	}
 }

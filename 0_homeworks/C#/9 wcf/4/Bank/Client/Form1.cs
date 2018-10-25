@@ -9,30 +9,42 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.ServiceModel;
-using Client.ServiceReference1;
+using Client.BankServiceReference;
 
 namespace Client {
 	public partial class Form1 : Form {
-		Service1Client proxy;
+		BankClient proxy;
+		int userNum = -1;
 
 		public Form1() {
 			InitializeComponent();
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
-			proxy.Login(textBox1.Text);
+			if (int.TryParse(textBox1.Text, out int initialMoney)) 
+				userNum = proxy.CreateAccount(initialMoney);
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
-			proxy.Logout(textBox1.Text);
+			if(userNum != -1 && int.TryParse(textBox2.Text, out int money))
+				proxy.Withdraw(money, userNum);
 		}
 
 		private void button3_Click(object sender, EventArgs e) {
-			proxy.SendText(textBox2.Text);
+			if (userNum != -1)
+				textBox3.Text = proxy.GetAccountInfo(userNum).ToString();
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
-			proxy = new Service1Client(new InstanceContext(new ClientCallback() {form=this }));
+			proxy = new BankClient(new InstanceContext(new ClientCallback() {form=this }));
+		}
+
+		private void textBox2_TextChanged(object sender, EventArgs e) {
+
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e) {
+
 		}
 	}
 }

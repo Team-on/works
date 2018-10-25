@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Client {
-	class ClientCallback : ServiceReference1.IService1Callback {
+	class ClientCallback : Client.BankServiceReference.IBankCallback {
 		public Client.Form1 form;
 
-		public void TextForUsers(string txt) {
-			form.textBox3.Text = txt;
+		public void Balance(int m) {
+			form.textBox3.Text = m.ToString();
 		}
+
 	}
 }

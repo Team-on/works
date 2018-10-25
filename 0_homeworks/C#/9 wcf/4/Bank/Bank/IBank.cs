@@ -7,14 +7,14 @@ using System.Text;
 
 namespace DualHttp {
 	[ServiceContract(CallbackContract = typeof(IClientCallback))]
-	public interface IService1 {
-		[OperationContract(IsOneWay =true)]
-		void Login(string name);
+	public interface IBank {
+		[OperationContract]
+		int CreateAccount(int m);
 
 		[OperationContract(IsOneWay =true)]
-		void SendText(string text);
+        void Withdraw(int m, int number);
 
-		[OperationContract(IsOneWay =true)]
-		void Logout(string name);
-	}
+		[OperationContract]
+        int GetAccountInfo(int number);
+    }
 }
