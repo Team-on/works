@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaoTest", "TaoTest.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test2", "..\test2\test2.csproj", "{D4FACD93-852B-4608-9FE3-9E18215C0BB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "..\WpfApp1\WpfApp1.csproj", "{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{D4FACD93-852B-4608-9FE3-9E18215C0BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4FACD93-852B-4608-9FE3-9E18215C0BB6}.Release|x86.ActiveCfg = Release|x86
 		{D4FACD93-852B-4608-9FE3-9E18215C0BB6}.Release|x86.Build.0 = Release|x86
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Debug|x86.Build.0 = Debug|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Release|x86.ActiveCfg = Release|Any CPU
+		{B3BA3A3F-B7E4-47A0-A1DD-A04FF4865615}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
