@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{9FFB7EBE-97BD-4593-9FD8-77825543106D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{9FFB7EBE-97BD-4593-9FD8-77825543106D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{26AD8425-1565-44FA-9E3F-66CA0C03537B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{26AD8425-1565-44FA-9E3F-66CA0C03537B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{DC1A53E1-02D9-41A2-977E-101BBF418D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{DC1A53E1-02D9-41A2-977E-101BBF418D7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication4", "WebApplication4\WebApplication4.csproj", "{1D9A8401-A930-4204-90DC-BB3A6EDFCAEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication4", "WebApplication4\WebApplication4.csproj", "{1D9A8401-A930-4204-90DC-BB3A6EDFCAEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication5", "WebApplication5\WebApplication5.csproj", "{577CBC36-5EF9-4F19-BE64-5C51D407126D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{1D9A8401-A930-4204-90DC-BB3A6EDFCAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D9A8401-A930-4204-90DC-BB3A6EDFCAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D9A8401-A930-4204-90DC-BB3A6EDFCAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577CBC36-5EF9-4F19-BE64-5C51D407126D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577CBC36-5EF9-4F19-BE64-5C51D407126D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577CBC36-5EF9-4F19-BE64-5C51D407126D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577CBC36-5EF9-4F19-BE64-5C51D407126D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
