@@ -11,5 +11,5 @@
 ## Зроблено на
  * C#
 
-![](readme/img1.png)
-![](readme/img2.png)
+![](readme/1.png)
+![](readme/2.png)
