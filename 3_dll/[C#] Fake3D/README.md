@@ -17,4 +17,4 @@
  * WPF
 
 ![](readme/1.png)
-![](readme/21.png)
+![](readme/2.png)
