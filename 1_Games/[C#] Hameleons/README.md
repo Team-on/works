@@ -6,4 +6,4 @@
  * Класс логу з мого іншого проекту HOMM battle
  * Класи вводу/виводу з проекту CarParking
  
-![](readme/img1.png)
+![](readme/1.png)
