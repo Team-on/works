@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	public float speed;
+	public Text scoreText;
+	public Text winText;
 
 	Rigidbody rb;
+	int score;
+	const int maxScore = 12;
 
 	void Start() {
 		rb = GetComponent<Rigidbody>();
+		score = 0;
+		scoreText.text = "Score: " + score.ToString();
+		winText.text = "";
 	}
 
 	void FixedUpdate() {
@@ -20,7 +28,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.CompareTag("pickup"))
+		if (other.gameObject.CompareTag("pickup")) {
 			other.gameObject.SetActive(false);
+			scoreText.text = "Score: " + (++score).ToString();
+
+			if(score == maxScore)
+				winText.text = "You win!";
+		}
 	}
 }
