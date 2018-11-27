@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 	public float speed;
+
 	Rigidbody rb;
 
 	void Start() {
@@ -14,9 +15,12 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis("Horizontal"),
 			  moveVertical = Input.GetAxis("Vertical");
 		Vector3 movement = new Vector3(moveHorizontal * speed, 0, moveVertical * speed);
-			
+
 		rb.AddForce(movement);
 	}
 
-
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag("pickup"))
+			other.gameObject.SetActive(false);
+	}
 }
