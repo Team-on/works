@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib"
+                    >
+	<v:String x:Key="buttonBack">Назад</v:String>
+
+
+	<!-- ############################################################################################## -->
+	<!-- ###############          Main menu                                             ############### -->
+	<!-- ############################################################################################## -->
+	<v:String x:Key="mainMenuPlay">Играть</v:String>
+	<v:String x:Key="mainMenuSettings">Настройки</v:String>
+	<v:String x:Key="mainMenuAchievements">Достижения</v:String>
+	<v:String x:Key="mainMenuCredits">Разработчики</v:String>
+	<v:String x:Key="mainMenuExit">Выход</v:String>
+
+
+	<!-- ############################################################################################## -->
+	<!-- ###############           Settings                                             ############### -->
+	<!-- ############################################################################################## -->
+	<v:String x:Key="settingsVideo">Графика</v:String>
+	<v:String x:Key="settingsVideoScreenResolution">Расширение екрана</v:String>
+	<v:String x:Key="settingsVideoIsFullscreen">Полный экран</v:String>
+
+	<v:String x:Key="settingsAudio">Аудио</v:String>
+
+	<v:String x:Key="settingsInput">Ввод</v:String>
+
+	<v:String x:Key="settingsGameplay">Игра</v:String>
+
+
+	<!-- ############################################################################################## -->
+	<!-- ###############            Credits                                             ############### -->
+	<!-- ############################################################################################## -->
+	<v:String x:Key="creditsCredits">РАЗРАБОТЧИКИ</v:String>
+	<v:String x:Key="creditsArtistTitle">Художник</v:String>
+	<v:String x:Key="creditsProgrammerTitle">Программист</v:String>
+	<v:String x:Key="creditsArtist">Team-on, timonsol13@gmail.com</v:String>
+	<v:String x:Key="creditsProgrammer">Team-on, timonsol13@gmail.com</v:String>
+
+
+</ResourceDictionary>
+    

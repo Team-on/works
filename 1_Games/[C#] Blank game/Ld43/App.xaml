@@ -1,0 +1,24 @@
+﻿<Application x:Class="Ld43.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Ld43"
+             StartupUri="Pages\MainWindow.xaml"
+		
+             xmlns:properties="clr-namespace:Ld43.Properties"
+             Exit="OnExit" 
+			 >
+	<Application.Resources>
+		<ResourceDictionary>
+			<properties:Settings x:Key="Settings" />
+
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Strings/sharedStrings.xaml" />
+				<ResourceDictionary Source="Strings/lang.xaml" />
+
+				<ResourceDictionary Source="Styles/Fonts.xaml" />
+				<ResourceDictionary Source="Styles/PageStyles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

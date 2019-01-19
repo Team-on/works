@@ -1,0 +1,27 @@
+﻿<Page x:Class="Ld43.Pages.MainMenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Ld43.Pages"
+      mc:Ignorable="d" 
+
+	  Style="{StaticResource BasePage}"
+	  >
+
+	<DockPanel LastChildFill="True">
+		<DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+			<Button Width="75" Height="50" Content="Українська" DockPanel.Dock="Right" Click="SetLanguageUa"/>
+			<Button Width="75" Height="50" Content="Русский" DockPanel.Dock="Right" Click="SetLanguageRu"/>
+			<Button Width="75" Height="50" Content="English" DockPanel.Dock="Right" Click="SetLanguageEng"/>
+		</DockPanel>
+
+		<StackPanel>
+			<Button Content="{DynamicResource mainMenuPlay}"         Click="Play_Click"/>
+			<Button Content="{DynamicResource mainMenuSettings}"     Click="Settings_Click"/>
+			<Button Content="{DynamicResource mainMenuAchievements}" Click="Achievements_Click"/>
+			<Button Content="{DynamicResource mainMenuCredits}"      Click="Credits_Click"/>
+			<Button Content="{DynamicResource mainMenuExit}"         Click="Exit_Click"/>
+		</StackPanel>
+	</DockPanel>
+</Page>
