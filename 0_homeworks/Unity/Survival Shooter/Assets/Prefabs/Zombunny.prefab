@@ -59,6 +59,8 @@ GameObject:
   - component: {fileID: 82742301350879640}
   - component: {fileID: 114042028559478678}
   - component: {fileID: 195566642094381712}
+  - component: {fileID: 114974335588165950}
+  - component: {fileID: 114965541866176074}
   m_Layer: 9
   m_Name: Zombunny
   m_TagString: Untagged
@@ -247,6 +249,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04af53992556baf4cb2af667ddeb25f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114965541866176074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987456172612972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bf360ece4bdfe4680dcf18164bd2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenAttacks: 0.5
+  attackDamage: 10
+--- !u!114 &114974335588165950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987456172612972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f571c6d5814b6d541af686e40da589ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  sinkSpeed: 2.5
+  scoreValue: 10
+  deathClip: {fileID: 8300000, guid: 1d3bfb9269f136947bf8ac164cace1ff, type: 3}
 --- !u!135 &135140013989296096
 SphereCollider:
   m_ObjectHideFlags: 1
