@@ -62,7 +62,7 @@ public class EnemyHealth : MonoBehaviour {
 
 		isSinking = true;
 
-		//ScoreManager.score += scoreValue;
+		ScoreManager.score += scoreValue;
 
 		Destroy(gameObject, 2f);
 	}
