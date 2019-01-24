@@ -1,16 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameOverManager : MonoBehaviour {
+	public PlayerHealth playerHealth;       // Reference to the player's health.
+	public float restartDelay = 5f;         // Time to wait before restarting the level
 
-	// Use this for initialization
-	void Start () {
-		
+	Animator anim;                          // Reference to the animator component.
+	float restartTimer;                     // Timer to count up to restarting the level
+
+
+	void Awake() {
+		anim = GetComponent<Animator>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	void Update() {
+		if (playerHealth.currentHealth <= 0) {
+			if (restartTimer == 0)
+				anim.SetTrigger("GameOver");
+
+			restartTimer += Time.deltaTime;
+
+			if (restartTimer >= restartDelay)
+				UnityEngine.SceneManagement.SceneManager.LoadScene("Level01");
+			//Application.LoadLevel(Application.loadedLevel);
+		}
 	}
 }
