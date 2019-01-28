@@ -1,10 +1,10 @@
 body {
-	background: #333333
+	background: #333
 }
 
 .chessboard{
-	width: 160px;
-	height: 160px;
+	width: 640px;
+	height: 640px;
 	border: 20px solid #a50;
 }
 
@@ -12,7 +12,8 @@ body {
 	font-size: 60px;
 	display: flex;
 	align-items: center;
-	justify-content: center
+	justify-content: center;
+	cursor: pointer;
 }
 
 .square{
@@ -21,9 +22,16 @@ body {
 	height: 80px;
 }
 
-.white{
-	background: #eee
+.whiteSquare{
+	background: #fff
 }
-.black{
-	background: #000
+.blackSquare{
+	background: #555
+}
+
+.whiteFigure{
+	color: #f00
+}
+.blackFigure{
+	color: #00f
 }
