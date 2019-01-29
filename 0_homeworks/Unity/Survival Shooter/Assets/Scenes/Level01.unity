@@ -1116,6 +1116,12 @@ Prefab:
       propertyPath: damageImage
       value: 
       objectReference: {fileID: 524819334}
+    - target: {fileID: 82711828579871602, guid: 2dec874560b42c04ab0a78391adacb32,
+        type: 2}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300004, guid: 8434b04884c414ac6b468e10945685e6,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dec874560b42c04ab0a78391adacb32, type: 2}
   m_IsPrefabAsset: 0
