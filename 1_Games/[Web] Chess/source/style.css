@@ -6,6 +6,15 @@ body {
 	width: 640px;
 	height: 640px;
 	border: 20px solid #a50;
+
+	padding: 0;
+	margin: auto;
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 .figure{
@@ -23,15 +32,17 @@ body {
 }
 
 .whiteSquare{
-	background: #fff
+	background: #fff;
 }
 .blackSquare{
-	background: #555
+	background: #555;
 }
 
 .whiteFigure{
-	color: #f00
+	position: relative;
+	color: #f00;
 }
 .blackFigure{
-	color: #00f
+	position: relative;
+	color: #00f;
 }
