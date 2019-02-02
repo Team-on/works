@@ -10,6 +10,9 @@ public class CameraHelper : MonoBehaviour {
 	}
 
 	void Update() {
+		if (gameHelper == null || gameHelper.playerHelper == null)
+			return;
+
 		transform.position = Vector3.Lerp(
 			transform.position,
 			new Vector3(gameHelper.playerHelper.transform.position.x, gameHelper.playerHelper.transform.position.y, transform.position.z),

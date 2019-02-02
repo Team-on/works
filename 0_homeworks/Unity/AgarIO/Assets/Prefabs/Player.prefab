@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4708090590263136}
   - component: {fileID: 212118861242942374}
-  - component: {fileID: 114838073834526902}
   - component: {fileID: 50972913903537602}
   - component: {fileID: 58020821079848408}
+  - component: {fileID: 114838073834526902}
   - component: {fileID: 114262854200193914}
   - component: {fileID: 114535689671724288}
   m_Layer: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 2
-  m_SendInterval: 0.1
+  m_SendInterval: 0.09090909
   m_SyncRotationAxis: 0
   m_RotationSyncCompression: 0
   m_SyncSpin: 0

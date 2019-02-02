@@ -17,12 +17,6 @@ public class PlayerHelper : NetworkBehaviour {
 	float speed;
 	SpriteRenderer sr;
 
-	//TODO:
-	//Клеточний фон для карти
-	//Сплит на пробел
-	//Ники
-	//Різні кольри гравцям на вибір
-
 	void Start() {
 		gameHelper = FindObjectOfType<GameHelper>();
 		if (isLocalPlayer) {
@@ -48,7 +42,6 @@ public class PlayerHelper : NetworkBehaviour {
 			Camera.main.gameObject.GetComponent<CameraHelper>().enabled = false;
 	}
 
-	[Server]
 	void OnTriggerStay2D(Collider2D collider) {
 		if (collider.gameObject.tag == "Food") {
 			ChangeSize(size + collider.gameObject.GetComponent<PointHelper>().sizeFromFood);
@@ -85,7 +78,6 @@ public class PlayerHelper : NetworkBehaviour {
 			transform.position = new Vector3(transform.position.x, -gameHelper.mapSize.y + 0.01f, 0);
 	}
 
-	//[Server]
 	void ChangeSize(float newSize) {
 		size = newSize;
 		speed = speedMod / size;

@@ -26,9 +26,10 @@ public class GameHelper : NetworkBehaviour {
 
 	[Server]
 	private void CreateFood() {
+		if (!isServer)
+			return;
 		GameObject point = Instantiate(foodPrefab);
 		point.transform.position = new Vector2(Random.Range(-mapSize.x, mapSize.x), Random.Range(-mapSize.y, mapSize.y));
 		NetworkServer.Spawn(point);
-		++foodCurr;
 	}
 }
