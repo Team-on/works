@@ -21,6 +21,7 @@ public class PlayerHelper : NetworkBehaviour {
 		gameHelper = FindObjectOfType<GameHelper>();
 		if (isLocalPlayer) {
 			gameHelper.playerHelper = this;
+			Camera.main.gameObject.GetComponent<CameraHelper>().enabled = true;
 		}
 		sr = GetComponent<SpriteRenderer>();
 	}
