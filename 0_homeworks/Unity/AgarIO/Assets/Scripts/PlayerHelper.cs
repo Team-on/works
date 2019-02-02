@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerHelper : NetworkBehaviour {
 	public const float speedMod = 1f;
-	
+
 	[SyncVar]
 	public float size = 0.2f;
 	[SyncVar]
@@ -17,7 +17,7 @@ public class PlayerHelper : NetworkBehaviour {
 	float speed;
 	SpriteRenderer sr;
 
-	void Start () {
+	void Start() {
 		gameHelper = FindObjectOfType<GameHelper>();
 		if (isLocalPlayer) {
 			gameHelper.playerHelper = this;
@@ -25,8 +25,8 @@ public class PlayerHelper : NetworkBehaviour {
 		}
 		sr = GetComponent<SpriteRenderer>();
 	}
-	
-	void Update () {
+
+	void Update() {
 		ChangeSize(size);
 		sr.color = color;
 
@@ -37,14 +37,32 @@ public class PlayerHelper : NetworkBehaviour {
 		transform.position = Vector3.MoveTowards(transform.position, mousePos, speed * Time.deltaTime);
 	}
 
-	[Server]
-	void OnTriggerStay2D(Collider2D collider) {
-		ChangeSize(size + collider.gameObject.GetComponent<PointHelper>().sizeFromFood);
-		NetworkServer.Destroy(collider.gameObject);
+	public override void OnNetworkDestroy() {
+		Camera.main.gameObject.GetComponent<CameraHelper>().enabled = false;
 	}
 
 	[Server]
-	void ChangeSize(float newSize){
+	void OnTriggerStay2D(Collider2D collider) {
+		if (collider.gameObject.tag == "Food") {
+			ChangeSize(size + collider.gameObject.GetComponent<PointHelper>().sizeFromFood);
+			NetworkServer.Destroy(collider.gameObject);
+		}
+		else if (collider.gameObject.tag == "Player") {
+			PlayerHelper enemy = collider.gameObject.GetComponent<PlayerHelper>();
+			if (enemy.size < this.size) {
+				Collider2D currentCollider = GetComponent<Collider2D>();
+				Vector2 centerEnemy = collider.bounds.center,
+						centerCurrent = currentCollider.bounds.center;
+				if (Vector2.Distance(centerCurrent, centerEnemy) < currentCollider.bounds.size.x) {
+					ChangeSize(size + enemy.size);
+					NetworkServer.Destroy(collider.gameObject);
+				}
+			}
+		}
+	}
+
+	[Server]
+	void ChangeSize(float newSize) {
 		size = newSize;
 		speed = speedMod / size;
 		transform.localScale = new Vector3(size, size, size);
