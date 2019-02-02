@@ -328,55 +328,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1980824355
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 8.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4708090590263136, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114838073834526902, guid: 2ab13c4b977bdf74c8701243690ee586,
-        type: 2}
-      propertyPath: size
-      value: 0.4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2ab13c4b977bdf74c8701243690ee586, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &2002498963
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c52562d0116404787bd849bbb99b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapSize: {x: 20, y: 20}
   foodPrefab: {fileID: 1046036883470712, guid: d5fa897afe5d6bf48b6b60aa99066d2d, type: 2}
 --- !u!4 &2002498966
 Transform:
@@ -449,5 +403,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -17,6 +17,12 @@ public class PlayerHelper : NetworkBehaviour {
 	float speed;
 	SpriteRenderer sr;
 
+	//TODO:
+	//Клеточний фон для карти
+	//Сплит на пробел
+	//Ники
+	//Різні кольри гравцям на вибір
+
 	void Start() {
 		gameHelper = FindObjectOfType<GameHelper>();
 		if (isLocalPlayer) {
@@ -33,12 +39,13 @@ public class PlayerHelper : NetworkBehaviour {
 		if (!isLocalPlayer || !Application.isFocused)
 			return;
 
-		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		transform.position = Vector3.MoveTowards(transform.position, mousePos, speed * Time.deltaTime);
+		MoveToMouse();
+		CheckBounds();
 	}
 
 	public override void OnNetworkDestroy() {
-		Camera.main.gameObject.GetComponent<CameraHelper>().enabled = false;
+		if (isLocalPlayer) 
+			Camera.main.gameObject.GetComponent<CameraHelper>().enabled = false;
 	}
 
 	[Server]
@@ -61,7 +68,24 @@ public class PlayerHelper : NetworkBehaviour {
 		}
 	}
 
-	[Server]
+	void MoveToMouse() {
+		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		transform.position = Vector3.MoveTowards(transform.position, mousePos, speed * Time.deltaTime);
+	}
+
+	void CheckBounds() {
+		if (transform.position.x >= gameHelper.mapSize.x)
+			transform.position = new Vector3(gameHelper.mapSize.x - 0.01f, transform.position.y, 0);
+		else if (transform.position.x <= -gameHelper.mapSize.x)
+			transform.position = new Vector3(-gameHelper.mapSize.x + 0.01f, transform.position.y, 0);
+
+		if (transform.position.y >= gameHelper.mapSize.y)
+			transform.position = new Vector3(transform.position.x, gameHelper.mapSize.y - 0.01f, 0);
+		else if (transform.position.y <= -gameHelper.mapSize.y)
+			transform.position = new Vector3(transform.position.x, -gameHelper.mapSize.y + 0.01f, 0);
+	}
+
+	//[Server]
 	void ChangeSize(float newSize) {
 		size = newSize;
 		speed = speedMod / size;
