@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.Networking;
 
-public class PointHelper : UnityEngine.Networking.NetworkBehaviour {
+public class PointHelper : NetworkBehaviour {
 	public float sizeFromFood = 0.05f;
 
+	[Server]
 	public override void OnStartServer() {
-		if(isServer)
 			++GameHelper.foodCurr;
 	}
 
+	[Server]
 	public override void OnNetworkDestroy() {
-		if(isServer)
 			--GameHelper.foodCurr;
 	}
 }

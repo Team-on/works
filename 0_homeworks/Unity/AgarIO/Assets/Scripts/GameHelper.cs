@@ -10,8 +10,6 @@ public class GameHelper : NetworkBehaviour {
 	public Vector2 mapSize = new Vector2(20, 20);
 	public GameObject foodPrefab;
 	
-	internal PlayerHelper playerHelper;
-
 	[Server]
 	void Start () {
 		for (int i = 0; i < foodMax; i++)

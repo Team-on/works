@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraHelper : MonoBehaviour {
-	internal GameHelper gameHelper;
+	internal PlayerHelper playerHelper;
 
 	void Start() {
-		gameHelper = FindObjectOfType<GameHelper>();
+		playerHelper = FindObjectOfType<PlayerHelper>();
 	}
 
 	void Update() {
-		if (gameHelper == null || gameHelper.playerHelper == null)
+		if (playerHelper == null) {
+			playerHelper = FindObjectOfType<PlayerHelper>();
 			return;
+		}
 
 		transform.position = Vector3.Lerp(
 			transform.position,
-			new Vector3(gameHelper.playerHelper.transform.position.x, gameHelper.playerHelper.transform.position.y, transform.position.z),
+			new Vector3(playerHelper.transform.position.x, playerHelper.transform.position.y, transform.position.z),
 			Time.deltaTime
 		);
 	}
