@@ -18,7 +18,7 @@ public class CameraHelper : MonoBehaviour {
 		transform.position = Vector3.Lerp(
 			transform.position,
 			new Vector3(playerHelper.transform.position.x, playerHelper.transform.position.y, transform.position.z),
-			Time.deltaTime
+			1
 		);
 	}
 }

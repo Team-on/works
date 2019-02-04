@@ -13,20 +13,21 @@ public class GameHelper : NetworkBehaviour {
 	[Server]
 	void Start () {
 		for (int i = 0; i < foodMax; i++)
-			CreateFood();
+			CreateFood(Color.green);
 	}
 
 	[Server]
 	void Update () {
 		if(foodCurr < foodMax)
-			CreateFood();
+			CreateFood(Color.cyan);
 	}
 
 	[Server]
-	private void CreateFood() {
+	private void CreateFood(Color c) {
 		if (!isServer)
 			return;
 		GameObject point = Instantiate(foodPrefab);
+		point.GetComponent<PointHelper>().color = c;
 		point.transform.position = new Vector2(Random.Range(-mapSize.x, mapSize.x), Random.Range(-mapSize.y, mapSize.y));
 		NetworkServer.Spawn(point);
 	}
