@@ -8,12 +8,15 @@ public class GameHelper : NetworkBehaviour {
 	public static int foodCurr = 0;
 
 	public Vector2 mapSize = new Vector2(20, 20);
+	public GameObject mapBackground;
 	public GameObject foodPrefab;
 	
 	[Server]
 	void Start () {
 		for (int i = 0; i < foodMax; i++)
 			CreateFood(Color.green);
+
+		mapBackground.se
 	}
 
 	[Server]

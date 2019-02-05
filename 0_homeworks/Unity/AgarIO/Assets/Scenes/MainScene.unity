@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 1128252797}
   - component: {fileID: 1128252796}
   - component: {fileID: 1128252795}
+  - component: {fileID: 1128252799}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -373,11 +374,22 @@ Transform:
   m_GameObject: {fileID: 1128252794}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1128252799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128252794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bd47cb5b0c8f5c4b9f1c3ea39278daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1446204642
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: {x: 20, y: 20}
+  mapBackground: {fileID: 1128252794}
   foodPrefab: {fileID: 1046036883470712, guid: d5fa897afe5d6bf48b6b60aa99066d2d, type: 2}
 --- !u!4 &2002498966
 Transform:
