@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/NetworkLobby.unity
   - enabled: 0
     path: Assets/SampleScenes/Scenes/NetworkSpaceship.unity
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
