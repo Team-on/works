@@ -548,7 +548,7 @@ GameObject:
   - 23: {fileID: 1313617294}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -722,23 +722,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459200, guid: 2e8e7328074a760498234e52638297ae, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 13678398, guid: 2e8e7328074a760498234e52638297ae, type: 2}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 13678398, guid: 2e8e7328074a760498234e52638297ae, type: 2}
-      propertyPath: m_Center.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 13678398, guid: 2e8e7328074a760498234e52638297ae, type: 2}
-      propertyPath: m_Direction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 13678398, guid: 2e8e7328074a760498234e52638297ae, type: 2}
-      propertyPath: m_Radius
-      value: 0.65
+    - target: {fileID: 139800, guid: 2e8e7328074a760498234e52638297ae, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e8e7328074a760498234e52638297ae, type: 2}
@@ -960,7 +948,7 @@ Transform:
   - {fileID: 1639110845}
   - {fileID: 1039754451}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &2013969717
 GameObject:
   m_ObjectHideFlags: 0
