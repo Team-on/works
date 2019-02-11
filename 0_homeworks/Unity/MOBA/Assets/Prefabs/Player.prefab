@@ -405,6 +405,7 @@ GameObject:
   - 195: {fileID: 19543426}
   - 114: {fileID: 11429052}
   - 114: {fileID: 11410506}
+  - 95: {fileID: 9551292}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2011,6 +2012,23 @@ Animator:
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9551292
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139800}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: ad11a8eef29e7624f8475bfcce14ffc5, type: 3}
+  m_Controller: {fileID: 9100000, guid: a501a5f28477d9f4bb94c1f89688294f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

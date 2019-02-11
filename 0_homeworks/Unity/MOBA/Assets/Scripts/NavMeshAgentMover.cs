@@ -15,14 +15,14 @@ public class NavMeshAgentMover : NetworkBehaviour {
 	NavMeshAgent navMeshAgent;
 	Vector3 target;
 
-	void Start () {
+	void Start() {
 		navMeshAgent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>();
 		target = transform.position;
 	}
-	
+
 	[ServerCallback]
-	void Update () {
+	void Update() {
 		Animation();
 
 		if (position == transform.position && rotation == transform.rotation)
@@ -33,14 +33,14 @@ public class NavMeshAgentMover : NetworkBehaviour {
 	}
 
 	[ClientCallback]
-	void FixedUpdate(){
-		if(transform.position != position)
+	void FixedUpdate() {
+		if (transform.position != position)
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * SyncRate);
-		if(transform.rotation != rotation)
+		if (transform.rotation != rotation)
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * SyncRate);
 	}
 
-	public void Move(Vector3 point){
+	public void Move(Vector3 point) {
 		CmdMove(point);
 	}
 
@@ -50,7 +50,7 @@ public class NavMeshAgentMover : NetworkBehaviour {
 		navMeshAgent.SetDestination(target);
 	}
 
-	void Animation(){
+	void Animation() {
 
 	}
 }
