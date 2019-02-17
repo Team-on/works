@@ -438,13 +438,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 9551292, guid: 2e8e7328074a760498234e52638297ae, type: 2}
-      propertyPath: m_ApplyRootMotion
+    - target: {fileID: 11438646, guid: 2e8e7328074a760498234e52638297ae, type: 2}
+      propertyPath: m_Animator
+      value: 
+      objectReference: {fileID: 940970912}
+    - target: {fileID: 11438646, guid: 2e8e7328074a760498234e52638297ae, type: 2}
+      propertyPath: m_ParameterSendBits
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423108, guid: 2e8e7328074a760498234e52638297ae, type: 2}
+      propertyPath: m_LocalPlayerAuthority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410506, guid: 2e8e7328074a760498234e52638297ae, type: 2}
+      propertyPath: SyncRate
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e8e7328074a760498234e52638297ae, type: 2}
   m_IsPrefabParent: 0
+--- !u!95 &940970912 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9551292, guid: 2e8e7328074a760498234e52638297ae,
+    type: 2}
+  m_PrefabInternal: {fileID: 940970911}
 --- !u!1 &1039754450
 GameObject:
   m_ObjectHideFlags: 0

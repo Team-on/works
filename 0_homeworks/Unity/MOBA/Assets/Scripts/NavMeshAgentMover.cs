@@ -45,12 +45,16 @@ public class NavMeshAgentMover : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdMove(Vector3 point) {
+	void CmdMove(Vector3 point) {
 		target = point;
 		navMeshAgent.SetDestination(target);
 	}
 
 	void Animation() {
+		bool isRunning = Vector3.Distance(transform.position, target) > navMeshAgent.stoppingDistance;
+		bool isNearStop = Vector3.Distance(transform.position, target) <= navMeshAgent.stoppingDistance;
 
+		animator.SetBool("IsRunning", isRunning);
+		animator.SetBool("IsNearStop", isNearStop);
 	}
 }

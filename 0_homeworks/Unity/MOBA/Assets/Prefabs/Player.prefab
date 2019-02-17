@@ -406,6 +406,7 @@ GameObject:
   - 114: {fileID: 11429052}
   - 114: {fileID: 11410506}
   - 95: {fileID: 9551292}
+  - 114: {fileID: 11438646}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2028,7 +2029,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a501a5f28477d9f4bb94c1f89688294f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2044,7 +2045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936e2f1048e2246489703c6fc07c6ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncRate: 3
+  SyncRate: 10
 --- !u!114 &11423108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2076,7 +2077,7 @@ MonoBehaviour:
     i14: 151
     i15: 174
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11424086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2101,6 +2102,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a9eb1402124c546a08d0e819b3d1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11438646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 9551292}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!136 &13678398
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2303,8 +2323,8 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 300
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2318,7 +2338,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 139800}
