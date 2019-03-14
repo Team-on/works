@@ -1,7 +1,7 @@
 ﻿# GameMaker tutorial1
-Натискай по фруктах щоб збільшити свій рахунок. Не натискай по бомбах.
+Click on fruits to increase your score. Dont click on bombs.
 
-## Зроблено на
+## Made with
  * Game Maker 8.0
 
 ![](readme/img1.jpg)
