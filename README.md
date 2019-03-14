@@ -1,10 +1,9 @@
-﻿# Збірка моїх робіт
+# Collection of my works/projects/games
 
-Деталі по кожному з проектів знаходяться в відповідному README.md
+Details about project or game can be found in README.md inside the project folder
 
- * 0_bsa18 - відбір на BSA2018
- * 0_homeworks - домашні завдання
- * 0_problems - олімпіадні задачі
- * 1_Games - ігри
- * 2_prj - проекти
- * 3_dll - проекти, які збираються в dll
+ * 0_homeworks - homeworks
+ * 0_problems - competitive programming
+ * 1_Games - games
+ * 2_prj - apps
+ * 3_dll - libs
