@@ -1,11 +1,11 @@
 ﻿# RecFileParser
- Пошук всіх файлів певного розширення на всіх дисках
+ Find all files with any extension on every drive
 
-## Фичи
- * Обмеження по розширеннях і максимальній довжині назви. Встановлюються в .xml файлі.
+## Features
+ * Configurate extension and max length limitations in XML file.
  
-## Як використовувати
- Приклад в example.
+## How 2 use
+ Use case in example.
  
-## Зроблено на
+## Made with
  * С#
