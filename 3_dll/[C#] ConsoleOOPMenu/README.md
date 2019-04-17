@@ -1,12 +1,9 @@
-﻿# EzDBAccess
- Класи для простого створення консольного меню.
+# ConsoleOOPMenu
+ Librrary for console menu and UI
 
-## Фичи
- * Робота з БД як з List<T>. Ніяких додаткових функцій.
- 
-## Як використовувати
+## How 2 use
 ```С#
-//Приклад меню
+//Menu example
 public class MenuState1 : MenuState
 {
     private Dictionary<int, MenuItem> _menus = new Dictionary<int, MenuItem>() {
@@ -25,7 +22,7 @@ public class MenuState1 : MenuState
     }
 }
 
-//Приклад не меню
+//Not menu example
 public class AuthState : IState
 {   
     public IState RunState()
@@ -41,29 +38,29 @@ public class AuthState : IState
     }
 }
 
-//Як це використовувати
+//How invoke new UI
 IState startState = new AuthState();    
 while(startState!=null) 
 	startState = startState.RunState();
 	
-//Приклад з ConfigurableMenuState
+//ConfigurableMenuState example
 var menuState = new ConfigurableMenuState();
 menuState.AddMenuItem(1, new MenuItem() {Text = "Option 1"}, ()=> menuState);
 menuState.AddMenuItem(2, new MenuItem() {Text = "Exit"}, ()=> null);
 
-//Приклад з AutoConfigurableMenuState
+//AutoConfigurableMenuState example
 var menuState = new ConfigurableMenuState();
 menuState.AddMenuItem(new MenuItem() {Text = "Option 1"}, ()=> menuState);
 menuState.AddMenuItem(new MenuItem() {Text = "Exit"}, ()=> null);
 ```
 
 ## API
- * **MenuItem** - Для виводу тексту в консоль. Підтримує кольори
- * **IState** - Базовий клас для всіх станів вікна.
- * **MenuState** - Базовий елас для меню
- * **ConfigurableMenuState** - Зручно додавати пункти меню через AddMenuItem()
- * **AutoConfigurableMenuState** - Як ConfigurableMenuState, але Id ставиться самостійно
+ * **MenuItem** - For output text in console. Works with colors
+ * **IState** - Base class for every window state
+ * **MenuState** - Base class for emenu
+ * **ConfigurableMenuState** - Class for eazy menus. Use AddMenuItem()
+ * **AutoConfigurableMenuState** - Like ConfigurableMenuState, but Id sets auto
 	
  
-## Зроблено на
+## Made with
  * С#
