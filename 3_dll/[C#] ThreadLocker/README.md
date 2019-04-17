@@ -1,17 +1,17 @@
 ﻿# ThreadLocker
-Моя реалізація spinlock
+ My spinlock realisation
  
 ## API
- * class ThreadLocker - обєкт цього класу відповідатиме за синхронізацію
+ * class ThreadLocker - object of this class responsible for synchronization
 	* void Lock()
 	* void Unlock()
 	* bool IsUsed()
 	
-## План
+## Plan
  * Переписати ThreadLocker щоб всередині використовував чергу(з пріорітетами)
  * Реалізувати ThreadLocker статичним класом
  * Реалізувати Interlocked_____, як в С++.
  * Реалізувати семафор
  
-## Зроблено на
+## Made with
  * С#
