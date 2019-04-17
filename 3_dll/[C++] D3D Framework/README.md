@@ -3,7 +3,7 @@
 
 # API
  
-## Зроблено на
+## Made with
  * C++
  * WinAPI
  * DirectX11
