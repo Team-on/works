@@ -1,17 +1,17 @@
 ﻿# EzDBAccess
- Доступ до баз даних як до звичайного List<T>
+ Access to MS SQL Server like to List<T>
 
-## Фичи
- * Робота з БД як з List<T>. Ніяких додаткових функцій.
+## Features
+ * Work with DB like its List<T>. No additional methods.
  
-## Як використовувати
+## How to use
 ```С#
 class DataExample{
-	//Властивість Id має бути завжди
-	//Але встановлюється воно автоматично
+	//Property Id MUST be public
+	//But it will set auto
 	public int Id{ get; set; }
-	//Опрацьовуються лише публічні властивості з публічними get та set
-	//Типи властивостей: int, string. З іншими не факт що працюватиме
+	//Only props with public get and set will be save in DB
+	//Works with: int, string
 	public string UserData{ get; set; }
 
 	public DataExample() : this("Empty") { } 
@@ -20,17 +20,17 @@ class DataExample{
 
 class Program {
 	static void Main(string[] args) {
-		//Database=master. Має бути завжди
-		//Потім створиться потрібна БД і в ній таблиця(Якщо потрібно)
-		//Імя БД: ІмяКласу + s
-		//Імя таблиці: ІмяКласу
+		//Database=master
+		//DB and table will create auto
+		//DB name: ClassName + s
+		//Table name: ClassName
 		var list = new EzDBList<DataExample>("System.Data.SqlClient", @"Server=(localdb)\mssqllocaldb; Database=master; Integrated Security=True");
 
 		list.Add(new DataExample("Value1")); // Id 1
 		list.Add(new DataExample("Value2")); // Id 2
 		list.Add(new DataExample("Value3")); // Id 3
 
-		//Пошук реалізований лише так
+		//Find example
 		DataExample find1 = list.Find(
 			(a)=>a.Id==3
 		);
@@ -43,7 +43,7 @@ class Program {
 		Console.WriteLine($"UserData == \"Value2\": {find2.UserData}");
 		Console.WriteLine();
 
-		//Видалення лише з попереднім пошуком
+		//Delete example
 		list.Remove(find2);
 
 		foreach(var i in list)
@@ -55,20 +55,20 @@ class Program {
 
 ## API
  * **EzDBList(string providerName, string connectionStr, bool ForceRecreate)**
-	* *providerName* - Імя DbProvider у вигляді System.Data.ProviderName. Перевірялося лише з System.Data.SqlClient (MS SQL Server)
-	* *connectionStr* - Стрічка налаштувань. Обовязково має бути лише Database=master
-	* *ForceRecreate* - примусово перестворити БД. Всі дані будуть втрачені
- * **void Add(T obj)** - Додавання елементу. Id заповниться самостійно
- * **void AddRange(IEnumerable<T> obj)** - Додавання кількох елементів
- * **void Remove(T obj)** - Видалення елементу. Перевіряється за Id
- * **T Find(Predicate<T> predicate)** - Пошук за предикатом. Поверне перший елемент який відповідатиме умові
- * **T[] FindAll(Predicate<T> predicate)** - Пошук за предикатом.  Поверне всі елементи які відповідатимуть умові
- * **int Count** - кілікість записів.
- * Також є перевантаження []. Але індекс масиву не обовязково відповідатиме Id
+	* *providerName* - DbProvider name(like System.Data.ProviderName). Works only with System.Data.SqlClient (MS SQL Server)
+	* *connectionStr* - Connection string. Must contain Database=master
+	* *ForceRecreate* - force recreate DB. Add data will be deleted
+ * **void Add(T obj)** - Add element. Id will set automatically
+ * **void AddRange(IEnumerable<T> obj)** - Add few elements
+ * **void Remove(T obj)** - Remove element from DB and list. Compare by Id
+ * **T Find(Predicate<T> predicate)** - Find by predicat.  Return first element
+ * **T[] FindAll(Predicate<T> predicate)** - Find by predicat.  Return all elements
+ * **int Count** - rows count
+ * Indexar[] also overloaded, but it cant be different with Id
  
- * Клас T має мати властивість public int Id{get; set;} 
- * У БД зберігаються всі властивості з публічними get та set.
+ * Class T must have public int Id{get; set;} 
+ * All public props saves in table
  
-## Зроблено на
+## Made with
  * С#
  * ADO.NET
