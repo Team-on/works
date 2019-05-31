@@ -1,13 +1,13 @@
 ﻿# DOU jobs parser
- Програма парсить останні 20 вакансій з DOU по запросу
+ App parse last 20 vacancy from DOU by user request
 
-## Керування:
- * Подвійний клік для виводу детальної інформації
+## Controls:
+ * DOuble click for detailed info
  
-## Фичи:
- * Зберігання в БД MS SQL Server
+## Features:
+ * Save date in MS SQL Server
 
-## Зроблено на
+## Made with:
  * С#
  * WPF
  * Entity framework
