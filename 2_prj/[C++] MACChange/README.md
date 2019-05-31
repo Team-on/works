@@ -1,6 +1,5 @@
 ﻿# MAC-changer
+The program automatically change your MAC address to one address in the local network untill you become connected Internet.
 
-Програма автоматично при запуску підмінює мак-адресу на одну з адрес в локаліній мережі, і робитиме це поки не зявиться підключення до інтернету
-
-## Зроблено на
+## Made with
  * C++
