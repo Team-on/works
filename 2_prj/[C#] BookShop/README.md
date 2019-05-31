@@ -1,8 +1,8 @@
 ﻿# Book shop
 
-Книжковий магазин, по типу будь-якого онлайн магазину, але в консолі. Реалізована логіка корзини, профілів користувачів, складу, адміністрування.
+Book store, like any other online store, but in the console. Realized logic of the cart, user profiles, store, administration.
 
-Зроблено в команді з [ним](https://github.com/Gigi220).
+Made together with [Gigi220](https://github.com/Gigi220).
 
 ## Controls:
 * Page up / down - go through the menu items
