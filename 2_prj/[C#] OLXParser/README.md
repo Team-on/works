@@ -1,10 +1,10 @@
 ﻿# Olx flats parser
- Програма парсить останні 10 сторінок квартир у Рівному з сайту olx.ua
+ App parse last 10 pages(Rivne, flats) from olx.ua.
 
-## Фичи:
- * Зберігання в БД MS SQL Server
+## Features:
+ * Save data in MS SQL Server
 
-## Зроблено на
+## Made with:
  * С#
  * WPF
  * Entity framework
