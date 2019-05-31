@@ -1,21 +1,21 @@
-﻿# Книжковий магазин
+﻿# Book shop
 
 Книжковий магазин, по типу будь-якого онлайн магазину, але в консолі. Реалізована логіка корзини, профілів користувачів, складу, адміністрування.
 
 Зроблено в команді з [ним](https://github.com/Gigi220).
 
-## Керування:
-* Page up/down - перехід по пунктах меню
-* Enter - вибір підсвіченого пункту
-* [, ] - змінювати значення Counter в корзині
-* Backspace - стерти текст 
+## Controls:
+* Page up / down - go through the menu items
+* Enter - selection of the highlighted item
+* [,] - change the value of counter in cart
+* Backspace - erase the text
 
-## Фичи:
- * Підтримка великої кількості користувачів
- * Гарний ASCII вивід
- * Власна бібліотека класів для виводу в ASCII, у стилі WindowsForms
-
-## Зроблено на
+## Features:
+ * Support for a large number of users. Also special console for admin
+ * Cute ASCII output
+ * Own class library for output in ASCII format
+ 
+## Made with:
  * C#
 
 ![](readme/img1.jpg)
