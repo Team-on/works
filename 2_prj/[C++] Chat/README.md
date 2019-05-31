@@ -1,7 +1,7 @@
 ﻿# Chat
 
-Примітивний чат на С++. Ще не дороблено.
+Simple C++ chat. Unfinished.
 
-## Зроблено на
+## Made with
  * C++
  * WinSock
