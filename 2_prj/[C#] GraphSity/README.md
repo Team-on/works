@@ -1,12 +1,12 @@
 ﻿# Graph editor
- Програма для знаходження найкоротшої відстані між графами і їх візуалізації
+ App for finding shortest distance between graphs and their rendering
 
-## Фичи:
- * Додавати і видаляти графи та шляхи між ними.
- * Переміження графів по екрану
- * Знаходження найкоротшого шляху
+## Features:
+ * Add and remove graphs or paths
+ * Move graphs
+ * Fidn shortest way
 
-## Зроблено на
+## Made with:
  * С#
  * WPF
 
