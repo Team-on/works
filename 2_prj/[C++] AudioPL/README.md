@@ -1,19 +1,19 @@
 # AudioPL
- Простий і легкий консольний аудіо плеєр
+ Simple and lightweight console audio player
 
-## Фичи:
- * Керування мишкою в консолі
- * Гарний ASCII вивід
- * Програє mp3, ogg, wav
- * Таймер на виключення
- * Копіювання пісні на робочий стіл при натисненні по назві
+## Features:
+ * Mouse control in console
+ * Cute ASCII output
+ * Plays mp3, ogg and wav files
+ * Shutdown timer
+ * Copy song to desktop after click on song name
 
-## Зроблено на
+## Made with:
  * C++
  * Audiere 1.9.4 
- * Частина мого движка з underwater
+ * Parts of my underwater engine
  
-### Рекомендовані налаштування консолі:
+### Recommend console settings:
   * Font: Raster Fonts 8x12
   * Size: 50x37
 
