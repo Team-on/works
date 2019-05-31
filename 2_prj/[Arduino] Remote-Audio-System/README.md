@@ -1,6 +1,7 @@
 ﻿# Remote audio system
- Керування музикою дистанційним пультом по ик. Приймач і передавач на Arduino. В якості передавача може підійти будь-який пульт, але потрібно буде змінити #define в Receiver.ino.
+ Remote music control for AIMP. 
+Receiver and transmitter on the Arduino. Any remote controller may be suitable as a transmitter, but you will need to change #define in Receiver.ino.
 
-## Зроблено на
+## Made with
  * Arduino С++
  * IRremote-2.2.3
