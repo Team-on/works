@@ -1,10 +1,10 @@
 ﻿# Chat
- Консольний чат по TCP.
+ Local TCP chat
 
-## Фичи:
- * Логіка роздільна від виводу. А отже кліент та сервер не обовязково мають бути консольні.
+## Features:
+ * Different projects for lofic and UI, so client\server shoudnt be console
 
-## Зроблено на
+## Made with
  * С#
 
 ![](readme/1.png)
