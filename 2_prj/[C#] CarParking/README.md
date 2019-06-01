@@ -1,22 +1,22 @@
 # CarParking
-Тестове завдання в Binary Studio Academy'18
+Test for Binary Studio Academy'18
 
 2nd stage • 2. C# Modern Features
 
-Консольное приложение с пользовательским вводом (меню, форматированный вывод и т.д.), эмулирующее работу парковки.
+Console application with user input (menu, formatted output, etc.) that emulates parking.
 
-## Керування:
-* ↑, ↓ - Вибрати пункт меню
-* ←, → - В пункті _View cars_ і _Log_ прогортати таблицю
-* Tab - перемикати активний елемент
-* Enter - вибрати активний елемент
+## Controls:
+* ↑, ↓ - Choose menu item
+* ←, → - In _View cars_ and _Log_ прогортати scroll table
+* Tab - change active element
+* Enter - select active element
 
-## Фичи:
- * Перегляд інформації по транзакціях/автомобілях
- * Зчитування налаштувань з XML файлу
- * Гарний ASCII вивід
+## Features:
+ * View Transaction / Vehicle Information
+ * Read configs from XML file
+ * Cute ASCII output
 
-## Зроблено на
+## Made with:
  * C#
 
 ![](readme/img1.jpg)
