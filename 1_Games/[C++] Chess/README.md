@@ -1,21 +1,21 @@
-﻿# Шахмати
-## Керування:
- * Мишкою - вибір фігури. Вибрана фігура стає фіолетовою і потім можна вирішити куди їй ходити.
- * OOr - коротка рокировка
- * OOOr - довга рокировка
+﻿# Chess
+## Controls:
+ * Mouse - вибір фігури. Вибрана фігура стає фіолетовою і потім можна вирішити куди їй ходити.
+ * type OOr - short castling
+ * type OOOr - long castling
 
-## Фичи:
- * Керування мишкою в консолі
- * Гарний ASCII вивід
+## Features:
+ * Mouse control in console
+ * Cute ASCII output
 
-## Зроблено на
+## Made with:
  * C++
- * Частина мого движка з underwater
- * Власний .ini парсер
+ * Underwater engine
+ * My .ini parser
 
-## Чити
- * suicide - програти гру
- * mat - мат білому
- * chag - шаг білому
+## Cheats:
+ * suicide - lose game
+ * mat - checkmate to white
+ * chag - check to whute
 
 ![](readme/img1.jpg)
