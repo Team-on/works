@@ -1,24 +1,25 @@
 ﻿# РПГ
 
-Проста текстова РПГ. Моя перша гра)
+Simple text RPG. My first game)
 
-## Керування:
- * Вибір пунктів меню - прописати літеру в []. * В бою:
-	* wasd - рух
-	* wasd (до ворога) - атака
-	* shift + wasd (до ворога) - силова атака
+## Controls:
+ * Choose menu item - Write letter in []. 
+ 	* In battle:
+		* wasd - move
+		* wasd (to enemy) - attack
+		* shift + wasd (to enemy) - power attack
 
-## Фичи:
- * В кращих традиціях текстовиx РПГ
-	- [X] Збереження(3 слоти)
-	- [X] Музика
-	- [X] Система бою
-	- [X] Система шмоток і інвентаря
-	- [X] Стати і рівні
-	- [ ] Магія
- * Вороги/Шмот/Магія зчитуються з файлу і вільно додаються
+## Features:
+ * Made in best traditions of text RPG games
+	- [X] Saves(3 slots)
+	- [X] Music
+	- [X] Battle system
+	- [X] Items and inventory
+	- [X] Stats and levels
+	- [ ] Magic
+ * Enemies/Items/Magic have read from file and can be added easily
 
-## Зроблено на
+## Made with:
  * C++
 
 ![](readme/img11.jpg)
