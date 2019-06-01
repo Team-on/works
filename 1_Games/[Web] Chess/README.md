@@ -1,10 +1,10 @@
 ﻿# Web chess
 https://www.youtube.com/watch?time_continue=9&v=UCFGgqplbro
 
-## Керування:
- * mouse - рух
+## Controls:
+ * mouse - move chess
 
-## Зроблено на
+## Made with:
  * HTML
  * CSS
  * JS + jQuery
