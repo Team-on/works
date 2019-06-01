@@ -1,13 +1,13 @@
 ﻿# FileLocker
- Блокує вибрані користувачем файли.
+ Lock files from read and write.
 
-## Фичи:
- * Блокування вибраних файлів. Маніпуляція ними
- * Заборона *Диспечеру задач* знімати програму
- * Запуск програми в 1 екземплярі
- * Додавання програми в автозапуск
+## Features:
+ * Lock selected files. Manipulate with them
+ * Forbid *Task manager* to close app
+ * Launch app only in 1 instance
+ * Add app to autolaunch
 
-## Зроблено на
+## Made with:
  * С#
  * Windows Forms
  * WinAPI
