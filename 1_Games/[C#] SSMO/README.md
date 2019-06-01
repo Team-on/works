@@ -1,16 +1,16 @@
-﻿# Симулятор систем масового обслуговування(піцерія)
-## Керування:
-* ↑, ↓ - Вибрати пункт меню
-* ←, → - В пункті _Доставка_ і _Склад_ прогортати таблицю
+﻿# Simulator of mass service systems (pizzeria)
+## Controls:
+* ↑, ↓ - Choose menu item
+* ←, → - In _Доставка_ і _Склад_ scroll table
 
-## Фичи:
- * Випадкова генерація будівлі
- * Випадкове створення інтерєру
- * Випадкова генерація імен
- * Гарний ASCII вивід
- * Перегляд інформації по доставці/складу/кухні/клієнтах
+## Features:
+ * Random building generator
+ * Random interior generator
+ * Random names generator
+ * Cute ASCII output
+ * Detailed info for delivery/stock/kitchen/client
 
-## Зроблено на
+## Made with:
  * C#
 
 ![](readme/img1.jpg)
