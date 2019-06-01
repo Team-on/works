@@ -1,19 +1,17 @@
 ﻿# Rogulike
 
-Рогалик в сетінгу підводного світу.
+Roguelike in underwater settings. Fail as game, but used in my other games as engine.
 
-## Керування:
- * (← → ↑ ↓) - рух
- * Enter - вибір
- * В меню працює мишка
+## Controls:
+ * (← → ↑ ↓) - move
+ * Enter - choose
+ * Full mouse support
 
-## Фичи:
- * Оптимізація виводу в консоль
- * Ввід мишкою в консоль
- * Як гру я це не закінчив, але частини движка використовується в інших іграх. А саме лог, ввід, вивід.
+## Features:
+ * Optimized console output
+ * Mouse input in console 
 	
-
-## Зроблено на
+## Made with:
  * C++
 
 ![](readme/img3.jpg)
