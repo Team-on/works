@@ -1,9 +1,9 @@
 ﻿# Space shooter
-## Керування:
- 	* mouse - рух
+## Controls:
+ 	* mouse - move ship
 
-## Зроблено на
- * JavaScript та Canvas
+## Made with
+ * JavaScript
 
 ![](readme/img1.png)
 ![](readme/img2.png)
