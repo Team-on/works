@@ -1,14 +1,14 @@
 ﻿# HOMM3 - Battle
 
-Битва, як в homm3.
+Battle with mechanics similar to HOMM3
 
-## Керування:
-* ←, →, ↑, ↓ - переміщати курсор
-* Enter - вибрати юніта
-	* Ще раз Enter - походити в вибрану точку
-	* Якщо стати біля ворога, то можна атакувати його
+## Controls:
+* ←, →, ↑, ↓ - Move cursor
+* Enter - Select unit
+	* Second Enter - Move to another place
+	* You can attack enemy if unit stay neadby
 
-## Зроблено на
+## Made with:
  * C#
 
 ![](readme/img1.jpg)
