@@ -1,9 +1,9 @@
 # Hameleons
- Гра про роботу з потоками
+ Game about threads
 
-## Зроблено на
+## Made with:
  * C#
- * Класс логу з мого іншого проекту HOMM battle
- * Класи вводу/виводу з проекту CarParking
+ * Log class from HOMM battle
+ * IO classes from CarParking
  
 ![](readme/1.png)
