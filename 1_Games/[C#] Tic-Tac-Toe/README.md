@@ -1,14 +1,12 @@
 ﻿# Multiplayer Tic-Tac-Toe
-Хрестики-нулики.
-
-## Керування:
- * Запустити сервер
- * Приєднатися з клієнтів
+## Controls:
+ * Launch server
+ * Connect from client
  
-## Фичи:
- * Гра по мережі
+## Features:
+ * TCP multiplayer
 	
-## Зроблено на
+## Made with:
  * C#
 
 ![](readme/1.png)
