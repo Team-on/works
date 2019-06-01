@@ -1,17 +1,17 @@
 ﻿# IDE
- Пиши і компілюй код в одній програмі!
+ Write and compile code in one application!
 
-## Фичи:
- * Компіляція одразу в ide
-	* Лише для C#
- * Можливість створення файлів на основі шаблонів.
-	* Шаблони можна створювати самому
- * Підсвітка синтаксису
- 	* Налаштування кольору і слів для підсвічування
- * Працює лише з 1-файловими проектами
- * Налаштування вигляду
+## Features:
+ * Compile code in IDE
+	* Only for C#
+ * Create files based on templates
+	* You can add template manually. They loaded through .XML files in templates folder
+ * Syntax highlighter
+ 	* Customize words and colors for highlighting from .XML file
+ * Works only for projects with 1 file
+ * Configurtate opened windows and colors
 
-## Зроблено на
+## Made with:
  * С#
  * WPF
 
