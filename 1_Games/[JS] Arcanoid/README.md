@@ -1,9 +1,9 @@
 ﻿# BrickBreak
-## Керування:
- 	* (← →), (a d) - рух вліво вправо
-	* Space - кинути мяч
+## Controls:
+ 	* (← →), (a d) - move left/right
+	* Space - throw ball
 
-## Зроблено на
- * JavaScript та Canvas
+## Made with:
+ * JavaScript
 
 ![](readme/img1.jpg)
