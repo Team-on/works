@@ -2,7 +2,7 @@
 
 Test task for ABGames.
 
-## Керування:
+## Controls:
  * Ingame controls:
  	* (← →) - move piece left/right
  	* ↓ - fall faster
