@@ -1,14 +1,12 @@
 ﻿# Tic-Tac-Toe
-Хрестики-нулики.
+## Controls:
+ * Choose mode and press New game
 
-## Керування:
- * Вибрати режим гри та натиснути New game
-
-## Фичи:
- * Гра лише з Легким ботом
- * Гра з іншим гравцем
+## Features:
+ * Play with easy bot
+ * Or vs player
 	
-## Зроблено на
+## Made with:
  * C++
  * WinAPI
 
