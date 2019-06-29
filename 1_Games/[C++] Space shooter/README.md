@@ -1,30 +1,30 @@
 ﻿# Arcanoid from Brickgame
 
-Спроба переписати кілька ігор з Brickgame.
+Attempt to write some games from Brickgame.
 
-## Керування:
- * (← →) (ЛКМ ПКМ) (a d) - рух вліво вправо
- * Пробіл - стріляти
- * р - пауза
- * о - автоматична стрільба
- * Стиль корабля:
-	* v - Змінити колір корябля
-	* z - Змінити ніс корябля
-	* x - Змінити бік корябля
-	* c - Змінити корпус корябля
+## Controls:
+ * (← →) (LMB RMB) (a d) - move left/right
+ * Space - shoot
+ * р - pause
+ * о - autoshoot on/off
+ * Ship style:
+	* v - Change ship color
+	* z - Change ship cannpn
+	* x - Change ship wings
+	* c - Change ship body
 
-## Фичи:
- * 2 ігрових режими(із 4 запланованих)
- 	- [X] Знищення створених фігур
- 	- [X] Нескінченна гра
+## Features:
+ * 2 game modes(from 4 planned)
+ 	- [X] Destroy figures
+ 	- [X] Endless game
 	- [ ] Space invaders
-	- [ ] Гра під буквою D з Brickgame
- * Гарний ASCII вивід
- * Меню прямо в грі
+	- [ ] Letter D game from Brickgame
+ * Cute ASCII output
+ * Ingame menu
 
-## Зроблено на
+## Made with:
  * C++
- * Частина мого движка з underwater
+ * Underwater engine
 
 ![](readme/img1.jpg)
 ![](readme/img2.jpg)

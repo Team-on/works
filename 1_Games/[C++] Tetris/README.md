@@ -1,27 +1,27 @@
 ﻿# Tetris
 
-Тестове завдання в ABGames.
+Test task for ABGames.
 
-## Керування:
- * В грі:
- 	* (← →) - рух вліво вправо
- 	* ↓ - прискорити падіння
-	* Space - поворот
-	* Кнопки натистакються мишкою
- * В меню:
-	* (↑ ↓) - виділти пункт
-	* Space/Enter - вибір
- * ESC - назад
+## Controls:
+ * Ingame controls:
+ 	* (← →) - move piece left/right
+ 	* ↓ - fall faster
+	* Space - turn
+	* Buttons can be pressed by mouse
+ * In menu:
+	* (↑ ↓) - choose button
+	* Space/Enter - press button
+ * ESC - back
 
-## Фичи:
- * Зчитування фігур з XML
- * Оригінальний стиль
+## Features:
+ * Read pieces from .XML file
+ * Original warcraft 3 style
 
-## Зроблено на
+## Made with:
  * C++
  * HGE16
  * tinyXml 1.0.1
- * Частини мого плеєра на основі Audiere 1.9.4 
+ * Audiere 1.9.4 
 
 ![](readme/img1.jpg)
 ![](readme/img2.jpg)

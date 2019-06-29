@@ -1,4 +1,4 @@
-﻿# РПГ
+﻿# RPG
 
 Simple text RPG. My first game)
 
