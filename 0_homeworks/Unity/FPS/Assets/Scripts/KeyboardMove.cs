@@ -11,7 +11,7 @@ public class KeyboardMove : MonoBehaviour {
 
 	Rigidbody rb;
 
-	void Start() {
+	void Awake() {
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -22,9 +22,6 @@ public class KeyboardMove : MonoBehaviour {
 		Vector3 movement = new Vector3(deltaX, 0, deltaZ);
 		movement = Vector3.ClampMagnitude(movement, speed);
 		movement *= Time.deltaTime;
-
-		//if (inAir)
-		//	movement *= airMovementMult;
 
 		movement = transform.TransformDirection(movement);
 
@@ -37,6 +34,7 @@ public class KeyboardMove : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		inAir = false;
+		if(collision.gameObject.tag == "Floor")
+			inAir = false;
 	}
 }
