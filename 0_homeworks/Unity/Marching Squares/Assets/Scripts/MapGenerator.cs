@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
+using UnityEngine;
 
+using Random = UnityEngine.Random;
+
+[RequireComponent(typeof(MeshGenerator))]
 public class MapGenerator : MonoBehaviour {
 	public int width;
 	public int height;
@@ -19,27 +22,24 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0))
 			GenerateMap();
-		}
 	}
 
 	void GenerateMap() {
 		map = new int[width, height];
 		RandomFillMap();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 5; i++) 
 			SmoothMap();
-		}
+
+		MeshGenerator meshGen = GetComponent<MeshGenerator>();
+		meshGen.GenerateMesh(map, 1);
 	}
 
-
 	void RandomFillMap() {
-		if (useRandomSeed) {
-			seed = Time.time.ToString();
-		}
-
-		System.Random pseudoRandom = new System.Random(seed.GetHashCode());
+		if (useRandomSeed) 
+			Random.InitState((int)Time.time);
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -47,7 +47,7 @@ public class MapGenerator : MonoBehaviour {
 					map[x, y] = 1;
 				}
 				else {
-					map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? 1 : 0;
+					map[x, y] = (Random.Range(0, 100) < randomFillPercent) ? 1 : 0;
 				}
 			}
 		}
@@ -86,15 +86,15 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 
-	void OnDrawGizmos() {
-		if (map != null) {
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					Gizmos.color = (map[x, y] == 1) ? Color.black : Color.white;
-					Vector3 pos = new Vector3(-width / 2 + x + .5f, 0, -height / 2 + y + .5f);
-					Gizmos.DrawCube(pos, Vector3.one);
-				}
-			}
-		}
-	}
+	//void OnDrawGizmos() {
+	//	if (map != null) {
+	//		for (int x = 0; x < width; x++) {
+	//			for (int y = 0; y < height; y++) {
+	//				Gizmos.color = (map[x, y] == 1) ? Color.black : Color.white;
+	//				Vector3 pos = new Vector3(-width / 2 + x + .5f, 0, -height / 2 + y + .5f);
+	//				Gizmos.DrawCube(pos, Vector3.one);
+	//			}
+	//		}
+	//	}
+	//}
 }
