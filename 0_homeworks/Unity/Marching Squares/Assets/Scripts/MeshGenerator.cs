@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(MeshRenderer))]
 public class MeshGenerator : MonoBehaviour {
 	public MeshFilter walls;
+	public MeshFilter floor;
 
 	public SquareGrid squareGrid;
 	List<Vector3> vertices;
@@ -47,37 +48,16 @@ public class MeshGenerator : MonoBehaviour {
 		CreateWallMesh();
 	}
 
-	void CreateWallMesh() {
-		List<Vector3> wallVertices = new List<Vector3>();
-		List<int> wallTriangles = new List<int>();
-		Mesh wallMesh = new Mesh();
-		float wallHeight = 5;
-
-		CalculateMeshOutlines();
-
-		foreach (var outline in outlines) {
-			for(int i = 0; i < outline.Count - 1; ++i) {
-				int startIndex = wallVertices.Count;
-				wallVertices.Add(vertices[outline[i]]);	//left
-				wallVertices.Add(vertices[outline[i + 1]]); //right
-				wallVertices.Add(vertices[outline[i]] - Vector3.up * wallHeight);   //bottom left
-				wallVertices.Add(vertices[outline[i + 1]] - Vector3.up * wallHeight);   //bottom right
-
-				wallTriangles.Add(startIndex);
-				wallTriangles.Add(startIndex + 2);
-				wallTriangles.Add(startIndex + 3);
-
-				wallTriangles.Add(startIndex + 3);
-				wallTriangles.Add(startIndex + 1);
-				wallTriangles.Add(startIndex);
-			}
-		}
-
-		wallMesh.vertices = wallVertices.ToArray();
-		wallMesh.triangles = wallTriangles.ToArray();
-		walls.mesh = wallMesh; ;
+	#region wall
+	void CreateFloorMesh() {
+		for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
+			for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
+				TriangulateSquare(squareGrid.squares[x, y]);
 	}
 
+	#endregion
+
+	#region roof
 	void TriangulateSquare(Square square) {
 		switch (square.configuration) {
 			case 0:
@@ -181,12 +161,45 @@ public class MeshGenerator : MonoBehaviour {
 		else
 			triangleDictionary.Add(vertex.vertexIndex, new List<Triangle>() { triangle });
 	}
+	#endregion
+
+	#region walls
+	void CreateWallMesh() {
+		List<Vector3> wallVertices = new List<Vector3>();
+		List<int> wallTriangles = new List<int>();
+		Mesh wallMesh = new Mesh();
+		float wallHeight = 5;
+
+		CalculateMeshOutlines();
+
+		foreach (var outline in outlines) {
+			for (int i = 0; i < outline.Count - 1; ++i) {
+				int startIndex = wallVertices.Count;
+				wallVertices.Add(vertices[outline[i]]); //left
+				wallVertices.Add(vertices[outline[i + 1]]); //right
+				wallVertices.Add(vertices[outline[i]] - Vector3.up * wallHeight);   //bottom left
+				wallVertices.Add(vertices[outline[i + 1]] - Vector3.up * wallHeight);   //bottom right
+
+				wallTriangles.Add(startIndex);
+				wallTriangles.Add(startIndex + 2);
+				wallTriangles.Add(startIndex + 3);
+
+				wallTriangles.Add(startIndex + 3);
+				wallTriangles.Add(startIndex + 1);
+				wallTriangles.Add(startIndex);
+			}
+		}
+
+		wallMesh.vertices = wallVertices.ToArray();
+		wallMesh.triangles = wallTriangles.ToArray();
+		walls.mesh = wallMesh; ;
+	}
 
 	void CalculateMeshOutlines() {
-		for(int vertexIndex = 0; vertexIndex < vertices.Count; ++vertexIndex) {
+		for (int vertexIndex = 0; vertexIndex < vertices.Count; ++vertexIndex) {
 			if (!checkedOutlines.Contains(vertexIndex)) {
 				int newOutlineVert = GetConnectedOutlineVertex(vertexIndex);
-				if(newOutlineVert != -1) {
+				if (newOutlineVert != -1) {
 					checkedOutlines.Add(vertexIndex);
 
 					List<int> newOutline = new List<int>();
@@ -202,7 +215,7 @@ public class MeshGenerator : MonoBehaviour {
 	void FollowOutline(int vertId, int outlineId) {
 		int nextVertId = vertId;
 
-		while(nextVertId != -1) {
+		while (nextVertId != -1) {
 			outlines[outlineId].Add(nextVertId);
 			checkedOutlines.Add(nextVertId);
 			nextVertId = GetConnectedOutlineVertex(nextVertId);
@@ -215,7 +228,7 @@ public class MeshGenerator : MonoBehaviour {
 		for (int i = 0; i < trianglesContainingVertex.Count; i++) {
 			Triangle triangle = trianglesContainingVertex[i];
 
-			for(byte j = 0; j < 3; ++j)
+			for (byte j = 0; j < 3; ++j)
 				if (vectexIndex != triangle[j] && !checkedOutlines.Contains(triangle[j]) && IsOutlineEdge(vectexIndex, triangle[j]))
 					return triangle[j];
 		}
@@ -233,6 +246,8 @@ public class MeshGenerator : MonoBehaviour {
 					break;
 		return sharedTriangleCount == 1;
 	}
+
+	#endregion
 
 	struct Triangle {
 		public int vertexIndexA;
