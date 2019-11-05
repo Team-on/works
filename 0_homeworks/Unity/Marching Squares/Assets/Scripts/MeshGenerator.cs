@@ -4,17 +4,37 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshRenderer))]
 public class MeshGenerator : MonoBehaviour {
+	public MeshFilter walls;
+
 	public SquareGrid squareGrid;
 	List<Vector3> vertices;
 	List<int> triangles;
 
-	public void GenerateMesh(int[,] map, float squareSize) {
-		squareGrid = new SquareGrid(map, squareSize);
+	Dictionary<int, List<Triangle>> triangleDictionary;
+	List<List<int>> outlines;
+	HashSet<int> checkedOutlines;
+
+	void Awake() {
 		vertices = new List<Vector3>();
 		triangles = new List<int>();
 
-		for (int x = 0; x < squareGrid.squares.GetLength(0); x++) 
-			for (int y = 0; y < squareGrid.squares.GetLength(1); y++) 
+		triangleDictionary = new Dictionary<int, List<Triangle>>();
+		outlines = new List<List<int>>();
+		checkedOutlines = new HashSet<int>();
+	}
+
+	public void GenerateMesh(int[,] map, float squareSize) {
+		squareGrid = new SquareGrid(map, squareSize);
+
+		vertices.Clear();
+		triangles.Clear();
+
+		triangleDictionary.Clear();
+		outlines.Clear();
+		checkedOutlines.Clear();
+
+		for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
+			for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
 				TriangulateSquare(squareGrid.squares[x, y]);
 
 		Mesh mesh = new Mesh();
@@ -23,6 +43,39 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
+
+		CreateWallMesh();
+	}
+
+	void CreateWallMesh() {
+		List<Vector3> wallVertices = new List<Vector3>();
+		List<int> wallTriangles = new List<int>();
+		Mesh wallMesh = new Mesh();
+		float wallHeight = 5;
+
+		CalculateMeshOutlines();
+
+		foreach (var outline in outlines) {
+			for(int i = 0; i < outline.Count - 1; ++i) {
+				int startIndex = wallVertices.Count;
+				wallVertices.Add(vertices[outline[i]]);	//left
+				wallVertices.Add(vertices[outline[i + 1]]); //right
+				wallVertices.Add(vertices[outline[i]] - Vector3.up * wallHeight);   //bottom left
+				wallVertices.Add(vertices[outline[i + 1]] - Vector3.up * wallHeight);   //bottom right
+
+				wallTriangles.Add(startIndex);
+				wallTriangles.Add(startIndex + 2);
+				wallTriangles.Add(startIndex + 3);
+
+				wallTriangles.Add(startIndex + 3);
+				wallTriangles.Add(startIndex + 1);
+				wallTriangles.Add(startIndex);
+			}
+		}
+
+		wallMesh.vertices = wallVertices.ToArray();
+		wallMesh.triangles = wallTriangles.ToArray();
+		walls.mesh = wallMesh; ;
 	}
 
 	void TriangulateSquare(Square square) {
@@ -32,13 +85,13 @@ public class MeshGenerator : MonoBehaviour {
 
 			// 1 points:
 			case 1:
-				MeshFromPoints(square.centreBottom, square.bottomLeft, square.centreLeft);
+				MeshFromPoints(square.centreLeft, square.centreBottom, square.bottomLeft);
 				break;
 			case 2:
-				MeshFromPoints(square.centreRight, square.bottomRight, square.centreBottom);
+				MeshFromPoints(square.bottomRight, square.centreBottom, square.centreRight);
 				break;
 			case 4:
-				MeshFromPoints(square.centreTop, square.topRight, square.centreRight);
+				MeshFromPoints(square.topRight, square.centreRight, square.centreTop);
 				break;
 			case 8:
 				MeshFromPoints(square.topLeft, square.centreTop, square.centreLeft);
@@ -81,6 +134,10 @@ public class MeshGenerator : MonoBehaviour {
 			// 4 point:
 			case 15:
 				MeshFromPoints(square.topLeft, square.topRight, square.bottomRight, square.bottomLeft);
+				checkedOutlines.Add(square.topLeft.vertexIndex);
+				checkedOutlines.Add(square.topRight.vertexIndex);
+				checkedOutlines.Add(square.bottomRight.vertexIndex);
+				checkedOutlines.Add(square.bottomLeft.vertexIndex);
 				break;
 		}
 	}
@@ -111,29 +168,115 @@ public class MeshGenerator : MonoBehaviour {
 		triangles.Add(a.vertexIndex);
 		triangles.Add(b.vertexIndex);
 		triangles.Add(c.vertexIndex);
+
+		Triangle triangle = new Triangle(a.vertexIndex, b.vertexIndex, c.vertexIndex);
+		AddTriangleToDict(a, triangle);
+		AddTriangleToDict(b, triangle);
+		AddTriangleToDict(c, triangle);
 	}
 
-	//void OnDrawGizmos() {
-	//	if (squareGrid != null) {
-	//		for (int x = 0; x < squareGrid.squares.GetLength(0); x++) {
-	//			for (int y = 0; y < squareGrid.squares.GetLength(1); y++) {
-	//				Gizmos.color = (squareGrid.squares[x, y].topLeft.active) ? Color.black : Color.white;
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].topLeft.position, Vector3.one * .4f);
-	//				Gizmos.color = (squareGrid.squares[x, y].topRight.active) ? Color.black : Color.white;
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].topRight.position, Vector3.one * .4f);
-	//				Gizmos.color = (squareGrid.squares[x, y].bottomRight.active) ? Color.black : Color.white;
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].bottomRight.position, Vector3.one * .4f);
-	//				Gizmos.color = (squareGrid.squares[x, y].bottomLeft.active) ? Color.black : Color.white;
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].bottomLeft.position, Vector3.one * .4f);
-	//				Gizmos.color = Color.grey;
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].centreTop.position, Vector3.one * .15f);
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].centreRight.position, Vector3.one * .15f);
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].centreBottom.position, Vector3.one * .15f);
-	//				Gizmos.DrawCube(squareGrid.squares[x, y].centreLeft.position, Vector3.one * .15f);
-	//			}
-	//		}
-	//	}
-	//}
+	void AddTriangleToDict(Node vertex, Triangle triangle) {
+		if (triangleDictionary.ContainsKey(vertex.vertexIndex))
+			triangleDictionary[vertex.vertexIndex].Add(triangle);
+		else
+			triangleDictionary.Add(vertex.vertexIndex, new List<Triangle>() { triangle });
+	}
+
+	void CalculateMeshOutlines() {
+		for(int vertexIndex = 0; vertexIndex < vertices.Count; ++vertexIndex) {
+			if (!checkedOutlines.Contains(vertexIndex)) {
+				int newOutlineVert = GetConnectedOutlineVertex(vertexIndex);
+				if(newOutlineVert != -1) {
+					checkedOutlines.Add(vertexIndex);
+
+					List<int> newOutline = new List<int>();
+					newOutline.Add(vertexIndex);
+					outlines.Add(newOutline);
+					FollowOutline(newOutlineVert, outlines.Count - 1);
+					outlines[outlines.Count - 1].Add(vertexIndex);
+				}
+			}
+		}
+	}
+
+	void FollowOutline(int vertId, int outlineId) {
+		int nextVertId = vertId;
+
+		while(nextVertId != -1) {
+			outlines[outlineId].Add(nextVertId);
+			checkedOutlines.Add(nextVertId);
+			nextVertId = GetConnectedOutlineVertex(nextVertId);
+		}
+	}
+
+	int GetConnectedOutlineVertex(int vectexIndex) {
+		List<Triangle> trianglesContainingVertex = triangleDictionary[vectexIndex];
+
+		for (int i = 0; i < trianglesContainingVertex.Count; i++) {
+			Triangle triangle = trianglesContainingVertex[i];
+
+			for(byte j = 0; j < 3; ++j)
+				if (vectexIndex != triangle[j] && !checkedOutlines.Contains(triangle[j]) && IsOutlineEdge(vectexIndex, triangle[j]))
+					return triangle[j];
+		}
+
+		return -1;
+	}
+
+	bool IsOutlineEdge(int vertexA, int vertexB) {
+		List<Triangle> trianglesContainingVertexA = triangleDictionary[vertexA];
+		int sharedTriangleCount = 0;
+
+		for (int i = 0; i < trianglesContainingVertexA.Count; i++)
+			if (trianglesContainingVertexA[i].Contains(vertexB))
+				if (++sharedTriangleCount > 1)
+					break;
+		return sharedTriangleCount == 1;
+	}
+
+	struct Triangle {
+		public int vertexIndexA;
+		public int vertexIndexB;
+		public int vertexIndexC;
+
+		public int this[int key] {
+			get {
+				switch (key) {
+					case 0:
+						return vertexIndexA;
+					case 1:
+						return vertexIndexB;
+					case 2:
+						return vertexIndexC;
+					default:
+						return -1;
+				}
+			}
+			set {
+				switch (key) {
+					case 0:
+						vertexIndexA = value;
+						break;
+					case 1:
+						vertexIndexB = value;
+						break;
+					case 2:
+						vertexIndexC = value;
+						break;
+				}
+			}
+		}
+
+		public Triangle(int a, int b, int c) {
+			vertexIndexA = a;
+			vertexIndexB = b;
+			vertexIndexC = c;
+		}
+
+		public bool Contains(int id) {
+			return vertexIndexA == id || vertexIndexB == id || vertexIndexC == id;
+		}
+	}
 
 	public class SquareGrid {
 		public Square[,] squares;
