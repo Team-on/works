@@ -27,7 +27,93 @@ public class MeshGenerator : MonoBehaviour {
 	public void GenerateMesh(int[,] map, float squareSize) {
 		squareGrid = new SquareGrid(map, squareSize);
 
+
 		vertices.Clear();
+		CreateRoofMesh();
+		CreateWallMesh();
+		CreateFloorMesh();
+	}
+
+	#region floor
+	void CreateFloorMesh() {
+		triangles.Clear();
+		triangleDictionary.Clear();
+		outlines.Clear();
+		checkedOutlines.Clear();
+
+		for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
+			for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
+				TriangulateSquareFloor(squareGrid.squares[x, y]);
+
+		Mesh floorMesh = new Mesh();
+		floorMesh.vertices = vertices.ToArray();
+		floorMesh.triangles = triangles.ToArray();
+		floor.mesh = floorMesh;
+	}
+
+	void TriangulateSquareFloor(Square square) {
+		switch (15 - square.configuration) {
+			case 0:
+				break;
+
+			// 1 points:
+			case 1:
+				MeshFromPoints(square.centreLeft, square.centreBottom, square.bottomLeft);
+				break;
+			case 2:
+				MeshFromPoints(square.bottomRight, square.centreBottom, square.centreRight);
+				break;
+			case 4:
+				MeshFromPoints(square.topRight, square.centreRight, square.centreTop);
+				break;
+			case 8:
+				MeshFromPoints(square.topLeft, square.centreTop, square.centreLeft);
+				break;
+
+			// 2 points:
+			case 3:
+				MeshFromPoints(square.centreRight, square.bottomRight, square.bottomLeft, square.centreLeft);
+				break;
+			case 6:
+				MeshFromPoints(square.centreTop, square.topRight, square.bottomRight, square.centreBottom);
+				break;
+			case 9:
+				MeshFromPoints(square.topLeft, square.centreTop, square.centreBottom, square.bottomLeft);
+				break;
+			case 12:
+				MeshFromPoints(square.topLeft, square.topRight, square.centreRight, square.centreLeft);
+				break;
+			case 5:
+				MeshFromPoints(square.centreTop, square.topRight, square.centreRight, square.centreBottom, square.bottomLeft, square.centreLeft);
+				break;
+			case 10:
+				MeshFromPoints(square.topLeft, square.centreTop, square.centreRight, square.bottomRight, square.centreBottom, square.centreLeft);
+				break;
+
+			// 3 point:
+			case 7:
+				MeshFromPoints(square.centreTop, square.topRight, square.bottomRight, square.bottomLeft, square.centreLeft);
+				break;
+			case 11:
+				MeshFromPoints(square.topLeft, square.centreTop, square.centreRight, square.bottomRight, square.bottomLeft);
+				break;
+			case 13:
+				MeshFromPoints(square.topLeft, square.topRight, square.centreRight, square.centreBottom, square.bottomLeft);
+				break;
+			case 14:
+				MeshFromPoints(square.topLeft, square.topRight, square.bottomRight, square.centreBottom, square.centreLeft);
+				break;
+
+			// 4 point:
+			case 15:
+				MeshFromPoints(square.topLeft, square.topRight, square.bottomRight, square.bottomLeft);
+				break;
+		}
+	}
+	#endregion
+
+	#region roof
+	void CreateRoofMesh() {
 		triangles.Clear();
 
 		triangleDictionary.Clear();
@@ -36,7 +122,7 @@ public class MeshGenerator : MonoBehaviour {
 
 		for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
 			for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
-				TriangulateSquare(squareGrid.squares[x, y]);
+				TriangulateSquareRoof(squareGrid.squares[x, y]);
 
 		Mesh mesh = new Mesh();
 		GetComponent<MeshFilter>().mesh = mesh;
@@ -44,21 +130,9 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
-
-		CreateWallMesh();
 	}
 
-	#region wall
-	void CreateFloorMesh() {
-		for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
-			for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
-				TriangulateSquare(squareGrid.squares[x, y]);
-	}
-
-	#endregion
-
-	#region roof
-	void TriangulateSquare(Square square) {
+	void TriangulateSquareRoof(Square square) {
 		switch (square.configuration) {
 			case 0:
 				break;
@@ -192,7 +266,7 @@ public class MeshGenerator : MonoBehaviour {
 
 		wallMesh.vertices = wallVertices.ToArray();
 		wallMesh.triangles = wallTriangles.ToArray();
-		walls.mesh = wallMesh; ;
+		walls.mesh = wallMesh;
 	}
 
 	void CalculateMeshOutlines() {
