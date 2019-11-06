@@ -326,8 +326,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 128
   height: 72
+  wallThresholdSize: 25
+  roomThresholdSize: 25
+  borderSize: 5
+  squareSize: 1
+  smoothLevel: 5
   seed: Team
-  useRandomSeed: 0
+  useRandomSeed: 1
   randomFillPercent: 47
 --- !u!114 &695840702
 MonoBehaviour:
