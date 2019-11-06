@@ -328,6 +328,7 @@ MonoBehaviour:
   height: 50
   wallThresholdSize: 25
   roomThresholdSize: 25
+  coridorThreshold: 7
   borderSize: 5
   squareSize: 1
   smoothLevel: 5

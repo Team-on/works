@@ -12,6 +12,7 @@ public class MapGenerator : MonoBehaviour {
 
 	public int wallThresholdSize = 25;
 	public int roomThresholdSize = 25;
+	public int coridorThreshold = 25;
 	public int borderSize = 5;
 
 	public float squareSize = 1;
@@ -24,6 +25,10 @@ public class MapGenerator : MonoBehaviour {
 	public int randomFillPercent;
 
 	int[,] map;
+
+	void Awake() {
+		coridorThreshold = coridorThreshold * coridorThreshold;
+	}
 
 	void Start() {
 		GenerateMap();
@@ -230,18 +235,19 @@ public class MapGenerator : MonoBehaviour {
 
 		for (int i = 0; i < rooms.Count - 1; ++i) {
 			int minId = i + 1;
-			for (int j = i + 2; j < rooms.Count; ++j) {
+			for (int j = i + 2; j < rooms.Count; ++j) 
 				if (prices[i, minId].dist > prices[i, j].dist)
 					minId = j;
-			}
-			CreatePassage(rooms[i], rooms[minId], prices[i, minId].tileA, prices[i, minId].tileB);
-			Debug.Log($"{i} -> {minId}");
+
+			for (int j = 0; j < rooms.Count; ++j) 
+				if (prices[i, minId].dist >= prices[i, j].dist - coridorThreshold)
+					CreatePassage(rooms[i], rooms[j], prices[i, j].tileA, prices[i, j].tileB);
 		}
 	}
 
 	void CreatePassage(Room roomA, Room roomB, Coord tileA, Coord tileB) {
 		Room.ConnectRooms(roomA, roomB);
-		Debug.DrawLine(CoordToWorldPoint(tileA), CoordToWorldPoint(tileB), Color.green, 100);
+		Debug.DrawLine(CoordToWorldPoint(tileA), CoordToWorldPoint(tileB), Color.green, 3);
 	}
 
 	Vector3 CoordToWorldPoint(Coord tile) {
