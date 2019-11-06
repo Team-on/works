@@ -324,16 +324,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9386b8c6589cc04fa8eefa013021f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 128
-  height: 72
+  width: 50
+  height: 50
   wallThresholdSize: 25
   roomThresholdSize: 25
   borderSize: 5
   squareSize: 1
   smoothLevel: 5
-  seed: Team
+  seed: Team12344
   useRandomSeed: 1
-  randomFillPercent: 47
+  randomFillPercent: 50
 --- !u!114 &695840702
 MonoBehaviour:
   m_ObjectHideFlags: 0

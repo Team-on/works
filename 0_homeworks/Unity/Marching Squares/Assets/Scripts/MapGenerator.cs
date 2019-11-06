@@ -185,21 +185,20 @@ public class MapGenerator : MonoBehaviour {
 		foreach (List<Coord> roomRegion in roomRegions) 
 			rooms.Add(new Room(roomRegion, map));
 
-		int bestDistance = int.MaxValue;
-		Coord bestTileA = new Coord();
-		Coord bestTileB = new Coord();
-		Room bestRoomA = null;
-		Room bestRoomB = null;
-		bool possibleConnectionFound = false;
+		RoomConnection[,] prices = new RoomConnection[rooms.Count, rooms.Count];
 
-		for(int i = 0; i < rooms.Count - 1; ++i) {
+		int bestDistance = int.MaxValue;
+		Coord bestA = new Coord(), bestB = new Coord();
+
+		for (int i = 0; i < rooms.Count - 1; ++i) {
 			Room roomA = rooms[i];
-			if (roomA.connectedRooms.Count != 0)
-				continue;
-			possibleConnectionFound = false;
+			prices[i, i] = new RoomConnection() {
+				dist = int.MaxValue,
+			};
 
 			for (int j = i + 1; j < rooms.Count; ++j) {
 				Room roomB = rooms[j];
+				bestDistance = int.MaxValue;
 
 				for (int tileIndexA = 0; tileIndexA < roomA.edgeTiles.Count; tileIndexA++) {
 					for (int tileIndexB = 0; tileIndexB < roomB.edgeTiles.Count; tileIndexB++) {
@@ -209,18 +208,34 @@ public class MapGenerator : MonoBehaviour {
 
 						if (distanceBetweenRooms < bestDistance) {
 							bestDistance = distanceBetweenRooms;
-							possibleConnectionFound = true;
-							bestTileA = tileA;
-							bestTileB = tileB;
-							bestRoomA = roomA;
-							bestRoomB = roomB;
+							bestA = tileA;
+							bestB = tileB;
 						}
 					}
 				}
-			}
 
-			if (possibleConnectionFound)
-				CreatePassage(bestRoomA, bestRoomB, bestTileA, bestTileB);
+				prices[i, j].dist = bestDistance;
+				prices[i, j].tileA = bestA;
+				prices[i, j].tileB = bestB;
+
+				prices[j, i].dist = bestDistance;
+				prices[j, i].tileA = bestA;
+				prices[j, i].tileB = bestB;
+			}
+		}
+		prices[rooms.Count - 1, rooms.Count - 1] = new RoomConnection() {
+			dist = int.MaxValue,
+		};
+
+
+		for (int i = 0; i < rooms.Count - 1; ++i) {
+			int minId = i + 1;
+			for (int j = i + 2; j < rooms.Count; ++j) {
+				if (prices[i, minId].dist > prices[i, j].dist)
+					minId = j;
+			}
+			CreatePassage(rooms[i], rooms[minId], prices[i, minId].tileA, prices[i, minId].tileB);
+			Debug.Log($"{i} -> {minId}");
 		}
 	}
 
@@ -276,5 +291,11 @@ public class MapGenerator : MonoBehaviour {
 		public bool IsConnected(Room otherRoom) {
 			return connectedRooms.Contains(otherRoom);
 		}
+	}
+
+	struct RoomConnection {
+		public Coord tileA;
+		public Coord tileB;
+		public int dist;
 	}
 }
