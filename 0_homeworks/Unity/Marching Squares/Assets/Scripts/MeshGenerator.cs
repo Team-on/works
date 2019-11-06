@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(MeshRenderer))]
 public class MeshGenerator : MonoBehaviour {
+	public MeshFilter roof;
 	public MeshFilter walls;
 	public MeshFilter floor;
 
@@ -27,7 +27,6 @@ public class MeshGenerator : MonoBehaviour {
 	public void GenerateMesh(int[,] map, float squareSize) {
 		squareGrid = new SquareGrid(map, squareSize);
 
-
 		vertices.Clear();
 		CreateRoofMesh();
 		CreateWallMesh();
@@ -45,10 +44,14 @@ public class MeshGenerator : MonoBehaviour {
 			for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
 				TriangulateSquareFloor(squareGrid.squares[x, y]);
 
-		Mesh floorMesh = new Mesh();
-		floorMesh.vertices = vertices.ToArray();
-		floorMesh.triangles = triangles.ToArray();
-		floor.mesh = floorMesh;
+		Mesh mesh = new Mesh();
+		
+		mesh.vertices = vertices.ToArray();
+		mesh.triangles = triangles.ToArray();
+		mesh.RecalculateNormals();
+
+		floor.mesh = mesh;
+		floor.GetComponent<MeshCollider>().sharedMesh = mesh;
 	}
 
 	void TriangulateSquareFloor(Square square) {
@@ -125,11 +128,13 @@ public class MeshGenerator : MonoBehaviour {
 				TriangulateSquareRoof(squareGrid.squares[x, y]);
 
 		Mesh mesh = new Mesh();
-		GetComponent<MeshFilter>().mesh = mesh;
 
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
+
+		roof.mesh = mesh;
+		roof.GetComponent<MeshCollider>().sharedMesh = mesh;
 	}
 
 	void TriangulateSquareRoof(Square square) {
@@ -241,7 +246,6 @@ public class MeshGenerator : MonoBehaviour {
 	void CreateWallMesh() {
 		List<Vector3> wallVertices = new List<Vector3>();
 		List<int> wallTriangles = new List<int>();
-		Mesh wallMesh = new Mesh();
 		float wallHeight = 5;
 
 		CalculateMeshOutlines();
@@ -264,9 +268,14 @@ public class MeshGenerator : MonoBehaviour {
 			}
 		}
 
-		wallMesh.vertices = wallVertices.ToArray();
-		wallMesh.triangles = wallTriangles.ToArray();
-		walls.mesh = wallMesh;
+		Mesh mesh = new Mesh();
+		
+		mesh.vertices = wallVertices.ToArray();
+		mesh.triangles = wallTriangles.ToArray();
+		mesh.RecalculateNormals();
+
+		walls.mesh = mesh;
+		walls.GetComponent<MeshCollider>().sharedMesh = mesh;
 	}
 
 	void CalculateMeshOutlines() {
